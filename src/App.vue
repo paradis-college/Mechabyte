@@ -544,6 +544,11 @@ h2 {
   }
 }
 
+/* Ensure sponsor-points and sponsor-benefits list items are white for contrast */
+.support-us .sponsor-points li,
+.support-us .sponsor-benefits li {
+  color: white;
+}
 .buttons-container {
   z-index: 1200;
   position: fixed;
