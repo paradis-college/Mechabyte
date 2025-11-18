@@ -16,6 +16,38 @@ type Member = {
   role?: string
 };
 
+// Translation structure type
+type Translation = {
+  aboutTitle: string;
+  aboutText: string;
+  missionTitle: string;
+  missionItems: string[];
+  ftcTitle: string;
+  ftcDescription: string;
+  activitiesTitle: string;
+  activities: Array<{ name: string; description: string }>;
+  supportTitle: string;
+  whySponsorTitle: string;
+  whySponsorPoints: string[];
+  sponsorBenefitsTitle: string;
+  sponsorBenefits: string[];
+  contactTitle: string;
+  contactDetails: {
+    email: string;
+    phone: string;
+    address: string;
+    instagram: string;
+    tiktok: string;
+  };
+  contactLabels: {
+    email: string;
+    phone: string;
+    address: string;
+    instagram: string;
+    tiktok: string;
+  };
+};
+
 let members = ref<Member[]>([
   // Technical Team
   {
@@ -103,7 +135,7 @@ let members = ref<Member[]>([
 ]);
 
 // Translations object
-const translations = {
+const translations: { en: Translation; ro: Translation } = {
   en: {
     aboutTitle: "About Us",
     aboutText: "Mechabyte is a passionate robotics team from Paradise International College in Iași, Romania, competing in the FIRST Tech Challenge (FTC). We are a diverse group of students dedicated to innovation, teamwork, and community engagement.",
@@ -173,7 +205,7 @@ const translations = {
       address: "Address",
       instagram: "Instagram",
       tiktok: "TikTok"
-    },
+    }
   },
   ro: {
     aboutTitle: "Despre Noi",
@@ -188,7 +220,7 @@ const translations = {
     ],
     ftcTitle: "Despre FIRST Tech Challenge",
     ftcDescription: "FIRST Tech Challenge (FTC) este o competiție globală de robotică pentru studenți cu vârste între 12-18 ani. Echipele proiectează, construiesc, programează și concurează cu roboți pentru a completa provocări. FTC promovează educația STEM, munca în echipă și profesionalismul grațios, pregătind studenții pentru cariere viitoare în tehnologie și inginerie.",
-    activitiesTitle: "Activități 2024-2025",
+    activitiesTitle: "Activități și Calendar 2024-2025",
     activities: [
       {
         name: "Paradis Run",
@@ -244,10 +276,6 @@ const translations = {
       address: "Adresă",
       instagram: "Instagram",
       tiktok: "TikTok"
-    },
-    languageToggle: {
-      en: "EN",
-      ro: "RO"
     }
   }
 };
@@ -331,13 +359,13 @@ const computedLeft = computed(() => ({
       </ul>
       
       <div class="member-cards-section">
-        <img class="arrow arrow-left" src="./assets/images/LeftArrow.png" @click="scroll(-1)" />
+        <img class="arrow arrow-left" src="./assets/images/LeftArrow.png" alt="Previous member" role="button" tabindex="0" @click="scroll(-1)" />
         <div class="container-container">
           <div class="member-cards" :style="{ ...computedLeft }">
-            <TeamMemberCard class="team-member-card" v-for="(member, index) in displayMembers" :key="index" :member-name="member.name" :department="member.department" />
+            <TeamMemberCard class="team-member-card" v-for="(member, index) in displayMembers" :key="index" :member-name="member.name" :department="member.department" :role="member.role" />
           </div>
         </div>
-        <img class="arrow arrow-right" src="./assets/images/RightArrow.png" @click="scroll(1)" />
+        <img class="arrow arrow-right" src="./assets/images/RightArrow.png" alt="Next member" role="button" tabindex="0" @click="scroll(1)" />
       </div>
     </section>
     <section id="support-us" class="support-us">
@@ -387,6 +415,8 @@ const computedLeft = computed(() => ({
         <button 
           @click="language = 'en'" 
           :class="{ active: language === 'en' }"
+          :aria-pressed="language === 'en'"
+          aria-label="Switch to English"
           class="lang-btn"
         >
           EN
@@ -394,6 +424,8 @@ const computedLeft = computed(() => ({
         <button 
           @click="language = 'ro'" 
           :class="{ active: language === 'ro' }"
+          :aria-pressed="language === 'ro'"
+          aria-label="Switch to Romanian"
           class="lang-btn"
         >
           RO

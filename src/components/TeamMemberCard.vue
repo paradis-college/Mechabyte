@@ -11,6 +11,10 @@ const props = defineProps({
   department: {
     default: "Department",
     type: String
+  },
+  role: {
+    default: "",
+    type: String
   }
 });
 </script>
@@ -24,6 +28,7 @@ const props = defineProps({
     </div>
     <em class="team-member-name">{{ props.memberName }}</em>
     <p class="team-member-department">{{ props.department }}</p>
+    <p v-if="props.role" class="team-member-role">{{ props.role }}</p>
   </div>
 </template>
 
@@ -66,5 +71,11 @@ img {
 
 .team-member-name {
   color: var(--mechabyte-green);
+}
+
+.team-member-role {
+  color: var(--mechabyte-green);
+  font-size: 0.9em;
+  margin-top: -5px;
 }
 </style>
