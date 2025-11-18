@@ -174,10 +174,6 @@ const translations = {
       instagram: "Instagram",
       tiktok: "TikTok"
     },
-    languageToggle: {
-      en: "EN",
-      ro: "RO"
-    }
   },
   ro: {
     aboutTitle: "Despre Noi",
