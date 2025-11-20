@@ -11,6 +11,8 @@ export function useParallaxLayers() {
   const layers = ref<Array<{ element: HTMLElement | null; speed: number }>>([]);
   let animationFrameId: number | null = null;
   let ticking = false;
+  let mediaQuery: MediaQueryList | null = null;
+  let mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
 
   const updateParallax = () => {
     if (prefersReducedMotion.value) {
@@ -45,39 +47,47 @@ export function useParallaxLayers() {
     if (typeof window === 'undefined') return;
 
     // Check for prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     prefersReducedMotion.value = mediaQuery.matches;
 
     // Listen for changes to motion preference
-    const handler = (e: MediaQueryListEvent) => {
+    mediaQueryHandler = (e: MediaQueryListEvent) => {
       prefersReducedMotion.value = e.matches;
       
-      // Reset transforms if motion is reduced
       if (e.matches) {
+        // Motion reduced: remove scroll listener and reset transforms
+        window.removeEventListener('scroll', onScroll);
         layers.value.forEach(({ element }) => {
           if (element) {
             element.style.transform = '';
           }
         });
+      } else {
+        // Motion allowed: add scroll listener
+        window.addEventListener('scroll', onScroll, { passive: true });
       }
     };
 
-    mediaQuery.addEventListener('change', handler);
+    mediaQuery.addEventListener('change', mediaQueryHandler);
 
     // Add passive scroll listener for performance
     if (!prefersReducedMotion.value) {
       window.addEventListener('scroll', onScroll, { passive: true });
     }
+  });
 
-    // Cleanup
-    onUnmounted(() => {
-      mediaQuery.removeEventListener('change', handler);
+  onUnmounted(() => {
+    if (mediaQuery && mediaQueryHandler) {
+      mediaQuery.removeEventListener('change', mediaQueryHandler);
+    }
+    
+    if (typeof window !== 'undefined') {
       window.removeEventListener('scroll', onScroll);
-      
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    });
+    }
+    
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+    }
   });
 
   /**

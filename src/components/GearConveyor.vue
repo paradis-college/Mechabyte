@@ -18,6 +18,8 @@ const gearLayer2Ref = ref<HTMLDivElement | null>(null);
 const conveyorRef = ref<HTMLDivElement | null>(null);
 
 let animationFrameId: number | null = null;
+let mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
+let mediaQuery: MediaQueryList | null = null;
 
 // Check for reduced motion preference
 const prefersReducedMotion = ref(false);
@@ -36,37 +38,62 @@ const updateParallax = () => {
   if (conveyorRef.value) {
     conveyorRef.value.style.transform = `translateY(${scrollY * 0.1}px)`;
   }
-  
-  animationFrameId = requestAnimationFrame(updateParallax);
+};
+
+const onScroll = () => {
+  if (props.enableParallax && !prefersReducedMotion.value) {
+    if (animationFrameId === null) {
+      animationFrameId = requestAnimationFrame(() => {
+        updateParallax();
+        animationFrameId = null;
+      });
+    }
+  }
 };
 
 onMounted(() => {
   // Check for prefers-reduced-motion
   if (typeof window !== 'undefined') {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     prefersReducedMotion.value = mediaQuery.matches;
     
     // Listen for changes
-    const handler = (e: MediaQueryListEvent) => {
+    mediaQueryHandler = (e: MediaQueryListEvent) => {
       prefersReducedMotion.value = e.matches;
+      
+      if (props.enableParallax) {
+        if (e.matches) {
+          // Motion reduced: remove scroll listener and reset transforms
+          window.removeEventListener('scroll', onScroll);
+          if (gearLayer1Ref.value) gearLayer1Ref.value.style.transform = '';
+          if (gearLayer2Ref.value) gearLayer2Ref.value.style.transform = '';
+          if (conveyorRef.value) conveyorRef.value.style.transform = '';
+        } else {
+          // Motion allowed: add scroll listener
+          window.addEventListener('scroll', onScroll, { passive: true });
+        }
+      }
     };
-    mediaQuery.addEventListener('change', handler);
+    mediaQuery.addEventListener('change', mediaQueryHandler);
     
-    // Start parallax if enabled
+    // Add scroll listener if parallax is enabled
     if (props.enableParallax && !prefersReducedMotion.value) {
-      animationFrameId = requestAnimationFrame(updateParallax);
+      window.addEventListener('scroll', onScroll, { passive: true });
     }
-    
-    // Cleanup listener
-    onUnmounted(() => {
-      mediaQuery.removeEventListener('change', handler);
-    });
   }
 });
 
 onUnmounted(() => {
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
+  }
+  
+  if (mediaQuery && mediaQueryHandler) {
+    mediaQuery.removeEventListener('change', mediaQueryHandler);
+  }
+  
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('scroll', onScroll);
   }
 });
 
@@ -140,14 +167,11 @@ const gearClass = computed(() => {
 </template>
 
 <style scoped>
-/* CSS Variables */
-:root {
+.gear-conveyor-container {
   --robot-metal: hsl(0deg 0% 25% / 100%);
   --gear-accent: hsl(120deg 100% 50% / 30%);
   --conveyor-bg: hsl(0deg 0% 15% / 100%);
-}
-
-.gear-conveyor-container {
+  
   position: fixed;
   top: 0;
   left: 0;
