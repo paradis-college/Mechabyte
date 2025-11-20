@@ -68,6 +68,8 @@ const updateIdleAnimation = () => {
   animationFrameId = requestAnimationFrame(updateIdleAnimation);
 };
 
+let mediaQuery: MediaQueryList | null = null;
+
 onMounted(() => {
   prefersReducedMotion.value = checkReducedMotion();
   
@@ -80,7 +82,7 @@ onMounted(() => {
   }
   
   // Listen for reduced motion preference changes
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const handleChange = (e: MediaQueryListEvent) => {
     prefersReducedMotion.value = e.matches;
     if (e.matches && animationFrameId !== null) {
@@ -92,14 +94,16 @@ onMounted(() => {
   };
   
   mediaQuery.addEventListener('change', handleChange);
-  
-  onUnmounted(() => {
-    if (animationFrameId !== null) {
-      cancelAnimationFrame(animationFrameId);
-    }
-    window.removeEventListener('mousemove', handleMouseMove);
-    mediaQuery.removeEventListener('change', handleChange);
-  });
+});
+
+onUnmounted(() => {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+  }
+  window.removeEventListener('mousemove', handleMouseMove);
+  if (mediaQuery) {
+    mediaQuery.removeEventListener('change', () => {});
+  }
 });
 
 const svgSize = computed(() => props.size);
@@ -119,6 +123,14 @@ const svgSize = computed(() => props.size);
       aria-label="Interactive robot arm illustration"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <defs>
+        <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#3a3a3a;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#4a4a4a;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#2a2a2a;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      
       <title>Mechabyte Robot Arm</title>
       <desc>A mechanical robot arm that follows your cursor and performs a subtle idle animation</desc>
       

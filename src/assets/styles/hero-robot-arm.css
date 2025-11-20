@@ -39,11 +39,6 @@
   .hero-robot-arm-container {
     animation: none !important;
   }
-  
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
 }
 
 /* Accessibility - ensure focus is visible */

@@ -48,15 +48,15 @@ const handleClick = (event: MouseEvent) => {
         viewBox="0 0 16 16" 
         aria-hidden="true"
       >
-        <path
-          d="M8 4.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM8 10a2 2 0 110-4 2 2 0 010 4z"
-          fill="currentColor"
-        />
-        <path
-          d="M9.5 1L9 2.5 10.5 3 9.5 4.5 11 5 9.5 6.5 11 7.5 9.5 9 11 10.5 9.5 12 10.5 13 9 14.5 8 13.5 7 14.5 5.5 13 6.5 12 5 10.5 6.5 9 5 7.5 6.5 6.5 5 5 6.5 4.5 5.5 3 7 2.5 8 1.5z"
-          fill="currentColor"
-          opacity="0.5"
-        />
+        <circle cx="8" cy="8" r="2.5" fill="currentColor" />
+        <circle cx="8" cy="2" r="1" fill="currentColor" />
+        <circle cx="8" cy="14" r="1" fill="currentColor" />
+        <circle cx="2" cy="8" r="1" fill="currentColor" />
+        <circle cx="14" cy="8" r="1" fill="currentColor" />
+        <circle cx="4" cy="4" r="0.8" fill="currentColor" />
+        <circle cx="12" cy="4" r="0.8" fill="currentColor" />
+        <circle cx="4" cy="12" r="0.8" fill="currentColor" />
+        <circle cx="12" cy="12" r="0.8" fill="currentColor" />
       </svg>
     </span>
   </a>
