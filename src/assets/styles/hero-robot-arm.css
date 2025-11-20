@@ -18,29 +18,6 @@
 }
 
 /* Performance optimizations - use transforms only */
-@keyframes idle-float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-}
-
-/* Apply idle animation only when motion is allowed */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-robot-arm-container {
-    animation: idle-float 4s ease-in-out infinite;
-  }
-}
-
-/* Ensure no animation when reduced motion is preferred */
-@media (prefers-reduced-motion: reduce) {
-  .hero-robot-arm-container {
-    animation: none !important;
-  }
-}
-
 /* Accessibility - ensure focus is visible */
 .hero-robot-arm-container:focus {
   outline: 2px solid var(--robot-accent);
