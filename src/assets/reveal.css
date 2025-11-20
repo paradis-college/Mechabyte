@@ -1,0 +1,35 @@
+/**
+ * Reveal-on-scroll animation styles
+ * 
+ * Apply the .reveal class to elements that should animate when scrolled into view.
+ * The .is-visible class is automatically added by the useRevealOnScroll composable.
+ */
+
+/* CSS variable for easy customization */
+:root {
+  --reveal-transition: 600ms cubic-bezier(0.2, 1, 0.22, 1);
+}
+
+/* Initial hidden state */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 
+    opacity var(--reveal-transition),
+    transform var(--reveal-transition);
+}
+
+/* Visible state */
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
