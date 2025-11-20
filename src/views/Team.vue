@@ -98,17 +98,17 @@ const mentors = computed(() =>
       
       <div class="text-sections">
         <div class="text-section">
-          <h2>{{ language === 'en' ? 'Collaboration' : 'Colaborare' }}</h2>
+          <h2>{{ t.collaborationTitle }}</h2>
           <p>{{ t.teamCollaboration }}</p>
         </div>
         
         <div class="text-section">
-          <h2>{{ language === 'en' ? 'Training' : 'Antrenament' }}</h2>
+          <h2>{{ t.trainingTitle }}</h2>
           <p>{{ t.teamTraining }}</p>
         </div>
         
         <div class="text-section">
-          <h2>{{ language === 'en' ? 'Team Environment' : 'Mediul Echipei' }}</h2>
+          <h2>{{ t.teamEnvironmentTitle }}</h2>
           <p>{{ t.teamEnvironment }}</p>
         </div>
       </div>
