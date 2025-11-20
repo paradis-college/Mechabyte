@@ -55,7 +55,7 @@ const t = computed(() => translations[props.language]);
         </div>
         
         <div class="info-card">
-          <h2>{{ language === 'en' ? 'Stay Connected' : 'Rămâi Conectat' }}</h2>
+          <h2>{{ t.stayConnectedTitle }}</h2>
           <p>{{ t.connectWithUs }}</p>
         </div>
       </div>
