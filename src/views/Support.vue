@@ -42,10 +42,8 @@ const t = computed(() => translations[props.language]);
       </div>
       
       <div class="tax-section">
-        <h2>{{ language === 'en' ? 'Tax Deductible Contributions' : 'Contribuții Deductibile Fiscal' }}</h2>
-        <p>{{ language === 'en' 
-          ? 'Romanian taxpayers can redirect up to 3.5% of their income tax to support educational organizations like ours. This is a simple way to make a significant impact without additional cost. We provide all necessary documentation to facilitate this process.' 
-          : 'Contribuabilii români pot redirectiona până la 3,5% din impozitul pe venit pentru a sprijini organizații educaționale precum a noastră. Aceasta este o modalitate simplă de a avea un impact semnificativ fără costuri suplimentare. Oferim toată documentația necesară pentru a facilita acest proces.' }}</p>
+        <h2>{{ t.taxDeductibleTitle }}</h2>
+        <p>{{ t.taxDeductibleText }}</p>
       </div>
       
       <div class="cta-section">
