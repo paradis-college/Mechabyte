@@ -8,13 +8,13 @@ import Support from '../views/Support.vue';
 import Contact from '../views/Contact.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/values', component: Values },
-  { path: '/achievements', component: Achievements },
-  { path: '/team', component: Team },
-  { path: '/sponsors', component: Sponsors },
-  { path: '/support', component: Support },
-  { path: '/contact', component: Contact },
+  { path: '/', name: 'home', component: Home },
+  { path: '/values', name: 'values', component: Values },
+  { path: '/achievements', name: 'achievements', component: Achievements },
+  { path: '/team', name: 'team', component: Team },
+  { path: '/sponsors', name: 'sponsors', component: Sponsors },
+  { path: '/support', name: 'support', component: Support },
+  { path: '/contact', name: 'contact', component: Contact },
 ];
 
 export default createRouter({
