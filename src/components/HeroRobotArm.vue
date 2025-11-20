@@ -55,7 +55,12 @@ const calculateIK = (tx: number, ty: number) => {
   // Calculate distance to target
   const distance = Math.sqrt(tx * tx + ty * ty);
   const maxReach = upperArmLength + forearmLength - 5;
-  const minReach = Math.abs(upperArmLength - forearmLength);
+  const minReach = Math.abs(upperArmLength - forearmLength) + 1;
+  
+  // Handle edge case where target is at shoulder or very close
+  if (distance < 0.1) {
+    return { shoulderDeg: -90, elbowDeg: 0 };
+  }
   
   // Clamp target to reachable area
   let reachableX = tx;
@@ -72,11 +77,6 @@ const calculateIK = (tx: number, ty: number) => {
   }
   
   const dist = Math.sqrt(reachableX * reachableX + reachableY * reachableY);
-  
-  // Handle edge case where target is at shoulder
-  if (dist < 0.1) {
-    return { shoulderDeg: -90, elbowDeg: 0 };
-  }
   
   // Calculate angles using law of cosines
   // Elbow angle (internal angle at elbow joint)
