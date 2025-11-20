@@ -50,7 +50,7 @@ const t = computed(() => translations[props.language]);
       
       <div class="info-section">
         <div class="info-card">
-          <h2>{{ language === 'en' ? 'Schedule a Demo' : 'Programează o Demo' }}</h2>
+          <h2>{{ t.scheduleDemoTitle }}</h2>
           <p>{{ t.scheduleDemo }}</p>
         </div>
         
