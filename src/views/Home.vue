@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import FeatureCardsWithScanner from '../components/FeatureCardsWithScanner.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -13,6 +14,9 @@ const t = computed(() => translations[props.language]);
   <div class="home-page">
     <img class="banner" alt="Mechabyte banner" src="/banner.png" />
     <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+    
+    <!-- Feature Cards with Scanner Effect -->
+    <FeatureCardsWithScanner />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>

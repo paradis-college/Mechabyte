@@ -1,0 +1,34 @@
+/* AnimatedSVGIcon Component Styles */
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  color: var(--robot-accent);
+  filter: drop-shadow(0 0 2px var(--robot-accent));
+  transition: filter 0.3s ease;
+}
+
+.icon:hover {
+  filter: drop-shadow(0 0 8px var(--robot-accent));
+}
+
+/* Icon color variants */
+.icon--sensor {
+  color: var(--mechabyte-green);
+}
+
+.icon--bolt {
+  color: hsl(45deg 100% 50% / 100%);
+}
+
+.icon--circuit {
+  color: hsl(200deg 100% 50% / 100%);
+}
+
+.icon--chip {
+  color: hsl(280deg 100% 50% / 100%);
+}
