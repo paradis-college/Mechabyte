@@ -37,52 +37,69 @@ const handleMouseMove = (event: MouseEvent) => {
   if (!container) return;
   
   const rect = container.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+  // Shoulder is at (100, 150) in SVG coordinate space
+  // Map mouse to SVG coordinates
+  const svgX = ((event.clientX - rect.left) / rect.width) * 200;
+  const svgY = ((event.clientY - rect.top) / rect.height) * 200;
   
-  // Calculate target position relative to shoulder
-  targetX = (event.clientX - centerX) / 2;
-  targetY = (event.clientY - centerY) / 2;
+  // Calculate target position relative to shoulder (100, 150)
+  targetX = svgX - 100;
+  targetY = svgY - 150;
 };
 
-// Simple inverse kinematics for two-joint arm
-const calculateIK = (targetX: number, targetY: number) => {
+// Improved inverse kinematics for two-joint arm
+const calculateIK = (tx: number, ty: number) => {
   const upperArmLength = 60;
   const forearmLength = 40;
   
+  // Calculate distance to target
+  const distance = Math.sqrt(tx * tx + ty * ty);
+  const maxReach = upperArmLength + forearmLength - 5;
+  const minReach = Math.abs(upperArmLength - forearmLength);
+  
   // Clamp target to reachable area
-  const distance = Math.sqrt(targetX * targetX + targetY * targetY);
-  const maxReach = upperArmLength + forearmLength - 10;
+  let reachableX = tx;
+  let reachableY = ty;
   
   if (distance > maxReach) {
     const scale = maxReach / distance;
-    targetX *= scale;
-    targetY *= scale;
+    reachableX = tx * scale;
+    reachableY = ty * scale;
+  } else if (distance < minReach) {
+    const scale = minReach / distance;
+    reachableX = tx * scale;
+    reachableY = ty * scale;
+  }
+  
+  const dist = Math.sqrt(reachableX * reachableX + reachableY * reachableY);
+  
+  // Handle edge case where target is at shoulder
+  if (dist < 0.1) {
+    return { shoulderDeg: -90, elbowDeg: 0 };
   }
   
   // Calculate angles using law of cosines
-  const distSq = targetX * targetX + targetY * targetY;
-  const dist = Math.sqrt(distSq);
-  
-  // Elbow angle
-  const cosElbow = (upperArmLength * upperArmLength + forearmLength * forearmLength - distSq) / 
+  // Elbow angle (internal angle at elbow joint)
+  const cosElbow = (upperArmLength * upperArmLength + forearmLength * forearmLength - dist * dist) / 
                    (2 * upperArmLength * forearmLength);
   const elbowAngle = Math.acos(Math.max(-1, Math.min(1, cosElbow)));
   
   // Shoulder angle
-  const phi = Math.atan2(targetY, targetX);
-  const cosTheta = (upperArmLength * upperArmLength + distSq - forearmLength * forearmLength) / 
+  const targetAngle = Math.atan2(-reachableY, reachableX); // Note: -y because SVG y increases downward
+  const cosAlpha = (upperArmLength * upperArmLength + dist * dist - forearmLength * forearmLength) / 
                    (2 * upperArmLength * dist);
-  const theta = Math.acos(Math.max(-1, Math.min(1, cosTheta)));
-  const shoulderAngle = phi - theta;
+  const alpha = Math.acos(Math.max(-1, Math.min(1, cosAlpha)));
   
-  // Convert to degrees and apply bounds
-  let shoulderDeg = (shoulderAngle * 180 / Math.PI) - 90;
-  let elbowDeg = 180 - (elbowAngle * 180 / Math.PI);
+  // Shoulder rotation (we want arm pointing up initially, so add 90 degrees)
+  const shoulderAngle = targetAngle + alpha - Math.PI / 2;
+  
+  // Convert to degrees
+  let shoulderDeg = shoulderAngle * (180 / Math.PI);
+  let elbowDeg = -(180 - elbowAngle * (180 / Math.PI)); // Negative because we're bending inward
   
   // Bound rotations for natural movement
-  shoulderDeg = Math.max(-45, Math.min(45, shoulderDeg));
-  elbowDeg = Math.max(-90, Math.min(90, elbowDeg));
+  shoulderDeg = Math.max(-60, Math.min(60, shoulderDeg));
+  elbowDeg = Math.max(-120, Math.min(120, elbowDeg));
   
   return { shoulderDeg, elbowDeg };
 };
@@ -100,8 +117,8 @@ const updateAnimation = () => {
   // Add subtle idle oscillation
   const idleOffset = Math.sin(idleTime) * 2;
   
-  // Smooth interpolation for natural movement
-  const smoothing = 0.15;
+  // Smooth interpolation for natural movement (increased for better responsiveness)
+  const smoothing = 0.25;
   currentShoulderRotation += (shoulderDeg + idleOffset - currentShoulderRotation) * smoothing;
   currentElbowRotation += (elbowDeg - currentElbowRotation) * smoothing;
   
