@@ -20,10 +20,13 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
     <!-- Hero section with robot arm -->
     <div class="hero-section">
       <img class="banner" alt="Mechabyte banner" src="/banner.png" />
-      <HeroRobotArm :size="250" class="hero-robot" />
     </div>
     
-    <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+    <!-- Image with overlaid robot arm -->
+    <div class="robot-showcase">
+      <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+      <HeroRobotArm :size="300" class="hero-robot-overlay" />
+    </div>
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>
@@ -58,7 +61,7 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
       <div class="cta-section">
         <MicroButton 
           variant="robotic"
-          href="#contact"
+          href="/contact"
         >
           {{ t.contactCta }}
         </MicroButton>
@@ -90,14 +93,29 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
   height: 10vw;
 }
 
-.hero-robot {
-  margin: 0 auto;
+.robot-showcase {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2vw;
 }
 
 .snapshot {
   height: 37.5vw;
   width: auto;
   max-width: 100%;
+  display: block;
+}
+
+.hero-robot-overlay {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  z-index: 10;
 }
 
 .content-section {
@@ -163,6 +181,10 @@ h2 {
   .snapshot {
     height: auto;
     width: 90vw;
+  }
+
+  .hero-robot-overlay {
+    top: 5%;
   }
 
   .content-section {

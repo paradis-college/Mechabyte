@@ -12,12 +12,16 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const armRef = ref<SVGGElement | null>(null);
+const forearmRef = ref<SVGGElement | null>(null);
 const containerRef = ref<HTMLDivElement | null>(null);
-const rotation = ref(0);
+const shoulderRotation = ref(0);
+const elbowRotation = ref(0);
 const prefersReducedMotion = ref(false);
 let animationFrameId: number | null = null;
-let mouseX = 0;
-let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+let currentShoulderRotation = 0;
+let currentElbowRotation = 0;
 
 // Check for reduced motion preference
 const checkReducedMotion = () => {
@@ -25,7 +29,7 @@ const checkReducedMotion = () => {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 };
 
-// Throttled mouse move handler
+// Improved mouse move handler with better responsiveness
 const handleMouseMove = (event: MouseEvent) => {
   if (prefersReducedMotion.value) return;
   
@@ -36,36 +40,84 @@ const handleMouseMove = (event: MouseEvent) => {
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
   
-  mouseX = event.clientX;
-  mouseY = event.clientY;
-  
-  // Calculate angle to cursor (bounded to small degrees)
-  const deltaX = mouseX - centerX;
-  const deltaY = mouseY - centerY;
-  const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-  
-  // Bound rotation to ±15 degrees for subtle effect
-  const boundedRotation = Math.max(-15, Math.min(15, angle * 0.2));
-  rotation.value = boundedRotation;
+  // Calculate target position relative to shoulder
+  targetX = (event.clientX - centerX) / 2;
+  targetY = (event.clientY - centerY) / 2;
 };
 
-// Idle animation (subtle reach/return)
+// Simple inverse kinematics for two-joint arm
+const calculateIK = (targetX: number, targetY: number) => {
+  const upperArmLength = 60;
+  const forearmLength = 40;
+  
+  // Clamp target to reachable area
+  const distance = Math.sqrt(targetX * targetX + targetY * targetY);
+  const maxReach = upperArmLength + forearmLength - 10;
+  
+  if (distance > maxReach) {
+    const scale = maxReach / distance;
+    targetX *= scale;
+    targetY *= scale;
+  }
+  
+  // Calculate angles using law of cosines
+  const distSq = targetX * targetX + targetY * targetY;
+  const dist = Math.sqrt(distSq);
+  
+  // Elbow angle
+  const cosElbow = (upperArmLength * upperArmLength + forearmLength * forearmLength - distSq) / 
+                   (2 * upperArmLength * forearmLength);
+  const elbowAngle = Math.acos(Math.max(-1, Math.min(1, cosElbow)));
+  
+  // Shoulder angle
+  const phi = Math.atan2(targetY, targetX);
+  const cosTheta = (upperArmLength * upperArmLength + distSq - forearmLength * forearmLength) / 
+                   (2 * upperArmLength * dist);
+  const theta = Math.acos(Math.max(-1, Math.min(1, cosTheta)));
+  const shoulderAngle = phi - theta;
+  
+  // Convert to degrees and apply bounds
+  let shoulderDeg = (shoulderAngle * 180 / Math.PI) - 90;
+  let elbowDeg = 180 - (elbowAngle * 180 / Math.PI);
+  
+  // Bound rotations for natural movement
+  shoulderDeg = Math.max(-45, Math.min(45, shoulderDeg));
+  elbowDeg = Math.max(-90, Math.min(90, elbowDeg));
+  
+  return { shoulderDeg, elbowDeg };
+};
+
+// Animation loop with smooth interpolation
 let idleTime = 0;
-const updateIdleAnimation = () => {
+const updateAnimation = () => {
   if (prefersReducedMotion.value) return;
   
   idleTime += 0.01;
-  // Subtle sine wave oscillation for idle movement
-  const idleRotation = Math.sin(idleTime) * 3; // ±3 degrees
   
-  // Blend idle animation with mouse following
+  // Calculate target angles with IK
+  const { shoulderDeg, elbowDeg } = calculateIK(targetX, targetY);
+  
+  // Add subtle idle oscillation
+  const idleOffset = Math.sin(idleTime) * 2;
+  
+  // Smooth interpolation for natural movement
+  const smoothing = 0.15;
+  currentShoulderRotation += (shoulderDeg + idleOffset - currentShoulderRotation) * smoothing;
+  currentElbowRotation += (elbowDeg - currentElbowRotation) * smoothing;
+  
+  // Apply rotations
   const arm = armRef.value;
+  const forearm = forearmRef.value;
+  
   if (arm) {
-    const finalRotation = rotation.value + idleRotation;
-    arm.style.transform = `rotate(${finalRotation}deg)`;
+    arm.style.transform = `rotate(${currentShoulderRotation}deg)`;
   }
   
-  animationFrameId = requestAnimationFrame(updateIdleAnimation);
+  if (forearm) {
+    forearm.style.transform = `rotate(${currentElbowRotation}deg)`;
+  }
+  
+  animationFrameId = requestAnimationFrame(updateAnimation);
 };
 
 let mediaQuery: MediaQueryList | null = null;
@@ -75,8 +127,8 @@ onMounted(() => {
   prefersReducedMotion.value = checkReducedMotion();
   
   if (!prefersReducedMotion.value) {
-    // Start idle animation
-    updateIdleAnimation();
+    // Start animation
+    updateAnimation();
     
     // Add mouse move listener
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -90,7 +142,7 @@ onMounted(() => {
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     } else if (!e.matches) {
-      updateIdleAnimation();
+      updateAnimation();
     }
   };
   
@@ -167,21 +219,28 @@ const svgSize = computed(() => props.size);
           class="robot-joint"
         />
         
-        <!-- Forearm -->
-        <rect 
-          x="95" 
-          y="50" 
-          width="10" 
-          height="40" 
-          rx="2"
-          class="robot-segment robot-forearm"
-        />
-        
-        <!-- Hand/gripper -->
-        <g class="robot-gripper" style="transform-origin: 100px 50px;">
-          <rect x="92" y="45" width="4" height="10" rx="1" class="robot-finger" />
-          <rect x="104" y="45" width="4" height="10" rx="1" class="robot-finger" />
-          <circle cx="100" cy="50" r="5" class="robot-joint-small" />
+        <!-- Forearm group (rotates from elbow) -->
+        <g
+          ref="forearmRef"
+          class="robot-forearm-group"
+          style="transform-origin: 100px 90px;"
+        >
+          <!-- Forearm -->
+          <rect 
+            x="95" 
+            y="50" 
+            width="10" 
+            height="40" 
+            rx="2"
+            class="robot-segment robot-forearm"
+          />
+          
+          <!-- Hand/gripper -->
+          <g class="robot-gripper" style="transform-origin: 100px 50px;">
+            <rect x="92" y="45" width="4" height="10" rx="1" class="robot-finger" />
+            <rect x="104" y="45" width="4" height="10" rx="1" class="robot-finger" />
+            <circle cx="100" cy="50" r="5" class="robot-joint-small" />
+          </g>
         </g>
       </g>
       
