@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted, computed, nextTick } from 'vue';
 
 interface Props {
   name?: 'sensor' | 'bolt' | 'circuit' | 'chip';

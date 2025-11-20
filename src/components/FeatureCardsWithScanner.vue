@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
 import AnimatedSVGIcon from './AnimatedSVGIcon.vue';
 import '../styles/components/ScannerBeam.css';
 
@@ -41,6 +41,9 @@ const cardVisibility = ref<Record<number, boolean>>({});
 const cardSweep = ref<Record<number, boolean>>({});
 const cardRefs = ref<Record<number, HTMLElement>>({});
 
+// Animation duration constant matching CSS (1.5s)
+const SCANNER_SWEEP_DURATION_MS = 1500;
+
 let observer: IntersectionObserver | null = null;
 
 const setCardRef = (el: Element | ComponentPublicInstance | null, id: number) => {
@@ -56,33 +59,36 @@ onMounted(() => {
     cardSweep.value[card.id] = false;
   });
 
-  // Create intersection observer for scroll-based animations
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const cardId = parseInt(entry.target.getAttribute('data-card-id') || '0');
-        if (entry.isIntersecting && !cardVisibility.value[cardId]) {
-          cardVisibility.value[cardId] = true;
-          cardSweep.value[cardId] = true;
-          
-          // Remove sweep class after animation completes to allow re-trigger on hover
-          setTimeout(() => {
-            cardSweep.value[cardId] = false;
-          }, 1500);
-        }
-      });
-    },
-    {
-      threshold: 0.3,
-      rootMargin: '0px',
-    }
-  );
+  // Wait for next tick to ensure refs are populated after template rendering
+  nextTick(() => {
+    // Create intersection observer for scroll-based animations
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const cardId = parseInt(entry.target.getAttribute('data-card-id') || '0');
+          if (entry.isIntersecting && !cardVisibility.value[cardId]) {
+            cardVisibility.value[cardId] = true;
+            cardSweep.value[cardId] = true;
+            
+            // Remove sweep class after animation completes to allow re-trigger on hover
+            setTimeout(() => {
+              cardSweep.value[cardId] = false;
+            }, SCANNER_SWEEP_DURATION_MS);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px',
+      }
+    );
 
-  // Observe all card elements
-  Object.values(cardRefs.value).forEach((el) => {
-    if (el && observer) {
-      observer.observe(el);
-    }
+    // Observe all card elements
+    Object.values(cardRefs.value).forEach((el) => {
+      if (el && observer) {
+        observer.observe(el);
+      }
+    });
   });
 });
 
