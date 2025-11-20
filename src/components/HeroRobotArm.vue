@@ -11,17 +11,30 @@ const props = withDefaults(defineProps<Props>(), {
   className: '',
 });
 
-const armRef = ref<SVGGElement | null>(null);
-const forearmRef = ref<SVGGElement | null>(null);
+const segment1Ref = ref<SVGGElement | null>(null);
+const segment2Ref = ref<SVGGElement | null>(null);
+const segment3Ref = ref<SVGGElement | null>(null);
 const containerRef = ref<HTMLDivElement | null>(null);
-const shoulderRotation = ref(0);
-const elbowRotation = ref(0);
 const prefersReducedMotion = ref(false);
 let animationFrameId: number | null = null;
-let targetX = 0;
-let targetY = 0;
-let currentShoulderRotation = 0;
-let currentElbowRotation = 0;
+
+// Triple pendulum state variables
+// Angles are measured from vertical (downward = 0)
+let theta1 = 0; // First segment angle
+let theta2 = 0; // Second segment angle
+let theta3 = 0; // Third segment angle
+let omega1 = 0; // First segment angular velocity
+let omega2 = 0; // Second segment angular velocity
+let omega3 = 0; // Third segment angular velocity
+
+// Physical constants
+const g = 9.81; // Gravity (pixels/s²)
+const m1 = 1.0; // Mass of first segment
+const m2 = 1.0; // Mass of second segment
+const m3 = 1.0; // Mass of third segment
+const L1 = 60;  // Length of first segment
+const L2 = 50;  // Length of second segment
+const L3 = 40;  // Length of third segment
 
 // Check for reduced motion preference
 const checkReducedMotion = () => {
@@ -29,112 +42,137 @@ const checkReducedMotion = () => {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 };
 
-// Improved mouse move handler with better responsiveness
-const handleMouseMove = (event: MouseEvent) => {
-  if (prefersReducedMotion.value) return;
-  
-  const container = containerRef.value;
-  if (!container) return;
-  
-  const rect = container.getBoundingClientRect();
-  // Shoulder is at (100, 150) in SVG coordinate space
-  // Map mouse to SVG coordinates
-  const svgX = ((event.clientX - rect.left) / rect.width) * 200;
-  const svgY = ((event.clientY - rect.top) / rect.height) * 200;
-  
-  // Calculate target position relative to shoulder (100, 150)
-  // Negate X to fix horizontal flip (so right = positive angles, left = negative angles)
-  targetX = -(svgX - 100);
-  targetY = svgY - 150;
+// Initialize with random angles for chaotic motion
+const initializeRandom = () => {
+  // Random initial angles between -π and π
+  theta1 = (Math.random() - 0.5) * Math.PI;
+  theta2 = (Math.random() - 0.5) * Math.PI;
+  theta3 = (Math.random() - 0.5) * Math.PI;
+  // Small initial angular velocities
+  omega1 = (Math.random() - 0.5) * 0.5;
+  omega2 = (Math.random() - 0.5) * 0.5;
+  omega3 = (Math.random() - 0.5) * 0.5;
 };
 
-// Improved inverse kinematics for two-joint arm
-const calculateIK = (tx: number, ty: number) => {
-  const upperArmLength = 60;
-  const forearmLength = 40;
+// Triple pendulum equations of motion (derivatives)
+const derivatives = (t1: number, t2: number, t3: number, o1: number, o2: number, o3: number) => {
+  // Simplified triple pendulum dynamics
+  // These are the derivatives for RK4 integration
   
-  // Calculate distance to target
-  const distance = Math.sqrt(tx * tx + ty * ty);
-  const maxReach = upperArmLength + forearmLength - 5;
-  const minReach = Math.abs(upperArmLength - forearmLength) + 1;
+  const delta12 = t2 - t1;
+  const delta23 = t3 - t2;
+  const delta13 = t3 - t1;
   
-  // Handle edge case where target is at shoulder or very close
-  if (distance < 0.1) {
-    return { shoulderDeg: -90, elbowDeg: 0 };
-  }
+  // Denominators for the equations
+  const den1 = (m1 + m2 + m3) * L1 - m2 * L1 * Math.cos(delta12) * Math.cos(delta12) - m3 * L1 * Math.cos(delta13) * Math.cos(delta13);
+  const den2 = (m2 + m3) * L2 - m3 * L2 * Math.cos(delta23) * Math.cos(delta23);
+  const den3 = m3 * L3;
   
-  // Clamp target to reachable area
-  let reachableX = tx;
-  let reachableY = ty;
+  // Simplified acceleration terms (Lagrangian mechanics)
+  const num1 = -g * (2 * m1 + m2 + m3) * Math.sin(t1) 
+               - m2 * g * Math.sin(t1 - 2 * t2)
+               - m3 * g * Math.sin(t1 - 2 * t3)
+               - 2 * Math.sin(delta12) * m2 * (o2 * o2 * L2 + o1 * o1 * L1 * Math.cos(delta12))
+               - 2 * Math.sin(delta13) * m3 * (o3 * o3 * L3 + o1 * o1 * L1 * Math.cos(delta13));
   
-  if (distance > maxReach) {
-    const scale = maxReach / distance;
-    reachableX = tx * scale;
-    reachableY = ty * scale;
-  } else if (distance < minReach) {
-    const scale = minReach / distance;
-    reachableX = tx * scale;
-    reachableY = ty * scale;
-  }
+  const num2 = 2 * Math.sin(delta12) * (o1 * o1 * L1 * (m2 + m3) + g * (m2 + m3) * Math.cos(t1) + o2 * o2 * L2 * m2 * Math.cos(delta12))
+               - m3 * g * Math.cos(t2) * Math.sin(delta23)
+               - m3 * o3 * o3 * L3 * Math.sin(delta23);
   
-  const dist = Math.sqrt(reachableX * reachableX + reachableY * reachableY);
+  const num3 = 2 * Math.sin(delta13) * (o1 * o1 * L1 * m3 + g * m3 * Math.cos(t1))
+               + 2 * Math.sin(delta23) * (o2 * o2 * L2 * m3 + g * m3 * Math.cos(t2));
   
-  // Calculate angles using law of cosines
-  // Elbow angle (internal angle at elbow joint)
-  const cosElbow = (upperArmLength * upperArmLength + forearmLength * forearmLength - dist * dist) / 
-                   (2 * upperArmLength * forearmLength);
-  const elbowAngle = Math.acos(Math.max(-1, Math.min(1, cosElbow)));
+  // Angular accelerations
+  const alpha1 = num1 / den1;
+  const alpha2 = num2 / den2;
+  const alpha3 = num3 / den3;
   
-  // Shoulder angle
-  const targetAngle = Math.atan2(reachableY, reachableX); // SVG y increases downward (positive is down)
-  const cosAlpha = (upperArmLength * upperArmLength + dist * dist - forearmLength * forearmLength) / 
-                   (2 * upperArmLength * dist);
-  const alpha = Math.acos(Math.max(-1, Math.min(1, cosAlpha)));
-  
-  // Shoulder rotation
-  // For elbow-down configuration, subtract alpha; for proper reach, we need to consider arm orientation
-  // Initial arm points up (-90°), so we calculate angle from upward position
-  const shoulderAngle = targetAngle + alpha - Math.PI / 2;
-  
-  // Convert to degrees
-  let shoulderDeg = shoulderAngle * (180 / Math.PI);
-  let elbowDeg = -(180 - elbowAngle * (180 / Math.PI)); // Negative because we're bending inward
-  
-  // Bound rotations for natural movement
-  shoulderDeg = Math.max(-60, Math.min(60, shoulderDeg));
-  elbowDeg = Math.max(-120, Math.min(120, elbowDeg));
-  
-  return { shoulderDeg, elbowDeg };
+  return {
+    dTheta1: o1,
+    dTheta2: o2,
+    dTheta3: o3,
+    dOmega1: alpha1,
+    dOmega2: alpha2,
+    dOmega3: alpha3
+  };
 };
 
-// Animation loop with smooth interpolation
-let idleTime = 0;
-const updateAnimation = () => {
+// RK4 integration step
+const rk4Step = (dt: number) => {
+  // k1
+  const k1 = derivatives(theta1, theta2, theta3, omega1, omega2, omega3);
+  
+  // k2
+  const k2 = derivatives(
+    theta1 + 0.5 * dt * k1.dTheta1,
+    theta2 + 0.5 * dt * k1.dTheta2,
+    theta3 + 0.5 * dt * k1.dTheta3,
+    omega1 + 0.5 * dt * k1.dOmega1,
+    omega2 + 0.5 * dt * k1.dOmega2,
+    omega3 + 0.5 * dt * k1.dOmega3
+  );
+  
+  // k3
+  const k3 = derivatives(
+    theta1 + 0.5 * dt * k2.dTheta1,
+    theta2 + 0.5 * dt * k2.dTheta2,
+    theta3 + 0.5 * dt * k2.dTheta3,
+    omega1 + 0.5 * dt * k2.dOmega1,
+    omega2 + 0.5 * dt * k2.dOmega2,
+    omega3 + 0.5 * dt * k2.dOmega3
+  );
+  
+  // k4
+  const k4 = derivatives(
+    theta1 + dt * k3.dTheta1,
+    theta2 + dt * k3.dTheta2,
+    theta3 + dt * k3.dTheta3,
+    omega1 + dt * k3.dOmega1,
+    omega2 + dt * k3.dOmega2,
+    omega3 + dt * k3.dOmega3
+  );
+  
+  // Update state
+  theta1 += (dt / 6) * (k1.dTheta1 + 2 * k2.dTheta1 + 2 * k3.dTheta1 + k4.dTheta1);
+  theta2 += (dt / 6) * (k1.dTheta2 + 2 * k2.dTheta2 + 2 * k3.dTheta2 + k4.dTheta2);
+  theta3 += (dt / 6) * (k1.dTheta3 + 2 * k2.dTheta3 + 2 * k3.dTheta3 + k4.dTheta3);
+  omega1 += (dt / 6) * (k1.dOmega1 + 2 * k2.dOmega1 + 2 * k3.dOmega1 + k4.dOmega1);
+  omega2 += (dt / 6) * (k1.dOmega2 + 2 * k2.dOmega2 + 2 * k3.dOmega2 + k4.dOmega2);
+  omega3 += (dt / 6) * (k1.dOmega3 + 2 * k2.dOmega3 + 2 * k3.dOmega3 + k4.dOmega3);
+};
+
+// Animation loop
+let lastTime = 0;
+const updateAnimation = (timestamp: number) => {
   if (prefersReducedMotion.value) return;
   
-  idleTime += 0.01;
+  // Calculate delta time in seconds
+  if (lastTime === 0) lastTime = timestamp;
+  const dt = Math.min((timestamp - lastTime) / 1000, 0.02); // Cap at 50 FPS for stability
+  lastTime = timestamp;
   
-  // Calculate target angles with IK
-  const { shoulderDeg, elbowDeg } = calculateIK(targetX, targetY);
+  // Update physics with RK4
+  rk4Step(dt);
   
-  // Add subtle idle oscillation
-  const idleOffset = Math.sin(idleTime) * 2;
+  // Apply rotations to SVG elements
+  // Convert from physics angles (radians, vertical = 0) to SVG rotation (degrees)
+  const seg1 = segment1Ref.value;
+  const seg2 = segment2Ref.value;
+  const seg3 = segment3Ref.value;
   
-  // Smooth interpolation for natural movement (increased for better responsiveness)
-  const smoothing = 0.25;
-  currentShoulderRotation += (shoulderDeg + idleOffset - currentShoulderRotation) * smoothing;
-  currentElbowRotation += (elbowDeg - currentElbowRotation) * smoothing;
-  
-  // Apply rotations
-  const arm = armRef.value;
-  const forearm = forearmRef.value;
-  
-  if (arm) {
-    arm.style.transform = `rotate(${currentShoulderRotation}deg)`;
+  if (seg1) {
+    const angle1Deg = (theta1 * 180) / Math.PI;
+    seg1.style.transform = `rotate(${angle1Deg}deg)`;
   }
   
-  if (forearm) {
-    forearm.style.transform = `rotate(${currentElbowRotation}deg)`;
+  if (seg2) {
+    const angle2Deg = (theta2 * 180) / Math.PI;
+    seg2.style.transform = `rotate(${angle2Deg}deg)`;
+  }
+  
+  if (seg3) {
+    const angle3Deg = (theta3 * 180) / Math.PI;
+    seg3.style.transform = `rotate(${angle3Deg}deg)`;
   }
   
   animationFrameId = requestAnimationFrame(updateAnimation);
@@ -147,11 +185,11 @@ onMounted(() => {
   prefersReducedMotion.value = checkReducedMotion();
   
   if (!prefersReducedMotion.value) {
-    // Start animation
-    updateAnimation();
+    // Initialize with random angles
+    initializeRandom();
     
-    // Add mouse move listener
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    // Start animation
+    animationFrameId = requestAnimationFrame(updateAnimation);
   }
   
   // Listen for reduced motion preference changes
@@ -162,7 +200,9 @@ onMounted(() => {
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     } else if (!e.matches) {
-      updateAnimation();
+      initializeRandom();
+      lastTime = 0;
+      animationFrameId = requestAnimationFrame(updateAnimation);
     }
   };
   
@@ -173,7 +213,6 @@ onUnmounted(() => {
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId);
   }
-  window.removeEventListener('mousemove', handleMouseMove);
   if (mediaQuery && handleChange) {
     mediaQuery.removeEventListener('change', handleChange);
   }
