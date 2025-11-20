@@ -73,7 +73,7 @@ const sponsors = ref<Sponsor[]>([
             :key="index"
             :name="sponsor.name"
             :logo="sponsor.logo"
-            :description="language === 'en' ? sponsor.descriptionEn : sponsor.descriptionRo"
+            :description="props.language === 'en' ? sponsor.descriptionEn : sponsor.descriptionRo"
             :is-primary="sponsor.isPrimary || false"
           />
         </div>
@@ -102,7 +102,7 @@ const sponsors = ref<Sponsor[]>([
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
         <RouterLink to="/contact" class="cta-button">
-          {{ language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
+          {{ props.language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
         </RouterLink>
       </div>
     </section>
