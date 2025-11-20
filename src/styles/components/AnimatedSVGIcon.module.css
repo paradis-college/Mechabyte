@@ -7,13 +7,13 @@
 }
 
 .icon {
-  color: var(--robot-accent);
-  filter: drop-shadow(0 0 2px var(--robot-accent));
+  color: var(--mechabyte-green);
+  filter: drop-shadow(0 0 2px var(--mechabyte-green));
   transition: filter 0.3s ease;
 }
 
 .icon:hover {
-  filter: drop-shadow(0 0 8px var(--robot-accent));
+  filter: drop-shadow(0 0 8px var(--mechabyte-green));
 }
 
 /* Icon color variants */

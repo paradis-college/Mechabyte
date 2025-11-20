@@ -1,7 +1,6 @@
 /* Scanner Beam Effect for Cards */
 
 :root {
-  --robot-accent: hsl(120deg 100% 50% / 100%);
   --scanner-color: hsl(120deg 100% 70% / 30%);
   --scanner-beam-width: 100px;
 }
