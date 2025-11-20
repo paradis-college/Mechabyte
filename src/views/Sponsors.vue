@@ -42,10 +42,8 @@ const t = computed(() => translations[props.language]);
       </div>
       
       <div class="cta-section">
-        <h2>{{ language === 'en' ? 'Become a Sponsor' : 'Deveniți Sponsor' }}</h2>
-        <p>{{ language === 'en' 
-          ? 'Interested in supporting Mechabyte? Contact us to discuss sponsorship opportunities and how we can work together to promote STEM education in our community.' 
-          : 'Interesat să sprijiniți Mechabyte? Contactați-ne pentru a discuta oportunitățile de sponsorizare și cum putem lucra împreună pentru a promova educația STEM în comunitatea noastră.' }}</p>
+        <h2>{{ t.becomeSponsorTitle }}</h2>
+        <p>{{ t.becomeSponsorText }}</p>
         <RouterLink to="/contact" class="cta-button">
           {{ language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
         </RouterLink>
