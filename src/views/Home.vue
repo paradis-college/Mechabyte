@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import GearConveyor from '../components/GearConveyor.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -11,6 +12,7 @@ const t = computed(() => translations[props.language]);
 
 <template>
   <div class="home-page">
+    <GearConveyor />
     <img class="banner" alt="Mechabyte banner" src="/banner.png" />
     <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
     
@@ -41,6 +43,7 @@ const t = computed(() => translations[props.language]);
 
 <style scoped>
 .home-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
