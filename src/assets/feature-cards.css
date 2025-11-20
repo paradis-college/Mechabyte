@@ -81,6 +81,7 @@
 }
 
 /* Accessibility: Focus styles */
+.feature-card:focus,
 .feature-card:focus-within {
   outline: 2px solid var(--mechabyte-green);
   outline-offset: 4px;
