@@ -23,7 +23,7 @@ const t = computed(() => translations[props.language]);
       </div>
       
       <div class="ambassador-section">
-        <h2>{{ language === 'en' ? 'Ambassador Role' : 'Rol de Ambasador' }}</h2>
+        <h2>{{ t.ambassadorRoleTitle }}</h2>
         <p class="ambassador-text">{{ t.ambassadorStatement }}</p>
       </div>
       
