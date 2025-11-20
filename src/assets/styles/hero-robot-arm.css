@@ -1,0 +1,60 @@
+/* Hero Robot Arm Component Styles */
+
+:root {
+  /* Metallic theme colors */
+  --robot-metal: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+  --robot-accent: hsl(120deg 100% 50% / 100%);
+  --robot-highlight: hsl(120deg 100% 70% / 100%);
+  --robot-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Container styling for proper positioning */
+.hero-robot-arm-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Performance optimizations - use transforms only */
+@keyframes idle-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+/* Apply idle animation only when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-robot-arm-container {
+    animation: idle-float 4s ease-in-out infinite;
+  }
+}
+
+/* Ensure no animation when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .hero-robot-arm-container {
+    animation: none !important;
+  }
+  
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Accessibility - ensure focus is visible */
+.hero-robot-arm-container:focus {
+  outline: 2px solid var(--robot-accent);
+  outline-offset: 4px;
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .hero-robot-arm-wrapper {
+    padding: 1rem;
+  }
+}

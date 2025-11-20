@@ -1,0 +1,60 @@
+/* Reveal utility for scroll-triggered animations */
+
+:root {
+  /* Mechanical easing with slight overshoot for robotic feel */
+  --reveal-transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --reveal-delay: 0s;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--reveal-transition);
+  transition-delay: var(--reveal-delay);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Optional reveal variants for different directions */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: var(--reveal-transition);
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: var(--reveal-transition);
+}
+
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

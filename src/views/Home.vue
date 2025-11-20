@@ -1,22 +1,40 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import HeroRobotArm from '../components/HeroRobotArm.vue';
+import MicroButton from '../components/MicroButton.vue';
+import { useRevealOnScroll } from '../composables/useRevealOnScroll';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+
+// Setup reveal animation for welcome text
+const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll();
 </script>
 
 <template>
   <div class="home-page">
-    <img class="banner" alt="Mechabyte banner" src="/banner.png" />
+    <!-- Hero section with robot arm -->
+    <div class="hero-section">
+      <img class="banner" alt="Mechabyte banner" src="/banner.png" />
+      <HeroRobotArm :size="250" class="hero-robot" />
+    </div>
+    
     <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>
-      <p class="welcome-text">{{ t.homeWelcome }}</p>
+      
+      <!-- Revealed welcome text -->
+      <p 
+        ref="welcomeRef"
+        :class="['welcome-text', 'reveal', { 'is-visible': welcomeVisible }]"
+      >
+        {{ t.homeWelcome }}
+      </p>
       
       <h2>{{ t.aboutTitle }}</h2>
       <p class="about-text">{{ t.aboutText }}</p>
@@ -35,6 +53,16 @@ const t = computed(() => translations[props.language]);
           <strong>{{ activity.name }}:</strong> {{ activity.description }}
         </li>
       </ul>
+      
+      <!-- CTA Button with micro-interactions -->
+      <div class="cta-section">
+        <MicroButton 
+          variant="robotic"
+          href="#contact"
+        >
+          Get in Touch
+        </MicroButton>
+      </div>
     </section>
   </div>
 </template>
@@ -48,10 +76,22 @@ const t = computed(() => translations[props.language]);
   gap: 0.5vw;
 }
 
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+}
+
 .banner {
   width: 15vw;
   height: 10vw;
-  margin-top: 1vw;
+}
+
+.hero-robot {
+  margin: 0 auto;
 }
 
 .snapshot {
@@ -105,6 +145,13 @@ h2 {
 .mission-list li,
 .activities-list li {
   margin-bottom: 0.5vw;
+}
+
+.cta-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2vw;
 }
 
 @media only screen and (max-width: 1000px) {
