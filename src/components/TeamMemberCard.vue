@@ -21,17 +21,14 @@ const props = defineProps({
 // Map of team member names to their image paths
 const imageMap: Record<string, string> = {
   'Șerban': new URL('../assets/images/Serban.jpeg', import.meta.url).href,
-  'David': new URL('../assets/images/David.jpeg', import.meta.url).href,
   'David Grigore': new URL('../assets/images/David.jpeg', import.meta.url).href,
   'Ștefan Albu': new URL('../assets/images/Stefan.jpeg', import.meta.url).href,
-  'Stefan Albu': new URL('../assets/images/Stefan.jpeg', import.meta.url).href,
   'Alexia Vancea': new URL('../assets/images/Alexia.jpeg', import.meta.url).href,
   'Andreea Ioniță': new URL('../assets/images/Andreea.jpeg', import.meta.url).href,
   'Andreea Ionita': new URL('../assets/images/Andreea.jpeg', import.meta.url).href,
   'Cristiana Balan': new URL('../assets/images/Cristian.jpeg', import.meta.url).href,
   'Maia': new URL('../assets/images/Maia.jpeg', import.meta.url).href,
   'Rareș': new URL('../assets/images/Rares.jpeg', import.meta.url).href,
-  'Rares': new URL('../assets/images/Rares.jpeg', import.meta.url).href,
   'Aayush': new URL('../assets/images/Aayush.jpeg', import.meta.url).href,
 };
 
