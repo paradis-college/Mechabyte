@@ -60,7 +60,7 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
           variant="robotic"
           href="#contact"
         >
-          Get in Touch
+          {{ t.contactCta }}
         </MicroButton>
       </div>
     </section>

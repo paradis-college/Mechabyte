@@ -69,6 +69,7 @@ const updateIdleAnimation = () => {
 };
 
 let mediaQuery: MediaQueryList | null = null;
+let handleChange: ((e: MediaQueryListEvent) => void) | null = null;
 
 onMounted(() => {
   prefersReducedMotion.value = checkReducedMotion();
@@ -83,7 +84,7 @@ onMounted(() => {
   
   // Listen for reduced motion preference changes
   mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const handleChange = (e: MediaQueryListEvent) => {
+  handleChange = (e: MediaQueryListEvent) => {
     prefersReducedMotion.value = e.matches;
     if (e.matches && animationFrameId !== null) {
       cancelAnimationFrame(animationFrameId);
@@ -101,8 +102,8 @@ onUnmounted(() => {
     cancelAnimationFrame(animationFrameId);
   }
   window.removeEventListener('mousemove', handleMouseMove);
-  if (mediaQuery) {
-    mediaQuery.removeEventListener('change', () => {});
+  if (mediaQuery && handleChange) {
+    mediaQuery.removeEventListener('change', handleChange);
   }
 });
 

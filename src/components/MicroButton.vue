@@ -32,11 +32,13 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <a
-    v-if="href"
+  <component
+    :is="href ? 'a' : 'button'"
     :href="href"
+    :type="!href ? type : undefined"
     :class="buttonClasses"
-    :aria-disabled="disabled"
+    :disabled="!href ? disabled : undefined"
+    :aria-disabled="href && disabled ? true : undefined"
     @click="handleClick"
   >
     <span class="button-content">
@@ -59,35 +61,7 @@ const handleClick = (event: MouseEvent) => {
         <circle cx="12" cy="12" r="0.8" fill="currentColor" />
       </svg>
     </span>
-  </a>
-  <button
-    v-else
-    :type="type"
-    :class="buttonClasses"
-    :disabled="disabled"
-    @click="handleClick"
-  >
-    <span class="button-content">
-      <slot />
-      <svg 
-        class="button-cog" 
-        width="16" 
-        height="16" 
-        viewBox="0 0 16 16" 
-        aria-hidden="true"
-      >
-        <circle cx="8" cy="8" r="2.5" fill="currentColor" />
-        <circle cx="8" cy="2" r="1" fill="currentColor" />
-        <circle cx="8" cy="14" r="1" fill="currentColor" />
-        <circle cx="2" cy="8" r="1" fill="currentColor" />
-        <circle cx="14" cy="8" r="1" fill="currentColor" />
-        <circle cx="4" cy="4" r="0.8" fill="currentColor" />
-        <circle cx="12" cy="4" r="0.8" fill="currentColor" />
-        <circle cx="4" cy="12" r="0.8" fill="currentColor" />
-        <circle cx="12" cy="12" r="0.8" fill="currentColor" />
-      </svg>
-    </span>
-  </button>
+  </component>
 </template>
 
 <style scoped>
