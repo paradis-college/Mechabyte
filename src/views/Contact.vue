@@ -35,7 +35,7 @@ const t = computed(() => translations[props.language]);
       </div>
       
       <div class="social-section">
-        <h2>{{ language === 'en' ? 'Follow Us' : 'Urmărește-ne' }}</h2>
+        <h2>{{ t.followUsTitle }}</h2>
         <div class="social-links">
           <a :href="t.contactDetails.instagram" target="_blank" rel="noopener noreferrer" class="social-link">
             <span class="social-icon">📸</span>
