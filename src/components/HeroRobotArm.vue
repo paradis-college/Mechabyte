@@ -43,7 +43,8 @@ const handleMouseMove = (event: MouseEvent) => {
   const svgY = ((event.clientY - rect.top) / rect.height) * 200;
   
   // Calculate target position relative to shoulder (100, 150)
-  targetX = svgX - 100;
+  // Negate X to fix horizontal flip (so right = positive angles, left = negative angles)
+  targetX = -(svgX - 100);
   targetY = svgY - 150;
 };
 
@@ -85,12 +86,14 @@ const calculateIK = (tx: number, ty: number) => {
   const elbowAngle = Math.acos(Math.max(-1, Math.min(1, cosElbow)));
   
   // Shoulder angle
-  const targetAngle = Math.atan2(-reachableY, reachableX); // Note: -y because SVG y increases downward
+  const targetAngle = Math.atan2(reachableY, reachableX); // SVG y increases downward (positive is down)
   const cosAlpha = (upperArmLength * upperArmLength + dist * dist - forearmLength * forearmLength) / 
                    (2 * upperArmLength * dist);
   const alpha = Math.acos(Math.max(-1, Math.min(1, cosAlpha)));
   
-  // Shoulder rotation (we want arm pointing up initially, so add 90 degrees)
+  // Shoulder rotation
+  // For elbow-down configuration, subtract alpha; for proper reach, we need to consider arm orientation
+  // Initial arm points up (-90°), so we calculate angle from upward position
   const shoulderAngle = targetAngle + alpha - Math.PI / 2;
   
   // Convert to degrees
