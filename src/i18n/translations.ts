@@ -27,6 +27,7 @@ export type Translation = {
   valuesTitle: string;
   valuesIntro: string;
   valuesList: Array<{ title: string; description: string }>;
+  ambassadorRoleTitle: string;
   ambassadorStatement: string;
   valuesClosing: string;
 
@@ -42,8 +43,11 @@ export type Translation = {
   nonTechnicalTeamTitle: string;
   mentorsTitle: string;
   alumniTitle: string;
+  collaborationTitle: string;
   teamCollaboration: string;
+  trainingTitle: string;
   teamTraining: string;
+  teamEnvironmentTitle: string;
   teamEnvironment: string;
 
   // Sponsors page
@@ -54,6 +58,8 @@ export type Translation = {
   sponsorshipImpact: string[];
   whySponsorTitle: string;
   whySponsorPoints: string[];
+  becomeSponsorTitle: string;
+  becomeSponsorText: string;
 
   // Support page
   supportTitle: string;
@@ -66,6 +72,8 @@ export type Translation = {
   donateText: string;
   mentorshipTitle: string;
   mentorshipText: string;
+  taxDeductibleTitle: string;
+  taxDeductibleText: string;
 
   // Contact page
   contactTitle: string;
@@ -84,7 +92,10 @@ export type Translation = {
     instagram: string;
     tiktok: string;
   };
+  followUsTitle: string;
+  scheduleDemoTitle: string;
   scheduleDemo: string;
+  stayConnectedTitle: string;
   connectWithUs: string;
 };
 
@@ -168,6 +179,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'We embrace every challenge as an opportunity to grow, fostering a culture where questions are encouraged and mistakes are viewed as valuable learning experiences.'
       }
     ],
+    ambassadorRoleTitle: 'Team Ambassador Role',
     ambassadorStatement: 'Members represent not only the team but also the educational organisation and the Nație prin Educație programme, acting as ambassadors for STEM education, innovation, and gracious professionalism in all their interactions.',
     valuesClosing: 'These values guide our daily work, from designing and building our robot to engaging with sponsors and conducting outreach programs. They remind us that success in FTC is measured not just by competition results, but by the positive impact we make on each other and our community.',
 
@@ -232,8 +244,11 @@ export const translations: { en: Translation; ro: Translation } = {
     nonTechnicalTeamTitle: 'Non-Technical Team',
     mentorsTitle: 'Mentors',
     alumniTitle: 'Alumni',
+    collaborationTitle: 'Collaboration Across Departments',
     teamCollaboration: 'Our team operates on the principle of collaboration across all departments. Technical and non-technical members work closely together, recognizing that success in FTC requires both engineering excellence and effective communication, marketing, and outreach. Regular team meetings ensure everyone stays informed and aligned with our goals, while sub-team sessions allow specialists to dive deep into their areas of expertise.',
+    trainingTitle: 'Training New Members',
     teamTraining: 'Training new members is a priority at Mechabyte. We provide comprehensive onboarding that includes technical workshops, team culture introduction, and hands-on experience with our robot and tools. Experienced members mentor newcomers, creating a supportive environment where everyone can grow. We believe in learning by doing, so new members quickly become involved in real projects where they can apply their skills and gain confidence.',
+    teamEnvironmentTitle: 'Team Environment',
     teamEnvironment: 'We foster an inclusive and supportive environment where every team member feels valued and empowered to contribute. Our culture emphasizes gracious professionalism, encouraging members to help each other, celebrate successes together, and learn from setbacks as a team. Beyond robotics, we build lasting friendships and develop life skills like time management, leadership, and effective communication that will serve our members well beyond their time with Mechabyte.',
 
     sponsorsTitle: 'Our Sponsors',
@@ -257,6 +272,8 @@ export const translations: { en: Translation; ro: Translation } = {
       'Demonstrate corporate social responsibility and community engagement, making a tangible impact on youth development in Iași',
       'Access to talented students for internships and recruitment opportunities, connecting with motivated individuals passionate about technology'
     ],
+    becomeSponsorTitle: 'Become a Sponsor',
+    becomeSponsorText: 'Join us in empowering the next generation of innovators. Your support will help us continue developing technical skills, competing at the highest level, and inspiring our community through STEM education.',
 
     supportTitle: 'Support Our Mission',
     supportIntro: 'There are many ways to support Mechabyte and contribute to STEM education in our community. Whether through financial sponsorship, volunteer time, equipment donations, or mentorship, your support makes a real difference.',
@@ -275,6 +292,8 @@ export const translations: { en: Translation; ro: Translation } = {
     donateText: 'Hardware donations are incredibly valuable to our team. We can always use components such as motors, sensors, aluminum extrusions, fasteners, electronics, and tools. Even outdated equipment can be useful for prototyping and learning. If you or your organization has surplus materials that could benefit a robotics team, please reach out to us.',
     mentorshipTitle: 'Mentorship Programs',
     mentorshipText: 'Professional mentors provide invaluable guidance to help our team grow. Mentors can work with specific sub-teams (programming, CAD, marketing) or provide overall guidance on project management, team dynamics, and strategy. Mentorship can be as involved or flexible as your schedule allows, from weekly meetings to occasional check-ins and competition attendance.',
+    taxDeductibleTitle: 'Tax Benefits',
+    taxDeductibleText: 'Contributions to Mechabyte may be tax-deductible as supporting educational initiatives. We provide all necessary documentation for your records. Contact us to learn more about how your contribution can benefit both our team and your organization.',
 
     contactTitle: 'Get In Touch',
     contactIntro: 'We would love to hear from you! Whether you are interested in sponsoring our team, volunteering, scheduling a robot demonstration, or simply learning more about what we do, please reach out through any of the channels below.',
@@ -292,7 +311,10 @@ export const translations: { en: Translation; ro: Translation } = {
       instagram: 'Instagram',
       tiktok: 'TikTok'
     },
+    followUsTitle: 'Follow Us',
+    scheduleDemoTitle: 'Schedule a Demo',
     scheduleDemo: 'Interested in seeing our robot in action? We regularly conduct demonstrations for schools, organizations, and community groups. Contact us to schedule a visit or invite us to your event. Our team is excited to share our passion for robotics and inspire others to explore STEM fields.',
+    stayConnectedTitle: 'Stay Connected',
     connectWithUs: 'Follow us on social media to stay updated on our progress, competitions, and community activities. We regularly share behind-the-scenes content, technical updates, and stories from our team members. Join our community and be part of our robotics journey!'
   },
 
@@ -374,6 +396,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'Îmbrățișăm fiecare provocare ca o oportunitate de a crește, promovând o cultură în care întrebările sunt încurajate și greșelile sunt văzute ca experiențe valoroase de învățare.'
       }
     ],
+    ambassadorRoleTitle: 'Rolul de Ambasador al Echipei',
     ambassadorStatement: 'Membrii reprezintă nu doar echipa, ci și organizația educațională și programul Nație prin Educație, acționând ca ambasadori pentru educația STEM, inovație și profesionalism grațios în toate interacțiunile lor.',
     valuesClosing: 'Aceste valori ghidează munca noastră zilnică, de la proiectarea și construirea robotului nostru până la implicarea cu sponsorii și desfășurarea programelor de outreach. Ne amintesc că succesul în FTC este măsurat nu doar prin rezultatele competiției, ci prin impactul pozitiv pe care îl avem unul asupra celuilalt și asupra comunității noastre.',
 
@@ -438,8 +461,11 @@ export const translations: { en: Translation; ro: Translation } = {
     nonTechnicalTeamTitle: 'Echipa Non-Tehnică',
     mentorsTitle: 'Mentori',
     alumniTitle: 'Alumni',
+    collaborationTitle: 'Colaborare Între Departamente',
     teamCollaboration: 'Echipa noastră operează pe principiul colaborării între toate departamentele. Membrii tehnici și non-tehnici lucrează îndeaproape împreună, recunoscând că succesul în FTC necesită atât excelență în inginerie, cât și comunicare eficientă, marketing și outreach. Întâlnirile regulate ale echipei asigură că toată lumea rămâne informată și aliniată cu obiectivele noastre, în timp ce sesiunile sub-echipelor permit specialiștilor să aprofundeze în domeniile lor de expertiză.',
+    trainingTitle: 'Instruirea Noilor Membri',
     teamTraining: 'Instruirea noilor membri este o prioritate la Mechabyte. Oferim un onboarding cuprinzător care include workshop-uri tehnice, introducere în cultura echipei și experiență practică cu robotul și uneltele noastre. Membrii experimentați îndrumă noii veniți, creând un mediu de susținere în care toată lumea poate crește. Credem în învățarea prin practică, astfel încât noii membri se implică rapid în proiecte reale unde pot aplica abilitățile lor și câștiga încredere.',
+    teamEnvironmentTitle: 'Mediul Echipei',
     teamEnvironment: 'Promovăm un mediu incluziv și de susținere în care fiecare membru al echipei se simte valorizat și împuternicit să contribuie. Cultura noastră subliniază profesionalismul grațios, încurajând membrii să se ajute reciproc, să sărbătorească succesele împreună și să învețe din eșecuri ca o echipă. Dincolo de robotică, construim prietenii durabile și dezvoltăm abilități de viață precum managementul timpului, leadershipul și comunicarea eficientă care vor servi membrii noștri mult după timpul lor cu Mechabyte.',
 
     sponsorsTitle: 'Sponsorii Noștri',
@@ -463,6 +489,8 @@ export const translations: { en: Translation; ro: Translation } = {
       'Demonstrați responsabilitate socială corporativă și implicare comunitară, având un impact tangibil asupra dezvoltării tinerilor din Iași',
       'Acces la studenți talentați pentru stagii și oportunități de recrutare, conectându-vă cu persoane motivate pasionate de tehnologie'
     ],
+    becomeSponsorTitle: 'Deveniți Sponsor',
+    becomeSponsorText: 'Alăturați-vă nouă în împuternicirea următorei generații de inovatori. Susținerea dumneavoastră ne va ajuta să continuăm să dezvoltăm abilități tehnice, să concurăm la cel mai înalt nivel și să inspirăm comunitatea noastră prin educația STEM.',
 
     supportTitle: 'Susține Misiunea Noastră',
     supportIntro: 'Există multe modalități de a susține Mechabyte și de a contribui la educația STEM în comunitatea noastră. Fie prin sponsorizare financiară, timp voluntar, donații de echipamente sau mentorat, susținerea dumneavoastră face o diferență reală.',
@@ -481,6 +509,8 @@ export const translations: { en: Translation; ro: Translation } = {
     donateText: 'Donațiile de hardware sunt incredibil de valoroase pentru echipa noastră. Putem folosi întotdeauna componente precum motoare, senzori, profile de aluminiu, elemente de fixare, electronice și unelte. Chiar și echipamentele depășite pot fi utile pentru prototipare și învățare. Dacă dumneavoastră sau organizația dumneavoastră aveți materiale în surplus care ar putea beneficia o echipă de robotică, vă rugăm să ne contactați.',
     mentorshipTitle: 'Programe de Mentorat',
     mentorshipText: 'Mentorii profesioniști oferă îndrumare neprețuită pentru a ajuta echipa noastră să crească. Mentorii pot lucra cu sub-echipe specifice (programare, CAD, marketing) sau pot oferi îndrumare generală privind managementul proiectelor, dinamica echipei și strategia. Mentoratul poate fi la fel de implicat sau flexibil pe cât permite programul dumneavoastră, de la întâlniri săptămânale la verificări ocazionale și participarea la competiții.',
+    taxDeductibleTitle: 'Beneficii Fiscale',
+    taxDeductibleText: 'Contribuțiile la Mechabyte pot fi deductibile fiscal ca susținere a inițiativelor educaționale. Oferim toată documentația necesară pentru evidențele dumneavoastră. Contactați-ne pentru a afla mai multe despre cum contribuția dumneavoastră poate beneficia atât echipa noastră, cât și organizația dumneavoastră.',
 
     contactTitle: 'Contactați-ne',
     contactIntro: 'Ne-ar plăcea să auzim de la dumneavoastră! Fie că sunteți interesat să sponsorizați echipa noastră, să faceți voluntariat, să programați o demonstrație cu robotul sau pur și simplu să aflați mai multe despre ce facem, vă rugăm să ne contactați prin oricare dintre canalele de mai jos.',
@@ -498,7 +528,10 @@ export const translations: { en: Translation; ro: Translation } = {
       instagram: 'Instagram',
       tiktok: 'TikTok'
     },
+    followUsTitle: 'Urmăriți-ne',
+    scheduleDemoTitle: 'Programați o Demonstrație',
     scheduleDemo: 'Interesați să vedeți robotul nostru în acțiune? Desfășurăm regulat demonstrații pentru școli, organizații și grupuri comunitare. Contactați-ne pentru a programa o vizită sau invitați-ne la evenimentul dumneavoastră. Echipa noastră este entuziasmată să împărtășească pasiunea noastră pentru robotică și să inspire pe alții să exploreze domeniile STEM.',
+    stayConnectedTitle: 'Rămâneți Conectați',
     connectWithUs: 'Urmăriți-ne pe social media pentru a rămâne la curent cu progresul nostru, competițiile și activitățile comunitare. Împărtășim regulat conținut din culise, actualizări tehnice și povești de la membrii echipei noastre. Alăturați-vă comunității noastre și fiți parte din călătoria noastră robotică!'
   }
 };

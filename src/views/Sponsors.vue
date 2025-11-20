@@ -1,12 +1,62 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
+import SponsorCard from '../components/SponsorCard.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+
+// Sponsor data with images and descriptions
+type Sponsor = {
+  name: string;
+  logo: string;
+  descriptionEn: string;
+  descriptionRo: string;
+  isPrimary?: boolean;
+};
+
+const sponsors = ref<Sponsor[]>([
+  {
+    name: 'Paradis International College',
+    logo: new URL('../assets/images/sponsors/paradis college.jpg', import.meta.url).href,
+    descriptionEn: 'Our home institution and primary sponsor. Paradis International College shares our commitment to excellence in education, innovation, and developing future leaders. Their support provides us with facilities, resources, and the foundation to pursue our robotics goals.',
+    descriptionRo: 'Instituția noastră gazdă și sponsor principal. Paradis International College împărțește angajamentul nostru față de excelența în educație, inovație și dezvoltarea liderilor viitori. Susținerea lor ne oferă facilități, resurse și fundația pentru a ne urmări obiectivele în robotică.',
+    isPrimary: true
+  },
+  {
+    name: 'BRD',
+    logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
+    descriptionEn: 'BRD - Groupe Société Générale supports innovation and education in Romania. Their values of responsibility, commitment, and team spirit align perfectly with Mechabyte\'s mission to inspire young innovators and promote STEM education in our community.',
+    descriptionRo: 'BRD - Groupe Société Générale susține inovația și educația în România. Valorile lor de responsabilitate, angajament și spirit de echipă se aliniază perfect cu misiunea Mechabyte de a inspira tineri inovatori și de a promova educația STEM în comunitatea noastră.'
+  },
+  {
+    name: 'First Tech Challenge',
+    logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
+    descriptionEn: 'FIRST Tech Challenge is the global robotics competition that brings our team together. FTC shares our values of gracious professionalism, innovation, and teamwork, providing the framework for our growth and development in robotics.',
+    descriptionRo: 'FIRST Tech Challenge este competiția globală de robotică care ne reunește echipa. FTC împărtășește valorile noastre de profesionalism grațios, inovație și muncă în echipă, oferind cadrul pentru creșterea și dezvoltarea noastră în robotică.'
+  },
+  {
+    name: 'Nație prin Educație',
+    logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
+    descriptionEn: 'Nație prin Educație is a movement dedicated to transforming Romania through quality education. Their vision of empowering youth through learning resonates with Mechabyte\'s commitment to STEM education and community outreach.',
+    descriptionRo: 'Nație prin Educație este o mișcare dedicată transformării României prin educație de calitate. Viziunea lor de a împuternici tinerii prin învățare rezonează cu angajamentul Mechabyte față de educația STEM și implicarea comunitară.'
+  },
+  {
+    name: 'Professional Dentist',
+    logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
+    descriptionEn: 'Professional Dentist supports our team with their commitment to excellence and precision. Just as they focus on meticulous care in dental health, we apply the same attention to detail in our robot design and engineering processes.',
+    descriptionRo: 'Professional Dentist sprijină echipa noastră cu angajamentul lor față de excelență și precizie. Așa cum ei se concentrează pe îngrijirea meticuloasă a sănătății dentare, noi aplicăm aceeași atenție la detalii în designul robotului și procesele de inginerie.'
+  },
+  {
+    name: 'SAM Ideas',
+    logo: new URL('../assets/images/sponsors/SAM ideas.jpg', import.meta.url).href,
+    descriptionEn: 'SAM Ideas champions innovation and creative problem-solving. Their support helps us push boundaries in robotics design and encourages us to think outside the box, perfectly aligning with our value of continuous innovation.',
+    descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei, aliniate perfect cu valoarea noastră de inovație continuă.'
+  }
+]);
 </script>
 
 <template>
@@ -15,11 +65,18 @@ const t = computed(() => translations[props.language]);
       <h1>{{ t.sponsorsTitle }}</h1>
       <p class="intro-text">{{ t.sponsorsIntro }}</p>
       
-      <div class="sponsors-notice">
+      <div class="sponsors-section">
         <h2>{{ t.currentSponsorsTitle }}</h2>
-        <p>{{ language === 'en' 
-          ? 'We are actively seeking sponsors to support our mission. Your organization could be featured here!' 
-          : 'Căutăm în mod activ sponsori pentru a sprijini misiunea noastră. Organizația dumneavoastră ar putea fi prezentată aici!' }}</p>
+        <div class="sponsors-grid">
+          <SponsorCard 
+            v-for="(sponsor, index) in sponsors" 
+            :key="index"
+            :name="sponsor.name"
+            :logo="sponsor.logo"
+            :description="language === 'en' ? sponsor.descriptionEn : sponsor.descriptionRo"
+            :is-primary="sponsor.isPrimary || false"
+          />
+        </div>
       </div>
       
       <div class="impact-section">
@@ -87,18 +144,17 @@ h2 {
   margin-bottom: 1vw;
 }
 
-.sponsors-notice {
+.sponsors-section {
   width: 100%;
-  padding: 1.5vw;
-  background: var(--mechabyte-grey);
-  border: 0.1vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-  text-align: center;
+  margin-bottom: 2vw;
 }
 
-.sponsors-notice p {
-  line-height: 1.6;
-  font-size: clamp(14px, 1.2vw, 20px);
+.sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2vw;
+  width: 100%;
+  margin-top: 1vw;
 }
 
 .impact-section {
@@ -198,6 +254,11 @@ h2 {
   .content-section {
     width: 90vw;
     padding: 20px;
+  }
+
+  .sponsors-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .points-grid {
