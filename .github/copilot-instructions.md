@@ -91,7 +91,7 @@ src/
 
 ### Adding a Team Member
 1. Update the `members` array in App.vue
-2. Ensure the member object includes: name, department, and role
+2. Ensure the member object includes: name, department, and role (optional)
 3. Place in the appropriate department section
 
 ### Adding New Content Section
