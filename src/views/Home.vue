@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import GearConveyor from '../components/GearConveyor.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -11,6 +12,10 @@ const t = computed(() => translations[props.language]);
 
 <template>
   <div class="home-page">
+    <!-- Decorative gear background with circuit board traces - positioned behind content -->
+    <!-- To enable parallax, change to: <GearConveyor :enable-parallax="true" /> -->
+    <GearConveyor />
+    
     <img class="banner" alt="Mechabyte banner" src="/banner.png" />
     <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
     
@@ -41,11 +46,19 @@ const t = computed(() => translations[props.language]);
 
 <style scoped>
 .home-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   gap: 0.5vw;
+}
+
+.banner,
+.snapshot,
+.content-section {
+  position: relative;
+  z-index: 1;
 }
 
 .banner {
