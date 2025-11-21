@@ -6,6 +6,7 @@ export type Translation = {
     values: string;
     achievements: string;
     team: string;
+    portfolio: string;
     sponsors: string;
     support: string;
     contact: string;
@@ -108,6 +109,68 @@ export type Translation = {
   featureTeamworkDesc: string;
   featureCompetitionTitle: string;
   featureCompetitionDesc: string;
+
+  // Portfolio page
+  portfolioTitle: string;
+  portfolioSubtitle: string;
+  portfolioMission: string;
+  ourTeamTitle: string;
+  intoTheDeepSeason: string;
+  centerstageSeason: string;
+  previousSeasonTitle: string;
+  gameStrategyTitle: string;
+  autonomousTitle: string;
+  teleOpTitle: string;
+  endgameTitle: string;
+  robotEvolutionTitle: string;
+  driveTrainTitle: string;
+  intakeTitle: string;
+  armTitle: string;
+  launcherTitle: string;
+  programmingTitle: string;
+  driverControlsTitle: string;
+  outreachEventsTitle: string;
+  socialMediaTitle: string;
+  inPersonEventsTitle: string;
+  sustainabilityTitle: string;
+  fundraisingTitle: string;
+  sponsorsListTitle: string;
+  sustainabilityPlanTitle: string;
+  
+  // Portfolio content
+  portfolioIntoTheDeepMentors: string;
+  portfolioIntoTheDeepNonTechnical: string;
+  portfolioIntoTheDeepTechnical: string;
+  portfolioCenterstageMentor: string;
+  portfolioCenterstageNonTechnical: string;
+  portfolioCenterstageTechnical: string;
+  
+  // Game strategy content
+  centerstageAutonomous: string;
+  centerstageTeleOp: string;
+  centerstageEndgame: string;
+  intoTheDeepTeleOp: string;
+  intoTheDeepEndgame: string;
+  
+  // Robot evolution content
+  centerstageDriveTrainEvolution: string;
+  centerstageIntakeEvolution: string;
+  centerstageArmEvolution: string;
+  centerstageLauncherEvolution: string;
+  intoTheDeepFirstVersion: string;
+  intoTheDeepUpgradeAttempts: string;
+  intoTheDeepCurrentVersion: string;
+  intoTheDeepConstructionImprovements: string;
+  
+  // Programming content
+  programmingDescription: string;
+  driverLayoutDescription: string;
+  
+  // Outreach content
+  socialMediaDescription: string;
+  outreachEvents: Array<{ name: string; description: string }>;
+  fundraisingDescription: string;
+  sustainabilityDescription: string;
 };
 
 // Translations object with English and Romanian content
@@ -118,6 +181,7 @@ export const translations: { en: Translation; ro: Translation } = {
       values: 'Values',
       achievements: 'Achievements',
       team: 'Team',
+      portfolio: 'Portfolio',
       sponsors: 'Sponsors',
       support: 'Support',
       contact: 'Contact'
@@ -338,7 +402,106 @@ export const translations: { en: Translation; ro: Translation } = {
     featureTeamworkTitle: 'Teamwork',
     featureTeamworkDesc: 'Collaborative environment where diverse skills come together to achieve common goals.',
     featureCompetitionTitle: 'Competition Ready',
-    featureCompetitionDesc: 'Preparing for FTC competitions with rigorous testing, iteration, and strategic planning.'
+    featureCompetitionDesc: 'Preparing for FTC competitions with rigorous testing, iteration, and strategic planning.',
+
+    // Portfolio page
+    portfolioTitle: 'Mechabyte #22590',
+    portfolioSubtitle: 'Engineering Portfolio – Centerstage & Into the Deep',
+    portfolioMission: 'Mechabyte was founded on September 25, 2023, during Science Week at Paradise International College. Our team was created to learn and discover new skills while having fun. We aim to implement STEM core values—responsibility, compassion, and perseverance—constantly improve our capabilities, and inspire future generations to follow their dreams in science, technology, engineering, and mathematics.',
+    ourTeamTitle: 'Our Team',
+    intoTheDeepSeason: 'Into the Deep Season (2024-2025)',
+    centerstageSeason: 'Centerstage Season (2023-2024)',
+    previousSeasonTitle: 'Previous Season',
+    gameStrategyTitle: 'Game Strategy',
+    autonomousTitle: 'Autonomous',
+    teleOpTitle: 'Tele-Op',
+    endgameTitle: 'Endgame',
+    robotEvolutionTitle: 'Robot Evolution',
+    driveTrainTitle: 'Drive Train',
+    intakeTitle: 'Intake',
+    armTitle: 'Arm',
+    launcherTitle: 'Drone Launcher',
+    programmingTitle: 'Programming & Autonomous',
+    driverControlsTitle: 'Driver Controls',
+    outreachEventsTitle: 'Outreach & Events',
+    socialMediaTitle: 'Social Media Strategy',
+    inPersonEventsTitle: 'In-Person Events',
+    sustainabilityTitle: 'Sustainability & Funding',
+    fundraisingTitle: 'Fundraising Activities',
+    sponsorsListTitle: 'Our Sponsors',
+    sustainabilityPlanTitle: 'Sustainability Plan',
+
+    // Portfolio team content
+    portfolioIntoTheDeepMentors: 'Mentors: Andreea Ionita, Bogdan Andone',
+    portfolioIntoTheDeepNonTechnical: 'Non-Technical: Alexandra Maftei, Veronika Glazkova, Cristiana Balan, Alexandra Sîmbotin Gășpărel',
+    portfolioIntoTheDeepTechnical: 'Technical: Alexia Vancea, Ianis Cotoc, Teodor Matricală, Catrinel Bănuță, Rareș Berheci',
+    portfolioCenterstageMentor: 'Mentor: Andreea Ionita',
+    portfolioCenterstageNonTechnical: 'Non-Technical: Aayush Khadka, Alexia Vancea, Alexandra Maftei',
+    portfolioCenterstageTechnical: 'Technical: Maia Sava (Building & Programming), Șerban Untu (Building & Programming), Rareș Cozma (Building), Cristian Ghidireac (Building & Design), David Grigore (Design & Building), Ștefan Albu (Design)',
+
+    // Game strategy content
+    centerstageAutonomous: 'Robot starts with a pre-loaded pixel in the intake claw. No odometry is used; all movements are based on timing. We have two main starting positions: backstage-facing (drive straight to park and drop pixel) and audience-facing (drive forward to tile C2, then sideways to backstage).',
+    centerstageTeleOp: 'Drivers navigate through the truss or stage door to collect pixels from stacks or the human station. We deliver one pixel at a time to the backdrop. If a pixel falls in backstage, we leave it and fetch another. Our goal is to form mosaics and cross lines on the backdrop for bonus points.',
+    centerstageEndgame: 'We continue scoring pixels for 15-20 seconds, then launch the drone and park in backstage for additional points.',
+    intoTheDeepTeleOp: 'We navigate to pick up one sample at a time from the field or submersible. Samples are placed in the highest basket in the net zone. If a sample falls, we abandon it and fetch a new one to maximize scoring efficiency.',
+    intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then launch the drone and park in the net zone for maximum points.',
+
+    // Robot evolution content
+    centerstageDriveTrainEvolution: 'Started with an X-drive chassis with omni wheels at 45°—stable but too small for all components. Intermediate version used X-drive with flipped metal bars; the control hub was attached with one screw and a zip tie, making it fragile and prone to deformation. Final version features a more stable, spacious chassis with an Expansion Hub, mecanum wheels, and custom holders for hubs, power switch, and motors.',
+    centerstageIntakeEvolution: 'First version was a dynamic intake with a spinning shaft and toilet-brush head pushing pixels up a ramp into two-pixel storage. Dropped due to lack of motors (all 4 used by drive train, no expansion hub). Second version used a single-pixel claw with position servo and toothed wheel—more precise but required accurate alignment. Third version featured a claw opening at an angle using two meshed toothed wheels, making pixel grabbing easier.',
+    centerstageArmEvolution: 'Pantograph-inspired arm (like tram pantographs) keeps the intake angle constant while raising or lowering, eliminating constant readjustment needs. Initially powered by one, then two continuous-rotation servos (insufficient torque caused sagging). Later upgraded to a Tetrix 40:1 motor after obtaining the Expansion Hub.',
+    centerstageLauncherEvolution: 'Thin plate with three channels for drone, elastic band, and sliding rod. The elastic is held under tension by the rod; releasing it launches the drone to scoring zones. Rod is attached to a position servo, armed during auto/tele-op, and released during endgame. Second version improved mounting with custom chassis holes.',
+    intoTheDeepFirstVersion: 'Initial design had several problems: oversized claw that couldn\'t close fully (specimens often fell), heavy intake using butcher-shop material blades to pull samples into storage (too heavy, acted as obstacle when moving forward, blades often aligned and failed to grab), horizontal viper slide with off-center wobbly motor and few support points, vertical viper slide for baskets and submersible (off-center, difficult to attach suitable claw), and a storage box that didn\'t reach the basket with insufficient space.',
+    intoTheDeepUpgradeAttempts: 'We redesigned the claw shape to better fit specimens, but sides didn\'t align well, making gripping difficult. At the first meet, the intake got stuck on the submersible zone edge. The system was too slow, heavy, and fragile. We chose not to use the claw due to these issues.',
+    intoTheDeepCurrentVersion: 'Simplified design with a single vertical slider and attached arm. No transfer between containers—intake grabs sample and slider lifts directly to high basket. Benefits: easily reach high basket, lighter but more durable intake, straight alignment helps precise scoring. Remaining challenge: arm movement due to imperfect hex motor attachment to slider.',
+    intoTheDeepConstructionImprovements: 'Stabilized intake with two extra structural parts. Replaced butcher-shop blades and added stoppers to prevent parallel turning. Created 3D-printed discs with hexagonal centers to lock blades on shaft, fixing rotation issues.',
+
+    // Programming content
+    programmingDescription: 'Both seasons used time-based autonomous because we had no cameras or sensors. Movements are sequences of forward/back/left/right moves with fixed durations. Sometimes we use reduced power at the end to ensure full parking in the zone or backstage.',
+    driverLayoutDescription: 'Centerstage: Initially a single driver handled all tasks due to phone power-delivery issues with two gamepads (Motorola G4 Play). With a new phone (Nokia 5), we split tasks between driver 1 (movement + arm/launcher) and driver 2 (intake). Into the Deep: Driver 1 controls robot movement and slider extension; driver 2 controls intake, out-take, and arm.',
+
+    // Outreach content
+    socialMediaDescription: 'Our main platforms are Instagram and TikTok. We regularly share progress updates, behind-the-scenes content, and competition highlights. We actively engage with other teams through comments, congratulations, and event promotion. As a result, many teams already recognize Mechabyte at meets.',
+    outreachEvents: [
+      {
+        name: 'Movie Night (Home Alone 1)',
+        description: 'Fundraising event at Paradis International College featuring robot showcase and informal STEM discussions.'
+      },
+      {
+        name: 'Sweets and Books Initiative',
+        description: 'Donated sweets and books to children in need, combined with informal discussions about robotics and STEM values.'
+      },
+      {
+        name: 'Paradis Run (November 2)',
+        description: 'Charity event for Little People Association—team both ran and volunteered.'
+      },
+      {
+        name: 'Nikola Tesla Science Festival',
+        description: 'Collaboration with Cyliis and Peppers teams, exchanging advice about FTC.'
+      },
+      {
+        name: 'Winter Dive Meet Iași',
+        description: 'Cooperation with regional teams like Cyliis, Peppers, and Robozzi. Scored 3 out of 6 matches.'
+      },
+      {
+        name: 'Pancakes and Desserts Sale',
+        description: 'Centerstage season fundraiser that raised approximately 5,000 RON.'
+      },
+      {
+        name: 'Christmas Market Decorations',
+        description: 'Sold decorations at Christmas market, raising additional 2,000 RON.'
+      },
+      {
+        name: 'Robotics & AI STEMPOSSUM',
+        description: 'Collaboration with Cyliss and Technical University "Gheorghe Asachi".'
+      },
+      {
+        name: 'UGAL Inventics Saloon',
+        description: 'Participated with RoSophia team, showcasing our robot and innovations.'
+      }
+    ],
+    fundraisingDescription: 'Our fundraising activities across both seasons included selling biscuits, Movie Night tickets, pancakes, decorations, and flowers. These events have been crucial in supporting our operational costs and competition participation.',
+    sustainabilityDescription: 'Our sustainability plan focuses on: recruiting and training younger students to ensure continuity, maintaining alumni support network, partnering with corporations that share our values, and careful budgeting with categories for team expenditure (wheels, cables, electronics) and emergency funds. Main sponsors include Paradis International College, Professional Dentist, and others who believe in our mission.'
   },
 
   ro: {
@@ -347,6 +510,7 @@ export const translations: { en: Translation; ro: Translation } = {
       values: 'Valori',
       achievements: 'Realizări',
       team: 'Echipă',
+      portfolio: 'Portofoliu',
       sponsors: 'Sponsori',
       support: 'Susține',
       contact: 'Contact'
@@ -567,6 +731,105 @@ export const translations: { en: Translation; ro: Translation } = {
     featureTeamworkTitle: 'Muncă în Echipă',
     featureTeamworkDesc: 'Mediu colaborativ în care abilități diverse se unesc pentru a atinge obiective comune.',
     featureCompetitionTitle: 'Pregătit pentru Competiție',
-    featureCompetitionDesc: 'Pregătire pentru competițiile FTC cu testare riguroasă, iterație și planificare strategică.'
+    featureCompetitionDesc: 'Pregătire pentru competițiile FTC cu testare riguroasă, iterație și planificare strategică.',
+
+    // Portfolio page
+    portfolioTitle: 'Mechabyte #22590',
+    portfolioSubtitle: 'Portofoliu de Inginerie – Centerstage și Into the Deep',
+    portfolioMission: 'Mechabyte a fost înființată pe 25 septembrie 2023, în timpul Săptămânii Științei la Paradise International College. Echipa noastră a fost creată pentru a învăța și descoperi abilități noi distrându-ne. Ne propunem să implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—să ne îmbunătățim constant capacitățile și să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică.',
+    ourTeamTitle: 'Echipa Noastră',
+    intoTheDeepSeason: 'Sezonul Into the Deep (2024-2025)',
+    centerstageSeason: 'Sezonul Centerstage (2023-2024)',
+    previousSeasonTitle: 'Sezon Anterior',
+    gameStrategyTitle: 'Strategie de Joc',
+    autonomousTitle: 'Autonom',
+    teleOpTitle: 'Tele-Op',
+    endgameTitle: 'Finalul Jocului',
+    robotEvolutionTitle: 'Evoluția Robotului',
+    driveTrainTitle: 'Tren de Rulare',
+    intakeTitle: 'Colectare',
+    armTitle: 'Braț',
+    launcherTitle: 'Lansator de Dronă',
+    programmingTitle: 'Programare și Autonom',
+    driverControlsTitle: 'Comenzi Șofer',
+    outreachEventsTitle: 'Outreach și Evenimente',
+    socialMediaTitle: 'Strategie Social Media',
+    inPersonEventsTitle: 'Evenimente În Persoană',
+    sustainabilityTitle: 'Sustenabilitate și Finanțare',
+    fundraisingTitle: 'Activități de Strângere de Fonduri',
+    sponsorsListTitle: 'Sponsorii Noștri',
+    sustainabilityPlanTitle: 'Plan de Sustenabilitate',
+
+    // Portfolio team content
+    portfolioIntoTheDeepMentors: 'Mentori: Andreea Ionita, Bogdan Andone',
+    portfolioIntoTheDeepNonTechnical: 'Non-Tehnic: Alexandra Maftei, Veronika Glazkova, Cristiana Balan, Alexandra Sîmbotin Gășpărel',
+    portfolioIntoTheDeepTechnical: 'Tehnic: Alexia Vancea, Ianis Cotoc, Teodor Matricală, Catrinel Bănuță, Rareș Berheci',
+    portfolioCenterstageMentor: 'Mentor: Andreea Ionita',
+    portfolioCenterstageNonTechnical: 'Non-Tehnic: Aayush Khadka, Alexia Vancea, Alexandra Maftei',
+    portfolioCenterstageTechnical: 'Tehnic: Maia Sava (Construcție și Programare), Șerban Untu (Construcție și Programare), Rareș Cozma (Construcție), Cristian Ghidireac (Construcție și Design), David Grigore (Design și Construcție), Ștefan Albu (Design)',
+
+    // Game strategy content
+    centerstageAutonomous: 'Robotul pornește cu un pixel pre-încărcat în gheara de colectare. Nu folosim odometrie; toate mișcările sunt bazate pe timp. Avem două poziții principale de pornire: față către backstage (mers drept pentru parcare și eliberare pixel) și față către public (mers înainte către tile C2, apoi lateral către backstage).',
+    centerstageTeleOp: 'Șoferii navighează prin truss sau ușa scenei pentru a colecta pixeli de la stive sau stația umană. Livrăm câte un pixel pe rând către backdrop. Dacă un pixel cade în backstage, îl lăsăm și luăm altul. Scopul nostru este să formăm mozaicuri și să traversăm linii pe backdrop pentru puncte bonus.',
+    centerstageEndgame: 'Continuăm să marcăm pixeli timp de 15-20 secunde, apoi lansăm drona și parcăm în backstage pentru puncte suplimentare.',
+    intoTheDeepTeleOp: 'Navigăm pentru a lua câte o mostră pe rând de pe teren sau din submersibil. Mostrele sunt plasate în coșul cel mai înalt din zona de plasă. Dacă o mostră cade, o abandonăm și luăm una nouă pentru a maximiza eficiența punctajului.',
+    intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi lansăm drona și parcăm în zona de plasă pentru puncte maxime.',
+
+    // Robot evolution content
+    centerstageDriveTrainEvolution: 'Am început cu un șasiu X-drive cu roți omni la 45°—stabil dar prea mic pentru toate componentele. Versiunea intermediară a folosit X-drive cu bare metalice răsturnate; control hub-ul era atașat cu un șurub și un colier, făcându-l fragil și predispus la deformare. Versiunea finală prezintă un șasiu mai stabil și spațios cu Expansion Hub, roți mecanum și suporturi personalizate pentru hub-uri, întrerupător și motoare.',
+    centerstageIntakeEvolution: 'Prima versiune era o colectare dinamică cu ax rotativ și cap de perie de toaletă împingând pixeli pe o rampă în depozit cu două pixeli. Abandonată din cauza lipsei de motoare (toate 4 folosite de trenul de rulare, fără expansion hub). A doua versiune folosea o gheară cu un singur pixel cu servo de poziție și roată dințată—mai precisă dar necesita aliniere exactă. A treia versiune avea o gheară deschizându-se în unghi folosind două roți dințate angrenate, făcând colectarea pixelilor mai ușoară.',
+    centerstageArmEvolution: 'Braț inspirat de pantograf (ca pantografele de tramvai) menține unghiul de colectare constant la ridicare sau coborâre, eliminând nevoia de reajustare constantă. Inițial alimentat de unul, apoi două servo-uri cu rotație continuă (cuplu insuficient cauzând atârnare). Mai târziu actualizat la un motor Tetrix 40:1 după obținerea Expansion Hub-ului.',
+    centerstageLauncherEvolution: 'Placă subțire cu trei canale pentru dronă, bandă elastică și tijă glisantă. Elasticul este ținut sub tensiune de tijă; eliberarea acesteia lansează drona către zonele de punctaj. Tija este atașată de un servo de poziție, armată în timpul auto/tele-op și eliberată în endgame. A doua versiune a îmbunătățit montarea cu găuri personalizate în șasiu.',
+    intoTheDeepFirstVersion: 'Designul inițial avea mai multe probleme: gheară supradimensionată care nu se putea închide complet (specimene cădeau des), colectare grea folosind lame de material de măcelărie pentru a trage mostre în depozit (prea grea, acționa ca obstacol la mișcarea înainte, lamele se aliniau des și nu reușeau să apuce), glisieră viper orizontală cu motor instabil decentrat și puține puncte de susținere, glisieră viper verticală pentru coșuri și submersibil (decentrată, dificil de atașat o gheară potrivită), și o cutie de depozitare care nu ajungea la coș cu spațiu insuficient.',
+    intoTheDeepUpgradeAttempts: 'Am reproiectat forma ghearei pentru a se potrivi mai bine specimenelor, dar laturile nu se aliniază bine, făcând prinderea dificilă. La prima întâlnire, colectarea s-a blocat pe marginea zonei submersibilului. Sistemul era prea lent, greu și fragil. Am ales să nu folosim gheara din cauza acestor probleme.',
+    intoTheDeepCurrentVersion: 'Design simplificat cu o singură glisieră verticală și braț atașat. Fără transfer între containere—colectarea apucă mostra și glisiera ridică direct la coșul înalt. Beneficii: ajungem ușor la coșul înalt, colectare mai ușoară dar mai durabilă, alinierea dreaptă ajută la punctaj precis. Provocare rămasă: mișcarea brațului din cauza atașării imperfecte a motorului hex la glisieră.',
+    intoTheDeepConstructionImprovements: 'Colectare stabilizată cu două părți structurale suplimentare. Înlocuite lamele de măcelărie și adăugate opritori pentru a preveni rotația paralelă. Create discuri imprimate 3D cu centre hexagonale pentru a fixa lamele pe ax, rezolvând problemele de rotație.',
+
+    // Programming content
+    programmingDescription: 'Ambele sezoane au folosit autonom bazat pe timp deoarece nu aveam camere sau senzori. Mișcările sunt secvențe de deplasări înainte/înapoi/stânga/dreapta cu durată fixă. Uneori folosim putere redusă la final pentru a asigura parcarea completă în zonă sau backstage.',
+    driverLayoutDescription: 'Centerstage: Inițial un singur șofer gestiona toate sarcinile din cauza problemelor de alimentare cu două gamepad-uri (Motorola G4 Play). Cu un telefon nou (Nokia 5), am împărțit sarcinile între șoferul 1 (mișcare + braț/lansator) și șoferul 2 (colectare). Into the Deep: Șoferul 1 controlează mișcarea robotului și extensia glisierei; șoferul 2 controlează colectarea, evacuarea și brațul.',
+
+    // Outreach content
+    socialMediaDescription: 'Platformele noastre principale sunt Instagram și TikTok. Împărtășim regulat actualizări de progres, conținut din culise și puncte culminante ale competiției. Ne implicăm activ cu alte echipe prin comentarii, felicitări și promovarea evenimentelor. Ca rezultat, multe echipe recunosc deja Mechabyte la întâlniri.',
+    outreachEvents: [
+      {
+        name: 'Seară de Film (Singur Acasă 1)',
+        description: 'Eveniment de strângere de fonduri la Paradis International College cu prezentarea robotului și discuții informale STEM.'
+      },
+      {
+        name: 'Inițiativa Dulciuri și Cărți',
+        description: 'Donat dulciuri și cărți copiilor în nevoie, combinat cu discuții informale despre robotică și valori STEM.'
+      },
+      {
+        name: 'Paradis Run (2 noiembrie)',
+        description: 'Eveniment caritabil pentru Asociația Oameni Mici—echipa a alergat și a făcut voluntariat.'
+      },
+      {
+        name: 'Festivalul Științific Nikola Tesla',
+        description: 'Colaborare cu echipele Cyliis și Peppers, schimbând sfaturi despre FTC.'
+      },
+      {
+        name: 'Winter Dive Meet Iași',
+        description: 'Cooperare cu echipe regionale precum Cyliis, Peppers și Robozzi. Marcat 3 din 6 meciuri.'
+      },
+      {
+        name: 'Vânzare Clătite și Deserturi',
+        description: 'Strângere de fonduri sezon Centerstage care a adunat aproximativ 5.000 RON.'
+      },
+      {
+        name: 'Decorațiuni Târg de Crăciun',
+        description: 'Vândut decorațiuni la târgul de Crăciun, strângând încă 2.000 RON.'
+      },
+      {
+        name: 'Robotică și AI STEMPOSSUM',
+        description: 'Colaborare cu Cyliss și Universitatea Tehnică "Gheorghe Asachi".'
+      },
+      {
+        name: 'Salonul UGAL Inventics',
+        description: 'Participat cu echipa RoSophia, prezentând robotul și inovațiile noastre.'
+      }
+    ],
+    fundraisingDescription: 'Activitățile noastre de strângere de fonduri din ambele sezoane au inclus vânzarea de biscuiți, bilete pentru Seara de Film, clătite, decorațiuni și flori. Aceste evenimente au fost cruciale în susținerea costurilor operaționale și participarea la competiții.',
+    sustainabilityDescription: 'Planul nostru de sustenabilitate se concentrează pe: recrutarea și instruirea studenților mai tineri pentru a asigura continuitatea, menținerea rețelei de suport a absolvenților, parteneriat cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli echipă (roți, cabluri, electronice) și fonduri de urgență. Sponsorii principali includ Paradis International College, Professional Dentist și alții care cred în misiunea noastră.'
   }
 };

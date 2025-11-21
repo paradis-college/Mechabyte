@@ -25,6 +25,7 @@ const setLanguage = (lang: 'en' | 'ro') => {
         <RouterLink to="/values" class="nav-link">{{ translations[language].nav.values }}</RouterLink>
         <RouterLink to="/achievements" class="nav-link">{{ translations[language].nav.achievements }}</RouterLink>
         <RouterLink to="/team" class="nav-link">{{ translations[language].nav.team }}</RouterLink>
+        <RouterLink to="/portfolio" class="nav-link">{{ translations[language].nav.portfolio }}</RouterLink>
         <RouterLink to="/sponsors" class="nav-link">{{ translations[language].nav.sponsors }}</RouterLink>
         <RouterLink to="/support" class="nav-link">{{ translations[language].nav.support }}</RouterLink>
         <RouterLink to="/contact" class="nav-link">{{ translations[language].nav.contact }}</RouterLink>
