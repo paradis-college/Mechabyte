@@ -28,11 +28,11 @@ const scrollToSection = (sectionId: string) => {
       
       <div class="cta-buttons">
         <MicroButton 
-          label="Learn More" 
+          :label="t.ctaLearnMore" 
           @click="scrollToSection('about-section')"
         />
         <MicroButton 
-          label="Our Mission" 
+          :label="t.ctaOurMission" 
           variant="secondary"
           @click="scrollToSection('mission-section')"
         />
