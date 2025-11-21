@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import FeatureCardsWithScanner from '../components/FeatureCardsWithScanner.vue';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
 import MicroButton from '../components/MicroButton.vue';
 import FeatureCards from '../components/FeatureCards.vue';
@@ -31,6 +32,9 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
     
     <!-- Feature Cards Section -->
     <FeatureCards :language="language" />
+    
+    <!-- Feature Cards with Scanner Effect -->
+    <FeatureCardsWithScanner />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>

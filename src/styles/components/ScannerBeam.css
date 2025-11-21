@@ -1,0 +1,95 @@
+/* Scanner Beam Effect for Cards */
+
+:root {
+  --scanner-color: hsl(120deg 100% 70% / 30%);
+  --scanner-beam-width: 100px;
+}
+
+.scanner {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Scanner beam pseudo-element */
+.scanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: var(--scanner-beam-width);
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--scanner-color) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover sweep animation */
+.scanner:hover::before {
+  animation: scannerSweep 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+/* One-shot sweep animation when card becomes visible */
+.scanner--sweep::before {
+  animation: scannerSweep 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+@keyframes scannerSweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Mechanical overshoot effect on hover (subtle) */
+.scanner:hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(-2px);
+}
+
+.scanner:active {
+  transform: translateY(0);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .scanner::before,
+  .scanner--sweep::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  
+  .scanner:hover::before {
+    /* Static highlight instead of animation */
+    opacity: 0.2;
+    left: 0;
+    width: 100%;
+    transform: skewX(0);
+    background: var(--scanner-color);
+  }
+  
+  .scanner:hover {
+    transform: none !important;
+  }
+  
+  .scanner:active {
+    transform: none !important;
+  }
+}
