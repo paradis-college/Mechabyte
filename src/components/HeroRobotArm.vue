@@ -35,6 +35,8 @@ const m3 = 1.0; // Mass of third segment
 const L1 = 60;  // Length of first segment
 const L2 = 50;  // Length of second segment
 const L3 = 40;  // Length of third segment
+const damping = 0.99; // Damping coefficient (0.99 = 1% energy loss per frame) - increased damping to prevent speed explosions
+const maxAngularVel = 8.0; // Maximum angular velocity (rad/s) to prevent explosions - reduced from 15.0
 
 // Check for reduced motion preference
 const checkReducedMotion = () => {
@@ -48,10 +50,10 @@ const initializeRandom = () => {
   theta1 = (Math.random() - 0.5) * Math.PI;
   theta2 = (Math.random() - 0.5) * Math.PI;
   theta3 = (Math.random() - 0.5) * Math.PI;
-  // Small initial angular velocities
-  omega1 = (Math.random() - 0.5) * 0.5;
-  omega2 = (Math.random() - 0.5) * 0.5;
-  omega3 = (Math.random() - 0.5) * 0.5;
+  // Small initial angular velocities - reduced for slower start
+  omega1 = (Math.random() - 0.5) * 0.3;
+  omega2 = (Math.random() - 0.5) * 0.3;
+  omega3 = (Math.random() - 0.5) * 0.3;
 };
 
 // Triple pendulum equations of motion (derivatives)
@@ -154,6 +156,17 @@ const updateAnimation = (timestamp: number) => {
   // Update physics with RK4
   rk4Step(dt);
   
+  // Apply damping to prevent speed explosions
+  omega1 *= damping;
+  omega2 *= damping;
+  omega3 *= damping;
+  
+  // Clamp angular velocities to prevent runaway speeds
+  const clamp = (val: number, max: number) => Math.max(-max, Math.min(max, val));
+  omega1 = clamp(omega1, maxAngularVel);
+  omega2 = clamp(omega2, maxAngularVel);
+  omega3 = clamp(omega3, maxAngularVel);
+  
   // Apply rotations to SVG elements
   // Convert from physics angles (radians, vertical = 0) to SVG rotation (degrees)
   const seg1 = segment1Ref.value;
@@ -230,7 +243,7 @@ const svgSize = computed(() => props.size);
     <svg
       :width="svgSize"
       :height="svgSize"
-      viewBox="0 0 200 200"
+      viewBox="-80 -80 360 360"
       role="img"
       aria-label="Interactive robot arm illustration"
       xmlns="http://www.w3.org/2000/svg"
