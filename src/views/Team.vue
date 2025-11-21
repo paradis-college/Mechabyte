@@ -45,24 +45,36 @@ type Member = {
 };
 
 const members = ref<Member[]>([
-  // Technical Team
-  { name: "Alexandra", department: "Technical", role: "Programming" },
-  { name: "Alessia Sabie", department: "Technical", role: "Programming" },
-  { name: "Alexandru Săvescu", department: "Technical", role: "Programming" },
-  { name: "Ștefan Albu", department: "Technical", role: "Hardware" },
-  { name: "Ionas Pilat", department: "Technical", role: "Hardware" },
-  { name: "Luca Stăncila", department: "Technical", role: "CAD" },
-  { name: "David Grigore", department: "Technical", role: "CAD" },
-  { name: "Teodor Matricală", department: "Technical", role: "CAD" },
+  // Technical Team - Into the Deep (2024-2025)
+  { name: "Alexia Vancea", department: "Technical", role: "Technical" },
   { name: "Ianis Cotoc", department: "Technical", role: "Technical" },
-  // Non-Technical Team
+  { name: "Teodor Matricală", department: "Technical", role: "Technical" },
+  { name: "Catrinel Bănuță", department: "Technical", role: "Technical" },
+  { name: "Rareș Berheci", department: "Technical", role: "Technical" },
+  // Non-Technical Team - Into the Deep (2024-2025)
   { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
-  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing" },
+  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing" },
   { name: "Cristiana Balan", department: "Non-Technical", role: "Design" },
-  { name: "Tudor Androne", department: "Non-Technical", role: "Design" },
-  { name: "Lia Onișor", department: "Non-Technical", role: "Outreach" },
-  { name: "Patric Tamaș", department: "Non-Technical", role: "Outreach" },
-  // Mentor
+  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach" },
+  // Mentors - Into the Deep (2024-2025)
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" },
+  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor" }
+]);
+
+// Previous season (Centerstage 2023-2024) members
+const previousSeasonMembers = ref<Member[]>([
+  // Technical Team - Centerstage
+  { name: "Maia Sava", department: "Technical", role: "Building & Programming" },
+  { name: "Șerban Untu", department: "Technical", role: "Building & Programming" },
+  { name: "Rareș Cozma", department: "Technical", role: "Building" },
+  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design" },
+  { name: "David Grigore", department: "Technical", role: "Design & Building" },
+  { name: "Ștefan Albu", department: "Technical", role: "Design" },
+  // Non-Technical Team - Centerstage
+  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing" },
+  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing" },
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
+  // Mentor - Centerstage
   { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" }
 ]);
 
@@ -76,6 +88,18 @@ const nonTechnicalMembers = computed(() =>
 
 const mentors = computed(() => 
   members.value.filter(m => m.department === "Mentor")
+);
+
+const previousTechnicalMembers = computed(() => 
+  previousSeasonMembers.value.filter(m => m.department === "Technical")
+);
+
+const previousNonTechnicalMembers = computed(() => 
+  previousSeasonMembers.value.filter(m => m.department === "Non-Technical")
+);
+
+const previousMentors = computed(() => 
+  previousSeasonMembers.value.filter(m => m.department === "Mentor")
 );
 </script>
 
@@ -153,6 +177,13 @@ const mentors = computed(() =>
           </p>
         </div>
       </transition>
+      <!-- Our Goals Section -->
+      <div class="text-section goals-section">
+        <h2>{{ t.ourGoalsLabel }}</h2>
+        <p>{{ t.ourGoalsText }}</p>
+      </div>
+      
+      <h2 class="season-header">{{ t.intoTheDeepSeason }}</h2>
       
       <div class="team-section">
         <h2>{{ t.technicalTeamTitle }}</h2>
@@ -239,6 +270,48 @@ const mentors = computed(() =>
         </div>
       </transition>
       
+      <!-- Previous Season Section -->
+      <h2 class="season-header previous-season">{{ t.previousSeasonTitle }} - {{ t.centerstageSeason }}</h2>
+      
+      <div class="team-section">
+        <h2>{{ t.technicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in previousTechnicalMembers" 
+            :key="`prev-tech-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <div class="team-section">
+        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in previousNonTechnicalMembers" 
+            :key="`prev-nontech-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <div class="team-section">
+        <h2>{{ t.mentorsTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in previousMentors" 
+            :key="`prev-mentor-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
       <div class="text-sections">
         <div class="text-section">
           <h2>{{ t.collaborationTitle }}</h2>
@@ -292,6 +365,25 @@ h2 {
 .intro-text {
   line-height: 1.6;
   margin-bottom: 1vw;
+}
+
+.goals-section {
+  width: 100%;
+  margin-bottom: 1vw;
+}
+
+.season-header {
+  color: var(--mechabyte-green);
+  font-size: 1.8vw;
+  margin: 2vw 0 1vw 0;
+  padding-bottom: 0.5vw;
+  border-bottom: 0.2vw solid var(--mechabyte-green);
+  width: 100%;
+}
+
+.season-header.previous-season {
+  margin-top: 3vw;
+  opacity: 0.85;
 }
 
 .team-section {
@@ -373,6 +465,17 @@ h2 {
   .content-section {
     width: 90vw;
     padding: 20px;
+  }
+
+  .season-header {
+    font-size: 22px;
+    margin: 25px 0 15px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--mechabyte-green);
+  }
+
+  .season-header.previous-season {
+    margin-top: 35px;
   }
 
   .members-grid {
