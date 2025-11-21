@@ -22,7 +22,7 @@ export type Translation = {
   ftcDescription: string;
   activitiesTitle: string;
   activities: Array<{ name: string; description: string }>;
-
+  contactCta: string;
   // Values page
   valuesTitle: string;
   valuesIntro: string;
@@ -150,6 +150,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'Competitive robotics tournament representing our school and region, showcasing our technical achievements and gracious professionalism on the field'
       }
     ],
+    contactCta: 'Get in Touch',
 
     valuesTitle: 'Our Core Values',
     valuesIntro: 'At Mechabyte, we are guided by fundamental principles that shape how we work, compete, and contribute to our community. These values define our identity and drive our pursuit of excellence.',
@@ -367,6 +368,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'Turneu de robotică competitiv reprezentând școala și regiunea noastră, prezentând realizările noastre tehnice și profesionalismul grațios pe teren'
       }
     ],
+    contactCta: 'Contactați-ne',
 
     valuesTitle: 'Valorile Noastre Fundamentale',
     valuesIntro: 'La Mechabyte, suntem ghidați de principii fundamentale care modelează modul în care lucrăm, concurăm și contribuim la comunitatea noastră. Aceste valori definesc identitatea noastră și conduc căutarea noastră a excelenței.',
