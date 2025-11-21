@@ -98,6 +98,15 @@ const sponsors = ref<Sponsor[]>([
         </div>
       </div>
       
+      <!-- Sustainability Section -->
+      <div class="sustainability-section">
+        <h2>{{ language === 'en' ? 'Sustainability & Growth' : 'Sustenabilitate și Creștere' }}</h2>
+        <p>{{ language === 'en' 
+          ? 'Early seasons relied heavily on fundraising events like pancake sales, biscuit sales, and decorations at Christmas markets. Now, with two full FTC seasons of experience and solid competition results, we can better present our achievements to potential sponsors. Our sustainability plan includes recruiting and training younger students, maintaining an alumni support network, partnering with corporations that share our values, and careful budgeting with categories for equipment expenditure and emergency funds.' 
+          : 'Sezoanele timpurii s-au bazat în mare măsură pe evenimente de strângere de fonduri precum vânzări de clătite, biscuiți și decorațiuni la târgurile de Crăciun. Acum, cu două sezoane complete FTC de experiență și rezultate solide în competiție, putem prezenta mai bine realizările noastre sponsorilor potențiali. Planul nostru de sustenabilitate include recrutarea și instruirea studenților mai tineri, menținerea unei rețele de suport a absolvenților, parteneriate cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli de echipament și fonduri de urgență.' 
+        }}</p>
+      </div>
+      
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
@@ -219,6 +228,20 @@ h2 {
   line-height: 1.6;
 }
 
+.sustainability-section {
+  width: 100%;
+  padding: 1.5vw;
+  background: var(--dark-grey);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  margin-bottom: 2vw;
+}
+
+.sustainability-section p {
+  line-height: 1.7;
+  margin-top: 0.5vw;
+}
+
 .cta-section {
   width: 100%;
   padding: 2vw;
@@ -274,6 +297,11 @@ h2 {
 
   .point-card {
     padding: 15px;
+  }
+
+  .sustainability-section {
+    padding: 15px;
+    margin-bottom: 20px;
   }
 
   .sponsors-notice,
