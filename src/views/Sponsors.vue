@@ -162,11 +162,17 @@ onUnmounted(() => {
         </div>
       </div>
       
+      <!-- Sustainability Section -->
+      <div class="sustainability-section">
+        <h2>{{ t.sustainabilityGrowthLabel }}</h2>
+        <p>{{ t.sustainabilityGrowthText }}</p>
+      </div>
+      
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
         <RouterLink to="/contact" class="cta-button">
-          {{ props.language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
+          {{ t.contactUsLabel }}
         </RouterLink>
       </div>
     </section>
@@ -283,6 +289,20 @@ h2 {
   line-height: 1.6;
 }
 
+.sustainability-section {
+  width: 100%;
+  padding: 1.5vw;
+  background: var(--dark-grey);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  margin-bottom: 2vw;
+}
+
+.sustainability-section p {
+  line-height: 1.7;
+  margin-top: 0.5vw;
+}
+
 .cta-section {
   width: 100%;
   padding: 2vw;
@@ -338,6 +358,11 @@ h2 {
 
   .point-card {
     padding: 15px;
+  }
+
+  .sustainability-section {
+    padding: 15px;
+    margin-bottom: 20px;
   }
 
   .sponsors-notice,
