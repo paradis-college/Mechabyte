@@ -15,7 +15,6 @@ const props = withDefaults(defineProps<Props>(), {
 // Parallax state
 const gearLayer1Ref = ref<HTMLDivElement | null>(null);
 const gearLayer2Ref = ref<HTMLDivElement | null>(null);
-const conveyorRef = ref<HTMLDivElement | null>(null);
 
 let animationFrameId: number | null = null;
 let mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
@@ -34,9 +33,6 @@ const updateParallax = () => {
   }
   if (gearLayer2Ref.value) {
     gearLayer2Ref.value.style.transform = `translateY(${scrollY * 0.15}px)`;
-  }
-  if (conveyorRef.value) {
-    conveyorRef.value.style.transform = `translateY(${scrollY * 0.1}px)`;
   }
 };
 
@@ -67,7 +63,6 @@ onMounted(() => {
           window.removeEventListener('scroll', onScroll);
           if (gearLayer1Ref.value) gearLayer1Ref.value.style.transform = '';
           if (gearLayer2Ref.value) gearLayer2Ref.value.style.transform = '';
-          if (conveyorRef.value) conveyorRef.value.style.transform = '';
         } else {
           // Motion allowed: add scroll listener
           window.addEventListener('scroll', onScroll, { passive: true });
@@ -110,9 +105,6 @@ const gearClass = computed(() => {
 
 <template>
   <div :class="containerClass" :aria-hidden="ariaHidden">
-    <!-- Conveyor stripe background layer -->
-    <div ref="conveyorRef" class="conveyor-layer"></div>
-    
     <!-- Gear layer 1 (background, slower rotation) -->
     <div ref="gearLayer1Ref" class="gear-layer gear-layer-1">
       <svg :class="gearClass" class="gear-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -144,6 +136,21 @@ const gearClass = computed(() => {
         </g>
         <circle cx="50" cy="50" r="12" fill="var(--dark-grey)" />
       </svg>
+      
+      <svg :class="gearClass" class="gear-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="32" fill="var(--robot-metal)" />
+        <g fill="var(--gear-accent)">
+          <rect x="47" y="12" width="6" height="14" rx="2" />
+          <rect x="47" y="74" width="6" height="14" rx="2" />
+          <rect x="12" y="47" width="14" height="6" rx="2" />
+          <rect x="74" y="47" width="14" height="6" rx="2" />
+          <rect x="22" y="22" width="6" height="14" rx="2" transform="rotate(45 25 29)" />
+          <rect x="72" y="22" width="6" height="14" rx="2" transform="rotate(-45 75 29)" />
+          <rect x="22" y="64" width="6" height="14" rx="2" transform="rotate(-45 25 71)" />
+          <rect x="72" y="64" width="6" height="14" rx="2" transform="rotate(45 75 71)" />
+        </g>
+        <circle cx="50" cy="50" r="13" fill="var(--dark-grey)" />
+      </svg>
     </div>
     
     <!-- Gear layer 2 (foreground, faster rotation) -->
@@ -162,6 +169,36 @@ const gearClass = computed(() => {
         </g>
         <circle cx="50" cy="50" r="10" fill="var(--dark-grey)" />
       </svg>
+      
+      <svg :class="gearClass" class="gear-5" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="26" fill="var(--robot-metal)" />
+        <g fill="var(--gear-accent)">
+          <rect x="47" y="20" width="6" height="9" rx="2" />
+          <rect x="47" y="71" width="6" height="9" rx="2" />
+          <rect x="20" y="47" width="9" height="6" rx="2" />
+          <rect x="71" y="47" width="9" height="6" rx="2" />
+          <rect x="30" y="30" width="6" height="9" rx="2" transform="rotate(45 33 34.5)" />
+          <rect x="64" y="30" width="6" height="9" rx="2" transform="rotate(-45 67 34.5)" />
+          <rect x="30" y="61" width="6" height="9" rx="2" transform="rotate(-45 33 65.5)" />
+          <rect x="64" y="61" width="6" height="9" rx="2" transform="rotate(45 67 65.5)" />
+        </g>
+        <circle cx="50" cy="50" r="9" fill="var(--dark-grey)" />
+      </svg>
+      
+      <svg :class="gearClass" class="gear-6" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="24" fill="var(--robot-metal)" />
+        <g fill="var(--gear-accent)">
+          <rect x="47" y="22" width="6" height="8" rx="2" />
+          <rect x="47" y="70" width="6" height="8" rx="2" />
+          <rect x="22" y="47" width="8" height="6" rx="2" />
+          <rect x="70" y="47" width="8" height="6" rx="2" />
+          <rect x="32" y="32" width="6" height="8" rx="2" transform="rotate(45 35 36)" />
+          <rect x="62" y="32" width="6" height="8" rx="2" transform="rotate(-45 65 36)" />
+          <rect x="32" y="60" width="6" height="8" rx="2" transform="rotate(-45 35 64)" />
+          <rect x="62" y="60" width="6" height="8" rx="2" transform="rotate(45 65 64)" />
+        </g>
+        <circle cx="50" cy="50" r="8" fill="var(--dark-grey)" />
+      </svg>
     </div>
   </div>
 </template>
@@ -170,7 +207,6 @@ const gearClass = computed(() => {
 .gear-conveyor-container {
   --robot-metal: hsl(0deg 0% 25% / 100%);
   --gear-accent: hsl(120deg 100% 50% / 30%);
-  --conveyor-bg: hsl(0deg 0% 15% / 100%);
   
   position: fixed;
   top: 0;
@@ -180,24 +216,6 @@ const gearClass = computed(() => {
   overflow: hidden;
   pointer-events: none;
   z-index: -1;
-}
-
-/* Conveyor stripe background */
-.conveyor-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    repeating-linear-gradient(
-      45deg,
-      var(--conveyor-bg),
-      var(--conveyor-bg) 20px,
-      hsl(0deg 0% 18% / 100%) 20px,
-      hsl(0deg 0% 18% / 100%) 40px
-    );
-  opacity: 0.3;
 }
 
 /* Gear layers */
@@ -231,6 +249,14 @@ const gearClass = computed(() => {
   animation: rotate-counter-clockwise 25s linear infinite;
 }
 
+.gear-layer-1 .gear-4 {
+  width: 180px;
+  height: 180px;
+  top: 70%;
+  left: 5%;
+  animation: rotate-clockwise 35s linear infinite;
+}
+
 /* Layer 2 gears (foreground, faster) */
 .gear-layer-2 .gear-3 {
   width: 120px;
@@ -238,6 +264,22 @@ const gearClass = computed(() => {
   top: 40%;
   right: 10%;
   animation: rotate-clockwise 20s linear infinite;
+}
+
+.gear-layer-2 .gear-5 {
+  width: 140px;
+  height: 140px;
+  top: 10%;
+  right: 20%;
+  animation: rotate-counter-clockwise 22s linear infinite;
+}
+
+.gear-layer-2 .gear-6 {
+  width: 100px;
+  height: 100px;
+  top: 45%;
+  left: 15%;
+  animation: rotate-clockwise 18s linear infinite;
 }
 
 /* Rotation animations */
@@ -269,10 +311,6 @@ const gearClass = computed(() => {
   .gear {
     animation: none !important;
   }
-  
-  .conveyor-layer {
-    background: var(--conveyor-bg);
-  }
 }
 
 /* Responsive adjustments */
@@ -287,9 +325,24 @@ const gearClass = computed(() => {
     height: 100px;
   }
   
+  .gear-layer-1 .gear-4 {
+    width: 110px;
+    height: 110px;
+  }
+  
   .gear-layer-2 .gear-3 {
     width: 80px;
     height: 80px;
+  }
+  
+  .gear-layer-2 .gear-5 {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .gear-layer-2 .gear-6 {
+    width: 70px;
+    height: 70px;
   }
 }
 </style>

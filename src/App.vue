@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 import NavBar from './components/NavBar.vue';
+import GearConveyor from './components/GearConveyor.vue';
 
 // Language state - centralized for the entire app
 const language = ref<'en' | 'ro'>('en');
@@ -9,6 +10,7 @@ const language = ref<'en' | 'ro'>('en');
 
 <template>
   <div id="app-container" class="app-container">
+    <GearConveyor />
     <NavBar :language="language" @update:language="language = $event" />
     <RouterView :language="language" />
   </div>
