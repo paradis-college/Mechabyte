@@ -166,11 +166,11 @@ const previousMentors = computed(() =>
         :subtitle="t.teamIntro"
       />
       
-      <div class="role-progression-note" style="background: var(--dark-grey); padding: 1rem; border-left: 3px solid var(--mechabyte-green); margin-bottom: 2rem;">
-        <p v-if="language === 'en'" style="font-size: 0.9rem; font-style: italic;">
+      <div class="role-progression-note">
+        <p v-if="language === 'en'">
           <strong>Role Progression:</strong> Team members advance through Junior (1st year) → Senior (2nd year) → Team Leader (3rd year) as they gain experience.
         </p>
-        <p v-else style="font-size: 0.9rem; font-style: italic;">
+        <p v-else>
           <strong>Progresie Roluri:</strong> Membrii echipei avansează prin Junior (an 1) → Senior (an 2) → Lider de Echipă (an 3) pe măsură ce câștigă experiență.
         </p>
       </div>
@@ -245,7 +245,7 @@ const previousMentors = computed(() =>
       </transition>
       
       <!-- 2025-2026 Season - Current Team -->
-      <h2 class="season-header" style="color: var(--mechabyte-green); margin-top: 3rem;">
+      <h2 class="season-header current">
         {{ language === 'en' ? '2025-2026 Season' : 'Sezonul 2025-2026' }}
       </h2>
       
@@ -302,7 +302,7 @@ const previousMentors = computed(() =>
       </div>
 
       <!-- 2024-2025 Season (Previous) -->
-      <h2 class="season-header" style="margin-top: 3rem;">{{ t.intoTheDeepSeason }}</h2>
+      <h2 class="season-header previous-season">{{ t.intoTheDeepSeason }}</h2>
       
       <div class="team-section">
         <h2>{{ t.technicalTeamTitle }}</h2>
@@ -514,9 +514,25 @@ h2 {
   width: 100%;
 }
 
+.season-header.current {
+  margin-top: 3rem;
+}
+
 .season-header.previous-season {
   margin-top: 3vw;
   opacity: 0.85;
+}
+
+.role-progression-note {
+  background: var(--dark-grey);
+  padding: 1rem;
+  border-left: 3px solid var(--mechabyte-green);
+  margin-bottom: 2rem;
+}
+
+.role-progression-note p {
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .team-section {

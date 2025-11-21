@@ -97,7 +97,7 @@ onUnmounted(() => {
               :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
               variant="secondary"
               @click="showFirstRobotDetails = true"
-              style="margin-top: 1rem;"
+              class="modal-btn"
             />
           </div>
         </div>
@@ -111,25 +111,25 @@ onUnmounted(() => {
       >
         <div v-if="language === 'en'">
           <p>Building our first competitive robot was an incredible learning experience. We started with basic concepts and iterated through multiple prototypes before finalizing our design.</p>
-          <h4 style="color: var(--mechabyte-green); margin-top: 1rem;">Key Features:</h4>
-          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <h4 class="modal-heading">Key Features:</h4>
+          <ul class="modal-list">
             <li>Custom-designed intake mechanism</li>
             <li>Autonomous navigation system</li>
             <li>Precision control software</li>
             <li>Modular design for easy repairs</li>
           </ul>
-          <p style="margin-top: 1rem;">This experience taught us the importance of testing, iteration, and teamwork in robotics engineering.</p>
+          <p class="modal-text">This experience taught us the importance of testing, iteration, and teamwork in robotics engineering.</p>
         </div>
         <div v-else>
           <p>Construirea primului nostru robot competitiv a fost o experiență incredibilă de învățare. Am început cu concepte de bază și am iterat prin multiple prototipuri înainte de a finaliza designul.</p>
-          <h4 style="color: var(--mechabyte-green); margin-top: 1rem;">Caracteristici Cheie:</h4>
-          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <h4 class="modal-heading">Caracteristici Cheie:</h4>
+          <ul class="modal-list">
             <li>Mecanism de intrare proiectat personalizat</li>
             <li>Sistem de navigare autonomă</li>
             <li>Software de control de precizie</li>
             <li>Design modular pentru reparații ușoare</li>
           </ul>
-          <p style="margin-top: 1rem;">Această experiență ne-a învățat importanța testării, iterației și muncii în echipă în ingineria roboticii.</p>
+          <p class="modal-text">Această experiență ne-a învățat importanța testării, iterației și muncii în echipă în ingineria roboticii.</p>
         </div>
       </FindMorePane>
     </section>
@@ -217,6 +217,25 @@ h2 {
 .timeline-content:hover {
   transform: translateX(5px);
   box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+/* Styles for modal content */
+.modal-btn {
+  margin-top: 1rem;
+}
+
+.modal-heading {
+  color: var(--mechabyte-green);
+  margin-top: 1rem;
+}
+
+.modal-list {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.modal-text {
+  margin-top: 1rem;
 }
 
 .year-badge {
