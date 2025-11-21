@@ -254,13 +254,13 @@ const svgSize = computed(() => props.size);
         class="robot-base"
       />
       
-      <!-- Arm group (rotates from shoulder) -->
+      <!-- First segment (rotates from shoulder) -->
       <g 
-        ref="armRef"
-        class="robot-arm"
+        ref="segment1Ref"
+        class="robot-segment-1"
         style="transform-origin: 100px 150px;"
       >
-        <!-- Upper arm -->
+        <!-- First arm segment -->
         <rect 
           x="95" 
           y="90" 
@@ -270,7 +270,7 @@ const svgSize = computed(() => props.size);
           class="robot-segment"
         />
         
-        <!-- Elbow joint -->
+        <!-- First joint -->
         <circle 
           cx="100" 
           cy="90" 
@@ -278,27 +278,52 @@ const svgSize = computed(() => props.size);
           class="robot-joint"
         />
         
-        <!-- Forearm group (rotates from elbow) -->
+        <!-- Second segment (rotates from first joint) -->
         <g
-          ref="forearmRef"
-          class="robot-forearm-group"
+          ref="segment2Ref"
+          class="robot-segment-2"
           style="transform-origin: 100px 90px;"
         >
-          <!-- Forearm -->
+          <!-- Second arm segment -->
           <rect 
             x="95" 
-            y="50" 
+            y="40" 
             width="10" 
-            height="40" 
+            height="50" 
             rx="2"
-            class="robot-segment robot-forearm"
+            class="robot-segment robot-segment-mid"
           />
           
-          <!-- Hand/gripper -->
-          <g class="robot-gripper" style="transform-origin: 100px 50px;">
-            <rect x="92" y="45" width="4" height="10" rx="1" class="robot-finger" />
-            <rect x="104" y="45" width="4" height="10" rx="1" class="robot-finger" />
-            <circle cx="100" cy="50" r="5" class="robot-joint-small" />
+          <!-- Second joint -->
+          <circle 
+            cx="100" 
+            cy="40" 
+            r="7" 
+            class="robot-joint"
+          />
+          
+          <!-- Third segment (rotates from second joint) -->
+          <g
+            ref="segment3Ref"
+            class="robot-segment-3"
+            style="transform-origin: 100px 40px;"
+          >
+            <!-- Third arm segment -->
+            <rect 
+              x="95" 
+              y="0" 
+              width="10" 
+              height="40" 
+              rx="2"
+              class="robot-segment robot-forearm"
+            />
+            
+            <!-- Hand/gripper -->
+            <g class="robot-gripper" style="transform-origin: 100px 0px;">
+              <rect x="92" y="-5" width="4" height="10" rx="1" class="robot-finger" />
+              <rect x="104" y="-5" width="4" height="10" rx="1" class="robot-finger" />
+              <circle cx="100" cy="0" r="5" class="robot-joint-small" />
+            </g>
           </g>
         </g>
       </g>
