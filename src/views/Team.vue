@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import TeamMemberCard from '../components/TeamMemberCard.vue';
 import MicroButton from '../components/MicroButton.vue';
+import SectionHeader from '../components/SectionHeader.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -37,46 +38,100 @@ const toggleSection = (section: string) => {
   }
 };
 
-// Team members data from original App.vue
+// Team members data with role progression
+// Role progression rules:
+// - First year = Junior
+// - Second year = Senior
+// - Third year = Team Leader
+// - Special role mappings applied for specific members as indicated
 type Member = {
   name: string;
   department: string;
   role?: string;
+  season?: string;
 };
 
+// 2025-2026 Season - Current Team
+const currentSeasonMembers = ref<Member[]>([
+  // Technical Team - 2025-2026
+  { name: "Ianis Cotoc", department: "Technical", role: "Team Leader", season: "2025-2026" },
+  { name: "David Grigore", department: "Technical", role: "Senior Design", season: "2025-2026" },
+  { name: "Ștefan Albu", department: "Technical", role: "Senior Design", season: "2025-2026" },
+  { name: "Alexia Vancea", department: "Technical", role: "Senior", season: "2025-2026" },
+  { name: "Teodor Matricală", department: "Technical", role: "Senior", season: "2025-2026" },
+  { name: "Catrinel Bănuță", department: "Technical", role: "Junior", season: "2025-2026" },
+  { name: "Rareș Berheci", department: "Technical", role: "Junior", season: "2025-2026" },
+  // Non-Technical Team - 2025-2026
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Team Leader", season: "2025-2026" },
+  { name: "Veronika Glazkova", department: "Non-Technical", role: "Senior", season: "2025-2026" },
+  { name: "Cristiana Balan", department: "Non-Technical", role: "Senior", season: "2025-2026" },
+  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Junior", season: "2025-2026" },
+  // Collaborators & Mentors - 2025-2026
+  { name: "Bobu Dragos", department: "Collaborator", role: "Collaborator", season: "2025-2026" },
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2025-2026" },
+  { name: "Tudor Tocila", department: "Mentor", role: "Mentor", season: "2025-2026" },
+  { name: "Sebastian Rosca", department: "Mentor", role: "Mentor", season: "2025-2026" },
+]);
+
+// 2024-2025 Season (Into the Deep) - Previous Season
 const members = ref<Member[]>([
   // Technical Team - Into the Deep (2024-2025)
-  { name: "Alexia Vancea", department: "Technical", role: "Technical" },
-  { name: "Ianis Cotoc", department: "Technical", role: "Technical" },
-  { name: "Teodor Matricală", department: "Technical", role: "Technical" },
-  { name: "Catrinel Bănuță", department: "Technical", role: "Technical" },
-  { name: "Rareș Berheci", department: "Technical", role: "Technical" },
+  { name: "Alexia Vancea", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Ianis Cotoc", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Teodor Matricală", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Catrinel Bănuță", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Rareș Berheci", department: "Technical", role: "Technical", season: "2024-2025" },
   // Non-Technical Team - Into the Deep (2024-2025)
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
-  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing" },
-  { name: "Cristiana Balan", department: "Non-Technical", role: "Design" },
-  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach" },
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
+  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
+  { name: "Cristiana Balan", department: "Non-Technical", role: "Design", season: "2024-2025" },
+  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach", season: "2024-2025" },
   // Mentors - Into the Deep (2024-2025)
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" },
-  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor" }
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2024-2025" },
+  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor", season: "2024-2025" }
 ]);
 
 // Previous season (Centerstage 2023-2024) members
 const previousSeasonMembers = ref<Member[]>([
   // Technical Team - Centerstage
-  { name: "Maia Sava", department: "Technical", role: "Building & Programming" },
-  { name: "Șerban Untu", department: "Technical", role: "Building & Programming" },
-  { name: "Rareș Cozma", department: "Technical", role: "Building" },
-  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design" },
-  { name: "David Grigore", department: "Technical", role: "Design & Building" },
-  { name: "Ștefan Albu", department: "Technical", role: "Design" },
+  { name: "Maia Sava", department: "Technical", role: "Building & Programming", season: "2023-2024" },
+  { name: "Șerban Untu", department: "Technical", role: "Building & Programming", season: "2023-2024" },
+  { name: "Rareș Cozma", department: "Technical", role: "Building", season: "2023-2024" },
+  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design", season: "2023-2024" },
+  { name: "David Grigore", department: "Technical", role: "Design & Building", season: "2023-2024" },
+  { name: "Ștefan Albu", department: "Technical", role: "Design", season: "2023-2024" },
   // Non-Technical Team - Centerstage
-  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing" },
-  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing" },
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
+  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
+  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
   // Mentor - Centerstage
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" }
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2023-2024" }
 ]);
+
+// Alumni - members who are no longer active
+const alumniMembers = ref<Member[]>([
+  { name: "Aayush Khadka", department: "Alumni", role: "Marketing (2023-2024)", season: "Alumni" },
+  { name: "Maia Sava", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
+  { name: "Șerban Untu", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
+  { name: "Rareș Cozma", department: "Alumni", role: "Building (2023-2024)", season: "Alumni" },
+  { name: "Cristian Ghidireac", department: "Alumni", role: "Building & Design (2023-2024)", season: "Alumni" },
+]);
+
+const currentTechnicalMembers = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Technical")
+);
+
+const currentNonTechnicalMembers = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Non-Technical")
+);
+
+const currentCollaborators = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Collaborator")
+);
+
+const currentMentors = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Mentor")
+);
 
 const technicalMembers = computed(() => 
   members.value.filter(m => m.department === "Technical")
@@ -106,8 +161,19 @@ const previousMentors = computed(() =>
 <template>
   <div class="team-page">
     <section class="content-section">
-      <h1>{{ t.teamTitle }}</h1>
-      <p class="intro-text">{{ t.teamIntro }}</p>
+      <SectionHeader 
+        :title="t.teamTitle"
+        :subtitle="t.teamIntro"
+      />
+      
+      <div class="role-progression-note" style="background: var(--dark-grey); padding: 1rem; border-left: 3px solid var(--mechabyte-green); margin-bottom: 2rem;">
+        <p v-if="language === 'en'" style="font-size: 0.9rem; font-style: italic;">
+          <strong>Role Progression:</strong> Team members advance through Junior (1st year) → Senior (2nd year) → Team Leader (3rd year) as they gain experience.
+        </p>
+        <p v-else style="font-size: 0.9rem; font-style: italic;">
+          <strong>Progresie Roluri:</strong> Membrii echipei avansează prin Junior (an 1) → Senior (an 2) → Lider de Echipă (an 3) pe măsură ce câștigă experiență.
+        </p>
+      </div>
       
       <div class="cta-buttons">
         <MicroButton 
@@ -177,13 +243,66 @@ const previousMentors = computed(() =>
           </p>
         </div>
       </transition>
-      <!-- Our Goals Section -->
-      <div class="text-section goals-section">
-        <h2>{{ t.ourGoalsLabel }}</h2>
-        <p>{{ t.ourGoalsText }}</p>
+      
+      <!-- 2025-2026 Season - Current Team -->
+      <h2 class="season-header" style="color: var(--mechabyte-green); margin-top: 3rem;">
+        {{ language === 'en' ? '2025-2026 Season' : 'Sezonul 2025-2026' }}
+      </h2>
+      
+      <div class="team-section">
+        <h2>{{ t.technicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentTechnicalMembers" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
       </div>
       
-      <h2 class="season-header">{{ t.intoTheDeepSeason }}</h2>
+      <div class="team-section">
+        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentNonTechnicalMembers" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <div class="team-section" v-if="currentCollaborators.length > 0">
+        <h2>{{ language === 'en' ? 'Collaborators' : 'Colaboratori' }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentCollaborators" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <div class="team-section">
+        <h2>{{ t.mentorsTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentMentors" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+
+      <!-- 2024-2025 Season (Previous) -->
+      <h2 class="season-header" style="margin-top: 3rem;">{{ t.intoTheDeepSeason }}</h2>
       
       <div class="team-section">
         <h2>{{ t.technicalTeamTitle }}</h2>
@@ -305,6 +424,20 @@ const previousMentors = computed(() =>
           <TeamMemberCard 
             v-for="(member, index) in previousMentors" 
             :key="`prev-mentor-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <!-- Alumni Section -->
+      <div class="team-section">
+        <h2>{{ t.alumniTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in alumniMembers" 
+            :key="`alumni-${index}`"
             :member-name="member.name"
             :department="member.department"
             :role="member.role"
