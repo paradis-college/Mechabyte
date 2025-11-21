@@ -2,6 +2,10 @@
 import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import MicroButton from '../components/MicroButton.vue';
+import HeroRobotArm from '../components/HeroRobotArm.vue';
+import MicroButton from '../components/MicroButton.vue';
+import FeatureCards from '../components/FeatureCards.vue';
+import { useRevealOnScroll } from '../composables/useRevealOnScroll';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -35,16 +39,36 @@ const toggleSection = (section: string) => {
       break;
   }
 };
+// Setup reveal animation for welcome text
+const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll();
 </script>
 
 <template>
   <div class="home-page">
-    <img class="banner" alt="Mechabyte banner" src="/banner.png" />
-    <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+    <!-- Hero section with robot arm -->
+    <div class="hero-section">
+      <img class="banner" alt="Mechabyte banner" src="/banner.png" />
+    </div>
+    
+    <!-- Image with overlaid robot arm -->
+    <div class="robot-showcase">
+      <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+      <HeroRobotArm :size="300" class="hero-robot-overlay" />
+    </div>
+    
+    <!-- Feature Cards Section -->
+    <FeatureCards :language="language" />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>
-      <p class="welcome-text">{{ t.homeWelcome }}</p>
+      
+      <!-- Revealed welcome text -->
+      <p 
+        ref="welcomeRef"
+        :class="['welcome-text', 'reveal', { 'is-visible': welcomeVisible }]"
+      >
+        {{ t.homeWelcome }}
+      </p>
       
       <div class="cta-buttons">
         <MicroButton 
@@ -180,6 +204,16 @@ const toggleSection = (section: string) => {
           <strong>{{ activity.name }}:</strong> {{ activity.description }}
         </li>
       </ul>
+      
+      <!-- CTA Button with micro-interactions -->
+      <div class="cta-section">
+        <MicroButton 
+          variant="robotic"
+          href="/contact"
+        >
+          {{ t.contactCta }}
+        </MicroButton>
+      </div>
     </section>
   </div>
 </template>
@@ -193,16 +227,43 @@ const toggleSection = (section: string) => {
   gap: 0.5vw;
 }
 
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+}
+
 .banner {
   width: 15vw;
   height: 10vw;
-  margin-top: 1vw;
+}
+
+.robot-showcase {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2vw;
 }
 
 .snapshot {
   height: 37.5vw;
   width: auto;
   max-width: 100%;
+  display: block;
+}
+
+.hero-robot-overlay {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  z-index: 10;
 }
 
 .content-section {
@@ -303,6 +364,11 @@ h2 {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+.cta-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2vw;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -314,6 +380,10 @@ h2 {
   .snapshot {
     height: auto;
     width: 90vw;
+  }
+
+  .hero-robot-overlay {
+    top: 5%;
   }
 
   .content-section {
