@@ -23,51 +23,51 @@ const sponsors = ref<Sponsor[]>([
   {
     name: 'Paradis International College',
     logo: new URL('../assets/images/sponsors/paradis college.jpg', import.meta.url).href,
-    descriptionEn: 'Our home institution and primary sponsor, providing facilities, resources, and the foundation to pursue our robotics goals.',
-    descriptionRo: 'Instituția noastră gazdă și sponsor principal, oferind facilități, resurse și fundația pentru a ne urmări obiectivele în robotică.',
+    descriptionEn: 'Learned: Institutional excellence starts with solid foundations.',
+    descriptionRo: 'Învățat: Excelența instituțională începe cu fundații solide.',
     isPrimary: true
   },
   {
     name: 'BRD',
     logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
-    descriptionEn: 'BRD supports innovation and education in Romania, aligning with our mission to inspire young innovators.',
-    descriptionRo: 'BRD susține inovația și educația în România, aliniate cu misiunea noastră de a inspira tineri inovatori.'
+    descriptionEn: 'Learned: Financial responsibility powers sustainable innovation.',
+    descriptionRo: 'Învățat: Responsabilitatea financiară alimentează inovația durabilă.'
   },
   {
     name: 'First Tech Challenge',
     logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
-    descriptionEn: 'The global robotics competition that brings our team together and provides the framework for our growth.',
-    descriptionRo: 'Competiția globală de robotică care ne reunește echipa și oferă cadrul pentru creșterea noastră.'
+    descriptionEn: 'Learned: Gracious professionalism in competition and life.',
+    descriptionRo: 'Învățat: Profesionalism grațios în competiție și viață.'
   },
   {
     name: 'Nație prin Educație',
     logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
-    descriptionEn: 'A movement dedicated to transforming Romania through quality education and youth empowerment.',
-    descriptionRo: 'O mișcare dedicată transformării României prin educație de calitate și împuternicirea tinerilor.'
+    descriptionEn: 'Learned: Education transforms nations, one student at a time.',
+    descriptionRo: 'Învățat: Educația transformă națiuni, câte un student.'
   },
   {
     name: 'Professional Dentist',
     logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
-    descriptionEn: 'Supports our team with commitment to excellence and precision in everything we build.',
-    descriptionRo: 'Sprijină echipa noastră cu angajament față de excelență și precizie în tot ce construim.'
+    descriptionEn: 'Learned: Precision and attention to detail matter everywhere.',
+    descriptionRo: 'Învățat: Precizia și atenția la detalii contează peste tot.'
   },
   {
     name: 'SAM Ideas',
     logo: new URL('../assets/images/sponsors/SAM ideas.jpg', import.meta.url).href,
-    descriptionEn: 'SAM Ideas champions innovation and creative problem-solving. Their support helps us push boundaries in robotics design and encourages us to think outside the box.',
-    descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei.'
+    descriptionEn: 'Learned: Think outside the box, build beyond boundaries.',
+    descriptionRo: 'Învățat: Gândește în afara cutiei, construiește dincolo de limite.'
   },
   {
     name: 'Pulse',
     logo: new URL('../assets/images/sponsors/pulse.jpeg', import.meta.url).href,
-    descriptionEn: 'Pulse supports emerging tech talent and innovation initiatives. Their partnership helps us access cutting-edge resources and connect with industry professionals.',
-    descriptionRo: 'Pulse susține talentele tehnologice emergente și inițiativele de inovație. Parteneriatul lor ne ajută să accesăm resurse de ultimă generație și să ne conectăm cu profesioniști din industrie.'
+    descriptionEn: 'Learned: Industry connections accelerate tech growth.',
+    descriptionRo: 'Învățat: Conexiunile din industrie accelerează creșterea tehnologică.'
   },
   {
     name: 'TrustTeam',
     logo: new URL('../assets/images/sponsors/trustteam.jpeg', import.meta.url).href,
-    descriptionEn: 'TrustTeam believes in empowering youth through technology and teamwork. Their support strengthens our collaborative culture and technical capabilities.',
-    descriptionRo: 'TrustTeam crede în împuternicirea tinerilor prin tehnologie și lucru în echipă. Susținerea lor întărește cultura noastră de colaborare și capacitățile tehnice.'
+    descriptionEn: 'Learned: Teamwork + technology = unstoppable force.',
+    descriptionRo: 'Învățat: Muncă în echipă + tehnologie = forță de neoprit.'
   }
 ]);
 

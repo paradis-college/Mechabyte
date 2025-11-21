@@ -195,52 +195,46 @@ const previousMentors = computed(() =>
       <transition name="fade">
         <div v-if="showTeamStructure" class="bonus-content">
           <h3>{{ language === 'en' ? '🏗️ Our Team Structure' : '🏗️ Structura Echipei Noastre' }}</h3>
-          <p v-if="language === 'en'">
-            Mechabyte operates with two parallel teams working in synergy. Our Technical Team focuses on programming, hardware development, and CAD design, 
-            with 9 dedicated members who bring the robot to life. The Non-Technical Team, with 6 members, handles marketing, design, and community outreach. 
-            This dual structure ensures that while our engineers perfect the robot's performance, our outreach team shares our story with the community 
-            and builds partnerships that sustain our program. Our mentor Andreea Ioniță provides guidance and ensures both teams work cohesively toward our common goals.
-          </p>
-          <p v-else>
-            Mechabyte operează cu două echipe paralele care lucrează în sinergie. Echipa Tehnică se concentrează pe programare, dezvoltare hardware și design CAD,
-            cu 9 membri dedicați care dau viață robotului. Echipa Non-Tehnică, cu 6 membri, se ocupă de marketing, design și outreach comunitar.
-            Această structură duală asigură că în timp ce inginerii noștri perfecționează performanța robotului, echipa de outreach împărtășește povestea noastră cu comunitatea
-            și construiește parteneriate care susțin programul nostru. Mentorul nostru Andreea Ioniță oferă îndrumare și asigură că ambele echipe lucrează coeziv către obiectivele noastre comune.
-          </p>
+          <template v-if="language === 'en'">
+            <p>Two teams, one mission. Technical builds robots. Marketing builds community.</p>
+            <p>Engineers perfect performance. Outreach shares our story. Both essential for success.</p>
+          </template>
+          <template v-else>
+            <p>Două echipe, o misiune. Echipa tehnică construiește roboți. Marketing construiește comunitate.</p>
+            <p>Inginerii perfecționează performanța. Outreach-ul împărtășește povestea. Ambele esențiale.</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showCollaborationStyle" class="bonus-content">
           <h3>{{ language === 'en' ? '🤝 How We Work Together' : '🤝 Cum Lucrăm Împreună' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamCollaboration }} Beyond formal meetings, we maintain active group chats where ideas flow 24/7. 
-            Technical and non-technical members regularly cross-pollinate ideas - a designer might suggest a robot feature, 
-            or a programmer might contribute to marketing materials. This fluid collaboration has led to some of our best innovations.
-          </p>
-          <p v-else>
-            {{ t.teamCollaboration }} Dincolo de întâlnirile formale, menținem chat-uri de grup active unde ideile circulă 24/7.
-            Membrii tehnici și non-tehnici își schimbă regulat idei - un designer poate sugera o funcționalitate a robotului,
-            sau un programator poate contribui la materialele de marketing. Această colaborare fluidă a dus la unele dintre cele mai bune inovații ale noastre.
-          </p>
+          <template v-if="language === 'en'">
+            <p>Active group chats 24/7. Ideas flow freely between technical and creative minds.</p>
+            <p>Designers suggest robot features. Programmers help with marketing. Fluid collaboration = best innovations.</p>
+          </template>
+          <template v-else>
+            <p>Chat-uri active 24/7. Ideile circulă liber între mințile tehnice și creative.</p>
+            <p>Designerii sugerează funcții pentru robot. Programatorii ajută la marketing. Colaborare fluidă = cele mai bune inovații.</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showRecruitment" class="bonus-content">
           <h3>{{ language === 'en' ? '🎯 Joining Mechabyte' : '🎯 Alăturarea la Mechabyte' }}</h3>
-          <p v-if="language === 'en'">
-            We recruit new members at the start of each academic year through open information sessions at Paradise International College. 
-            No prior robotics experience is required - we look for passion, dedication, and willingness to learn. New members start with a 
-            2-week orientation where they rotate through all departments to find their best fit. We value diverse perspectives and believe 
-            that every student, regardless of their background, can contribute meaningfully to our team's success.
-          </p>
-          <p v-else>
-            Recrutăm membri noi la începutul fiecărui an academic prin sesiuni de informare deschise la Paradise International College.
-            Nu este necesară experiență anterioară în robotică - căutăm pasiune, dedicare și dorința de a învăța. Membrii noi încep cu o
-            orientare de 2 săptămâni în care rotesc prin toate departamentele pentru a-și găsi cea mai bună potrivire. Prețuim perspectivele diverse și credem
-            că fiecare student, indiferent de experiența sa, poate contribui semnificativ la succesul echipei noastre.
-          </p>
+          <template v-if="language === 'en'">
+            <p>📅 Recruitment: Start of academic year at Paradise College</p>
+            <p>✨ Requirements: Passion + dedication + willingness to learn (no prior experience needed!)</p>
+            <p>🔄 Process: 2-week orientation rotating through all departments</p>
+            <p>💡 We believe: Every student can contribute meaningfully, regardless of background</p>
+          </template>
+          <template v-else>
+            <p>📅 Recrutare: Începutul anului academic la Paradise College</p>
+            <p>✨ Cerințe: Pasiune + dedicare + dorința de a învăța (fără experiență necesară!)</p>
+            <p>🔄 Proces: Orientare 2 săptămâni prin toate departamentele</p>
+            <p>💡 Credem: Fiecare student poate contribui, indiferent de experiență</p>
+          </template>
         </div>
       </transition>
       
@@ -275,25 +269,19 @@ const previousMentors = computed(() =>
         </div>
       </div>
       
-      <div class="team-section" v-if="currentCollaborators.length > 0">
-        <h2>{{ language === 'en' ? 'Collaborators' : 'Colaboratori' }}</h2>
+      <div class="team-section">
+        <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
         <div class="members-grid">
           <TeamMemberCard 
-            v-for="(member, index) in currentCollaborators" 
-            :key="index"
+            v-for="(member, index) in currentMentors" 
+            :key="`mentor-${index}`"
             :member-name="member.name"
             :department="member.department"
             :role="member.role"
           />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.mentorsTitle }}</h2>
-        <div class="members-grid">
           <TeamMemberCard 
-            v-for="(member, index) in currentMentors" 
-            :key="index"
+            v-for="(member, index) in currentCollaborators" 
+            :key="`collab-${index}`"
             :member-name="member.name"
             :department="member.department"
             :role="member.role"
@@ -358,34 +346,36 @@ const previousMentors = computed(() =>
       <transition name="fade">
         <div v-if="showTraining" class="bonus-content">
           <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamTraining }} We've developed a comprehensive curriculum including Java programming workshops, CAD software training sessions,
-            and hands-on hardware assembly tutorials. Senior members mentor newer teammates through pair programming and design reviews. 
-            We also organize field trips to tech companies and universities to expose our members to career possibilities in STEM fields.
-          </p>
-          <p v-else>
-            {{ t.teamTraining }} Am dezvoltat un curriculum cuprinzător incluzând workshop-uri de programare Java, sesiuni de instruire pentru software CAD,
-            și tutoriale practice de asamblare hardware. Membrii seniori îndrumă colegii mai noi prin programare în perechi și revizuiri de design.
-            De asemenea, organizăm excursii la companii tech și universități pentru a expune membrii noștri la posibilități de carieră în domeniile STEM.
-          </p>
+          <template v-if="language === 'en'">
+            <p>💻 Java programming + CAD software + Hardware assembly</p>
+            <p>👥 Senior members mentor through pair programming & design reviews</p>
+            <p>🏢 Field trips to tech companies = career inspiration</p>
+          </template>
+          <template v-else>
+            <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
+            <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+            <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showDailyLife" class="bonus-content">
           <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamEnvironment }} A typical practice session starts with a team standup where everyone shares their progress and challenges. 
-            Then teams split into their focus areas - programmers debugging code, CAD designers iterating on mechanisms, and marketing creating content. 
-            The energy is electric during testing sessions when we see code come to life on the robot. We celebrate every small victory, from a successful 
-            autonomous run to completing a sponsorship presentation. It's intense, challenging, and incredibly rewarding.
-          </p>
-          <p v-else>
-            {{ t.teamEnvironment }} O sesiune tipică de antrenament începe cu un standup de echipă unde toată lumea își împărtășește progresul și provocările.
-            Apoi echipele se împart pe domeniile lor de focus - programatori care corectează cod, designeri CAD care iterează pe mecanisme și marketing care creează conținut.
-            Energia este electrică în timpul sesiunilor de testare când vedem codul luând viață pe robot. Celebrăm fiecare mică victorie, de la o
-            rulare autonomă reușită până la finalizarea unei prezentări de sponsorizare. Este intens, provocator și incredibil de satisfăcător.
-          </p>
+          <template v-if="language === 'en'">
+            <p>🕐 Team standup → Share progress & challenges</p>
+            <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+            <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
+            <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
+            <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+          </template>
+          <template v-else>
+            <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
+            <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
+            <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
+            <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
+            <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+          </template>
         </div>
       </transition>
       
