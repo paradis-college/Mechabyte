@@ -104,18 +104,18 @@ onUnmounted(() => {
         :title="language === 'en' ? '🌟 Where Our Values Come From' : '🌟 De Unde Vin Valorile Noastre'"
         @close="showValueOrigins = false"
       >
-        <p v-if="language === 'en'">
-          Our core values weren't decided in a single meeting - they evolved organically from our team's experiences. Innovation emerged as a value when 
-          we realized our best solutions came from questioning assumptions. Teamwork became central after seeing how collaboration multiplied our 
-          capabilities. Integrity was solidified when we chose to restart a competition match rather than accept a win from an opponent's technical failure. 
-          Each value represents lessons learned and principles tested in real situations.
-        </p>
-        <p v-else>
-          Valorile noastre fundamentale nu au fost decise într-o singură întâlnire - au evoluat organic din experiențele echipei. Inovația a apărut ca valoare când
-          am realizat că cele mai bune soluții ale noastre veneau din punerea la îndoială a presupunerilor. Munca în echipă a devenit centrală după ce am văzut cum colaborarea ne-a multiplicat
-          capacitățile. Integritatea a fost consolidată când am ales să reluăm un meci de competiție în loc să acceptăm o victorie din cauza unei defecțiuni tehnice a adversarului.
-          Fiecare valoare reprezintă lecții învățate și principii testate în situații reale.
-        </p>
+        <template v-if="language === 'en'">
+          <p>Our values evolved from team experiences, not boardroom decisions.</p>
+          <p>Innovation: Best solutions came from questioning assumptions.</p>
+          <p>Teamwork: Collaboration multiplied our capabilities.</p>
+          <p>Integrity: We once restarted a match rather than accept an unfair win.</p>
+        </template>
+        <template v-else>
+          <p>Valorile noastre au evoluat din experiențe, nu din decizii de birou.</p>
+          <p>Inovație: Cele mai bune soluții au venit din punerea la îndoială a presupunerilor.</p>
+          <p>Muncă în echipă: Colaborarea ne-a multiplicat capacitățile.</p>
+          <p>Integritate: Am reluat odată un meci în loc să acceptăm o victorie neloială.</p>
+        </template>
       </FindMorePane>
 
       <FindMorePane 
@@ -123,18 +123,16 @@ onUnmounted(() => {
         :title="language === 'en' ? '💡 Values in Action' : '💡 Valori în Acțiune'"
         @close="showRealExamples = false"
       >
-        <p v-if="language === 'en'">
-          When faced with a critical design flaw two days before competition, our value of Excellence pushed us to rebuild rather than compromise. 
-          Community manifested when we spent a Saturday teaching robotics to elementary students instead of practicing. Learning was demonstrated when 
-          our entire programming team switched to a new framework mid-season because it was the right technical decision. These aren't abstract principles - 
-          they're daily choices that shape who we are as a team.
-        </p>
-        <p v-else>
-          Când ne-am confruntat cu o defecțiune critică de design cu două zile înainte de competiție, valoarea Excelenței ne-a împins să reconstruim în loc să compromitem.
-          Comunitatea s-a manifestat când am petrecut o sâmbătă predând robotică la elevi de școală primară în loc să ne antrenăm. Învățarea a fost demonstrată când
-          întreaga noastră echipă de programare a trecut la un nou framework la mijlocul sezonului pentru că a fost decizia tehnică corectă. Acestea nu sunt principii abstracte -
-          sunt alegeri zilnice care modelează cine suntem ca echipă.
-        </p>
+        <template v-if="language === 'en'">
+          <p><strong>Excellence:</strong> Rebuilt robot 2 days before competition.</p>
+          <p><strong>Community:</strong> Saturday teaching robotics to elementary students.</p>
+          <p><strong>Learning:</strong> Switched frameworks mid-season for better tech.</p>
+        </template>
+        <template v-else>
+          <p><strong>Excelență:</strong> Robot reconstruit cu 2 zile înainte de competiție.</p>
+          <p><strong>Comunitate:</strong> Sâmbăta predând robotică la elevi.</p>
+          <p><strong>Învățare:</strong> Framework schimbat la mijlocul sezonului pentru tehnologie mai bună.</p>
+        </template>
       </FindMorePane>
 
       <FindMorePane 
@@ -143,16 +141,14 @@ onUnmounted(() => {
         @close="showImpact = false"
       >
         <p v-if="language === 'en'">
-          Living our values has created ripple effects beyond competition results. Our commitment to Community led to establishing a robotics club 
-          at a local middle school, now serving 30+ students. Innovation drove us to open-source our robot code, which has been downloaded by teams 
-          from 15 countries. Integrity earned us the FIRST Gracious Professionalism award, but more importantly, it built trust with sponsors and 
-          partners who continue supporting our program year after year.
+          • Established 1 robotics club → 30+ students<br>
+          • Open-sourced code → Downloaded in 15 countries<br>
+          • Earned Gracious Professionalism award → Built sponsor trust
         </p>
         <p v-else>
-          Trăirea valorilor noastre a creat efecte în lanț dincolo de rezultatele competiției. Angajamentul nostru față de Comunitate a dus la înființarea unui club de robotică
-          la o școală generală locală, care deservește acum peste 30 de elevi. Inovația ne-a determinat să facem open-source codul robotului nostru, care a fost descărcat de echipe
-          din 15 țări. Integritatea ne-a adus premiul FIRST Gracious Professionalism, dar mai important, a construit încredere cu sponsorii și
-          partenerii care continuă să ne sprijine programul an de an.
+          • Înființat 1 club de robotică → 30+ elevi<br>
+          • Cod open-source → Descărcat în 15 țări<br>
+          • Premiu Gracious Professionalism → Încredere construită cu sponsorii
         </p>
       </FindMorePane>
       

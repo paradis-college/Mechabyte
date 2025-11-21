@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { translations } from '../i18n/translations';
 import GearConveyor from '../components/GearConveyor.vue';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
@@ -10,6 +11,7 @@ const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
+const router = useRouter();
 const t = computed(() => translations[props.language]);
 
 // State for toggling bonus content visibility
@@ -90,16 +92,14 @@ const toggleSection = (section: string) => {
       <transition name="fade">
         <div v-if="showTeamHistory" class="bonus-content">
           <h3>{{ language === 'en' ? '🤖 Our Journey Begins' : '🤖 Călătoria Noastră Începe' }}</h3>
-          <p v-if="language === 'en'">
-            Mechabyte was founded in 2024 by a group of passionate students who shared a dream: to bring world-class robotics education to Iași. 
-            What started as weekly meetings in a small classroom has grown into a full-fledged competitive team with state-of-the-art equipment 
-            and ambitious goals. Our founders believed that robotics could transform education, and we're proving them right every day!
-          </p>
-          <p v-else>
-            Mechabyte a fost fondat în 2024 de un grup de studenți pasionați care au împărtășit un vis: să aducă educație robotică de clasă mondială la Iași.
-            Ceea ce a început ca întâlniri săptămânale într-o sală de clasă mică a crescut într-o echipă competitivă completă, cu echipamente de ultimă generație
-            și obiective ambițioase. Fondatorii noștri au crezut că robotica ar putea transforma educația, și noi îi dovedim că au dreptate în fiecare zi!
-          </p>
+          <template v-if="language === 'en'">
+            <p>Mechabyte was founded in 2024 by passionate students with a shared dream: world-class robotics education in Iași.</p>
+            <p>From weekly classroom meetings to a full competitive team with state-of-the-art equipment. We're proving that robotics transforms education.</p>
+          </template>
+          <template v-else>
+            <p>Mechabyte a fost fondat în 2024 de studenți pasionați cu un vis comun: educație robotică de clasă mondială la Iași.</p>
+            <p>De la întâlniri săptămânale în clasă la o echipă competitivă completă cu echipamente de ultimă generație. Dovedim că robotica transformă educația.</p>
+          </template>
         </div>
       </transition>
 
@@ -107,17 +107,17 @@ const toggleSection = (section: string) => {
         <div v-if="showRobotFacts" class="bonus-content">
           <h3>{{ language === 'en' ? '⚙️ Cool Robot Facts' : '⚙️ Fapte Interesante despre Robot' }}</h3>
           <ul>
-            <li v-if="language === 'en'">Our robot can lift objects up to 5kg with precision accuracy</li>
-            <li v-else>Robotul nostru poate ridica obiecte până la 5kg cu precizie exactă</li>
+            <li v-if="language === 'en'">Lifts 5kg objects with precision</li>
+            <li v-else>Ridică obiecte de 5kg cu precizie</li>
             
-            <li v-if="language === 'en'">It's controlled by custom code written entirely by our programming team</li>
-            <li v-else>Este controlat de cod personalizat scris în întregime de echipa noastră de programare</li>
+            <li v-if="language === 'en'">Custom-coded by our team</li>
+            <li v-else>Programat custom de echipa noastră</li>
             
-            <li v-if="language === 'en'">The robot uses computer vision to identify and track game elements</li>
-            <li v-else>Robotul folosește viziune computerizată pentru a identifica și urmări elementele jocului</li>
+            <li v-if="language === 'en'">Computer vision tracking</li>
+            <li v-else>Urmărire prin viziune computerizată</li>
             
-            <li v-if="language === 'en'">We've gone through 50+ design iterations to perfect our mechanism</li>
-            <li v-else>Am trecut prin peste 50 de iterații de design pentru a perfecționa mecanismul nostru</li>
+            <li v-if="language === 'en'">50+ design iterations</li>
+            <li v-else>50+ iterații de design</li>
           </ul>
         </div>
       </transition>
@@ -125,16 +125,16 @@ const toggleSection = (section: string) => {
       <transition name="fade">
         <div v-if="showBehindScenes" class="bonus-content">
           <h3>{{ language === 'en' ? '🎬 Behind the Scenes' : '🎬 În Culise' }}</h3>
-          <p v-if="language === 'en'">
-            Ever wondered what happens during our build sessions? Our team meets 4 times a week for intense 3-hour sessions. 
-            There's always music playing, pizza on Fridays, and the constant hum of 3D printers working overtime. 
-            We've learned that the best ideas come at 9 PM, and duct tape really does fix everything (temporarily)!
-          </p>
-          <p v-else>
-            V-ați întrebat vreodată ce se întâmplă în timpul sesiunilor noastre de construcție? Echipa noastră se întâlnește de 4 ori pe săptămână pentru sesiuni intense de 3 ore.
-            Întotdeauna este muzică, pizza vinerea, și zumzetul constant al imprimantelor 3D care lucrează peste program.
-            Am învățat că cele mai bune idei vin la ora 21:00, și că banda adezivă chiar repară totul (temporar)!
-          </p>
+          <template v-if="language === 'en'">
+            <p>Our team meets 4 times weekly for 3-hour build sessions.</p>
+            <p>There's always music playing, Friday pizza, and 3D printers humming non-stop.</p>
+            <p>Best ideas come at 9 PM. Duct tape fixes everything (temporarily!). ✨</p>
+          </template>
+          <template v-else>
+            <p>Echipa se întâlnește de 4 ori pe săptămână pentru sesiuni de 3 ore.</p>
+            <p>Mereu este muzică, pizza vinerea, și imprimante 3D în acțiune non-stop.</p>
+            <p>Cele mai bune idei vin la 21:00. Banda adezivă repară totul (temporar!). ✨</p>
+          </template>
         </div>
       </transition>
       
@@ -202,6 +202,7 @@ const toggleSection = (section: string) => {
       <div class="cta-section">
         <MicroButton 
           :label="t.contactCta"
+          @click="router.push('/contact')"
         >
         </MicroButton>
       </div>

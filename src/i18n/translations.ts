@@ -247,32 +247,24 @@ export const translations: { en: Translation; ro: Translation } = {
     valuesIntro: 'We build with curiosity, respect and grit.',
     valuesList: [
       {
-        title: 'Innovation',
-        description: 'We constantly push boundaries and explore creative solutions to engineering challenges, embracing new technologies and methodologies to improve our robot and processes.'
+        title: '💡 Innovation',
+        description: 'Question everything. Build better.'
       },
       {
-        title: 'Teamwork',
-        description: 'We believe in the power of collaboration, where diverse skills and perspectives come together to achieve goals that would be impossible individually.'
+        title: '🤝 Teamwork',
+        description: 'Together we achieve the impossible.'
       },
       {
-        title: 'Integrity',
-        description: 'We maintain the highest standards of honesty and ethical behavior in all our activities, from competition to community outreach, upholding gracious professionalism.'
+        title: '⚖️ Integrity',
+        description: 'Do right, even when no one is watching.'
       },
       {
-        title: 'Excellence',
-        description: 'We strive for the highest quality in everything we do, continuously improving our technical skills, team dynamics, and community impact.'
-      },
-      {
-        title: 'Community',
-        description: 'We are committed to making a positive impact beyond our team, sharing our passion for STEM with others and building lasting connections in our community.'
-      },
-      {
-        title: 'Learning',
-        description: 'We embrace every challenge as an opportunity to grow, fostering a culture where questions are encouraged and mistakes are viewed as valuable learning experiences.'
+        title: '⭐ Excellence',
+        description: 'Good enough never is.'
       }
     ],
     ambassadorRoleTitle: 'Team Ambassador Role',
-    ambassadorStatement: 'Members represent not only the team but also the educational organisation and the Nație prin Educație programme, acting as ambassadors for STEM education, innovation, and gracious professionalism in all their interactions.',
+    ambassadorStatement: 'We represent our team, Paradise College, and Nație prin Educație. We embody STEM education and gracious professionalism in every interaction.',
     valuesClosing: 'These values guide our daily work, from designing and building our robot to engaging with sponsors and conducting outreach programs. They remind us that success in FTC is measured not just by competition results, but by the positive impact we make on each other and our community.',
 
     achievementsTitle: 'Our Journey',
@@ -412,11 +404,11 @@ export const translations: { en: Translation; ro: Translation } = {
     // Feature Cards
     featuresHeading: 'What We Do',
     featureInnovationTitle: 'Innovation',
-    featureInnovationDesc: 'Building cutting-edge robotic solutions with modern technology and creative problem-solving.',
+    featureInnovationDesc: 'Modern tech meets creative problem-solving.',
     featureEngineeringTitle: 'Engineering Excellence',
-    featureEngineeringDesc: 'Precision engineering and design thinking applied to every mechanical and software component.',
+    featureEngineeringDesc: 'Precision design in every component.',
     featureTeamworkTitle: 'Teamwork',
-    featureTeamworkDesc: 'Collaborative environment where diverse skills come together to achieve common goals.',
+    featureTeamworkDesc: 'Diverse skills, common goals.',
     featureCompetitionTitle: 'Competition Ready',
     featureCompetitionDesc: 'Preparing for FTC competitions with rigorous testing, iteration, and strategic planning.',
 
@@ -591,32 +583,24 @@ export const translations: { en: Translation; ro: Translation } = {
     valuesIntro: 'Construim cu curiozitate, respect și determinare.',
     valuesList: [
       {
-        title: 'Inovație',
-        description: 'Împingem constant limitele și explorăm soluții creative la provocările de inginerie, îmbrățișând tehnologii și metodologii noi pentru a îmbunătăți robotul și procesele noastre.'
+        title: '💡 Inovație',
+        description: 'Pune la îndoială totul. Construiește mai bine.'
       },
       {
-        title: 'Muncă în echipă',
-        description: 'Credem în puterea colaborării, unde abilități și perspective diverse se unesc pentru a atinge obiective care ar fi imposibile individual.'
+        title: '🤝 Muncă în echipă',
+        description: 'Împreună realizăm imposibilul.'
       },
       {
-        title: 'Integritate',
-        description: 'Menținem cele mai înalte standarde de onestitate și comportament etic în toate activitățile noastre, de la competiție la outreach comunitar, susținând profesionalismul grațios.'
+        title: '⚖️ Integritate',
+        description: 'Fă ce e corect, chiar și când nimeni nu se uită.'
       },
       {
-        title: 'Excelență',
-        description: 'Ne străduim pentru cea mai înaltă calitate în tot ce facem, îmbunătățind continuu abilitățile noastre tehnice, dinamica echipei și impactul comunitar.'
-      },
-      {
-        title: 'Comunitate',
-        description: 'Suntem dedicați să avem un impact pozitiv dincolo de echipa noastră, împărtășind pasiunea noastră pentru STEM cu alții și construind conexiuni durabile în comunitatea noastră.'
-      },
-      {
-        title: 'Învățare',
-        description: 'Îmbrățișăm fiecare provocare ca o oportunitate de a crește, promovând o cultură în care întrebările sunt încurajate și greșelile sunt văzute ca experiențe valoroase de învățare.'
+        title: '⭐ Excelență',
+        description: 'Bun de ajuns nu e niciodată.'
       }
     ],
     ambassadorRoleTitle: 'Rolul de Ambasador al Echipei',
-    ambassadorStatement: 'Membrii reprezintă nu doar echipa, ci și organizația educațională și programul Nație prin Educație, acționând ca ambasadori pentru educația STEM, inovație și profesionalism grațios în toate interacțiunile lor.',
+    ambassadorStatement: 'Reprezentăm echipa, Paradise College și Nație prin Educație. Încorporăm educația STEM și profesionalismul grațios în fiecare interacțiune.',
     valuesClosing: 'Aceste valori ghidează munca noastră zilnică, de la proiectarea și construirea robotului nostru până la implicarea cu sponsorii și desfășurarea programelor de outreach. Ne amintesc că succesul în FTC este măsurat nu doar prin rezultatele competiției, ci prin impactul pozitiv pe care îl avem unul asupra celuilalt și asupra comunității noastre.',
 
     achievementsTitle: 'Călătoria Noastră',
@@ -756,11 +740,11 @@ export const translations: { en: Translation; ro: Translation } = {
     // Feature Cards
     featuresHeading: 'Ce Facem',
     featureInnovationTitle: 'Inovație',
-    featureInnovationDesc: 'Construim soluții robotice de ultimă generație cu tehnologie modernă și rezolvare creativă a problemelor.',
+    featureInnovationDesc: 'Tehnologie modernă și rezolvare creativă.',
     featureEngineeringTitle: 'Excelență în Inginerie',
-    featureEngineeringDesc: 'Inginerie de precizie și gândire de design aplicate fiecărei componente mecanice și software.',
+    featureEngineeringDesc: 'Design de precizie în fiecare componentă.',
     featureTeamworkTitle: 'Muncă în Echipă',
-    featureTeamworkDesc: 'Mediu colaborativ în care abilități diverse se unesc pentru a atinge obiective comune.',
+    featureTeamworkDesc: 'Abilități diverse, obiective comune.',
     featureCompetitionTitle: 'Pregătit pentru Competiție',
     featureCompetitionDesc: 'Pregătire pentru competițiile FTC cu testare riguroasă, iterație și planificare strategică.',
 
