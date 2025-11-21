@@ -2,6 +2,8 @@
 import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import MicroButton from '../components/MicroButton.vue';
+import HeroRobotArm from '../components/HeroRobotArm.vue';
+import FeatureCards from '../components/FeatureCards.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -201,7 +203,7 @@ const toggleSection = (section: string) => {
       <!-- CTA Button with micro-interactions -->
       <div class="cta-section">
         <MicroButton 
-          label="Contact Us"
+          :label="t.contactCta"
         >
         </MicroButton>
       </div>
