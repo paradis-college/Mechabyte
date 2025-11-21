@@ -120,5 +120,5 @@ const features = computed(() => [
 
 <style scoped>
 @import '@/assets/feature-cards.css';
-@import '@/assets/reveal.css';
+/* reveal.css is imported globally in main.ts */
 </style>
