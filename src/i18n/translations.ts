@@ -23,6 +23,9 @@ export type Translation = {
   ftcDescription: string;
   activitiesTitle: string;
   activities: Array<{ name: string; description: string }>;
+  ctaLearnMore: string;
+  ctaOurMission: string;
+
   contactCta: string;
   // Values page
   valuesTitle: string;
@@ -238,6 +241,9 @@ export const translations: { en: Translation; ro: Translation } = {
       }
     ],
     contactCta: 'Get in Touch',
+
+    ctaLearnMore: 'Learn More',
+    ctaOurMission: 'Our Mission',
 
     valuesTitle: 'Our Core Values',
     valuesIntro: 'At Mechabyte, we are guided by fundamental principles that shape how we work, compete, and contribute to our community. These values define our identity and drive our pursuit of excellence.',
@@ -579,6 +585,9 @@ export const translations: { en: Translation; ro: Translation } = {
       }
     ],
     contactCta: 'Contactați-ne',
+
+    ctaLearnMore: 'Află Mai Multe',
+    ctaOurMission: 'Misiunea Noastră',
 
     valuesTitle: 'Valorile Noastre Fundamentale',
     valuesIntro: 'La Mechabyte, suntem ghidați de principii fundamentale care modelează modul în care lucrăm, concurăm și contribuim la comunitatea noastră. Aceste valori definesc identitatea noastră și conduc căutarea noastră a excelenței.',

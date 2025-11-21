@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { translations } from '../i18n/translations';
+import MicroButton from './MicroButton.vue';
 
 // Props for language state
 const props = defineProps<{
@@ -12,8 +13,19 @@ const emit = defineEmits<{
   (e: 'update:language', value: 'en' | 'ro'): void;
 }>();
 
+const router = useRouter();
+const route = useRoute();
+
 const setLanguage = (lang: 'en' | 'ro') => {
   emit('update:language', lang);
+};
+
+const navigateTo = (path: string) => {
+  router.push(path);
+};
+
+const isActive = (path: string) => {
+  return route.path === path;
 };
 </script>
 
@@ -21,34 +33,62 @@ const setLanguage = (lang: 'en' | 'ro') => {
   <nav class="navbar">
     <div class="nav-content">
       <div class="nav-links">
-        <RouterLink to="/" class="nav-link">{{ translations[language].nav.home }}</RouterLink>
-        <RouterLink to="/values" class="nav-link">{{ translations[language].nav.values }}</RouterLink>
-        <RouterLink to="/achievements" class="nav-link">{{ translations[language].nav.achievements }}</RouterLink>
-        <RouterLink to="/team" class="nav-link">{{ translations[language].nav.team }}</RouterLink>
-        <RouterLink to="/portfolio" class="nav-link">{{ translations[language].nav.portfolio }}</RouterLink>
-        <RouterLink to="/sponsors" class="nav-link">{{ translations[language].nav.sponsors }}</RouterLink>
-        <RouterLink to="/support" class="nav-link">{{ translations[language].nav.support }}</RouterLink>
-        <RouterLink to="/contact" class="nav-link">{{ translations[language].nav.contact }}</RouterLink>
+        <MicroButton 
+          :label="translations[language].nav.home"
+          :variant="isActive('/') ? 'primary' : 'secondary'"
+          @click="navigateTo('/')"
+          ariaLabel="Navigate to Home"
+        />
+        <MicroButton 
+          :label="translations[language].nav.values"
+          :variant="isActive('/values') ? 'primary' : 'secondary'"
+          @click="navigateTo('/values')"
+          ariaLabel="Navigate to Values"
+        />
+        <MicroButton 
+          :label="translations[language].nav.achievements"
+          :variant="isActive('/achievements') ? 'primary' : 'secondary'"
+          @click="navigateTo('/achievements')"
+          ariaLabel="Navigate to Achievements"
+        />
+        <MicroButton 
+          :label="translations[language].nav.team"
+          :variant="isActive('/team') ? 'primary' : 'secondary'"
+          @click="navigateTo('/team')"
+          ariaLabel="Navigate to Team"
+        />
+        <MicroButton 
+          :label="translations[language].nav.sponsors"
+          :variant="isActive('/sponsors') ? 'primary' : 'secondary'"
+          @click="navigateTo('/sponsors')"
+          ariaLabel="Navigate to Sponsors"
+        />
+        <MicroButton 
+          :label="translations[language].nav.support"
+          :variant="isActive('/support') ? 'primary' : 'secondary'"
+          @click="navigateTo('/support')"
+          ariaLabel="Navigate to Support"
+        />
+        <MicroButton 
+          :label="translations[language].nav.contact"
+          :variant="isActive('/contact') ? 'primary' : 'secondary'"
+          @click="navigateTo('/contact')"
+          ariaLabel="Navigate to Contact"
+        />
       </div>
       <div class="language-toggle">
-        <button 
-          @click="setLanguage('en')" 
-          :class="{ active: language === 'en' }"
-          :aria-pressed="language === 'en'"
-          aria-label="Switch to English"
-          class="lang-btn"
-        >
-          EN
-        </button>
-        <button 
-          @click="setLanguage('ro')" 
-          :class="{ active: language === 'ro' }"
-          :aria-pressed="language === 'ro'"
-          aria-label="Switch to Romanian"
-          class="lang-btn"
-        >
-          RO
-        </button>
+        <MicroButton 
+          label="EN"
+          :variant="language === 'en' ? 'primary' : 'secondary'"
+          @click="setLanguage('en')"
+          ariaLabel="Switch to English"
+        />
+        <MicroButton 
+          label="RO"
+          :variant="language === 'ro' ? 'primary' : 'secondary'"
+          @click="setLanguage('ro')"
+          ariaLabel="Switch to Romanian"
+        />
       </div>
     </div>
   </nav>
@@ -77,57 +117,14 @@ const setLanguage = (lang: 'en' | 'ro') => {
 
 .nav-links {
   display: flex;
-  gap: 2vw;
+  gap: 1vw;
   flex-wrap: wrap;
   align-items: center;
-}
-
-.nav-link {
-  color: var(--light-grey);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: clamp(12px, 1.2vw, 18px);
-  padding: 0.5vw 1vw;
-  border-radius: 0.3vw;
-  transition: all 0.3s ease;
-  border: 0.15vw solid transparent;
-}
-
-.nav-link:hover {
-  color: var(--mechabyte-green);
-  border-color: var(--mechabyte-green);
-}
-
-.nav-link.router-link-active {
-  color: var(--mechabyte-green);
-  border-color: var(--mechabyte-green);
 }
 
 .language-toggle {
   display: flex;
   gap: 0.5vw;
-}
-
-.lang-btn {
-  background: var(--background-grey);
-  border: 0.15vw solid var(--mechabyte-green);
-  color: var(--mechabyte-green);
-  padding: 0.5vw 1vw;
-  cursor: pointer;
-  font-size: clamp(12px, 1rem, 16px);
-  font-weight: bold;
-  border-radius: 0.3vw;
-  transition: all 0.3s ease;
-}
-
-.lang-btn:hover {
-  background: var(--mechabyte-green);
-  color: var(--background-grey);
-}
-
-.lang-btn.active {
-  background: var(--mechabyte-green);
-  color: var(--background-grey);
 }
 
 /* Responsive design for mobile */
@@ -142,19 +139,9 @@ const setLanguage = (lang: 'en' | 'ro') => {
   }
 
   .nav-links {
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
     width: 100%;
-  }
-
-  .nav-link {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .lang-btn {
-    padding: 8px 12px;
-    font-size: 14px;
   }
 }
 </style>
