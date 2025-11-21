@@ -10,10 +10,10 @@ const props = defineProps<{
 const t = computed(() => translations[props.language]);
 
 // Create refs for each card to enable reveal animations
-const card1Ref = useRevealOnScroll({ threshold: 0.15 });
-const card2Ref = useRevealOnScroll({ threshold: 0.15 });
-const card3Ref = useRevealOnScroll({ threshold: 0.15 });
-const card4Ref = useRevealOnScroll({ threshold: 0.15 });
+const { elementRef: card1Ref, isVisible: card1Visible } = useRevealOnScroll({ threshold: 0.15 });
+const { elementRef: card2Ref, isVisible: card2Visible } = useRevealOnScroll({ threshold: 0.15 });
+const { elementRef: card3Ref, isVisible: card3Visible } = useRevealOnScroll({ threshold: 0.15 });
+const { elementRef: card4Ref, isVisible: card4Visible } = useRevealOnScroll({ threshold: 0.15 });
 
 // Feature cards data - using semantic content relevant to robotics
 const features = computed(() => [
@@ -49,7 +49,7 @@ const features = computed(() => [
     <div class="feature-cards-container">
       <article 
         ref="card1Ref" 
-        class="feature-card reveal"
+        :class="['feature-card', 'reveal', { 'is-visible': card1Visible }]"
         tabindex="0"
         role="article"
       >
@@ -66,7 +66,7 @@ const features = computed(() => [
 
       <article 
         ref="card2Ref" 
-        class="feature-card reveal"
+        :class="['feature-card', 'reveal', { 'is-visible': card2Visible }]"
         tabindex="0"
         role="article"
       >
@@ -83,7 +83,7 @@ const features = computed(() => [
 
       <article 
         ref="card3Ref" 
-        class="feature-card reveal"
+        :class="['feature-card', 'reveal', { 'is-visible': card3Visible }]"
         tabindex="0"
         role="article"
       >
@@ -100,7 +100,7 @@ const features = computed(() => [
 
       <article 
         ref="card4Ref" 
-        class="feature-card reveal"
+        :class="['feature-card', 'reveal', { 'is-visible': card4Visible }]"
         tabindex="0"
         role="article"
       >
