@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { translations } from '../i18n/translations';
+import MicroButton from './MicroButton.vue';
 
 // Props for language state
 const props = defineProps<{
@@ -30,24 +31,18 @@ const setLanguage = (lang: 'en' | 'ro') => {
         <RouterLink to="/contact" class="nav-link">{{ translations[language].nav.contact }}</RouterLink>
       </div>
       <div class="language-toggle">
-        <button 
-          @click="setLanguage('en')" 
-          :class="{ active: language === 'en' }"
-          :aria-pressed="language === 'en'"
+        <MicroButton 
+          label="EN"
+          :variant="language === 'en' ? 'primary' : 'secondary'"
+          @click="setLanguage('en')"
           aria-label="Switch to English"
-          class="lang-btn"
-        >
-          EN
-        </button>
-        <button 
-          @click="setLanguage('ro')" 
-          :class="{ active: language === 'ro' }"
-          :aria-pressed="language === 'ro'"
+        />
+        <MicroButton 
+          label="RO"
+          :variant="language === 'ro' ? 'primary' : 'secondary'"
+          @click="setLanguage('ro')"
           aria-label="Switch to Romanian"
-          class="lang-btn"
-        >
-          RO
-        </button>
+        />
       </div>
     </div>
   </nav>
@@ -107,28 +102,6 @@ const setLanguage = (lang: 'en' | 'ro') => {
   gap: 0.5vw;
 }
 
-.lang-btn {
-  background: var(--background-grey);
-  border: 0.15vw solid var(--mechabyte-green);
-  color: var(--mechabyte-green);
-  padding: 0.5vw 1vw;
-  cursor: pointer;
-  font-size: clamp(12px, 1rem, 16px);
-  font-weight: bold;
-  border-radius: 0.3vw;
-  transition: all 0.3s ease;
-}
-
-.lang-btn:hover {
-  background: var(--mechabyte-green);
-  color: var(--background-grey);
-}
-
-.lang-btn.active {
-  background: var(--mechabyte-green);
-  color: var(--background-grey);
-}
-
 /* Responsive design for mobile */
 @media only screen and (max-width: 1000px) {
   .navbar {
@@ -147,11 +120,6 @@ const setLanguage = (lang: 'en' | 'ro') => {
   }
 
   .nav-link {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .lang-btn {
     padding: 8px 12px;
     font-size: 14px;
   }
