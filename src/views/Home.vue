@@ -58,8 +58,7 @@ const toggleSection = (section: string) => {
       
       <!-- Revealed welcome text -->
       <p 
-        ref="welcomeRef"
-        :class="['welcome-text', 'reveal', { 'is-visible': welcomeVisible }]"
+        class="welcome-text reveal"
       >
         {{ t.homeWelcome }}
       </p>
@@ -202,10 +201,8 @@ const toggleSection = (section: string) => {
       <!-- CTA Button with micro-interactions -->
       <div class="cta-section">
         <MicroButton 
-          variant="robotic"
-          href="/contact"
+          label="Contact Us"
         >
-          {{ t.contactCta }}
         </MicroButton>
       </div>
     </section>
@@ -358,6 +355,8 @@ h2 {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+}
+
 .cta-section {
   display: flex;
   justify-content: center;
