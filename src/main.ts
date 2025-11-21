@@ -1,4 +1,6 @@
 import './assets/main.css'
+import './assets/styles/reveal.css'
+import './assets/styles/hero-robot-arm.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'

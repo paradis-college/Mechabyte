@@ -22,7 +22,7 @@ export type Translation = {
   ftcDescription: string;
   activitiesTitle: string;
   activities: Array<{ name: string; description: string }>;
-
+  contactCta: string;
   // Values page
   valuesTitle: string;
   valuesIntro: string;
@@ -97,6 +97,17 @@ export type Translation = {
   scheduleDemo: string;
   stayConnectedTitle: string;
   connectWithUs: string;
+
+  // Feature Cards
+  featuresHeading: string;
+  featureInnovationTitle: string;
+  featureInnovationDesc: string;
+  featureEngineeringTitle: string;
+  featureEngineeringDesc: string;
+  featureTeamworkTitle: string;
+  featureTeamworkDesc: string;
+  featureCompetitionTitle: string;
+  featureCompetitionDesc: string;
 };
 
 // Translations object with English and Romanian content
@@ -150,6 +161,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'Competitive robotics tournament representing our school and region, showcasing our technical achievements and gracious professionalism on the field'
       }
     ],
+    contactCta: 'Get in Touch',
 
     valuesTitle: 'Our Core Values',
     valuesIntro: 'At Mechabyte, we are guided by fundamental principles that shape how we work, compete, and contribute to our community. These values define our identity and drive our pursuit of excellence.',
@@ -315,7 +327,18 @@ export const translations: { en: Translation; ro: Translation } = {
     scheduleDemoTitle: 'Schedule a Demo',
     scheduleDemo: 'Interested in seeing our robot in action? We regularly conduct demonstrations for schools, organizations, and community groups. Contact us to schedule a visit or invite us to your event. Our team is excited to share our passion for robotics and inspire others to explore STEM fields.',
     stayConnectedTitle: 'Stay Connected',
-    connectWithUs: 'Follow us on social media to stay updated on our progress, competitions, and community activities. We regularly share behind-the-scenes content, technical updates, and stories from our team members. Join our community and be part of our robotics journey!'
+    connectWithUs: 'Follow us on social media to stay updated on our progress, competitions, and community activities. We regularly share behind-the-scenes content, technical updates, and stories from our team members. Join our community and be part of our robotics journey!',
+
+    // Feature Cards
+    featuresHeading: 'What We Do',
+    featureInnovationTitle: 'Innovation',
+    featureInnovationDesc: 'Building cutting-edge robotic solutions with modern technology and creative problem-solving.',
+    featureEngineeringTitle: 'Engineering Excellence',
+    featureEngineeringDesc: 'Precision engineering and design thinking applied to every mechanical and software component.',
+    featureTeamworkTitle: 'Teamwork',
+    featureTeamworkDesc: 'Collaborative environment where diverse skills come together to achieve common goals.',
+    featureCompetitionTitle: 'Competition Ready',
+    featureCompetitionDesc: 'Preparing for FTC competitions with rigorous testing, iteration, and strategic planning.'
   },
 
   ro: {
@@ -367,6 +390,7 @@ export const translations: { en: Translation; ro: Translation } = {
         description: 'Turneu de robotică competitiv reprezentând școala și regiunea noastră, prezentând realizările noastre tehnice și profesionalismul grațios pe teren'
       }
     ],
+    contactCta: 'Contactați-ne',
 
     valuesTitle: 'Valorile Noastre Fundamentale',
     valuesIntro: 'La Mechabyte, suntem ghidați de principii fundamentale care modelează modul în care lucrăm, concurăm și contribuim la comunitatea noastră. Aceste valori definesc identitatea noastră și conduc căutarea noastră a excelenței.',
@@ -532,6 +556,17 @@ export const translations: { en: Translation; ro: Translation } = {
     scheduleDemoTitle: 'Programați o Demonstrație',
     scheduleDemo: 'Interesați să vedeți robotul nostru în acțiune? Desfășurăm regulat demonstrații pentru școli, organizații și grupuri comunitare. Contactați-ne pentru a programa o vizită sau invitați-ne la evenimentul dumneavoastră. Echipa noastră este entuziasmată să împărtășească pasiunea noastră pentru robotică și să inspire pe alții să exploreze domeniile STEM.',
     stayConnectedTitle: 'Rămâneți Conectați',
-    connectWithUs: 'Urmăriți-ne pe social media pentru a rămâne la curent cu progresul nostru, competițiile și activitățile comunitare. Împărtășim regulat conținut din culise, actualizări tehnice și povești de la membrii echipei noastre. Alăturați-vă comunității noastre și fiți parte din călătoria noastră robotică!'
+    connectWithUs: 'Urmăriți-ne pe social media pentru a rămâne la curent cu progresul nostru, competițiile și activitățile comunitare. Împărtășim regulat conținut din culise, actualizări tehnice și povești de la membrii echipei noastre. Alăturați-vă comunității noastre și fiți parte din călătoria noastră robotică!',
+
+    // Feature Cards
+    featuresHeading: 'Ce Facem',
+    featureInnovationTitle: 'Inovație',
+    featureInnovationDesc: 'Construim soluții robotice de ultimă generație cu tehnologie modernă și rezolvare creativă a problemelor.',
+    featureEngineeringTitle: 'Excelență în Inginerie',
+    featureEngineeringDesc: 'Inginerie de precizie și gândire de design aplicate fiecărei componente mecanice și software.',
+    featureTeamworkTitle: 'Muncă în Echipă',
+    featureTeamworkDesc: 'Mediu colaborativ în care abilități diverse se unesc pentru a atinge obiective comune.',
+    featureCompetitionTitle: 'Pregătit pentru Competiție',
+    featureCompetitionDesc: 'Pregătire pentru competițiile FTC cu testare riguroasă, iterație și planificare strategică.'
   }
 };
