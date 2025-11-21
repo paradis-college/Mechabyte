@@ -6,6 +6,11 @@
   --light-grey: hsl(0deg 0% 60% / 100%);
 
   --mechabyte-green: hsl(120deg 100% 50% / 100%);
+  
+  /* Gear conveyor theme colors */
+  --robot-metal: hsl(0deg 0% 30% / 100%);
+  --gear-accent: hsl(120deg 100% 40% / 100%);
+  --conveyor-bg: hsl(0deg 0% 12% / 100%);
 }
 
 *,

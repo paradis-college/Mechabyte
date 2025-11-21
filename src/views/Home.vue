@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
-import FeatureCardsWithScanner from '../components/FeatureCardsWithScanner.vue';
+import GearConveyor from '../components/GearConveyor.vue';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
 import MicroButton from '../components/MicroButton.vue';
 import FeatureCards from '../components/FeatureCards.vue';
@@ -19,6 +19,10 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
 
 <template>
   <div class="home-page">
+    <!-- Decorative gear background with circuit board traces - positioned behind content -->
+    <!-- To enable parallax, change to: <GearConveyor :enable-parallax="true" /> -->
+    <GearConveyor />
+    
     <!-- Hero section with robot arm -->
     <div class="hero-section">
       <img class="banner" alt="Mechabyte banner" src="/banner.png" />
@@ -32,9 +36,6 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
     
     <!-- Feature Cards Section -->
     <FeatureCards :language="language" />
-    
-    <!-- Feature Cards with Scanner Effect -->
-    <FeatureCardsWithScanner />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>
@@ -80,11 +81,19 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
 
 <style scoped>
 .home-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   gap: 0.5vw;
+}
+
+.banner,
+.snapshot,
+.content-section {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-section {
