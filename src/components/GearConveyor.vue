@@ -16,6 +16,132 @@ const props = withDefaults(defineProps<Props>(), {
 const gearLayer1Ref = ref<HTMLDivElement | null>(null);
 const gearLayer2Ref = ref<HTMLDivElement | null>(null);
 
+// Circuit connections state
+interface Connection {
+  id: number;
+  path: string;
+  dashOffset: number;
+  duration: number;
+}
+
+const connections = ref<Connection[]>([]);
+let connectionId = 0;
+let connectionIntervalId: number | null = null;
+
+// Gear center positions (in percentage of viewport)
+const gearPositions = [
+  { x: 10, y: 15, size: 200 },   // gear-1
+  { x: 85, y: 60, size: 150 },   // gear-2
+  { x: 5, y: 70, size: 180 },    // gear-4
+  { x: 90, y: 40, size: 120 },   // gear-3
+  { x: 80, y: 10, size: 140 },   // gear-5
+  { x: 15, y: 45, size: 100 },   // gear-6
+];
+
+// Generate Manhattan-style path between two points
+const generateManhattanPath = (from: typeof gearPositions[0], to: typeof gearPositions[0]): string => {
+  const startX = from.x + (from.size / 20); // center of gear in vw
+  const startY = from.y + (from.size / 20);
+  const endX = to.x + (to.size / 20);
+  const endY = to.y + (to.size / 20);
+  
+  const segments: string[] = [`M ${startX} ${startY}`];
+  
+  const dx = endX - startX;
+  const dy = endY - startY;
+  
+  // Random choice of path style
+  const pathStyle = Math.random();
+  
+  if (pathStyle < 0.33) {
+    // Horizontal first, then vertical
+    const midPoint = Math.random() > 0.5 ? 0.5 : (Math.random() * 0.3 + 0.3);
+    const midX = startX + dx * midPoint;
+    segments.push(`L ${midX} ${startY}`);
+    segments.push(`L ${midX} ${endY}`);
+    segments.push(`L ${endX} ${endY}`);
+  } else if (pathStyle < 0.66) {
+    // Vertical first, then horizontal
+    const midPoint = Math.random() > 0.5 ? 0.5 : (Math.random() * 0.3 + 0.3);
+    const midY = startY + dy * midPoint;
+    segments.push(`L ${startX} ${midY}`);
+    segments.push(`L ${endX} ${midY}`);
+    segments.push(`L ${endX} ${endY}`);
+  } else {
+    // Stepped path with multiple segments
+    const steps = Math.floor(Math.random() * 2) + 2; // 2-3 steps
+    for (let i = 1; i <= steps; i++) {
+      const t = i / (steps + 1);
+      if (i % 2 === 1) {
+        const midX = startX + dx * t;
+        segments.push(`L ${midX} ${startY + dy * (t - 0.1)}`);
+        segments.push(`L ${midX} ${startY + dy * (t + 0.1)}`);
+      } else {
+        const midY = startY + dy * t;
+        segments.push(`L ${startX + dx * (t - 0.1)} ${midY}`);
+        segments.push(`L ${startX + dx * (t + 0.1)} ${midY}`);
+      }
+    }
+    segments.push(`L ${endX} ${endY}`);
+  }
+  
+  return segments.join(' ');
+};
+
+const createConnection = () => {
+  if (prefersReducedMotion.value) return;
+  
+  // Pick two random different gears
+  const fromIndex = Math.floor(Math.random() * gearPositions.length);
+  let toIndex = Math.floor(Math.random() * gearPositions.length);
+  while (toIndex === fromIndex) {
+    toIndex = Math.floor(Math.random() * gearPositions.length);
+  }
+  
+  const path = generateManhattanPath(gearPositions[fromIndex], gearPositions[toIndex]);
+  const duration = 2 + Math.random() * 2; // 2-4 seconds
+  
+  const newConnection: Connection = {
+    id: connectionId++,
+    path,
+    dashOffset: 1000,
+    duration
+  };
+  
+  connections.value.push(newConnection);
+  
+  // Remove connection after animation completes
+  setTimeout(() => {
+    connections.value = connections.value.filter(c => c.id !== newConnection.id);
+  }, duration * 1000 + 500);
+};
+
+const startConnectionAnimation = () => {
+  if (prefersReducedMotion.value) return;
+  
+  // Create initial connections
+  createConnection();
+  
+  // Create new connections at random intervals
+  const scheduleNext = () => {
+    const delay = 1500 + Math.random() * 2500; // 1.5-4 seconds between connections
+    connectionIntervalId = window.setTimeout(() => {
+      createConnection();
+      scheduleNext();
+    }, delay);
+  };
+  
+  scheduleNext();
+};
+
+const stopConnectionAnimation = () => {
+  if (connectionIntervalId !== null) {
+    clearTimeout(connectionIntervalId);
+    connectionIntervalId = null;
+  }
+  connections.value = [];
+};
+
 let animationFrameId: number | null = null;
 let mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
 let mediaQuery: MediaQueryList | null = null;
@@ -57,6 +183,12 @@ onMounted(() => {
     mediaQueryHandler = (e: MediaQueryListEvent) => {
       prefersReducedMotion.value = e.matches;
       
+      if (e.matches) {
+        stopConnectionAnimation();
+      } else {
+        startConnectionAnimation();
+      }
+      
       if (props.enableParallax) {
         if (e.matches) {
           // Motion reduced: remove scroll listener and reset transforms
@@ -75,6 +207,11 @@ onMounted(() => {
     if (props.enableParallax && !prefersReducedMotion.value) {
       window.addEventListener('scroll', onScroll, { passive: true });
     }
+    
+    // Start connection animation if not reduced motion
+    if (!prefersReducedMotion.value) {
+      startConnectionAnimation();
+    }
   }
 });
 
@@ -90,6 +227,8 @@ onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('scroll', onScroll);
   }
+  
+  stopConnectionAnimation();
 });
 
 const containerClass = computed(() => {
