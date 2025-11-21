@@ -2,10 +2,6 @@
 import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import MicroButton from '../components/MicroButton.vue';
-import HeroRobotArm from '../components/HeroRobotArm.vue';
-import MicroButton from '../components/MicroButton.vue';
-import FeatureCards from '../components/FeatureCards.vue';
-import { useRevealOnScroll } from '../composables/useRevealOnScroll';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -39,8 +35,6 @@ const toggleSection = (section: string) => {
       break;
   }
 };
-// Setup reveal animation for welcome text
-const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll();
 </script>
 
 <template>
