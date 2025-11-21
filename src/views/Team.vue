@@ -2,12 +2,40 @@
 import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import TeamMemberCard from '../components/TeamMemberCard.vue';
+import MicroButton from '../components/MicroButton.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+
+// State for toggling bonus content visibility
+const showTeamStructure = ref(false);
+const showCollaborationStyle = ref(false);
+const showRecruitment = ref(false);
+const showTraining = ref(false);
+const showDailyLife = ref(false);
+
+const toggleSection = (section: string) => {
+  switch(section) {
+    case 'teamStructure':
+      showTeamStructure.value = !showTeamStructure.value;
+      break;
+    case 'collaborationStyle':
+      showCollaborationStyle.value = !showCollaborationStyle.value;
+      break;
+    case 'recruitment':
+      showRecruitment.value = !showRecruitment.value;
+      break;
+    case 'training':
+      showTraining.value = !showTraining.value;
+      break;
+    case 'dailyLife':
+      showDailyLife.value = !showDailyLife.value;
+      break;
+  }
+};
 
 // Team members data from original App.vue
 type Member = {
@@ -57,6 +85,75 @@ const mentors = computed(() =>
       <h1>{{ t.teamTitle }}</h1>
       <p class="intro-text">{{ t.teamIntro }}</p>
       
+      <div class="cta-buttons">
+        <MicroButton 
+          :label="language === 'en' ? 'Team Structure' : 'Structura Echipei'" 
+          @click="toggleSection('teamStructure')"
+        />
+        <MicroButton 
+          :label="language === 'en' ? 'Collaboration Style' : 'Stil de Colaborare'" 
+          variant="secondary"
+          @click="toggleSection('collaborationStyle')"
+        />
+        <MicroButton 
+          :label="language === 'en' ? 'How We Recruit' : 'Cum Recrutăm'" 
+          @click="toggleSection('recruitment')"
+        />
+      </div>
+
+      <!-- Bonus Content Sections -->
+      <transition name="fade">
+        <div v-if="showTeamStructure" class="bonus-content">
+          <h3>{{ language === 'en' ? '🏗️ Our Team Structure' : '🏗️ Structura Echipei Noastre' }}</h3>
+          <p v-if="language === 'en'">
+            Mechabyte operates with two parallel teams working in synergy. Our Technical Team focuses on programming, hardware development, and CAD design, 
+            with 9 dedicated members who bring the robot to life. The Non-Technical Team, with 6 members, handles marketing, design, and community outreach. 
+            This dual structure ensures that while our engineers perfect the robot's performance, our outreach team shares our story with the community 
+            and builds partnerships that sustain our program. Our mentor Andreea Ioniță provides guidance and ensures both teams work cohesively toward our common goals.
+          </p>
+          <p v-else>
+            Mechabyte operează cu două echipe paralele care lucrează în sinergie. Echipa Tehnică se concentrează pe programare, dezvoltare hardware și design CAD,
+            cu 9 membri dedicați care dau viață robotului. Echipa Non-Tehnică, cu 6 membri, se ocupă de marketing, design și outreach comunitar.
+            Această structură duală asigură că în timp ce inginerii noștri perfecționează performanța robotului, echipa de outreach împărtășește povestea noastră cu comunitatea
+            și construiește parteneriate care susțin programul nostru. Mentorul nostru Andreea Ioniță oferă îndrumare și asigură că ambele echipe lucrează coeziv către obiectivele noastre comune.
+          </p>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div v-if="showCollaborationStyle" class="bonus-content">
+          <h3>{{ language === 'en' ? '🤝 How We Work Together' : '🤝 Cum Lucrăm Împreună' }}</h3>
+          <p v-if="language === 'en'">
+            {{ t.teamCollaboration }} Beyond formal meetings, we maintain active group chats where ideas flow 24/7. 
+            Technical and non-technical members regularly cross-pollinate ideas - a designer might suggest a robot feature, 
+            or a programmer might contribute to marketing materials. This fluid collaboration has led to some of our best innovations.
+          </p>
+          <p v-else>
+            {{ t.teamCollaboration }} Dincolo de întâlnirile formale, menținem chat-uri de grup active unde ideile circulă 24/7.
+            Membrii tehnici și non-tehnici își schimbă regulat idei - un designer poate sugera o funcționalitate a robotului,
+            sau un programator poate contribui la materialele de marketing. Această colaborare fluidă a dus la unele dintre cele mai bune inovații ale noastre.
+          </p>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div v-if="showRecruitment" class="bonus-content">
+          <h3>{{ language === 'en' ? '🎯 Joining Mechabyte' : '🎯 Alăturarea la Mechabyte' }}</h3>
+          <p v-if="language === 'en'">
+            We recruit new members at the start of each academic year through open information sessions at Paradise International College. 
+            No prior robotics experience is required - we look for passion, dedication, and willingness to learn. New members start with a 
+            2-week orientation where they rotate through all departments to find their best fit. We value diverse perspectives and believe 
+            that every student, regardless of their background, can contribute meaningfully to our team's success.
+          </p>
+          <p v-else>
+            Recrutăm membri noi la începutul fiecărui an academic prin sesiuni de informare deschise la Paradise International College.
+            Nu este necesară experiență anterioară în robotică - căutăm pasiune, dedicare și dorința de a învăța. Membrii noi încep cu o
+            orientare de 2 săptămâni în care rotesc prin toate departamentele pentru a-și găsi cea mai bună potrivire. Prețuim perspectivele diverse și credem
+            că fiecare student, indiferent de experiența sa, poate contribui semnificativ la succesul echipei noastre.
+          </p>
+        </div>
+      </transition>
+      
       <div class="team-section">
         <h2>{{ t.technicalTeamTitle }}</h2>
         <div class="members-grid">
@@ -95,6 +192,52 @@ const mentors = computed(() =>
           />
         </div>
       </div>
+
+      <div class="cta-buttons">
+        <MicroButton 
+          :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
+          variant="secondary"
+          @click="toggleSection('training')"
+        />
+        <MicroButton 
+          :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
+          @click="toggleSection('dailyLife')"
+        />
+      </div>
+
+      <transition name="fade">
+        <div v-if="showTraining" class="bonus-content">
+          <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
+          <p v-if="language === 'en'">
+            {{ t.teamTraining }} We've developed a comprehensive curriculum including Java programming workshops, CAD software training sessions,
+            and hands-on hardware assembly tutorials. Senior members mentor newer teammates through pair programming and design reviews. 
+            We also organize field trips to tech companies and universities to expose our members to career possibilities in STEM fields.
+          </p>
+          <p v-else>
+            {{ t.teamTraining }} Am dezvoltat un curriculum cuprinzător incluzând workshop-uri de programare Java, sesiuni de instruire pentru software CAD,
+            și tutoriale practice de asamblare hardware. Membrii seniori îndrumă colegii mai noi prin programare în perechi și revizuiri de design.
+            De asemenea, organizăm excursii la companii tech și universități pentru a expune membrii noștri la posibilități de carieră în domeniile STEM.
+          </p>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div v-if="showDailyLife" class="bonus-content">
+          <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
+          <p v-if="language === 'en'">
+            {{ t.teamEnvironment }} A typical practice session starts with a team standup where everyone shares their progress and challenges. 
+            Then teams split into their focus areas - programmers debugging code, CAD designers iterating on mechanisms, and marketing creating content. 
+            The energy is electric during testing sessions when we see code come to life on the robot. We celebrate every small victory, from a successful 
+            autonomous run to completing a sponsorship presentation. It's intense, challenging, and incredibly rewarding.
+          </p>
+          <p v-else>
+            {{ t.teamEnvironment }} O sesiune tipică de antrenament începe cu un standup de echipă unde toată lumea își împărtășește progresul și provocările.
+            Apoi echipele se împart pe domeniile lor de focus - programatori care corectează cod, designeri CAD care iterează pe mecanisme și marketing care creează conținut.
+            Energia este electrică în timpul sesiunilor de testare când vedem codul luând viață pe robot. Celebrăm fiecare mică victorie, de la o
+            rulare autonomă reușită până la finalizarea unei prezentări de sponsorizare. Este intens, provocator și incredibil de satisfăcător.
+          </p>
+        </div>
+      </transition>
       
       <div class="text-sections">
         <div class="text-section">
@@ -183,6 +326,49 @@ h2 {
   line-height: 1.6;
 }
 
+.cta-buttons {
+  display: flex;
+  gap: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+  flex-wrap: wrap;
+}
+
+.bonus-content {
+  background: var(--dark-grey);
+  border: 0.15vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  padding: 1.5vw;
+  margin: 1vw 0;
+  width: 100%;
+}
+
+.bonus-content h3 {
+  color: var(--mechabyte-green);
+  margin-bottom: 1vw;
+  font-size: clamp(16px, 1.5vw, 22px);
+}
+
+.bonus-content p {
+  line-height: 1.6;
+  margin-bottom: 0.5vw;
+}
+
+/* Fade transition for bonus content */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 @media only screen and (max-width: 1000px) {
   .content-section {
     width: 90vw;
@@ -195,6 +381,14 @@ h2 {
   }
 
   .text-section {
+    padding: 15px;
+  }
+
+  .cta-buttons {
+    gap: 15px;
+  }
+
+  .bonus-content {
     padding: 15px;
   }
 }
