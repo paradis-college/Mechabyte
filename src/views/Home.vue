@@ -96,6 +96,8 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
 .content-section {
   position: relative;
   z-index: 1;
+}
+
 .hero-section {
   display: flex;
   flex-direction: column;
