@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import MicroButton from '../components/MicroButton.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
 </script>
 
 <template>
@@ -18,10 +26,22 @@ const t = computed(() => translations[props.language]);
       <h1>{{ t.homeTitle }}</h1>
       <p class="welcome-text">{{ t.homeWelcome }}</p>
       
-      <h2>{{ t.aboutTitle }}</h2>
+      <div class="cta-buttons">
+        <MicroButton 
+          label="Learn More" 
+          @click="scrollToSection('about-section')"
+        />
+        <MicroButton 
+          label="Our Mission" 
+          variant="secondary"
+          @click="scrollToSection('mission-section')"
+        />
+      </div>
+      
+      <h2 id="about-section">{{ t.aboutTitle }}</h2>
       <p class="about-text">{{ t.aboutText }}</p>
       
-      <h2>{{ t.missionTitle }}</h2>
+      <h2 id="mission-section">{{ t.missionTitle }}</h2>
       <ul class="mission-list">
         <li v-for="(item, index) in t.missionItems" :key="index">{{ item }}</li>
       </ul>
@@ -107,6 +127,14 @@ h2 {
   margin-bottom: 0.5vw;
 }
 
+.cta-buttons {
+  display: flex;
+  gap: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+  flex-wrap: wrap;
+}
+
 @media only screen and (max-width: 1000px) {
   .banner {
     width: 40vw;
@@ -121,6 +149,10 @@ h2 {
   .content-section {
     width: 90vw;
     padding: 20px;
+  }
+
+  .cta-buttons {
+    gap: 15px;
   }
 }
 </style>
