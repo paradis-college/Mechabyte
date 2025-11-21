@@ -499,6 +499,10 @@ const gearClass = computed(() => {
   .gear {
     animation: none !important;
   }
+  
+  .circuit-connections {
+    display: none;
+  }
 }
 
 /* Responsive adjustments */
