@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { translations } from '../i18n/translations';
-import MicroButton from '../components/MicroButton.vue';
 import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
 import { translations } from '../i18n/translations';
+import MicroButton from '../components/MicroButton.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{

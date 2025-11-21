@@ -4,7 +4,6 @@ import { translations } from '../i18n/translations';
 import GearConveyor from '../components/GearConveyor.vue';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
 import MicroButton from '../components/MicroButton.vue';
-import HeroRobotArm from '../components/HeroRobotArm.vue';
 import FeatureCards from '../components/FeatureCards.vue';
 
 const props = defineProps<{
