@@ -2,6 +2,8 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
 import { translations } from '../i18n/translations';
 import MicroButton from '../components/MicroButton.vue';
+import FindMorePane from '../components/FindMorePane.vue';
+import SectionHeader from '../components/SectionHeader.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
@@ -10,28 +12,10 @@ const props = defineProps<{
 
 const t = computed(() => translations[props.language]);
 
-// State for toggling bonus content visibility
+// State for FindMorePane
 const showValueOrigins = ref(false);
 const showRealExamples = ref(false);
 const showImpact = ref(false);
-const showAmbassadors = ref(false);
-
-const toggleSection = (section: string) => {
-  switch(section) {
-    case 'valueOrigins':
-      showValueOrigins.value = !showValueOrigins.value;
-      break;
-    case 'realExamples':
-      showRealExamples.value = !showRealExamples.value;
-      break;
-    case 'impact':
-      showImpact.value = !showImpact.value;
-      break;
-    case 'ambassadors':
-      showAmbassadors.value = !showAmbassadors.value;
-      break;
-  }
-};
 // Scanner beam effect
 const cardVisibility = ref<Record<number, boolean>>({});
 const cardSweep = ref<Record<number, boolean>>({});
@@ -93,79 +77,84 @@ onUnmounted(() => {
 <template>
   <div class="values-page">
     <section class="content-section">
-      <h1>{{ t.valuesTitle }}</h1>
-      <p class="intro-text">{{ t.valuesIntro }}</p>
+      <SectionHeader 
+        :title="t.valuesTitle"
+        :subtitle="t.valuesIntro"
+      />
       
       <div class="cta-buttons">
         <MicroButton 
-          :label="language === 'en' ? 'Value Origins' : 'Originea Valorilor'" 
-          @click="toggleSection('valueOrigins')"
+          :label="language === 'en' ? 'Find out more' : 'Află mai multe'" 
+          @click="showValueOrigins = true"
         />
         <MicroButton 
           :label="language === 'en' ? 'Real Examples' : 'Exemple Reale'" 
           variant="secondary"
-          @click="toggleSection('realExamples')"
+          @click="showRealExamples = true"
         />
         <MicroButton 
           :label="language === 'en' ? 'Our Impact' : 'Impactul Nostru'" 
-          @click="toggleSection('impact')"
+          @click="showImpact = true"
         />
       </div>
 
-      <!-- Bonus Content Sections -->
-      <transition name="fade">
-        <div v-if="showValueOrigins" class="bonus-content">
-          <h3>{{ language === 'en' ? '🌟 Where Our Values Come From' : '🌟 De Unde Vin Valorile Noastre' }}</h3>
-          <p v-if="language === 'en'">
-            Our core values weren't decided in a single meeting - they evolved organically from our team's experiences. Innovation emerged as a value when 
-            we realized our best solutions came from questioning assumptions. Teamwork became central after seeing how collaboration multiplied our 
-            capabilities. Integrity was solidified when we chose to restart a competition match rather than accept a win from an opponent's technical failure. 
-            Each value represents lessons learned and principles tested in real situations.
-          </p>
-          <p v-else>
-            Valorile noastre fundamentale nu au fost decise într-o singură întâlnire - au evoluat organic din experiențele echipei. Inovația a apărut ca valoare când
-            am realizat că cele mai bune soluții ale noastre veneau din punerea la îndoială a presupunerilor. Munca în echipă a devenit centrală după ce am văzut cum colaborarea ne-a multiplicat
-            capacitățile. Integritatea a fost consolidată când am ales să reluăm un meci de competiție în loc să acceptăm o victorie din cauza unei defecțiuni tehnice a adversarului.
-            Fiecare valoare reprezintă lecții învățate și principii testate în situații reale.
-          </p>
-        </div>
-      </transition>
+      <!-- FindMorePane modals -->
+      <FindMorePane 
+        :show="showValueOrigins"
+        :title="language === 'en' ? '🌟 Where Our Values Come From' : '🌟 De Unde Vin Valorile Noastre'"
+        @close="showValueOrigins = false"
+      >
+        <p v-if="language === 'en'">
+          Our core values weren't decided in a single meeting - they evolved organically from our team's experiences. Innovation emerged as a value when 
+          we realized our best solutions came from questioning assumptions. Teamwork became central after seeing how collaboration multiplied our 
+          capabilities. Integrity was solidified when we chose to restart a competition match rather than accept a win from an opponent's technical failure. 
+          Each value represents lessons learned and principles tested in real situations.
+        </p>
+        <p v-else>
+          Valorile noastre fundamentale nu au fost decise într-o singură întâlnire - au evoluat organic din experiențele echipei. Inovația a apărut ca valoare când
+          am realizat că cele mai bune soluții ale noastre veneau din punerea la îndoială a presupunerilor. Munca în echipă a devenit centrală după ce am văzut cum colaborarea ne-a multiplicat
+          capacitățile. Integritatea a fost consolidată când am ales să reluăm un meci de competiție în loc să acceptăm o victorie din cauza unei defecțiuni tehnice a adversarului.
+          Fiecare valoare reprezintă lecții învățate și principii testate în situații reale.
+        </p>
+      </FindMorePane>
 
-      <transition name="fade">
-        <div v-if="showRealExamples" class="bonus-content">
-          <h3>{{ language === 'en' ? '💡 Values in Action' : '💡 Valori în Acțiune' }}</h3>
-          <p v-if="language === 'en'">
-            When faced with a critical design flaw two days before competition, our value of Excellence pushed us to rebuild rather than compromise. 
-            Community manifested when we spent a Saturday teaching robotics to elementary students instead of practicing. Learning was demonstrated when 
-            our entire programming team switched to a new framework mid-season because it was the right technical decision. These aren't abstract principles - 
-            they're daily choices that shape who we are as a team.
-          </p>
-          <p v-else>
-            Când ne-am confruntat cu o defecțiune critică de design cu două zile înainte de competiție, valoarea Excelenței ne-a împins să reconstruim în loc să compromitem.
-            Comunitatea s-a manifestat când am petrecut o sâmbătă predând robotică la elevi de școală primară în loc să ne antrenăm. Învățarea a fost demonstrată când
-            întreaga noastră echipă de programare a trecut la un nou framework la mijlocul sezonului pentru că a fost decizia tehnică corectă. Acestea nu sunt principii abstracte -
-            sunt alegeri zilnice care modelează cine suntem ca echipă.
-          </p>
-        </div>
-      </transition>
+      <FindMorePane 
+        :show="showRealExamples"
+        :title="language === 'en' ? '💡 Values in Action' : '💡 Valori în Acțiune'"
+        @close="showRealExamples = false"
+      >
+        <p v-if="language === 'en'">
+          When faced with a critical design flaw two days before competition, our value of Excellence pushed us to rebuild rather than compromise. 
+          Community manifested when we spent a Saturday teaching robotics to elementary students instead of practicing. Learning was demonstrated when 
+          our entire programming team switched to a new framework mid-season because it was the right technical decision. These aren't abstract principles - 
+          they're daily choices that shape who we are as a team.
+        </p>
+        <p v-else>
+          Când ne-am confruntat cu o defecțiune critică de design cu două zile înainte de competiție, valoarea Excelenței ne-a împins să reconstruim în loc să compromitem.
+          Comunitatea s-a manifestat când am petrecut o sâmbătă predând robotică la elevi de școală primară în loc să ne antrenăm. Învățarea a fost demonstrată când
+          întreaga noastră echipă de programare a trecut la un nou framework la mijlocul sezonului pentru că a fost decizia tehnică corectă. Acestea nu sunt principii abstracte -
+          sunt alegeri zilnice care modelează cine suntem ca echipă.
+        </p>
+      </FindMorePane>
 
-      <transition name="fade">
-        <div v-if="showImpact" class="bonus-content">
-          <h3>{{ language === 'en' ? '🎯 Making a Difference' : '🎯 Făcând o Diferență' }}</h3>
-          <p v-if="language === 'en'">
-            Living our values has created ripple effects beyond competition results. Our commitment to Community led to establishing a robotics club 
-            at a local middle school, now serving 30+ students. Innovation drove us to open-source our robot code, which has been downloaded by teams 
-            from 15 countries. Integrity earned us the FIRST Gracious Professionalism award, but more importantly, it built trust with sponsors and 
-            partners who continue supporting our program year after year.
-          </p>
-          <p v-else>
-            Trăirea valorilor noastre a creat efecte în lanț dincolo de rezultatele competiției. Angajamentul nostru față de Comunitate a dus la înființarea unui club de robotică
-            la o școală generală locală, care deservește acum peste 30 de elevi. Inovația ne-a determinat să facem open-source codul robotului nostru, care a fost descărcat de echipe
-            din 15 țări. Integritatea ne-a adus premiul FIRST Gracious Professionalism, dar mai important, a construit încredere cu sponsorii și
-            partenerii care continuă să ne sprijine programul an de an.
-          </p>
-        </div>
-      </transition>
+      <FindMorePane 
+        :show="showImpact"
+        :title="language === 'en' ? '🎯 Making a Difference' : '🎯 Făcând o Diferență'"
+        @close="showImpact = false"
+      >
+        <p v-if="language === 'en'">
+          Living our values has created ripple effects beyond competition results. Our commitment to Community led to establishing a robotics club 
+          at a local middle school, now serving 30+ students. Innovation drove us to open-source our robot code, which has been downloaded by teams 
+          from 15 countries. Integrity earned us the FIRST Gracious Professionalism award, but more importantly, it built trust with sponsors and 
+          partners who continue supporting our program year after year.
+        </p>
+        <p v-else>
+          Trăirea valorilor noastre a creat efecte în lanț dincolo de rezultatele competiției. Angajamentul nostru față de Comunitate a dus la înființarea unui club de robotică
+          la o școală generală locală, care deservește acum peste 30 de elevi. Inovația ne-a determinat să facem open-source codul robotului nostru, care a fost descărcat de echipe
+          din 15 țări. Integritatea ne-a adus premiul FIRST Gracious Professionalism, dar mai important, a construit încredere cu sponsorii și
+          partenerii care continuă să ne sprijine programul an de an.
+        </p>
+      </FindMorePane>
       
       <div class="values-grid">
         <div 
@@ -180,38 +169,10 @@ onUnmounted(() => {
         </div>
       </div>
       
-      <div class="cta-buttons">
-        <MicroButton 
-          :label="language === 'en' ? 'Ambassador Role' : 'Rolul de Ambasador'" 
-          variant="secondary"
-          @click="toggleSection('ambassadors')"
-        />
-      </div>
-
-      <transition name="fade">
-        <div v-if="showAmbassadors" class="bonus-content">
-          <h3>{{ language === 'en' ? '🌐 Being Ambassadors' : '🌐 A Fi Ambasadori' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.ambassadorStatement }} As ambassadors, we represent not just our team but the broader vision of accessible STEM education in Romania. 
-            This means speaking at schools, presenting at education conferences, and engaging with government officials about the importance of 
-            technical education. Every interaction is an opportunity to inspire others and demonstrate that Romanian students can compete at the 
-            highest levels of international robotics competitions.
-          </p>
-          <p v-else>
-            {{ t.ambassadorStatement }} Ca ambasadori, reprezentăm nu doar echipa noastră, ci viziunea mai largă a educației STEM accesibile în România.
-            Aceasta înseamnă să vorbim în școli, să prezentăm la conferințe de educație și să ne implicăm cu oficialii guvernamentali despre importanța
-            educației tehnice. Fiecare interacțiune este o oportunitate de a-i inspira pe alții și de a demonstra că studenții români pot concura la
-            cele mai înalte niveluri ale competițiilor internaționale de robotică.
-          </p>
-        </div>
-      </transition>
-      
       <div class="ambassador-section">
-        <h2>{{ t.ambassadorRoleTitle }}</h2>
+        <h3>{{ t.ambassadorRoleTitle }}</h3>
         <p class="ambassador-text">{{ t.ambassadorStatement }}</p>
       </div>
-      
-      <p class="closing-text">{{ t.valuesClosing }}</p>
     </section>
   </div>
 </template>

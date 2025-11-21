@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
 import { translations } from '../i18n/translations';
+import SectionHeader from '../components/SectionHeader.vue';
+import FindMorePane from '../components/FindMorePane.vue';
+import MicroButton from '../components/MicroButton.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
@@ -8,6 +11,9 @@ const props = defineProps<{
 }>();
 
 const t = computed(() => translations[props.language]);
+
+// State for FindMorePane
+const showFirstRobotDetails = ref(false);
 
 // Scanner beam effect
 const cardVisibility = ref<Record<number, boolean>>({});
@@ -70,8 +76,10 @@ onUnmounted(() => {
 <template>
   <div class="achievements-page">
     <section class="content-section">
-      <h1>{{ t.achievementsTitle }}</h1>
-      <p class="intro-text">{{ t.achievementsIntro }}</p>
+      <SectionHeader 
+        :title="t.achievementsTitle"
+        :subtitle="t.achievementsIntro"
+      />
       
       <div class="timeline">
         <div v-for="(achievement, index) in t.achievementsList" :key="index" class="timeline-item">
@@ -84,9 +92,46 @@ onUnmounted(() => {
             <div class="year-badge">{{ achievement.year }}</div>
             <h2>{{ achievement.title }}</h2>
             <p>{{ achievement.description }}</p>
+            <MicroButton 
+              v-if="index === 1"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showFirstRobotDetails = true"
+              style="margin-top: 1rem;"
+            />
           </div>
         </div>
       </div>
+
+      <!-- FindMorePane for First Robot Build details -->
+      <FindMorePane 
+        :show="showFirstRobotDetails"
+        :title="language === 'en' ? '🤖 Our First Robot Build' : '🤖 Prima Noastră Construcție de Robot'"
+        @close="showFirstRobotDetails = false"
+      >
+        <div v-if="language === 'en'">
+          <p>Building our first competitive robot was an incredible learning experience. We started with basic concepts and iterated through multiple prototypes before finalizing our design.</p>
+          <h4 style="color: var(--mechabyte-green); margin-top: 1rem;">Key Features:</h4>
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Custom-designed intake mechanism</li>
+            <li>Autonomous navigation system</li>
+            <li>Precision control software</li>
+            <li>Modular design for easy repairs</li>
+          </ul>
+          <p style="margin-top: 1rem;">This experience taught us the importance of testing, iteration, and teamwork in robotics engineering.</p>
+        </div>
+        <div v-else>
+          <p>Construirea primului nostru robot competitiv a fost o experiență incredibilă de învățare. Am început cu concepte de bază și am iterat prin multiple prototipuri înainte de a finaliza designul.</p>
+          <h4 style="color: var(--mechabyte-green); margin-top: 1rem;">Caracteristici Cheie:</h4>
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Mecanism de intrare proiectat personalizat</li>
+            <li>Sistem de navigare autonomă</li>
+            <li>Software de control de precizie</li>
+            <li>Design modular pentru reparații ușoare</li>
+          </ul>
+          <p style="margin-top: 1rem;">Această experiență ne-a învățat importanța testării, iterației și muncii în echipă în ingineria roboticii.</p>
+        </div>
+      </FindMorePane>
     </section>
   </div>
 </template>

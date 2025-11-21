@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import SectionHeader from '../components/SectionHeader.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -12,8 +13,10 @@ const t = computed(() => translations[props.language]);
 <template>
   <div class="contact-page">
     <section class="content-section">
-      <h1>{{ t.contactTitle }}</h1>
-      <p class="intro-text">{{ t.contactIntro }}</p>
+      <SectionHeader 
+        :title="t.contactTitle"
+        :subtitle="t.contactIntro"
+      />
       
       <div class="contact-grid">
         <div class="contact-card">
@@ -50,13 +53,19 @@ const t = computed(() => translations[props.language]);
       
       <div class="info-section">
         <div class="info-card">
-          <h2>{{ t.scheduleDemoTitle }}</h2>
+          <h3>{{ t.scheduleDemoTitle }}</h3>
           <p>{{ t.scheduleDemo }}</p>
+          <button class="btn-primary schedule-demo-btn">
+            {{ language === 'en' ? 'Schedule a Demo' : 'Programează o Demonstrație' }}
+          </button>
         </div>
         
         <div class="info-card">
-          <h2>{{ t.stayConnectedTitle }}</h2>
+          <h3>{{ t.stayConnectedTitle }}</h3>
           <p>{{ t.connectWithUs }}</p>
+          <button class="btn-primary stay-connected-btn">
+            {{ language === 'en' ? 'Stay Connected' : 'Rămâi Conectat' }}
+          </button>
         </div>
       </div>
     </section>
@@ -190,10 +199,24 @@ h2 {
   border: 0.1vw solid var(--mechabyte-green);
   background: var(--dark-grey);
   border-radius: 0.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-card h3 {
+  color: var(--mechabyte-green);
+  margin-bottom: 0.5rem;
 }
 
 .info-card p {
   line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.schedule-demo-btn,
+.stay-connected-btn {
+  margin-top: auto;
 }
 
 @media only screen and (max-width: 1000px) {
