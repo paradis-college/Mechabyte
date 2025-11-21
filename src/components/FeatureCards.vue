@@ -2,6 +2,7 @@
 import { useRevealOnScroll } from '@/composables/useRevealOnScroll';
 import { computed } from 'vue';
 import { translations } from '@/i18n/translations';
+import CardGrid from './CardGrid.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -13,9 +14,8 @@ const t = computed(() => translations[props.language]);
 const { elementRef: card1Ref, isVisible: card1Visible } = useRevealOnScroll({ threshold: 0.15 });
 const { elementRef: card2Ref, isVisible: card2Visible } = useRevealOnScroll({ threshold: 0.15 });
 const { elementRef: card3Ref, isVisible: card3Visible } = useRevealOnScroll({ threshold: 0.15 });
-const { elementRef: card4Ref, isVisible: card4Visible } = useRevealOnScroll({ threshold: 0.15 });
 
-// Feature cards data - using semantic content relevant to robotics
+// Feature cards data - using semantic content relevant to robotics (reduced to 3)
 const features = computed(() => [
   {
     icon: '🤖',
@@ -31,25 +31,20 @@ const features = computed(() => [
     icon: '👥',
     title: t.value.featureTeamworkTitle || 'Teamwork',
     description: t.value.featureTeamworkDesc || 'Collaborative environment where diverse skills come together to achieve common goals.'
-  },
-  {
-    icon: '🏆',
-    title: t.value.featureCompetitionTitle || 'Competition Ready',
-    description: t.value.featureCompetitionDesc || 'Preparing for FTC competitions with rigorous testing, iteration, and strategic planning.'
   }
 ]);
 </script>
 
 <template>
   <section class="feature-cards-section" aria-labelledby="features-heading">
-    <h2 id="features-heading" class="feature-cards-title">
+    <h2 id="features-heading" class="feature-cards-title centered-header">
       {{ t.featuresHeading || 'What We Do' }}
     </h2>
     
-    <div class="feature-cards-container">
+    <CardGrid :columns="3">
       <article 
         ref="card1Ref" 
-        :class="['feature-card', 'reveal', { 'is-visible': card1Visible }]"
+        :class="['feature-card', 'card', 'transparent', 'reveal', { 'is-visible': card1Visible }]"
         tabindex="0"
         role="article"
       >
@@ -66,7 +61,7 @@ const features = computed(() => [
 
       <article 
         ref="card2Ref" 
-        :class="['feature-card', 'reveal', { 'is-visible': card2Visible }]"
+        :class="['feature-card', 'card', 'transparent', 'reveal', { 'is-visible': card2Visible }]"
         tabindex="0"
         role="article"
       >
@@ -83,7 +78,7 @@ const features = computed(() => [
 
       <article 
         ref="card3Ref" 
-        :class="['feature-card', 'reveal', { 'is-visible': card3Visible }]"
+        :class="['feature-card', 'card', 'transparent', 'reveal', { 'is-visible': card3Visible }]"
         tabindex="0"
         role="article"
       >
@@ -97,24 +92,7 @@ const features = computed(() => [
           {{ features[2].description }}
         </p>
       </article>
-
-      <article 
-        ref="card4Ref" 
-        :class="['feature-card', 'reveal', { 'is-visible': card4Visible }]"
-        tabindex="0"
-        role="article"
-      >
-        <div class="feature-card-icon" aria-hidden="true">
-          {{ features[3].icon }}
-        </div>
-        <h3 class="feature-card-title">
-          {{ features[3].title }}
-        </h3>
-        <p class="feature-card-description">
-          {{ features[3].description }}
-        </p>
-      </article>
-    </div>
+    </CardGrid>
   </section>
 </template>
 

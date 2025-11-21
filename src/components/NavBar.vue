@@ -58,6 +58,12 @@ const isActive = (path: string) => {
           ariaLabel="Navigate to Team"
         />
         <MicroButton 
+          :label="translations[language].nav.portfolio"
+          :variant="isActive('/portfolio') ? 'primary' : 'secondary'"
+          @click="navigateTo('/portfolio')"
+          ariaLabel="Navigate to Portfolio"
+        />
+        <MicroButton 
           :label="translations[language].nav.sponsors"
           :variant="isActive('/sponsors') ? 'primary' : 'secondary'"
           @click="navigateTo('/sponsors')"

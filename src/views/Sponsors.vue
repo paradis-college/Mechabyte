@@ -23,39 +23,51 @@ const sponsors = ref<Sponsor[]>([
   {
     name: 'Paradis International College',
     logo: new URL('../assets/images/sponsors/paradis college.jpg', import.meta.url).href,
-    descriptionEn: 'Our home institution and primary sponsor. Paradis International College shares our commitment to excellence in education, innovation, and developing future leaders. Their support provides us with facilities, resources, and the foundation to pursue our robotics goals.',
-    descriptionRo: 'Instituția noastră gazdă și sponsor principal. Paradis International College împărțește angajamentul nostru față de excelența în educație, inovație și dezvoltarea liderilor viitori. Susținerea lor ne oferă facilități, resurse și fundația pentru a ne urmări obiectivele în robotică.',
+    descriptionEn: 'Our home institution and primary sponsor, providing facilities, resources, and the foundation to pursue our robotics goals.',
+    descriptionRo: 'Instituția noastră gazdă și sponsor principal, oferind facilități, resurse și fundația pentru a ne urmări obiectivele în robotică.',
     isPrimary: true
   },
   {
     name: 'BRD',
     logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
-    descriptionEn: 'BRD - Groupe Société Générale supports innovation and education in Romania. Their values of responsibility, commitment, and team spirit align perfectly with Mechabyte\'s mission to inspire young innovators and promote STEM education in our community.',
-    descriptionRo: 'BRD - Groupe Société Générale susține inovația și educația în România. Valorile lor de responsabilitate, angajament și spirit de echipă se aliniază perfect cu misiunea Mechabyte de a inspira tineri inovatori și de a promova educația STEM în comunitatea noastră.'
+    descriptionEn: 'BRD supports innovation and education in Romania, aligning with our mission to inspire young innovators.',
+    descriptionRo: 'BRD susține inovația și educația în România, aliniate cu misiunea noastră de a inspira tineri inovatori.'
   },
   {
     name: 'First Tech Challenge',
     logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
-    descriptionEn: 'FIRST Tech Challenge is the global robotics competition that brings our team together. FTC shares our values of gracious professionalism, innovation, and teamwork, providing the framework for our growth and development in robotics.',
-    descriptionRo: 'FIRST Tech Challenge este competiția globală de robotică care ne reunește echipa. FTC împărtășește valorile noastre de profesionalism grațios, inovație și muncă în echipă, oferind cadrul pentru creșterea și dezvoltarea noastră în robotică.'
+    descriptionEn: 'The global robotics competition that brings our team together and provides the framework for our growth.',
+    descriptionRo: 'Competiția globală de robotică care ne reunește echipa și oferă cadrul pentru creșterea noastră.'
   },
   {
     name: 'Nație prin Educație',
     logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
-    descriptionEn: 'Nație prin Educație is a movement dedicated to transforming Romania through quality education. Their vision of empowering youth through learning resonates with Mechabyte\'s commitment to STEM education and community outreach.',
-    descriptionRo: 'Nație prin Educație este o mișcare dedicată transformării României prin educație de calitate. Viziunea lor de a împuternici tinerii prin învățare rezonează cu angajamentul Mechabyte față de educația STEM și implicarea comunitară.'
+    descriptionEn: 'A movement dedicated to transforming Romania through quality education and youth empowerment.',
+    descriptionRo: 'O mișcare dedicată transformării României prin educație de calitate și împuternicirea tinerilor.'
   },
   {
     name: 'Professional Dentist',
     logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
-    descriptionEn: 'Professional Dentist supports our team with their commitment to excellence and precision. Just as they focus on meticulous care in dental health, we apply the same attention to detail in our robot design and engineering processes.',
-    descriptionRo: 'Professional Dentist sprijină echipa noastră cu angajamentul lor față de excelență și precizie. Așa cum ei se concentrează pe îngrijirea meticuloasă a sănătății dentare, noi aplicăm aceeași atenție la detalii în designul robotului și procesele de inginerie.'
+    descriptionEn: 'Supports our team with commitment to excellence and precision in everything we build.',
+    descriptionRo: 'Sprijină echipa noastră cu angajament față de excelență și precizie în tot ce construim.'
   },
   {
     name: 'SAM Ideas',
     logo: new URL('../assets/images/sponsors/SAM ideas.jpg', import.meta.url).href,
-    descriptionEn: 'SAM Ideas champions innovation and creative problem-solving. Their support helps us push boundaries in robotics design and encourages us to think outside the box, perfectly aligning with our value of continuous innovation.',
-    descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei, aliniate perfect cu valoarea noastră de inovație continuă.'
+    descriptionEn: 'SAM Ideas champions innovation and creative problem-solving. Their support helps us push boundaries in robotics design and encourages us to think outside the box.',
+    descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei.'
+  },
+  {
+    name: 'Pulse',
+    logo: new URL('../assets/images/sponsors/pulse.jpeg', import.meta.url).href,
+    descriptionEn: 'Pulse supports emerging tech talent and innovation initiatives. Their partnership helps us access cutting-edge resources and connect with industry professionals.',
+    descriptionRo: 'Pulse susține talentele tehnologice emergente și inițiativele de inovație. Parteneriatul lor ne ajută să accesăm resurse de ultimă generație și să ne conectăm cu profesioniști din industrie.'
+  },
+  {
+    name: 'TrustTeam',
+    logo: new URL('../assets/images/sponsors/trustteam.jpeg', import.meta.url).href,
+    descriptionEn: 'TrustTeam believes in empowering youth through technology and teamwork. Their support strengthens our collaborative culture and technical capabilities.',
+    descriptionRo: 'TrustTeam crede în împuternicirea tinerilor prin tehnologie și lucru în echipă. Susținerea lor întărește cultura noastră de colaborare și capacitățile tehnice.'
   }
 ]);
 

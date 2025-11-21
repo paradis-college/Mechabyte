@@ -198,13 +198,6 @@ const toggleSection = (section: string) => {
         </div>
       </transition>
       
-      <h2>{{ t.activitiesTitle }}</h2>
-      <ul class="activities-list">
-        <li v-for="(activity, index) in t.activities" :key="index">
-          <strong>{{ activity.name }}:</strong> {{ activity.description }}
-        </li>
-      </ul>
-      
       <!-- CTA Button with micro-interactions -->
       <div class="cta-section">
         <MicroButton 
