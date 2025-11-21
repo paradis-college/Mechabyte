@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
 import { translations } from '../i18n/translations';
 import SponsorCard from '../components/SponsorCard.vue';
+import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -57,6 +58,63 @@ const sponsors = ref<Sponsor[]>([
     descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei, aliniate perfect cu valoarea noastră de inovație continuă.'
   }
 ]);
+
+// Scanner beam effect for point cards
+const cardVisibility = ref<Record<number, boolean>>({});
+const cardSweep = ref<Record<number, boolean>>({});
+const cardRefs = ref<Record<number, HTMLElement>>({});
+
+const SCANNER_SWEEP_DURATION_MS = 1500;
+let observer: IntersectionObserver | null = null;
+
+const setCardRef = (el: Element | ComponentPublicInstance | null, id: number) => {
+  if (el && 'nodeType' in el) {
+    cardRefs.value[id] = el as HTMLElement;
+  }
+};
+
+onMounted(() => {
+  // Initialize visibility for point cards
+  const whySponsorPoints = t.value.whySponsorPoints || [];
+  whySponsorPoints.forEach((_: any, index: number) => {
+    cardVisibility.value[index] = false;
+    cardSweep.value[index] = false;
+  });
+
+  nextTick(() => {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const cardId = parseInt(entry.target.getAttribute('data-card-id') || '0');
+          if (entry.isIntersecting && !cardVisibility.value[cardId]) {
+            cardVisibility.value[cardId] = true;
+            cardSweep.value[cardId] = true;
+            
+            setTimeout(() => {
+              cardSweep.value[cardId] = false;
+            }, SCANNER_SWEEP_DURATION_MS);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px',
+      }
+    );
+
+    Object.values(cardRefs.value).forEach((el) => {
+      if (el && observer) {
+        observer.observe(el);
+      }
+    });
+  });
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <template>
@@ -91,18 +149,30 @@ const sponsors = ref<Sponsor[]>([
       <div class="why-sponsor-section">
         <h2>{{ t.whySponsorTitle }}</h2>
         <div class="points-grid">
-          <div v-for="(point, index) in t.whySponsorPoints" :key="index" class="point-card">
+          <div 
+            v-for="(point, index) in t.whySponsorPoints" 
+            :key="index" 
+            :ref="(el) => setCardRef(el, index)"
+            :data-card-id="index"
+            :class="['point-card', 'scanner', { 'scanner--sweep': cardSweep[index] }]"
+          >
             <div class="point-number">{{ index + 1 }}</div>
             <p>{{ point }}</p>
           </div>
         </div>
       </div>
       
+      <!-- Sustainability Section -->
+      <div class="sustainability-section">
+        <h2>{{ t.sustainabilityGrowthLabel }}</h2>
+        <p>{{ t.sustainabilityGrowthText }}</p>
+      </div>
+      
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
         <RouterLink to="/contact" class="cta-button">
-          {{ props.language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
+          {{ t.contactUsLabel }}
         </RouterLink>
       </div>
     </section>
@@ -219,6 +289,20 @@ h2 {
   line-height: 1.6;
 }
 
+.sustainability-section {
+  width: 100%;
+  padding: 1.5vw;
+  background: var(--dark-grey);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  margin-bottom: 2vw;
+}
+
+.sustainability-section p {
+  line-height: 1.7;
+  margin-top: 0.5vw;
+}
+
 .cta-section {
   width: 100%;
   padding: 2vw;
@@ -274,6 +358,11 @@ h2 {
 
   .point-card {
     padding: 15px;
+  }
+
+  .sustainability-section {
+    padding: 15px;
+    margin-bottom: 20px;
   }
 
   .sponsors-notice,

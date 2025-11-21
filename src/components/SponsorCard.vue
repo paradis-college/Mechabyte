@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '../styles/components/ScannerBeam.css';
+
 defineProps({
   name: {
     type: String,
@@ -20,7 +22,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="sponsor-card" :class="{ primary: isPrimary }">
+  <div class="sponsor-card scanner" :class="{ primary: isPrimary }">
     <div class="sponsor-logo-container">
       <img :src="logo" :alt="`${name} logo`" class="sponsor-logo" />
     </div>
