@@ -23,8 +23,6 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
     <!-- To enable parallax, change to: <GearConveyor :enable-parallax="true" /> -->
     <GearConveyor />
     
-    <img class="banner" alt="Mechabyte banner" src="/banner.png" />
-    <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
     <!-- Hero section with robot arm -->
     <div class="hero-section">
       <img class="banner" alt="Mechabyte banner" src="/banner.png" />
