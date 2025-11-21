@@ -40,6 +40,31 @@ onMounted(() => {
     <!-- Conveyor belt background -->
     <div class="conveyor-belt"></div>
     
+    <!-- Tech circuit lines connecting gears -->
+    <svg class="circuit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lines connecting gears with Manhattan routing -->
+      <!-- Top left to top right -->
+      <path d="M 20 15 L 20 12 L 70 12 L 70 10" class="circuit-line circuit-line--1" />
+      <!-- Top right to middle left -->
+      <path d="M 70 10 L 75 10 L 75 48 L 15 48 L 15 55" class="circuit-line circuit-line--2" />
+      <!-- Middle to bottom left -->
+      <path d="M 10 50 L 8 50 L 8 82 L 25 82 L 25 85" class="circuit-line circuit-line--3" />
+      <!-- Middle right to bottom right -->
+      <path d="M 80 55 L 82 55 L 82 88 L 65 88 L 65 90" class="circuit-line circuit-line--4" />
+      <!-- Top section cross connection -->
+      <path d="M 20 15 L 18 15 L 18 22 L 60 22 L 60 20" class="circuit-line circuit-line--5" />
+      <!-- Middle section horizontal -->
+      <path d="M 40 60 L 40 65 L 75 65 L 75 80" class="circuit-line circuit-line--6" />
+      <!-- Bottom section connection -->
+      <path d="M 25 85 L 30 85 L 30 88 L 55 88 L 55 92" class="circuit-line circuit-line--7" />
+      <!-- Vertical connector on right -->
+      <path d="M 80 55 L 85 55 L 85 35 L 85 35" class="circuit-line circuit-line--8" />
+      <!-- Cross connection middle to top -->
+      <path d="M 50 48 L 50 35 L 25 35 L 25 25" class="circuit-line circuit-line--9" />
+      <!-- Diagonal-style Manhattan route -->
+      <path d="M 15 18 L 10 18 L 10 45 L 40 45 L 40 60" class="circuit-line circuit-line--10" />
+    </svg>
+    
     <!-- Background layer - large faint gears distributed throughout the page -->
     <div ref="backgroundGearRef" class="gear-layer gear-layer--background">
       <!-- Top section -->
@@ -143,7 +168,7 @@ onMounted(() => {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .conveyor-belt {
@@ -162,6 +187,87 @@ onMounted(() => {
   opacity: 0.15;
   animation: conveyor-scroll 30s linear infinite;
   will-change: transform;
+}
+
+/* Circuit board connection lines */
+.circuit-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.circuit-line {
+  fill: none;
+  stroke: var(--gear-accent);
+  stroke-width: 0.08;
+  stroke-linecap: square;
+  opacity: 0.3;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Animated dash effect for circuit lines */
+.circuit-line--1 {
+  stroke-dasharray: 2, 3;
+  animation: dash-flow 8s linear infinite;
+  animation-delay: 0s;
+}
+
+.circuit-line--2 {
+  stroke-dasharray: 3, 2;
+  animation: dash-flow 10s linear infinite;
+  animation-delay: -2s;
+}
+
+.circuit-line--3 {
+  stroke-dasharray: 2, 4;
+  animation: dash-flow 12s linear infinite;
+  animation-delay: -4s;
+}
+
+.circuit-line--4 {
+  stroke-dasharray: 3, 3;
+  animation: dash-flow 9s linear infinite;
+  animation-delay: -1s;
+}
+
+.circuit-line--5 {
+  stroke-dasharray: 2, 2;
+  animation: dash-flow 11s linear infinite;
+  animation-delay: -3s;
+}
+
+.circuit-line--6 {
+  stroke-dasharray: 4, 2;
+  animation: dash-flow 13s linear infinite;
+  animation-delay: -5s;
+}
+
+.circuit-line--7 {
+  stroke-dasharray: 2, 3;
+  animation: dash-flow 10s linear infinite;
+  animation-delay: -6s;
+}
+
+.circuit-line--8 {
+  stroke-dasharray: 3, 4;
+  animation: dash-flow 14s linear infinite;
+  animation-delay: -2.5s;
+}
+
+.circuit-line--9 {
+  stroke-dasharray: 2, 2;
+  animation: dash-flow 11s linear infinite;
+  animation-delay: -4.5s;
+}
+
+.circuit-line--10 {
+  stroke-dasharray: 3, 2;
+  animation: dash-flow 15s linear infinite;
+  animation-delay: -7s;
 }
 
 .gear-layer {
@@ -260,10 +366,20 @@ onMounted(() => {
   }
 }
 
+@keyframes dash-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 50;
+  }
+}
+
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .gear,
-  .conveyor-belt {
+  .conveyor-belt,
+  .circuit-line {
     animation-play-state: paused !important;
     animation: none !important;
   }
@@ -275,10 +391,6 @@ onMounted(() => {
 
 /* Responsive adjustments */
 @media only screen and (max-width: 1000px) {
-  .gear-conveyor {
-    height: 60vh;
-  }
-  
   .gear--small {
     width: 40px;
     height: 40px;
@@ -292,6 +404,10 @@ onMounted(() => {
   .gear--large {
     width: 100px;
     height: 100px;
+  }
+  
+  .circuit-line {
+    stroke-width: 0.12;
   }
 }
 </style>
