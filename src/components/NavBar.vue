@@ -35,13 +35,13 @@ const setLanguage = (lang: 'en' | 'ro') => {
           label="EN"
           :variant="language === 'en' ? 'primary' : 'secondary'"
           @click="setLanguage('en')"
-          aria-label="Switch to English"
+          ariaLabel="Switch to English"
         />
         <MicroButton 
           label="RO"
           :variant="language === 'ro' ? 'primary' : 'secondary'"
           @click="setLanguage('ro')"
-          aria-label="Switch to Romanian"
+          ariaLabel="Switch to Romanian"
         />
       </div>
     </div>
