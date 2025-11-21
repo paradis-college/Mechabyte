@@ -171,6 +171,18 @@ export type Translation = {
   outreachEvents: Array<{ name: string; description: string }>;
   fundraisingDescription: string;
   sustainabilityDescription: string;
+  
+  // Additional labels
+  firstVersionLabel: string;
+  upgradeAttemptsLabel: string;
+  currentVersionLabel: string;
+  constructionImprovementsLabel: string;
+  autonomousApproachLabel: string;
+  ourGoalsLabel: string;
+  ourGoalsText: string;
+  sustainabilityGrowthLabel: string;
+  sustainabilityGrowthText: string;
+  contactUsLabel: string;
 };
 
 // Translations object with English and Romanian content
@@ -501,7 +513,19 @@ export const translations: { en: Translation; ro: Translation } = {
       }
     ],
     fundraisingDescription: 'Our fundraising activities across both seasons included selling biscuits, Movie Night tickets, pancakes, decorations, and flowers. These events have been crucial in supporting our operational costs and competition participation.',
-    sustainabilityDescription: 'Our sustainability plan focuses on: recruiting and training younger students to ensure continuity, maintaining alumni support network, partnering with corporations that share our values, and careful budgeting with categories for team expenditure (wheels, cables, electronics) and emergency funds. Main sponsors include Paradis International College, Professional Dentist, and others who believe in our mission.'
+    sustainabilityDescription: 'Our sustainability plan focuses on: recruiting and training younger students to ensure continuity, maintaining alumni support network, partnering with corporations that share our values, and careful budgeting with categories for team expenditure (wheels, cables, electronics) and emergency funds. Main sponsors include Paradis International College, Professional Dentist, and others who believe in our mission.',
+    
+    // Additional labels
+    firstVersionLabel: 'First Version',
+    upgradeAttemptsLabel: 'Upgrade Attempts',
+    currentVersionLabel: 'Current Version',
+    constructionImprovementsLabel: 'Construction Improvements',
+    autonomousApproachLabel: 'Autonomous Approach',
+    ourGoalsLabel: 'Our Goals',
+    ourGoalsText: 'We implement STEM core values—responsibility, compassion, and perseverance—as we constantly improve our capabilities. Our mission is to inspire future generations to follow their dreams in science, technology, engineering, and mathematics while building a strong, collaborative team that exemplifies gracious professionalism.',
+    sustainabilityGrowthLabel: 'Sustainability & Growth',
+    sustainabilityGrowthText: 'Early seasons relied heavily on fundraising events like pancake sales, biscuit sales, and decorations at Christmas markets. Now, with two full FTC seasons of experience and solid competition results, we can better present our achievements to potential sponsors. Our sustainability plan includes recruiting and training younger students, maintaining an alumni support network, partnering with corporations that share our values, and careful budgeting with categories for equipment expenditure and emergency funds.',
+    contactUsLabel: 'Contact Us'
   },
 
   ro: {
@@ -830,6 +854,18 @@ export const translations: { en: Translation; ro: Translation } = {
       }
     ],
     fundraisingDescription: 'Activitățile noastre de strângere de fonduri din ambele sezoane au inclus vânzarea de biscuiți, bilete pentru Seara de Film, clătite, decorațiuni și flori. Aceste evenimente au fost cruciale în susținerea costurilor operaționale și participarea la competiții.',
-    sustainabilityDescription: 'Planul nostru de sustenabilitate se concentrează pe: recrutarea și instruirea studenților mai tineri pentru a asigura continuitatea, menținerea rețelei de suport a absolvenților, parteneriat cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli echipă (roți, cabluri, electronice) și fonduri de urgență. Sponsorii principali includ Paradis International College, Professional Dentist și alții care cred în misiunea noastră.'
+    sustainabilityDescription: 'Planul nostru de sustenabilitate se concentrează pe: recrutarea și instruirea studenților mai tineri pentru a asigura continuitatea, menținerea rețelei de suport a absolvenților, parteneriat cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli echipă (roți, cabluri, electronice) și fonduri de urgență. Sponsorii principali includ Paradis International College, Professional Dentist și alții care cred în misiunea noastră.',
+    
+    // Additional labels
+    firstVersionLabel: 'Prima Versiune',
+    upgradeAttemptsLabel: 'Încercări de Îmbunătățire',
+    currentVersionLabel: 'Versiune Curentă',
+    constructionImprovementsLabel: 'Îmbunătățiri de Construcție',
+    autonomousApproachLabel: 'Abordare Autonomă',
+    ourGoalsLabel: 'Obiectivele Noastre',
+    ourGoalsText: 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.',
+    sustainabilityGrowthLabel: 'Sustenabilitate și Creștere',
+    sustainabilityGrowthText: 'Sezoanele timpurii s-au bazat în mare măsură pe evenimente de strângere de fonduri precum vânzări de clătite, biscuiți și decorațiuni la târgurile de Crăciun. Acum, cu două sezoane complete FTC de experiență și rezultate solide în competiție, putem prezenta mai bine realizările noastre sponsorilor potențiali. Planul nostru de sustenabilitate include recrutarea și instruirea studenților mai tineri, menținerea unei rețele de suport a absolvenților, parteneriate cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli de echipament și fonduri de urgență.',
+    contactUsLabel: 'Contactați-ne'
   }
 };

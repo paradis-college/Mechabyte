@@ -83,11 +83,8 @@ const previousMentors = computed(() =>
       
       <!-- Our Goals Section -->
       <div class="text-section goals-section">
-        <h2>{{ language === 'en' ? 'Our Goals' : 'Obiectivele Noastre' }}</h2>
-        <p>{{ language === 'en' 
-          ? 'We implement STEM core values—responsibility, compassion, and perseverance—as we constantly improve our capabilities. Our mission is to inspire future generations to follow their dreams in science, technology, engineering, and mathematics while building a strong, collaborative team that exemplifies gracious professionalism.' 
-          : 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.' 
-        }}</p>
+        <h2>{{ t.ourGoalsLabel }}</h2>
+        <p>{{ t.ourGoalsText }}</p>
       </div>
       
       <h2 class="season-header">{{ t.intoTheDeepSeason }}</h2>

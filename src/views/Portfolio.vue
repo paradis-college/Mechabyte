@@ -128,22 +128,22 @@ const t = computed(() => translations[props.language]);
         <h3 class="season-title">{{ t.intoTheDeepSeason }}</h3>
         
         <div class="component-evolution">
-          <h4>{{ language === 'en' ? 'First Version' : 'Prima Versiune' }}</h4>
+          <h4>{{ t.firstVersionLabel }}</h4>
           <p>{{ t.intoTheDeepFirstVersion }}</p>
         </div>
         
         <div class="component-evolution">
-          <h4>{{ language === 'en' ? 'Upgrade Attempts' : 'Încercări de Îmbunătățire' }}</h4>
+          <h4>{{ t.upgradeAttemptsLabel }}</h4>
           <p>{{ t.intoTheDeepUpgradeAttempts }}</p>
         </div>
         
         <div class="component-evolution">
-          <h4>{{ language === 'en' ? 'Current Version' : 'Versiune Curentă' }}</h4>
+          <h4>{{ t.currentVersionLabel }}</h4>
           <p>{{ t.intoTheDeepCurrentVersion }}</p>
         </div>
         
         <div class="component-evolution">
-          <h4>{{ language === 'en' ? 'Construction Improvements' : 'Îmbunătățiri de Construcție' }}</h4>
+          <h4>{{ t.constructionImprovementsLabel }}</h4>
           <p>{{ t.intoTheDeepConstructionImprovements }}</p>
         </div>
       </div>
@@ -154,7 +154,7 @@ const t = computed(() => translations[props.language]);
       <h2 class="section-title">{{ t.programmingTitle }}</h2>
       
       <div class="programming-content">
-        <h4>{{ language === 'en' ? 'Autonomous Approach' : 'Abordare Autonomă' }}</h4>
+        <h4>{{ t.autonomousApproachLabel }}</h4>
         <p>{{ t.programmingDescription }}</p>
       </div>
       
