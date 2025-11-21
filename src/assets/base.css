@@ -1,16 +1,23 @@
 :root {
-  /* Base colors */
-  --background-grey: hsl(0deg 0% 10% / 100%);
-  --dark-grey: hsl(0deg 0% 15% / 100%);
-  --mechabyte-grey: hsl(0deg 0% 20% / 100%);
+  /* Base colors - subtly darker for cleaner look */
+  --background-grey: hsl(0deg 0% 8% / 100%);
+  --dark-grey: hsl(0deg 0% 12% / 100%);
+  --mechabyte-grey: hsl(0deg 0% 18% / 100%);
   --light-grey: hsl(0deg 0% 60% / 100%);
+  --muted-grey: hsl(0deg 0% 45% / 100%);
 
   --mechabyte-green: hsl(120deg 100% 50% / 100%);
+  --mechabyte-green-dark: hsl(120deg 100% 35% / 100%);
   
   /* Gear conveyor theme colors */
   --robot-metal: hsl(0deg 0% 30% / 100%);
   --gear-accent: hsl(120deg 100% 40% / 100%);
-  --conveyor-bg: hsl(0deg 0% 12% / 100%);
+  --conveyor-bg: hsl(0deg 0% 10% / 100%);
+  
+  /* Card styles */
+  --card-bg: hsl(0deg 0% 15% / 80%);
+  --card-bg-hover: hsl(0deg 0% 18% / 85%);
+  --card-border: hsl(120deg 100% 50% / 20%);
 }
 
 *,
@@ -39,4 +46,152 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global utility classes */
+.centered-header {
+  text-align: center;
+}
+
+.muted-subtitle {
+  color: var(--muted-grey);
+  font-size: 0.9em;
+}
+
+/* Text stroke for headers - improves readability */
+h1, h2 {
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Card utilities */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card.transparent {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--mechabyte-green);
+  transform: translateY(-4px);
+}
+
+/* Button utilities */
+.btn-primary {
+  background: var(--mechabyte-green);
+  color: var(--background-grey);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--mechabyte-green-dark);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Card Grid utility */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Find More Pane styles */
+.find-more-pane {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.find-more-pane-content {
+  background: var(--dark-grey);
+  border: 2px solid var(--mechabyte-green);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.find-more-pane-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--light-grey);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.find-more-pane-close:hover {
+  color: var(--mechabyte-green);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
