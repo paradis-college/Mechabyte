@@ -244,6 +244,24 @@ const gearClass = computed(() => {
 
 <template>
   <div :class="containerClass" :aria-hidden="ariaHidden">
+    <!-- Circuit connection traces -->
+    <svg class="circuit-connections" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path 
+        v-for="connection in connections" 
+        :key="connection.id"
+        :d="connection.path"
+        stroke="var(--gear-accent)"
+        stroke-width="0.15"
+        fill="none"
+        stroke-dasharray="2 2"
+        :stroke-dashoffset="connection.dashOffset"
+        class="circuit-trace"
+        :style="{
+          animation: `trace-draw ${connection.duration}s ease-out forwards`
+        }"
+      />
+    </svg>
+    
     <!-- Gear layer 1 (background, slower rotation) -->
     <div ref="gearLayer1Ref" class="gear-layer gear-layer-1">
       <svg :class="gearClass" class="gear-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -355,6 +373,37 @@ const gearClass = computed(() => {
   overflow: hidden;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Circuit connection traces */
+.circuit-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.circuit-trace {
+  opacity: 0.6;
+}
+
+@keyframes trace-draw {
+  from {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
 }
 
 /* Gear layers */
