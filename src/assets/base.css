@@ -1,8 +1,8 @@
 :root {
-  /* Base colors - subtly darker for cleaner look */
-  --background-grey: hsl(0deg 0% 8% / 100%);
-  --dark-grey: hsl(0deg 0% 12% / 100%);
-  --mechabyte-grey: hsl(0deg 0% 18% / 100%);
+  /* Base colors - very dark for cleaner look */
+  --background-grey: hsl(0deg 0% 2% / 100%);
+  --dark-grey: hsl(0deg 0% 5% / 100%);
+  --mechabyte-grey: hsl(0deg 0% 8% / 100%);
   --light-grey: hsl(0deg 0% 60% / 100%);
   --muted-grey: hsl(0deg 0% 45% / 100%);
 
@@ -12,11 +12,11 @@
   /* Gear conveyor theme colors */
   --robot-metal: hsl(0deg 0% 30% / 100%);
   --gear-accent: hsl(120deg 100% 40% / 100%);
-  --conveyor-bg: hsl(0deg 0% 10% / 100%);
+  --conveyor-bg: hsl(0deg 0% 3% / 100%);
   
   /* Card styles */
-  --card-bg: hsl(0deg 0% 15% / 80%);
-  --card-bg-hover: hsl(0deg 0% 18% / 85%);
+  --card-bg: hsl(0deg 0% 8% / 80%);
+  --card-bg-hover: hsl(0deg 0% 12% / 85%);
   --card-border: hsl(120deg 100% 50% / 20%);
 }
 
