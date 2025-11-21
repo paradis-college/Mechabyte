@@ -1,20 +1,56 @@
 import { ref, onMounted, onUnmounted, type Ref } from 'vue';
 
 /**
+ * Options for customizing the reveal behavior
+ */
+export interface RevealOptions {
+  /** Threshold for intersection (0-1). Default: 0.1 */
+  threshold?: number;
+  /** Root margin for intersection observer. Default: '0px 0px -50px 0px' */
+  rootMargin?: string;
+  /** Callback when element becomes visible */
+  onVisible?: () => void;
+}
+
+/**
  * A composable that toggles a CSS class ('is-visible') on an element
  * when it enters the viewport using IntersectionObserver.
  * 
- * Respects prefers-reduced-motion by immediately marking elements visible
- * if reduced motion is enabled.
+ * Features:
+ * - SSR-safe (guards against window/document access during server render)
+ * - Respects prefers-reduced-motion (marks visible immediately if reduced motion is enabled)
+ * - Customizable threshold and root margin
+ * - Optional callback when visible
+ * - Returns both elementRef and isVisible reactive state
  * 
- * @param threshold - Percentage of element that must be visible (0-1)
- * @param rootMargin - Margin around the viewport for triggering visibility
- * @returns A ref that should be attached to the element and a reactive isVisible state
+ * @param options - Configuration options for the reveal behavior
+ * @returns An object with elementRef (to attach to element) and isVisible (reactive state)
+ * 
+ * @example
+ * ```vue
+ * <script setup lang="ts">
+ * import { useRevealOnScroll } from '@/composables/useRevealOnScroll';
+ * 
+ * const { elementRef, isVisible } = useRevealOnScroll({
+ *   threshold: 0.2,
+ *   onVisible: () => console.log('Element is visible!')
+ * });
+ * </script>
+ * 
+ * <template>
+ *   <div ref="elementRef" :class="['reveal', { 'is-visible': isVisible }]">
+ *     Content
+ *   </div>
+ * </template>
+ * ```
  */
-export function useRevealOnScroll(
-  threshold: number = 0.1,
-  rootMargin: string = '0px 0px -50px 0px'
-) {
+export function useRevealOnScroll(options: RevealOptions = {}) {
+  const {
+    threshold = 0.1,
+    rootMargin = '0px 0px -50px 0px',
+    onVisible
+  } = options;
+
   const elementRef: Ref<HTMLElement | null> = ref(null);
   const isVisible = ref(false);
   let observer: IntersectionObserver | null = null;
@@ -28,12 +64,14 @@ export function useRevealOnScroll(
     // Guard for SSR
     if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
       isVisible.value = true;
+      onVisible?.();
       return;
     }
 
     // If reduced motion is preferred, immediately show the element
     if (checkReducedMotion()) {
       isVisible.value = true;
+      onVisible?.();
       return;
     }
 
@@ -45,6 +83,7 @@ export function useRevealOnScroll(
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             isVisible.value = true;
+            onVisible?.();
             // Once visible, stop observing
             if (observer) {
               observer.disconnect();

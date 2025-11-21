@@ -1,0 +1,88 @@
+/**
+ * Feature Cards Component Styles
+ */
+
+.feature-cards-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4vw 2vw;
+  background: var(--dark-grey);
+}
+
+.feature-cards-title {
+  color: var(--mechabyte-green);
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  margin-bottom: 3vw;
+  text-align: center;
+}
+
+.feature-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2vw;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 2vw;
+}
+
+.feature-card {
+  background: var(--mechabyte-grey);
+  border: 0.15vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 255, 0, 0.2);
+}
+
+.feature-card-icon {
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--mechabyte-green);
+  margin-bottom: 0.5vw;
+}
+
+.feature-card-title {
+  color: var(--mechabyte-green);
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  margin-bottom: 0.5vw;
+}
+
+.feature-card-description {
+  color: var(--light-grey);
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+  .feature-cards-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 20px;
+  }
+
+  .feature-cards-section {
+    padding: 40px 20px;
+  }
+}
+
+/* Accessibility: Focus styles */
+.feature-card:focus,
+.feature-card:focus-within {
+  outline: 2px solid var(--mechabyte-green);
+  outline-offset: 4px;
+}

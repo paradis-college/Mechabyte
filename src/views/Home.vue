@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { translations } from '../i18n/translations';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
 import MicroButton from '../components/MicroButton.vue';
+import FeatureCards from '../components/FeatureCards.vue';
 import { useRevealOnScroll } from '../composables/useRevealOnScroll';
 
 const props = defineProps<{
@@ -27,6 +28,9 @@ const { elementRef: welcomeRef, isVisible: welcomeVisible } = useRevealOnScroll(
       <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
       <HeroRobotArm :size="300" class="hero-robot-overlay" />
     </div>
+    
+    <!-- Feature Cards Section -->
+    <FeatureCards :language="language" />
     
     <section class="content-section">
       <h1>{{ t.homeTitle }}</h1>
