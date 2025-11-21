@@ -51,20 +51,6 @@ export function useRevealOnScroll(options: RevealOptions = {}) {
     onVisible
   } = options;
 
- * A composable that toggles a CSS class ('is-visible') on an element
- * when it enters the viewport using IntersectionObserver.
- * 
- * Respects prefers-reduced-motion by immediately marking elements visible
- * if reduced motion is enabled.
- * 
- * @param threshold - Percentage of element that must be visible (0-1)
- * @param rootMargin - Margin around the viewport for triggering visibility
- * @returns A ref that should be attached to the element and a reactive isVisible state
- */
-export function useRevealOnScroll(
-  threshold: number = 0.1,
-  rootMargin: string = '0px 0px -50px 0px'
-) {
   const elementRef: Ref<HTMLElement | null> = ref(null);
   const isVisible = ref(false);
   let observer: IntersectionObserver | null = null;
