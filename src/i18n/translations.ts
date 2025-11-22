@@ -88,6 +88,9 @@ export type Translation = {
     address: string;
     instagram: string;
     tiktok: string;
+    youtube: string;
+    facebook: string;
+    linkedin: string;
   };
   contactLabels: {
     email: string;
@@ -95,6 +98,9 @@ export type Translation = {
     address: string;
     instagram: string;
     tiktok: string;
+    youtube: string;
+    facebook: string;
+    linkedin: string;
   };
   followUsTitle: string;
   scheduleDemoTitle: string;
@@ -386,20 +392,26 @@ export const translations: { en: Translation; ro: Translation } = {
       phone: '+40773854312 (Andreea Ionita)',
       address: 'Str. Dealul Zorilor 8C, Mechabyte – Paradise International College, Iași',
       instagram: 'https://www.instagram.com/mechabyte22590/',
-      tiktok: 'https://www.tiktok.com/@mechabyte22590'
+      tiktok: 'https://www.tiktok.com/@mechabyte22590',
+      youtube: 'https://www.youtube.com/@mechabyte22590',
+      facebook: 'https://www.facebook.com/mechabyte22590',
+      linkedin: 'https://www.linkedin.com/company/mechabyte22590'
     },
     contactLabels: {
       email: 'Email',
       phone: 'Phone',
       address: 'Address',
       instagram: 'Instagram',
-      tiktok: 'TikTok'
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      facebook: 'Facebook',
+      linkedin: 'LinkedIn'
     },
     followUsTitle: 'Follow Us',
     scheduleDemoTitle: 'Schedule a Demo',
-    scheduleDemo: 'Interested in seeing our robot in action? We regularly conduct demonstrations for schools, organizations, and community groups. Contact us to schedule a visit or invite us to your event. Our team is excited to share our passion for robotics and inspire others to explore STEM fields.',
+    scheduleDemo: 'See our robot in action! Book a demo for your school or event. We bring robotics to life.',
     stayConnectedTitle: 'Stay Connected',
-    connectWithUs: 'Follow us on social media to stay updated on our progress, competitions, and community activities. We regularly share behind-the-scenes content, technical updates, and stories from our team members. Join our community and be part of our robotics journey!',
+    connectWithUs: 'Follow our journey: competitions, builds, behind-the-scenes. Join the community!',
 
     // Feature Cards
     featuresHeading: 'What We Do',
@@ -722,20 +734,26 @@ export const translations: { en: Translation; ro: Translation } = {
       phone: '+40773854312 (Andreea Ionita)',
       address: 'Str. Dealul Zorilor 8C, Mechabyte – Paradise International College, Iași',
       instagram: 'https://www.instagram.com/mechabyte22590/',
-      tiktok: 'https://www.tiktok.com/@mechabyte22590'
+      tiktok: 'https://www.tiktok.com/@mechabyte22590',
+      youtube: 'https://www.youtube.com/@mechabyte22590',
+      facebook: 'https://www.facebook.com/mechabyte22590',
+      linkedin: 'https://www.linkedin.com/company/mechabyte22590'
     },
     contactLabels: {
       email: 'Email',
       phone: 'Telefon',
       address: 'Adresă',
       instagram: 'Instagram',
-      tiktok: 'TikTok'
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      facebook: 'Facebook',
+      linkedin: 'LinkedIn'
     },
     followUsTitle: 'Urmăriți-ne',
     scheduleDemoTitle: 'Programați o Demonstrație',
-    scheduleDemo: 'Interesați să vedeți robotul nostru în acțiune? Desfășurăm regulat demonstrații pentru școli, organizații și grupuri comunitare. Contactați-ne pentru a programa o vizită sau invitați-ne la evenimentul dumneavoastră. Echipa noastră este entuziasmată să împărtășească pasiunea noastră pentru robotică și să inspire pe alții să exploreze domeniile STEM.',
+    scheduleDemo: 'Vezi robotul nostru în acțiune! Rezervă o demonstrație pentru școala sau evenimentul tău. Aducem robotica la viață.',
     stayConnectedTitle: 'Rămâneți Conectați',
-    connectWithUs: 'Urmăriți-ne pe social media pentru a rămâne la curent cu progresul nostru, competițiile și activitățile comunitare. Împărtășim regulat conținut din culise, actualizări tehnice și povești de la membrii echipei noastre. Alăturați-vă comunității noastre și fiți parte din călătoria noastră robotică!',
+    connectWithUs: 'Urmărește călătoria noastră: competiții, construcții, în culise. Alătură-te comunității!',
 
     // Feature Cards
     featuresHeading: 'Ce Facem',

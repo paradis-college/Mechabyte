@@ -48,6 +48,18 @@ const t = computed(() => translations[props.language]);
             <span class="social-icon">🎵</span>
             <span>{{ t.contactLabels.tiktok }}</span>
           </a>
+          <a :href="t.contactDetails.youtube" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span class="social-icon">📺</span>
+            <span>{{ t.contactLabels.youtube }}</span>
+          </a>
+          <a :href="t.contactDetails.facebook" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span class="social-icon">👍</span>
+            <span>{{ t.contactLabels.facebook }}</span>
+          </a>
+          <a :href="t.contactDetails.linkedin" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span class="social-icon">💼</span>
+            <span>{{ t.contactLabels.linkedin }}</span>
+          </a>
         </div>
       </div>
       

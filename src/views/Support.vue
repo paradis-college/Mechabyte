@@ -1,59 +1,138 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { translations } from '../i18n/translations';
+import SectionHeader from '../components/SectionHeader.vue';
+import MicroButton from '../components/MicroButton.vue';
+import FindMorePane from '../components/FindMorePane.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
+const router = useRouter();
 const t = computed(() => translations[props.language]);
+
+// State for popup panes
+const showVolunteerInfo = ref(false);
+const showDonateInfo = ref(false);
 </script>
 
 <template>
   <div class="support-page">
     <section class="content-section">
-      <h1>{{ t.supportTitle }}</h1>
-      <p class="intro-text">{{ t.supportIntro }}</p>
+      <SectionHeader 
+        :title="t.supportTitle"
+        :subtitle="t.supportIntro"
+      />
       
-      <div class="benefits-section">
-        <h2>{{ t.sponsorBenefitsTitle }}</h2>
-        <ul class="benefits-list">
-          <li v-for="(benefit, index) in t.sponsorBenefits" :key="index">
-            {{ benefit }}
-          </li>
-        </ul>
-      </div>
-      
-      <div class="support-ways">
-        <div class="support-card">
-          <h2>{{ t.volunteerTitle }}</h2>
-          <p>{{ t.volunteerText }}</p>
-        </div>
-        
-        <div class="support-card">
-          <h2>{{ t.donateTitle }}</h2>
-          <p>{{ t.donateText }}</p>
-        </div>
-        
-        <div class="support-card">
-          <h2>{{ t.mentorshipTitle }}</h2>
-          <p>{{ t.mentorshipText }}</p>
-        </div>
-      </div>
-      
-      <div class="tax-section">
-        <h2>{{ t.taxDeductibleTitle }}</h2>
+      <!-- Tax Benefits - First and Prominent -->
+      <div class="tax-benefits-highlight value-card">
+        <h2>💰 {{ t.taxDeductibleTitle }}</h2>
         <p>{{ t.taxDeductibleText }}</p>
       </div>
       
-      <div class="cta-section">
-        <h2>{{ language === 'en' ? 'Get Involved' : 'Implică-te' }}</h2>
+      <!-- Sponsorship Benefits with Logo Placement -->
+      <div class="benefits-section">
+        <h2 class="section-title">🏆 {{ t.sponsorBenefitsTitle }}</h2>
+        <div class="benefits-grid">
+          <div v-for="(benefit, index) in t.sponsorBenefits" :key="index" class="benefit-card value-card">
+            <div class="benefit-icon">{{ index + 1 }}</div>
+            <p>{{ benefit }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Volunteer & Mentorship (For Parents) -->
+      <div class="cta-buttons-section">
+        <h2 class="section-title">🤝 {{ language === 'en' ? 'Get Involved' : 'Implică-te' }}</h2>
+        <div class="cta-buttons">
+          <MicroButton 
+            :label="language === 'en' ? '👨‍👩‍👧 Volunteer & Mentorship (Parents)' : '👨‍👩‍👧 Voluntariat & Mentorat (Părinți)'"
+            @click="showVolunteerInfo = true"
+          />
+          <MicroButton 
+            :label="language === 'en' ? '🏢 Equipment & Material Donations (Businesses)' : '🏢 Donații Echipament (Companii)'"
+            variant="secondary"
+            @click="showDonateInfo = true"
+          />
+        </div>
+      </div>
+
+      <!-- FindMorePane for Volunteer Info -->
+      <FindMorePane 
+        :show="showVolunteerInfo"
+        :title="language === 'en' ? '👨‍👩‍👧 Volunteer & Mentorship' : '👨‍👩‍👧 Voluntariat & Mentorat'"
+        @close="showVolunteerInfo = false"
+      >
+        <template v-if="language === 'en'">
+          <h3>{{ t.volunteerTitle }}</h3>
+          <p>{{ t.volunteerText }}</p>
+          <h3 style="margin-top: 1.5rem;">{{ t.mentorshipTitle }}</h3>
+          <p>{{ t.mentorshipText }}</p>
+          <p style="margin-top: 1rem;"><strong>Perfect for parents who want to:</strong></p>
+          <ul style="margin-left: 1.5rem;">
+            <li>Share professional expertise with students</li>
+            <li>Guide the next generation</li>
+            <li>Be part of a meaningful community initiative</li>
+          </ul>
+        </template>
+        <template v-else>
+          <h3>{{ t.volunteerTitle }}</h3>
+          <p>{{ t.volunteerText }}</p>
+          <h3 style="margin-top: 1.5rem;">{{ t.mentorshipTitle }}</h3>
+          <p>{{ t.mentorshipText }}</p>
+          <p style="margin-top: 1rem;"><strong>Perfect pentru părinți care doresc să:</strong></p>
+          <ul style="margin-left: 1.5rem;">
+            <li>Împărtășească expertiza profesională cu studenții</li>
+            <li>Ghideze următoarea generație</li>
+            <li>Facă parte dintr-o inițiativă comunitară semnificativă</li>
+          </ul>
+        </template>
+      </FindMorePane>
+
+      <!-- FindMorePane for Donations -->
+      <FindMorePane 
+        :show="showDonateInfo"
+        :title="language === 'en' ? '🏢 Equipment & Material Donations' : '🏢 Donații Echipament'"
+        @close="showDonateInfo = false"
+      >
+        <template v-if="language === 'en'">
+          <h3>{{ t.donateTitle }}</h3>
+          <p>{{ t.donateText }}</p>
+          <p style="margin-top: 1rem;"><strong>What we need:</strong></p>
+          <ul style="margin-left: 1.5rem;">
+            <li>Electronic components (motors, sensors, controllers)</li>
+            <li>Building materials (aluminum, 3D printer filament)</li>
+            <li>Tools and workshop equipment</li>
+            <li>Laptops or computers for programming</li>
+          </ul>
+          <p style="margin-top: 1rem;"><em>Turn your unused tech into student success!</em></p>
+        </template>
+        <template v-else>
+          <h3>{{ t.donateTitle }}</h3>
+          <p>{{ t.donateText }}</p>
+          <p style="margin-top: 1rem;"><strong>Ce avem nevoie:</strong></p>
+          <ul style="margin-left: 1.5rem;">
+            <li>Componente electronice (motoare, senzori, controlere)</li>
+            <li>Materiale de construcție (aluminiu, filament imprimantă 3D)</li>
+            <li>Unelte și echipament pentru atelier</li>
+            <li>Laptopuri sau computere pentru programare</li>
+          </ul>
+          <p style="margin-top: 1rem;"><em>Transformă tehnologia neutilizată în succes studențesc!</em></p>
+        </template>
+      </FindMorePane>
+      
+      <!-- Contact CTA -->
+      <div class="final-cta">
+        <h2>{{ language === 'en' ? '🚀 Ready to Make an Impact?' : '🚀 Gata să Faci un Impact?' }}</h2>
         <p>{{ language === 'en' 
-          ? 'Ready to support Mechabyte? Contact us to learn more about how you can contribute to STEM education and help our team achieve its goals.' 
-          : 'Gata să sprijiniți Mechabyte? Contactați-ne pentru a afla mai multe despre cum puteți contribui la educația STEM și ajuta echipa noastră să-și atingă obiectivele.' }}</p>
-        <RouterLink to="/contact" class="cta-button">
-          {{ language === 'en' ? 'Contact Us' : 'Contactați-ne' }}
-        </RouterLink>
+          ? 'Join us in building tomorrow\'s tech leaders. Every contribution matters.' 
+          : 'Alătură-te nouă în construirea liderilor tech de mâine. Fiecare contribuție contează.' }}</p>
+        <MicroButton 
+          :label="language === 'en' ? 'Contact Us' : 'Contactați-ne'"
+          @click="router.push('/contact')"
+        />
       </div>
     </section>
   </div>
@@ -75,115 +154,119 @@ const t = computed(() => translations[props.language]);
   flex-direction: column;
   align-items: flex-start;
   gap: 2vw;
-  border: 0.1vw solid white;
+  border: 0.1vw solid var(--mechabyte-green);
   margin-bottom: 2vw;
-  background: var(--background-grey);
 }
 
-h1 {
-  color: white;
+.section-title {
+  color: var(--mechabyte-green);
+  margin-bottom: 1.5vw;
+  text-align: center;
   width: 100%;
 }
 
-h2 {
-  color: white;
+.tax-benefits-highlight {
+  width: 100%;
+  background: linear-gradient(135deg, var(--dark-grey) 0%, var(--mechabyte-grey) 100%);
+}
+
+.tax-benefits-highlight h2 {
+  color: var(--mechabyte-green);
+  font-size: clamp(20px, 2vw, 28px);
   margin-bottom: 1vw;
 }
 
-.intro-text {
+.tax-benefits-highlight p {
   line-height: 1.6;
-  margin-bottom: 1vw;
-  color: white;
+  color: var(--light-grey);
 }
 
 .benefits-section {
   width: 100%;
 }
 
-.benefits-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 1vw;
-}
-
-.benefits-list li {
-  padding: 1vw;
-  margin-bottom: 0.5vw;
-  border-left: 0.3vw solid white;
-  background: var(--dark-grey);
-  line-height: 1.6;
-  color: white;
-}
-
-.support-ways {
+.benefits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2vw;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5vw;
   width: 100%;
 }
 
-.support-card {
-  padding: 1.5vw;
-  border: 0.1vw solid white;
-  border-radius: 0.5vw;
-  background: var(--dark-grey);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.benefit-card {
+  display: flex;
+  gap: 1vw;
+  align-items: flex-start;
 }
 
-.support-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+.benefit-icon {
+  flex-shrink: 0;
+  width: 2.5vw;
+  height: 2.5vw;
+  min-width: 30px;
+  min-height: 30px;
+  background: var(--mechabyte-green);
+  color: var(--background-grey);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: clamp(14px, 1.2vw, 18px);
 }
 
-.support-card p {
+.benefit-card p {
   line-height: 1.6;
-  color: white;
+  color: var(--light-grey);
+  flex: 1;
 }
 
-.tax-section {
+.cta-buttons-section {
   width: 100%;
-  padding: 1.5vw;
-  background: var(--mechabyte-grey);
-  border: 0.1vw solid white;
-  border-radius: 0.5vw;
-}
-
-.tax-section p {
-  line-height: 1.6;
-  margin-top: 0.5vw;
-  color: white;
-}
-
-.cta-section {
-  width: 100%;
-  padding: 2vw;
-  background: var(--mechabyte-grey);
-  border: 0.1vw solid white;
-  border-radius: 0.5vw;
   text-align: center;
 }
 
-.cta-section p {
-  line-height: 1.6;
-  margin-bottom: 1.5vw;
-  color: white;
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: center;
+  margin-top: 1vw;
 }
 
-.cta-button {
-  display: inline-block;
-  padding: 1vw 2vw;
-  background: white;
-  color: var(--background-grey);
-  text-decoration: none;
-  font-weight: bold;
-  font-size: clamp(14px, 1.2vw, 20px);
+.final-cta {
+  width: 100%;
+  padding: 2vw;
+  background: var(--dark-grey);
+  border: 0.1vw solid var(--mechabyte-green);
   border-radius: 0.5vw;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.final-cta h2 {
+  color: var(--mechabyte-green);
+  margin-bottom: 1vw;
+}
+
+.final-cta p {
+  line-height: 1.6;
+  margin-bottom: 1.5vw;
+  color: var(--light-grey);
+}
+
+/* Value card styling (for glow effect) */
+.value-card {
+  padding: 1.5vw;
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  background: var(--dark-grey);
   transition: all 0.3s ease;
 }
 
-.cta-button:hover {
-  background: var(--light-grey);
-  transform: scale(1.05);
+.value-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
+  border-color: var(--mechabyte-green);
 }
 
 @media only screen and (max-width: 1000px) {
@@ -192,20 +275,18 @@ h2 {
     padding: 20px;
   }
 
-  .support-ways {
+  .benefits-grid {
     grid-template-columns: 1fr;
     gap: 15px;
   }
 
-  .support-card,
-  .tax-section,
-  .cta-section {
-    padding: 15px;
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .cta-button {
-    padding: 12px 24px;
-    font-size: 16px;
+  .final-cta {
+    padding: 20px;
   }
 }
 </style>
