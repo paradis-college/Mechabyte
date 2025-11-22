@@ -109,14 +109,16 @@ const selectSeason = (seasonId: typeof props.activeSeason) => {
 @media only screen and (max-width: 1000px) {
   .season-tabs {
     border-bottom: 2px solid var(--mechabyte-green);
-    padding: 15px 0;
-    margin-bottom: 30px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    position: relative; /* Fix for small displays - non-sticky */
   }
   
   .tabs-container {
-    flex-direction: column;
-    gap: 15px;
-    padding: 0 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 15px;
   }
   
   .tab-button {

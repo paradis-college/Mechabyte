@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   title: string;
   buttonText?: string;
-}>();
+}>(), {
+  buttonText: 'Design Evolution'
+});
 
 const isOpen = ref(false);
 
@@ -21,7 +23,7 @@ const close = () => {
   <div class="more-info-wrapper">
     <button class="more-info-button" @click="toggle">
       <span class="icon">{{ isOpen ? '▼' : '▶' }}</span>
-      {{ buttonText || 'More Info' }}
+      {{ buttonText }}
     </button>
     
     <transition name="slide">
