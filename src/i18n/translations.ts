@@ -192,6 +192,19 @@ export type Translation = {
   sustainabilityGrowthLabel: string;
   sustainabilityGrowthText: string;
   contactUsLabel: string;
+  
+  // New sections for detailed portfolio
+  ftcOverviewTitle: string;
+  ftcOverviewContent: string;
+  howGamesWorkTitle: string;
+  centerstageGameDetails: string;
+  intoTheDeepGameDetails: string;
+  programmingChallengesTitle: string;
+  programmingChallenges: string;
+  lessonsLearnedTitle: string;
+  lessonsLearned: string;
+  futureOutlookTitle: string;
+  futureOutlook: string;
 };
 
 // Translations object with English and Romanian content
@@ -519,6 +532,19 @@ export const translations: { en: Translation; ro: Translation } = {
     ],
     fundraisingDescription: 'Our fundraising activities across both seasons included selling biscuits, Movie Night tickets, pancakes, decorations, and flowers. These events have been crucial in supporting our operational costs and competition participation.',
     sustainabilityDescription: 'Our sustainability plan focuses on: recruiting and training younger students to ensure continuity, maintaining alumni support network, partnering with corporations that share our values, and careful budgeting with categories for team expenditure (wheels, cables, electronics) and emergency funds. Main sponsors include Paradis International College, Professional Dentist, and others who believe in our mission.',
+    
+    // New detailed sections
+    ftcOverviewTitle: 'What is the FIRST Tech Challenge?',
+    ftcOverviewContent: 'The FIRST Tech Challenge (FTC) is an international robotics contest for high-school students. In each season, small alliances of two teams play short matches on a 12×12 ft field. Each team builds and programs a robot that fits inside an 18 inch cube and may expand during a match. A match begins with a 30 s autonomous period where robots follow pre-programmed instructions; it is followed by a 2 min driver-controlled period where drivers operate the robot with game controllers, and a final 30 s endgame with additional bonus tasks. Teams earn points by manipulating themed game elements and performing optional tasks, while abiding by safety and fairness rules.',
+    howGamesWorkTitle: 'How the Games Work',
+    centerstageGameDetails: 'In CenterStage (2023-24), the field featured a 12 ft square with foam tiles and 1 ft-high walls. Two trusses and a hinged stage door spanned mid-field; backdrops and backstage areas were at the back; wings were in the front corners. Robots collected hexagonal pixels and placed them on the backdrop, created mosaics, and launched paper drones over the truss into landing zones. Autonomous scoring included placing purple pixels on spike marks or backdrop, with parking backstage for bonus points.',
+    intoTheDeepGameDetails: 'Into the Deep (2024-25) uses a similar 12 ft square field with a central submersible structure holding samples, with low and high rungs and chambers. High and low baskets sit in opposite corners, with net zones beneath them; observation zones occupy the other corners. Robots collect plastic samples and place them in net zones or baskets (2-8 pts), while human players can attach clips to samples to turn them into specimens for chamber scoring (6-10 pts). The endgame features submersible ascent challenges with low-level (15 pts) and high-level (30 pts) scoring.',
+    programmingChallengesTitle: 'Programming Challenges',
+    programmingChallenges: 'Limited resources created significant programming challenges. During CenterStage, the team initially used a Motorola G4 Play phone instead of a dedicated Driver Hub. When both controllers were connected, the phone could not supply enough power, so only one driver could reliably control the robot. The issue was solved by using a different phone (Nokia 5) with better power delivery and redistributing tasks between drivers. Without vision systems or distance sensors in either season, the team relied entirely on timing-based autonomous routines with fixed durations for movements, sometimes using reduced power at the end to ensure precise positioning.',
+    lessonsLearnedTitle: 'Lessons Learned & Growth',
+    lessonsLearned: 'Mechabyte\'s two-season journey showcases how a team can evolve through persistence and resourcefulness. In CenterStage, constraints on budget and hardware forced creative solutions like zip-tied hubs and a crab-like claw; iterative redesigns and a pantograph arm enabled reliable pixel placement and drone launching. By Into the Deep, the team applied those lessons to streamline mechanisms, focus on weight distribution and reliability, and adopt 3D-printed improvements. The programming evolved from basic teleop to multi-case autonomous routines, demonstrating continuous learning and adaptation.',
+    futureOutlookTitle: 'Future Outlook',
+    futureOutlook: 'Looking ahead, further integration of sensors for autonomous navigation could improve scoring consistency, while corporate sponsorships may fund advanced motors and vision systems. With a sustainability plan recruiting younger students and alumni support, Mechabyte is well-positioned to continue its growth and embrace future FTC challenges. The team\'s commitment to gracious professionalism and community engagement ensures a strong foundation for years to come.',
     
     // Additional labels
     firstVersionLabel: 'First Version',
@@ -869,6 +895,19 @@ export const translations: { en: Translation; ro: Translation } = {
     ourGoalsText: 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.',
     sustainabilityGrowthLabel: 'Sustenabilitate & Creștere',
     sustainabilityGrowthText: 'Mechabyte reprezintă o investiție strategică în educație STEM sustenabilă și dezvoltarea forței de muncă. Cu două sezoane FTC complete demonstrând rezultate măsurabile, am stabilit cadre operaționale robuste și parteneriate comunitare.\n\nModelul nostru de sustenabilitate integrează pipeline-uri structurate de recrutare, programe comprehensive de training și angajament cu rețeaua de absolvenți. Menținem responsabilitate fiscală prin surse de finanțare diversificate și bugetare strategică, asigurând continuitatea programului pe termen lung.\n\nPrintr-un parteneriat cu Mechabyte, sponsorii investesc într-o platformă dovedită care oferă impact comunitar consistent, dezvoltă talente tehnice calificate și generează asociere pozitivă a brandului cu inovație și excelență educațională. Traiectoria noastră de creștere demonstrează scalabilitate și responsabilitate socială, creând valoare reciprocă pentru sponsori și comunitate.',
-    contactUsLabel: 'Contactați-ne'
+    contactUsLabel: 'Contactați-ne',
+    
+    // New detailed sections
+    ftcOverviewTitle: 'Ce este FIRST Tech Challenge?',
+    ftcOverviewContent: 'FIRST Tech Challenge (FTC) este un concurs internațional de robotică pentru studenții de liceu. În fiecare sezon, alianțe mici de două echipe joacă meciuri scurte pe un teren de 12×12 ft. Fiecare echipă construiește și programează un robot care se încadrează într-un cub de 18 inch și se poate extinde în timpul unui meci. Un meci începe cu o perioadă autonomă de 30 s în care roboții urmează instrucțiuni pre-programate; este urmată de o perioadă de 2 min controlată de piloți în care piloții operează robotul cu controlere de joc, și un endgame final de 30 s cu sarcini bonus suplimentare. Echipele câștigă puncte prin manipularea elementelor tematice de joc și efectuarea sarcinilor opționale, respectând regulile de siguranță și corectitudine.',
+    howGamesWorkTitle: 'Cum Funcționează Jocurile',
+    centerstageGameDetails: 'În CenterStage (2023-24), terenul prezenta un pătrat de 12 ft cu dale de spumă și pereți de 1 ft înălțime. Două trusses și o ușă de scenă cu balamale traversau mijlocul terenului; fundalurile și zonele backstage erau în spate; aripile erau în colțurile din față. Roboții colectau pixeli hexagonali și îi plasau pe fundal, creează mozaicuri și lansează drone de hârtie peste truss în zonele de aterizare. Punctajul autonom includea plasarea pixelilor mov pe marcaje spike sau fundal, cu parcare backstage pentru puncte bonus.',
+    intoTheDeepGameDetails: 'Into the Deep (2024-25) folosește un teren similar pătrat de 12 ft cu o structură centrală submersibilă care conține probe, cu trepte și camere joase și înalte. Coșuri înalte și joase stau în colțurile opuse, cu zone de plasă sub ele; zonele de observație ocupă celelalte colțuri. Roboții colectează probe din plastic și le plasează în zone de plasă sau coșuri (2-8 pct), în timp ce jucătorii umani pot atașa clipsuri la probe pentru a le transforma în specimene pentru punctaj în cameră (6-10 pct). Endgame-ul prezintă provocări de ascensiune submersibilă cu punctaj la nivel jos (15 pct) și nivel înalt (30 pct).',
+    programmingChallengesTitle: 'Provocări de Programare',
+    programmingChallenges: 'Resursele limitate au creat provocări semnificative de programare. În timpul CenterStage, echipa a folosit inițial un telefon Motorola G4 Play în loc de un Driver Hub dedicat. Când ambele controlere erau conectate, telefonul nu putea furniza suficientă energie, astfel încât doar un pilot putea controla în mod fiabil robotul. Problema a fost rezolvată folosind un telefon diferit (Nokia 5) cu livrare mai bună a energiei și redistribuirea sarcinilor între piloți. Fără sisteme de viziune sau senzori de distanță în niciun sezon, echipa s-a bazat în întregime pe rutine autonome bazate pe timp cu durări fixe pentru mișcări, uneori folosind putere redusă la final pentru a asigura poziționarea precisă.',
+    lessonsLearnedTitle: 'Lecții Învățate & Creștere',
+    lessonsLearned: 'Călătoria de două sezoane a Mechabyte demonstrează cum o echipă poate evolua prin persistență și ingeniozitate. În CenterStage, constrângerile de buget și hardware au forțat soluții creative precum hub-uri legate cu bride de plastic și o gheară asemănătoare cu un crab; redesign-urile iterative și un braț pantograf au permis plasarea fiabilă a pixelilor și lansarea dronelor. Până la Into the Deep, echipa a aplicat acele lecții pentru a simplifica mecanismele, a se concentra pe distribuția greutății și fiabilitate și a adopta îmbunătățiri imprimate 3D. Programarea a evoluat de la teleop de bază la rutine autonome multi-caz, demonstrând învățare și adaptare continuă.',
+    futureOutlookTitle: 'Perspectiva Viitorului',
+    futureOutlook: 'Privind înainte, integrarea ulterioară a senzorilor pentru navigarea autonomă ar putea îmbunătăți consistența punctajului, în timp ce sponsorizările corporative ar putea finanța motoare avansate și sisteme de viziune. Cu un plan de sustenabilitate care recrutează studenți mai tineri și suport de absolvenți, Mechabyte este bine poziționat pentru a-și continua creșterea și a îmbrățișa provocările FTC viitoare. Angajamentul echipei pentru profesionalismul grațios și implicarea comunitară asigură o fundație puternică pentru anii care vin.'
   }
 };

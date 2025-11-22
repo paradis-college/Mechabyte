@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { translations } from '../i18n/translations';
+import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
+import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
+import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
+import DriverControlTable from '../components/DriverControlTable.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -16,6 +20,28 @@ const t = computed(() => translations[props.language]);
       <h1 class="main-title">{{ t.portfolioTitle }}</h1>
       <h2 class="subtitle">{{ t.portfolioSubtitle }}</h2>
       <p class="mission-statement">{{ t.portfolioMission }}</p>
+    </section>
+
+    <!-- FTC Overview Section -->
+    <section class="content-section">
+      <h2 class="section-title">{{ t.ftcOverviewTitle }}</h2>
+      <p class="section-content">{{ t.ftcOverviewContent }}</p>
+      
+      <h3 class="subsection-title">{{ t.howGamesWorkTitle }}</h3>
+      
+      <div class="game-details">
+        <div class="game-season">
+          <h4 class="game-season-title">{{ t.centerstageSeason }}</h4>
+          <p>{{ t.centerstageGameDetails }}</p>
+          <CenterStageFieldAnimation />
+        </div>
+        
+        <div class="game-season">
+          <h4 class="game-season-title">{{ t.intoTheDeepSeason }}</h4>
+          <p>{{ t.intoTheDeepGameDetails }}</p>
+          <IntoTheDeepFieldAnimation />
+        </div>
+      </div>
     </section>
 
     <!-- Team Composition Section -->
@@ -113,6 +139,9 @@ const t = computed(() => translations[props.language]);
           <p>{{ t.centerstageIntakeEvolution }}</p>
         </div>
         
+        <!-- Intake Evolution Animation -->
+        <IntakeEvolutionAnimation />
+        
         <div class="component-evolution">
           <h4>{{ t.armTitle }}</h4>
           <p>{{ t.centerstageArmEvolution }}</p>
@@ -159,8 +188,19 @@ const t = computed(() => translations[props.language]);
       </div>
       
       <div class="programming-content">
+        <h4>{{ t.programmingChallengesTitle }}</h4>
+        <p>{{ t.programmingChallenges }}</p>
+      </div>
+      
+      <div class="programming-content">
         <h4>{{ t.driverControlsTitle }}</h4>
         <p>{{ t.driverLayoutDescription }}</p>
+        
+        <h5 class="control-table-title">{{ t.centerstageSeason }}</h5>
+        <DriverControlTable season="centerstage" />
+        
+        <h5 class="control-table-title">{{ t.intoTheDeepSeason }}</h5>
+        <DriverControlTable season="into-the-deep" />
       </div>
     </section>
 
@@ -201,6 +241,18 @@ const t = computed(() => translations[props.language]);
         <h3>{{ t.sustainabilityPlanTitle }}</h3>
         <p>{{ t.sustainabilityDescription }}</p>
       </div>
+    </section>
+
+    <!-- Lessons Learned Section -->
+    <section class="content-section">
+      <h2 class="section-title">{{ t.lessonsLearnedTitle }}</h2>
+      <p class="section-content">{{ t.lessonsLearned }}</p>
+    </section>
+
+    <!-- Future Outlook Section -->
+    <section class="content-section">
+      <h2 class="section-title">{{ t.futureOutlookTitle }}</h2>
+      <p class="section-content">{{ t.futureOutlook }}</p>
     </section>
   </div>
 </template>
@@ -392,6 +444,51 @@ const t = computed(() => translations[props.language]);
   font-size: 1vw;
 }
 
+.section-content {
+  line-height: 1.8;
+  font-size: 1vw;
+  margin-bottom: 1.5vw;
+}
+
+.subsection-title {
+  color: var(--mechabyte-green);
+  font-size: 1.8vw;
+  margin-top: 2vw;
+  margin-bottom: 1vw;
+}
+
+.game-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.game-season {
+  background: var(--background-grey);
+  padding: 1.5vw;
+  border-radius: 0.5vw;
+  border-left: 0.3vw solid var(--mechabyte-green);
+}
+
+.game-season-title {
+  color: var(--mechabyte-green);
+  font-size: 1.4vw;
+  margin-bottom: 1vw;
+}
+
+.game-season p {
+  line-height: 1.7;
+  font-size: 1vw;
+  margin-bottom: 1.5vw;
+}
+
+.control-table-title {
+  color: var(--mechabyte-green);
+  font-size: 1.2vw;
+  margin-top: 1.5vw;
+  margin-bottom: 0.5vw;
+}
+
 @media only screen and (max-width: 1000px) {
   .portfolio-page {
     padding: 20px 0;
@@ -501,6 +598,36 @@ const t = computed(() => translations[props.language]);
 
   .event-card p {
     font-size: 13px;
+  }
+  
+  .section-content {
+    font-size: 14px;
+  }
+  
+  .subsection-title {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .game-season {
+    padding: 15px;
+    border-left: 3px solid var(--mechabyte-green);
+  }
+  
+  .game-season-title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .game-season p {
+    font-size: 14px;
+  }
+  
+  .control-table-title {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
   }
 }
 </style>
