@@ -163,6 +163,11 @@ export type Translation = {
   centerstageAutonomous: string;
   centerstageTeleOp: string;
   centerstageEndgame: string;
+  intoTheDeepGoal: string;
+  intoTheDeepAutonomousDetails: string;
+  intoTheDeepTeleOpDetails: string;
+  intoTheDeepEndgameDetails: string;
+  intoTheDeepStrategySummary: Array<{ period: string; mandatory: string[]; optional: string[]; scoring: string }>;
   intoTheDeepTeleOp: string;
   intoTheDeepEndgame: string;
   
@@ -487,8 +492,17 @@ export const translations: { en: Translation; ro: Translation } = {
     centerstageAutonomous: 'Robot starts with a pre-loaded pixel in the intake claw. No odometry is used; all movements are based on timing. We have two main starting positions: backstage-facing (drive straight to park and drop pixel) and audience-facing (drive forward to tile C2, then sideways to backstage).',
     centerstageTeleOp: 'Drivers navigate through the truss or stage door to collect pixels from stacks or the human station. We deliver one pixel at a time to the backdrop. If a pixel falls in backstage, we leave it and fetch another. Our goal is to form mosaics and cross lines on the backdrop for bonus points.',
     centerstageEndgame: 'We continue scoring pixels for 15-20 seconds, then launch the drone and park in backstage for additional points.',
+    intoTheDeepGoal: 'Score as many points as possible by collecting samples and scoring in baskets/chambers, then climbing the submersible.',
+    intoTheDeepAutonomousDetails: 'Robot starts from observation zone near the submersible. Using timing-based navigation, it moves to the submersible center (~1.5s), collects one sample, then delivers to the net zone (~2.0s total). The sample dropped in the net zone scores 2 points. Total autonomous time is approximately 3.5 seconds.',
+    intoTheDeepTeleOpDetails: 'Drivers navigate to collect samples one at a time from the submersible or field floor. Samples are scored in the high basket (8 pts each) for maximum efficiency. The vertical slider extends to reach the basket while the intake system releases the sample. If a sample is dropped, we abandon it and collect a new one rather than waste time retrieving it.',
+    intoTheDeepEndgameDetails: 'Continue scoring samples in the high basket until 15-20 seconds remain. In the final seconds, park the robot in the net zone (3 pts) or attempt a low-level ascent on the submersible ladder (15 pts) if time permits.',
+    intoTheDeepStrategySummary: [
+      { period: 'Autonomous', mandatory: [], optional: ['collect sample from submersible', 'score in net zone'], scoring: '0 - 2 pts' },
+      { period: 'Teleop', mandatory: ['collect and score samples'], optional: ['score in high basket (8 pts)', 'score specimens on chambers (6-10 pts)'], scoring: '8 - 40+ pts' },
+      { period: 'Endgame', mandatory: [], optional: ['park in net zone (3 pts)', 'low-level ascent (15 pts)', 'high-level ascent (30 pts)'], scoring: '0 - 30 pts' }
+    ],
     intoTheDeepTeleOp: 'We navigate to pick up one sample at a time from the field or submersible. Samples are placed in the highest basket in the net zone. If a sample falls, we abandon it and fetch a new one to maximize scoring efficiency.',
-    intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then launch the drone and park in the net zone for maximum points.',
+    intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then park in the net zone for additional points.',
 
     // Robot evolution content
     centerstageDriveTrainEvolution: 'Started with an X-drive chassis with omni wheels at 45°—stable but too small for all components. Intermediate version used X-drive with flipped metal bars; the control hub was attached with one screw and a zip tie, making it fragile and prone to deformation. Final version features a more stable, spacious chassis with an Expansion Hub, mecanum wheels, and custom holders for hubs, power switch, and motors.',
@@ -848,8 +862,17 @@ export const translations: { en: Translation; ro: Translation } = {
     centerstageAutonomous: 'Robotul pornește cu un pixel pre-încărcat în gheara de colectare. Nu folosim odometrie; toate mișcările sunt bazate pe timp. Avem două poziții principale de pornire: față către backstage (mers drept pentru parcare și eliberare pixel) și față către public (mers înainte către tile C2, apoi lateral către backstage).',
     centerstageTeleOp: 'Șoferii navighează prin truss sau ușa scenei pentru a colecta pixeli de la stive sau stația umană. Livrăm câte un pixel pe rând către backdrop. Dacă un pixel cade în backstage, îl lăsăm și luăm altul. Scopul nostru este să formăm mozaicuri și să traversăm linii pe backdrop pentru puncte bonus.',
     centerstageEndgame: 'Continuăm să marcăm pixeli timp de 15-20 secunde, apoi lansăm drona și parcăm în backstage pentru puncte suplimentare.',
+    intoTheDeepGoal: 'Marcați cât mai multe puncte posibil colectând mostre și marcând în coșuri/camere, apoi urcați pe submersibil.',
+    intoTheDeepAutonomousDetails: 'Robotul pornește din zona de observație lângă submersibil. Folosind navigare bazată pe timp, se deplasează la centrul submersibilului (~1.5s), colectează o mostră, apoi livrează în zona de plasă (~2.0s total). Mostra lăsată în zona de plasă aduce 2 puncte. Timpul total autonom este aproximativ 3.5 secunde.',
+    intoTheDeepTeleOpDetails: 'Șoferii navighează pentru a colecta mostre câte una pe rând din submersibil sau de pe sol. Mostrele sunt marcate în coșul înalt (8 pct fiecare) pentru eficiență maximă. Glisiera verticală se extinde pentru a ajunge la coș în timp ce sistemul de colectare eliberează mostra. Dacă o mostră cade, o abandonăm și colectăm una nouă în loc să pierdem timp recuperând-o.',
+    intoTheDeepEndgameDetails: 'Continuați să marcați mostre în coșul înalt până când rămân 15-20 secunde. În ultimele secunde, parcați robotul în zona de plasă (3 pct) sau încercați o ascensiune de nivel jos pe scara submersibilului (15 pct) dacă timpul permite.',
+    intoTheDeepStrategySummary: [
+      { period: 'Autonom', mandatory: [], optional: ['colectează mostră din submersibil', 'marchează în zona de plasă'], scoring: '0 - 2 pct' },
+      { period: 'Teleop', mandatory: ['colectează și marchează mostre'], optional: ['marchează în coșul înalt (8 pct)', 'marchează specimene pe camere (6-10 pct)'], scoring: '8 - 40+ pct' },
+      { period: 'Finalul Jocului', mandatory: [], optional: ['parcă în zona de plasă (3 pct)', 'ascensiune nivel jos (15 pct)', 'ascensiune nivel înalt (30 pct)'], scoring: '0 - 30 pct' }
+    ],
     intoTheDeepTeleOp: 'Navigăm pentru a lua câte o mostră pe rând de pe teren sau din submersibil. Mostrele sunt plasate în coșul cel mai înalt din zona de plasă. Dacă o mostră cade, o abandonăm și luăm una nouă pentru a maximiza eficiența punctajului.',
-    intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi lansăm drona și parcăm în zona de plasă pentru puncte maxime.',
+    intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi parcăm în zona de plasă pentru puncte suplimentare.',
 
     // Robot evolution content
     centerstageDriveTrainEvolution: 'Am început cu un șasiu X-drive cu roți omni la 45°—stabil dar prea mic pentru toate componentele. Versiunea intermediară a folosit X-drive cu bare metalice răsturnate; control hub-ul era atașat cu un șurub și un colier, făcându-l fragil și predispus la deformare. Versiunea finală prezintă un șasiu mai stabil și spațios cu Expansion Hub, roți mecanum și suporturi personalizate pentru hub-uri, întrerupător și motoare.',

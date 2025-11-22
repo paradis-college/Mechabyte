@@ -12,6 +12,7 @@ import PantographArmAnimation from '../components/animations/PantographArmAnimat
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
+import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
@@ -237,16 +238,29 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
       <!-- Game Strategy -->
       <section class="content-section">
         <h2 class="section-title">Game Strategy</h2>
+        <p class="intro-text">{{ t.intoTheDeepGoal }}</p>
         
         <div class="strategy-phase">
+          <h3>Autonomous</h3>
+          <p>{{ t.intoTheDeepAutonomousDetails }}</p>
+          <IntoTheDeepAutonomousAnimation />
+        </div>
+
+        <div class="strategy-phase">
           <h3>Teleop</h3>
-          <p>Collect samples one at a time. Score in high basket for maximum efficiency.</p>
+          <p>{{ t.intoTheDeepTeleOpDetails }}</p>
         </div>
 
         <div class="strategy-phase">
           <h3>Endgame</h3>
-          <p>Continue scoring until final seconds, then park in net zone.</p>
+          <p>{{ t.intoTheDeepEndgameDetails }}</p>
         </div>
+
+        <h4>Strategy Summary</h4>
+        <StrategySummaryTable 
+          :data="t.intoTheDeepStrategySummary" 
+          class="strategy-table" 
+        />
       </section>
 
       <!-- Robot Evolution -->
