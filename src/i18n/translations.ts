@@ -279,52 +279,52 @@ export const translations: { en: Translation; ro: Translation } = {
       {
         year: '2024',
         title: 'Team Formation',
-        description: 'Mechabyte 22590 was founded at Paradise International College, bringing together passionate students interested in robotics and STEM education.'
+        description: 'Founded Mechabyte 22590 at Paradise International College.'
       },
       {
         year: '2024',
         title: 'First Robot Build',
-        description: 'Completed our first competitive robot for the FTC INTO THE DEEP season, incorporating innovative designs in hardware and software.'
+        description: 'Built first competitive FTC robot for INTO THE DEEP season.'
       },
       {
         year: '2024',
         title: 'Community Outreach Begins',
-        description: 'Launched our first community outreach programs, including workshops at local schools to promote STEM education and robotics awareness.'
+        description: 'Launched STEM workshops at local schools.'
       },
       {
         year: '2024',
         title: 'Paradis Run Participation',
-        description: 'Successfully organized and participated in the Paradis Run community event, promoting health and school spirit while raising awareness about our team.'
+        description: 'Organized school-wide Paradis Run community event.'
       },
       {
         year: '2024',
         title: 'Annual Movie Night',
-        description: 'Hosted a successful school-wide movie night event that brought together students and families while showcasing our team and mission.'
+        description: 'Hosted successful movie night for students and families.'
       },
       {
         year: '2025',
         title: 'Iași Regional Meet',
-        description: 'Participated in regional robotics meetup with other FTC teams in Iași, building valuable connections and sharing technical knowledge.'
+        description: 'Networked with FTC teams at regional Iași meetup.'
       },
       {
         year: '2025',
         title: 'Books and Sweets Initiative',
-        description: 'Launched community outreach initiative distributing books and sweets to local children, combining education and joy in our community.'
+        description: 'Distributed books and sweets to local children.'
       },
       {
         year: '2025',
         title: 'FTC Regional Competition',
-        description: 'Competed in FTC Regionals 2025, representing Paradise International College and demonstrating our technical capabilities and gracious professionalism.'
+        description: 'Competed in FTC Regionals 2025, showcased technical excellence.'
       },
       {
         year: 'Ongoing',
         title: 'STEM Workshops',
-        description: 'Regularly hosting robotics workshops for middle-school students, inspiring the next generation of engineers and problem-solvers.'
+        description: 'Host regular robotics workshops for middle-school students.'
       },
       {
         year: 'Ongoing',
         title: 'Technical Development',
-        description: 'Continuous improvement of our robot design, programming, and team processes through regular meetings, testing, and iteration.'
+        description: 'Continuously improve robot design through testing and iteration.'
       }
     ],
 
@@ -335,35 +335,35 @@ export const translations: { en: Translation; ro: Translation } = {
     mentorsTitle: 'Mentors',
     alumniTitle: 'Alumni',
     collaborationTitle: 'Collaboration Across Departments',
-    teamCollaboration: 'Our team operates on the principle of collaboration across all departments. Technical and non-technical members work closely together, recognizing that success in FTC requires both engineering excellence and effective communication, marketing, and outreach. Regular team meetings ensure everyone stays informed and aligned with our goals, while sub-team sessions allow specialists to dive deep into their areas of expertise.',
+    teamCollaboration: 'Last season, our CAD designer sketched a grabber mechanism on a napkin during lunch.\n\nBy evening, the programming team had simulated it. Next day, marketing filmed the prototype test.\n\nThis is how we work—ideas flow freely, no silos.\n\nMarketing helps debug code when fresh eyes are needed. Engineers brainstorm social media campaigns.\n\nOur weekly sync-ups are chaotic, energetic, and productive. Everyone contributes beyond their role.',
     trainingTitle: 'Training New Members',
-    teamTraining: 'Training new members is a priority at Mechabyte. We provide comprehensive onboarding that includes technical workshops, team culture introduction, and hands-on experience with our robot and tools. Experienced members mentor newcomers, creating a supportive environment where everyone can grow. We believe in learning by doing, so new members quickly become involved in real projects where they can apply their skills and gain confidence.',
+    teamTraining: 'Day 1: Welcome chaos. New juniors are handed tools, not manuals.\n\nWeek 1-4: Seniors guide hands-on builds. Juniors solder their first circuit, write their first autonomous code, design their first CAD part.\n\nMonth 2-3: Juniors lead small projects. They mess up, debug, iterate. Seniors supervise but don\'t rescue.\n\nMonth 4-6: Juniors become confident. They start teaching the next wave.\n\nBy season end, yesterday\'s juniors are today\'s seniors. Tomorrow, they\'re team leaders.',
     teamEnvironmentTitle: 'Team Environment',
-    teamEnvironment: 'We foster an inclusive and supportive environment where every team member feels valued and empowered to contribute. Our culture emphasizes gracious professionalism, encouraging members to help each other, celebrate successes together, and learn from setbacks as a team. Beyond robotics, we build lasting friendships and develop life skills like time management, leadership, and effective communication that will serve our members well beyond their time with Mechabyte.',
+    teamEnvironment: 'Picture this: It\'s 11PM. Robot deadline is tomorrow.\n\nHalf the team is debugging motor stalls. The other half is making memes about it.\n\nSomeone orders pizza. Someone else plays terrible music. Everyone laughs.\n\nWe fail together. We celebrate together. We build together.\n\nBeyond the circuits and competitions, we\'re building friendships that outlast high school.\n\nSome of our best memories aren\'t victories—they\'re the 3AM breakthroughs and inside jokes that only we understand.',
 
     sponsorsTitle: 'Our Sponsors',
     sponsorsIntro: 'Partner with Mechabyte — strengthen local STEM, gain tax benefits and connect with bright talent.',
     currentSponsorsTitle: 'Current Sponsors',
     sponsorshipImpactTitle: 'How Sponsorships Help',
     sponsorshipImpact: [
-      '⚙️ Equipment & Materials → Build competitive robots',
-      '🏆 Competition Fees & Travel → Compete globally',
-      '🔧 Tools & Workspace → Professional development',
-      '👥 Outreach Programs → Inspire 100+ students annually',
-      '📚 Training Resources → World-class skill development',
-      '🚀 Operations → Sustain team growth'
+      '⚙️ Build competitive robots with quality equipment and materials',
+      '🏆 Compete globally through covered fees and travel support',
+      '🔧 Develop professionally with proper tools and workspace',
+      '👥 Inspire 100+ students annually through outreach programs',
+      '📚 Provide world-class skill development and training resources',
+      '🚀 Sustain team growth with operational funding'
     ],
     whySponsorTitle: 'Why Sponsor Mechabyte?',
     whySponsorPoints: [
-      '💡 Build tomorrow\'s tech workforce → Direct pipeline to talented engineers',
-      '📈 Brand visibility → Logo at international competitions & events',
-      '🎯 Tax benefits → Deductible investment in education',
-      '🤝 CSR impact → Measurable community development',
-      '🌟 Early talent access → Recruit motivated STEM students',
-      '🏅 Innovation partnership → Align with cutting-edge technology'
+      '💡 Direct pipeline to talented engineers building tomorrow\'s tech workforce',
+      '📈 Logo visibility at international competitions and community events',
+      '🎯 Tax-deductible investment in education and community development',
+      '🤝 Measurable CSR impact supporting local STEM initiatives',
+      '🌟 Early access to motivated STEM students for recruitment',
+      '🏅 Partnership with cutting-edge technology and innovation'
     ],
     becomeSponsorTitle: 'Become a Sponsor',
-    becomeSponsorText: 'Invest in innovation. Empower young engineers. Build your brand alongside Romania\'s brightest STEM talent.',
+    becomeSponsorText: 'Invest in innovation, empower young engineers, and build your brand alongside Romania\'s brightest STEM talent!',
 
     supportTitle: 'Support Our Mission',
     supportIntro: 'There are many ways to support Mechabyte and contribute to STEM education in our community. Whether through financial sponsorship, volunteer time, equipment donations, or mentorship, your support makes a real difference.',
@@ -531,8 +531,8 @@ export const translations: { en: Translation; ro: Translation } = {
     autonomousApproachLabel: 'Autonomous Approach',
     ourGoalsLabel: 'Our Goals',
     ourGoalsText: 'We implement STEM core values—responsibility, compassion, and perseverance—as we constantly improve our capabilities. Our mission is to inspire future generations to follow their dreams in science, technology, engineering, and mathematics while building a strong, collaborative team that exemplifies gracious professionalism.',
-    sustainabilityGrowthLabel: 'Sustainability & Growth → Build With Us',
-    sustainabilityGrowthText: '💼 Partner with proven excellence. 🏆 2 seasons → Real results. 📊 Strategic growth → New talent pipeline. 🤝 Long-term impact → Your ROI: Skilled workforce + brand visibility + community impact.',
+    sustainabilityGrowthLabel: 'Sustainability & Growth',
+    sustainabilityGrowthText: 'Mechabyte represents a strategic investment in sustainable STEM education and workforce development. With two complete FTC seasons demonstrating measurable results, we have established robust operational frameworks and community partnerships.\n\nOur sustainability model integrates structured recruitment pipelines, comprehensive training programs, and alumni network engagement. We maintain fiscal responsibility through diversified funding sources and strategic budgeting, ensuring long-term program continuity.\n\nBy partnering with Mechabyte, sponsors invest in a proven platform that delivers consistent community impact, develops skilled technical talent, and generates positive brand association with innovation and education excellence. Our growth trajectory demonstrates scalability and social responsibility, creating mutual value for sponsors and the community.',
     contactUsLabel: 'Contact Us'
   },
 
@@ -621,52 +621,52 @@ export const translations: { en: Translation; ro: Translation } = {
       {
         year: '2024',
         title: 'Formarea Echipei',
-        description: 'Mechabyte 22590 a fost înființată la Paradise International College, reunind studenți pasionați de robotică și educație STEM.'
+        description: 'Înființat Mechabyte 22590 la Paradise International College.'
       },
       {
         year: '2024',
         title: 'Prima Construcție de Robot',
-        description: 'Am finalizat primul nostru robot competitiv pentru sezonul FTC INTO THE DEEP, încorporând design-uri inovatoare în hardware și software.'
+        description: 'Construit primul robot competitiv FTC pentru sezonul INTO THE DEEP.'
       },
       {
         year: '2024',
         title: 'Începutul Outreach-ului Comunitar',
-        description: 'Am lansat primele noastre programe de outreach comunitar, incluzând workshop-uri la școlile locale pentru a promova educația STEM și conștientizarea roboticii.'
+        description: 'Lansat workshop-uri STEM la școlile locale.'
       },
       {
         year: '2024',
         title: 'Participarea la Paradis Run',
-        description: 'Am organizat și participat cu succes la evenimentul comunitar Paradis Run, promovând sănătatea și spiritul școlar în timp ce creștem gradul de conștientizare despre echipa noastră.'
+        description: 'Organizat eveniment comunitar Paradis Run la nivel de școală.'
       },
       {
         year: '2024',
         title: 'Seara Anuală de Film',
-        description: 'Am găzduit un eveniment de succes la nivel de școală care a reunit studenți și familii, prezentând echipa și misiunea noastră.'
+        description: 'Găzduit seară de film de succes pentru studenți și familii.'
       },
       {
         year: '2025',
         title: 'Întâlnirea Regională Iași',
-        description: 'Am participat la întâlnirea regională de robotică cu alte echipe FTC din Iași, construind conexiuni valoroase și schimbând cunoștințe tehnice.'
+        description: 'Networkat cu echipe FTC la întâlnirea regională Iași.'
       },
       {
         year: '2025',
         title: 'Inițiativa Cărți și Dulciuri',
-        description: 'Am lansat inițiativa de outreach comunitar distribuind cărți și dulciuri copiilor locali, combinând educația și bucuria în comunitatea noastră.'
+        description: 'Distribuit cărți și dulciuri copiilor locali.'
       },
       {
         year: '2025',
         title: 'Competiția Regională FTC',
-        description: 'Am concurat în FTC Regionals 2025, reprezentând Paradise International College și demonstrând capacitățile noastre tehnice și profesionalismul grațios.'
+        description: 'Concurat în FTC Regionals 2025, demonstrat excelență tehnică.'
       },
       {
         year: 'În derulare',
         title: 'Workshop-uri STEM',
-        description: 'Găzduim regulat workshop-uri de robotică pentru elevi de gimnaziu, inspirând următoarea generație de ingineri și soluționatori de probleme.'
+        description: 'Găzduim workshop-uri regulate de robotică pentru elevi de gimnaziu.'
       },
       {
         year: 'În derulare',
         title: 'Dezvoltare Tehnică',
-        description: 'Îmbunătățirea continuă a designului robotului, programării și proceselor echipei prin întâlniri regulate, testare și iterație.'
+        description: 'Îmbunătățim continuu designul robotului prin testare și iterație.'
       }
     ],
 
@@ -677,35 +677,35 @@ export const translations: { en: Translation; ro: Translation } = {
     mentorsTitle: 'Mentori',
     alumniTitle: 'Alumni',
     collaborationTitle: 'Colaborare Între Departamente',
-    teamCollaboration: 'Echipa noastră operează pe principiul colaborării între toate departamentele. Membrii tehnici și non-tehnici lucrează îndeaproape împreună, recunoscând că succesul în FTC necesită atât excelență în inginerie, cât și comunicare eficientă, marketing și outreach. Întâlnirile regulate ale echipei asigură că toată lumea rămâne informată și aliniată cu obiectivele noastre, în timp ce sesiunile sub-echipelor permit specialiștilor să aprofundeze în domeniile lor de expertiză.',
+    teamCollaboration: 'Sezonul trecut, designerul nostru CAD a schițat un mecanism pe un șervețel la prânz.\n\nSeara, echipa de programare l-a simulat. A doua zi, marketing-ul a filmat testul prototipului.\n\nAstfel lucrăm—ideile curg liber, fără bariere.\n\nMarketing-ul ajută la debug când sunt necesari ochi proaspeți. Inginerii fac brainstorming pentru campanii social media.\n\nSincronizările noastre săptămânale sunt haotice, energice și productive. Toată lumea contribuie dincolo de rol.',
     trainingTitle: 'Instruirea Noilor Membri',
-    teamTraining: 'Instruirea noilor membri este o prioritate la Mechabyte. Oferim un onboarding cuprinzător care include workshop-uri tehnice, introducere în cultura echipei și experiență practică cu robotul și uneltele noastre. Membrii experimentați îndrumă noii veniți, creând un mediu de susținere în care toată lumea poate crește. Credem în învățarea prin practică, astfel încât noii membri se implică rapid în proiecte reale unde pot aplica abilitățile lor și câștiga încredere.',
+    teamTraining: 'Ziua 1: Bine ați venit în haos. Juniorii noi primesc unelte, nu manuale.\n\nSăptămâna 1-4: Seniorii ghidează construcții practice. Juniorii lipesc primul circuit, scriu primul cod autonom, proiectează prima piesă CAD.\n\nLuna 2-3: Juniorii conduc proiecte mici. Greșesc, fac debug, iterează. Seniorii supraveghează dar nu salvează.\n\nLuna 4-6: Juniorii devin încrezători. Încep să predea următoarea generație.\n\nLa sfârșitul sezonului, juniorii de ieri sunt seniorii de azi. Mâine, sunt team leaderi.',
     teamEnvironmentTitle: 'Mediul Echipei',
-    teamEnvironment: 'Promovăm un mediu incluziv și de susținere în care fiecare membru al echipei se simte valorizat și împuternicit să contribuie. Cultura noastră subliniază profesionalismul grațios, încurajând membrii să se ajute reciproc, să sărbătorească succesele împreună și să învețe din eșecuri ca o echipă. Dincolo de robotică, construim prietenii durabile și dezvoltăm abilități de viață precum managementul timpului, leadershipul și comunicarea eficientă care vor servi membrii noștri mult după timpul lor cu Mechabyte.',
+    teamEnvironment: 'Imaginează-ți: E 23:00. Deadline-ul robotului e mâine.\n\nJumătate din echipă face debug la motoare blocate. Cealaltă jumătate face meme-uri despre asta.\n\nCineva comandă pizza. Altcineva pune muzică groaznică. Toți râd.\n\nEșuăm împreună. Sărbătorim împreună. Construim împreună.\n\nDincolo de circuite și competiții, construim prietenii care durează mai mult decât liceul.\n\nUnele dintre cele mai bune amintiri nu sunt victorii—sunt descoperirile de la 3 dimineața și glumele pe care doar noi le înțelegem.',
 
     sponsorsTitle: 'Sponsorii Noștri',
     sponsorsIntro: 'Partener cu Mechabyte — întărește STEM-ul local, obține beneficii fiscale și conectează-te cu talente strălucitoare.',
     currentSponsorsTitle: 'Sponsori Actuali',
     sponsorshipImpactTitle: 'Cum Ajută Sponsorizările',
     sponsorshipImpact: [
-      '⚙️ Echipament & Materiale → Roboți competitivi',
-      '🏆 Taxe Competiție & Călătorie → Competiții globale',
-      '🔧 Unelte & Spațiu → Dezvoltare profesională',
-      '👥 Programe Outreach → Inspirăm 100+ elevi anual',
-      '📚 Resurse Training → Dezvoltare abilități de clasă mondială',
-      '🚀 Operațiuni → Creștere sustenabilă'
+      '⚙️ Construim roboți competitivi cu echipament și materiale de calitate',
+      '🏆 Competim global prin taxe și suport de călătorie acoperite',
+      '🔧 Dezvoltăm profesional cu unelte și spațiu adecvat',
+      '👥 Inspirăm 100+ elevi anual prin programe outreach',
+      '📚 Oferim dezvoltare abilități de clasă mondială și resurse training',
+      '🚀 Susținem creșterea echipei cu finanțare operațională'
     ],
     whySponsorTitle: 'De Ce Să Sponsorizați Mechabyte?',
     whySponsorPoints: [
-      '💡 Construiți forța de muncă tech de mâine → Pipeline direct către ingineri talentați',
-      '📈 Vizibilitate brand → Logo la competiții & evenimente internaționale',
-      '🎯 Beneficii fiscale → Investiție deductibilă în educație',
-      '🤝 Impact CSR → Dezvoltare comunitară măsurabilă',
-      '🌟 Acces talent timpuriu → Recrutați studenți STEM motivați',
-      '🏅 Parteneriat inovare → Aliniere cu tehnologie de vârf'
+      '💡 Pipeline direct către ingineri talentați construind forța de muncă tech de mâine',
+      '📈 Vizibilitate logo la competiții internaționale și evenimente comunitare',
+      '🎯 Investiție deductibilă fiscal în educație și dezvoltare comunitară',
+      '🤝 Impact CSR măsurabil susținând inițiative STEM locale',
+      '🌟 Acces timpuriu la studenți STEM motivați pentru recrutare',
+      '🏅 Parteneriat cu tehnologie de vârf și inovație'
     ],
     becomeSponsorTitle: 'Deveniți Sponsor',
-    becomeSponsorText: 'Investiți în inovare. Împuterniciți tineri ingineri. Construiți brandul alături de cele mai strălucite talente STEM din România.',
+    becomeSponsorText: 'Investiți în inovare, împuterniciți tineri ingineri și construiți brandul alături de cele mai strălucite talente STEM din România!',
 
     supportTitle: 'Susține Misiunea Noastră',
     supportIntro: 'Există multe modalități de a susține Mechabyte și de a contribui la educația STEM în comunitatea noastră. Fie prin sponsorizare financiară, timp voluntar, donații de echipamente sau mentorat, susținerea dumneavoastră face o diferență reală.',
@@ -873,8 +873,8 @@ export const translations: { en: Translation; ro: Translation } = {
     autonomousApproachLabel: 'Abordare Autonomă',
     ourGoalsLabel: 'Obiectivele Noastre',
     ourGoalsText: 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.',
-    sustainabilityGrowthLabel: 'Sustenabilitate & Creștere → Construiți Cu Noi',
-    sustainabilityGrowthText: '💼 Partener cu excelență dovedită. 🏆 2 sezoane → Rezultate reale. 📊 Creștere strategică → Pipeline talent nou. 🤝 Impact pe termen lung → ROI-ul dvs: Forță de muncă calificată + vizibilitate brand + impact comunitar.',
+    sustainabilityGrowthLabel: 'Sustenabilitate & Creștere',
+    sustainabilityGrowthText: 'Mechabyte reprezintă o investiție strategică în educație STEM sustenabilă și dezvoltarea forței de muncă. Cu două sezoane FTC complete demonstrând rezultate măsurabile, am stabilit cadre operaționale robuste și parteneriate comunitare.\n\nModelul nostru de sustenabilitate integrează pipeline-uri structurate de recrutare, programe comprehensive de training și angajament cu rețeaua de absolvenți. Menținem responsabilitate fiscală prin surse de finanțare diversificate și bugetare strategică, asigurând continuitatea programului pe termen lung.\n\nPrintr-un parteneriat cu Mechabyte, sponsorii investesc într-o platformă dovedită care oferă impact comunitar consistent, dezvoltă talente tehnice calificate și generează asociere pozitivă a brandului cu inovație și excelență educațională. Traiectoria noastră de creștere demonstrează scalabilitate și responsabilitate socială, creând valoare reciprocă pentru sponsori și comunitate.',
     contactUsLabel: 'Contactați-ne'
   }
 };

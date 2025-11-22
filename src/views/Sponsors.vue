@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { translations } from '../i18n/translations';
 import SponsorCard from '../components/SponsorCard.vue';
 import MicroButton from '../components/MicroButton.vue';
+import FindMorePane from '../components/FindMorePane.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
@@ -12,6 +13,9 @@ const props = defineProps<{
 
 const router = useRouter();
 const t = computed(() => translations[props.language]);
+
+// State for sustainability popup
+const showSustainability = ref(false);
 
 // Sponsor data with images and descriptions
 type Sponsor = {
@@ -176,12 +180,23 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      
-      <!-- Sustainability Section -->
+      <!-- Sustainability Button -->
       <div class="sustainability-section">
-        <h2>{{ t.sustainabilityGrowthLabel }}</h2>
-        <p>{{ t.sustainabilityGrowthText }}</p>
+        <MicroButton 
+          :label="t.sustainabilityGrowthLabel"
+          variant="secondary"
+          @click="showSustainability = true"
+        />
       </div>
+
+      <!-- Sustainability Popup -->
+      <FindMorePane 
+        :show="showSustainability"
+        :title="t.sustainabilityGrowthLabel"
+        @close="showSustainability = false"
+      >
+        <p style="white-space: pre-line;">{{ t.sustainabilityGrowthText }}</p>
+      </FindMorePane>
       
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>

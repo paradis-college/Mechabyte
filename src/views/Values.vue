@@ -106,15 +106,15 @@ onUnmounted(() => {
       >
         <template v-if="language === 'en'">
           <p>Our values evolved from team experiences, not boardroom decisions.</p>
-          <p>Innovation: Best solutions came from questioning assumptions.</p>
-          <p>Teamwork: Collaboration multiplied our capabilities.</p>
-          <p>Integrity: We once restarted a match rather than accept an unfair win.</p>
+          <p>Best solutions came from questioning assumptions.</p>
+          <p>Collaboration multiplied our capabilities.</p>
+          <p>We once restarted a match rather than accept an unfair win.</p>
         </template>
         <template v-else>
           <p>Valorile noastre au evoluat din experiențe, nu din decizii de birou.</p>
-          <p>Inovație: Cele mai bune soluții au venit din punerea la îndoială a presupunerilor.</p>
-          <p>Muncă în echipă: Colaborarea ne-a multiplicat capacitățile.</p>
-          <p>Integritate: Am reluat odată un meci în loc să acceptăm o victorie neloială.</p>
+          <p>Cele mai bune soluții au venit din punerea la îndoială a presupunerilor.</p>
+          <p>Colaborarea ne-a multiplicat capacitățile.</p>
+          <p>Am reluat odată un meci în loc să acceptăm o victorie neloială.</p>
         </template>
       </FindMorePane>
 
@@ -124,14 +124,14 @@ onUnmounted(() => {
         @close="showRealExamples = false"
       >
         <template v-if="language === 'en'">
-          <p><strong>Excellence:</strong> Rebuilt robot 2 days before competition.</p>
-          <p><strong>Community:</strong> Saturday teaching robotics to elementary students.</p>
-          <p><strong>Learning:</strong> Switched frameworks mid-season for better tech.</p>
+          <p>Rebuilt robot 2 days before competition.</p>
+          <p>Saturday teaching robotics to elementary students.</p>
+          <p>Switched frameworks mid-season for better tech.</p>
         </template>
         <template v-else>
-          <p><strong>Excelență:</strong> Robot reconstruit cu 2 zile înainte de competiție.</p>
-          <p><strong>Comunitate:</strong> Sâmbăta predând robotică la elevi.</p>
-          <p><strong>Învățare:</strong> Framework schimbat la mijlocul sezonului pentru tehnologie mai bună.</p>
+          <p>Robot reconstruit cu 2 zile înainte de competiție.</p>
+          <p>Sâmbăta predând robotică la elevi.</p>
+          <p>Framework schimbat la mijlocul sezonului pentru tehnologie mai bună.</p>
         </template>
       </FindMorePane>
 
@@ -141,14 +141,14 @@ onUnmounted(() => {
         @close="showImpact = false"
       >
         <p v-if="language === 'en'">
-          • Established 1 robotics club → 30+ students<br>
-          • Open-sourced code → Downloaded in 15 countries<br>
-          • Earned Gracious Professionalism award → Built sponsor trust
+          • Established 1 robotics club with 30+ students<br>
+          • Open-sourced code downloaded in 15 countries<br>
+          • Earned Gracious Professionalism award and built sponsor trust
         </p>
         <p v-else>
-          • Înființat 1 club de robotică → 30+ elevi<br>
-          • Cod open-source → Descărcat în 15 țări<br>
-          • Premiu Gracious Professionalism → Încredere construită cu sponsorii
+          • Înființat 1 club de robotică cu 30+ elevi<br>
+          • Cod open-source descărcat în 15 țări<br>
+          • Premiu Gracious Professionalism și încredere construită cu sponsorii
         </p>
       </FindMorePane>
       
@@ -236,6 +236,7 @@ h2 {
 .ambassador-section {
   width: 100%;
   margin-top: 1vw;
+  /* Remove any conflicting styles to let value-card handle the glow */
 }
 
 .ambassador-section h3 {

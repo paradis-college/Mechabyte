@@ -23,6 +23,8 @@ const showFirstRobotDetails = ref(false);
 const showTeamFormationDetails = ref(false);
 const showRegionalCompDetails = ref(false);
 const showTechDevDetails = ref(false);
+const showSTEMWorkshopsDetails = ref(false);
+const showCommunityOutreachDetails = ref(false);
 
 // Scanner beam effect
 const cardVisibility = ref<Record<number, boolean>>({});
@@ -128,6 +130,20 @@ onUnmounted(() => {
               @click="showTechDevDetails = true"
               class="modal-btn"
             />
+            <MicroButton 
+              v-if="achievement.title === 'STEM Workshops' || achievement.title === 'Workshop-uri STEM'"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showSTEMWorkshopsDetails = true"
+              class="modal-btn"
+            />
+            <MicroButton 
+              v-if="achievement.title === 'Community Outreach Begins' || achievement.title === 'Începutul Outreach-ului Comunitar'"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showCommunityOutreachDetails = true"
+              class="modal-btn"
+            />
           </div>
         </div>
       </div>
@@ -215,6 +231,42 @@ onUnmounted(() => {
           <p>Îmbunătățire continuă prin codare, design CAD și inginerie hardware.</p>
           <p>✓ Programare autonomă avansată<br>✓ Sisteme mecanice de precizie<br>✓ Integrare senzori<br>✓ Algoritmi de control</p>
           <p>Fiecare iterație ne-a făcut mai puternici, mai deștepți, mai rapizi.</p>
+        </template>
+      </FindMorePane>
+
+      <!-- STEM Workshops Details -->
+      <FindMorePane 
+        :show="showSTEMWorkshopsDetails"
+        :title="language === 'en' ? '🔬 STEM Workshops' : '🔬 Workshop-uri STEM'"
+        @close="showSTEMWorkshopsDetails = false"
+      >
+        <template v-if="language === 'en'">
+          <p>Teaching the next generation of engineers through hands-on robotics.</p>
+          <p>✓ Weekly sessions with 30+ students<br>✓ Hands-on robot building exercises<br>✓ Programming fundamentals<br>✓ Problem-solving challenges</p>
+          <p>Inspiring curiosity and technical skills one workshop at a time.</p>
+        </template>
+        <template v-else>
+          <p>Predând următoarea generație de ingineri prin robotică practică.</p>
+          <p>✓ Sesiuni săptămânale cu 30+ elevi<br>✓ Exerciții practice de construcție roboți<br>✓ Fundamente de programare<br>✓ Provocări de rezolvare probleme</p>
+          <p>Inspirând curiozitate și abilități tehnice câte un workshop o dată.</p>
+        </template>
+      </FindMorePane>
+
+      <!-- Community Outreach Details -->
+      <FindMorePane 
+        :show="showCommunityOutreachDetails"
+        :title="language === 'en' ? '🤝 Community Outreach' : '🤝 Outreach Comunitar'"
+        @close="showCommunityOutreachDetails = false"
+      >
+        <template v-if="language === 'en'">
+          <p>Bringing STEM education to local schools and communities.</p>
+          <p>✓ Interactive robot demonstrations<br>✓ Partnership with 5+ local schools<br>✓ Free educational materials<br>✓ Mentorship for aspiring engineers</p>
+          <p>Making robotics accessible to everyone in our community.</p>
+        </template>
+        <template v-else>
+          <p>Aducând educația STEM în școli și comunități locale.</p>
+          <p>✓ Demonstrații interactive cu roboți<br>✓ Parteneriat cu 5+ școli locale<br>✓ Materiale educaționale gratuite<br>✓ Mentorat pentru ingineri aspiranți</p>
+          <p>Făcând robotica accesibilă pentru toată lumea din comunitatea noastră.</p>
         </template>
       </FindMorePane>
     </section>
