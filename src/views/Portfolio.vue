@@ -46,7 +46,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <strong>CenterStage (2023-24):</strong> Robots collect hexagonal pixels and place them on backdrops, create mosaics, and launch paper drones.
         </p>
         <CenterStageFieldAnimation />
-        <MoreInfoPopup title="CenterStage Detailed Rules">
+        <MoreInfoPopup title="CenterStage Detailed Rules" buttonText="More Info">
           <p>{{ t.centerstageGameDetails }}</p>
           <ul>
             <li><strong>Autonomous:</strong> Place purple pixel on spike mark (10 pts) or team-prop (20 pts); pixels backstage (3 pts) or backdrop (5 pts)</li>
@@ -65,7 +65,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Autonomous</h3>
           <p>Start with pre-loaded pixel. Follow timing-based trajectory to park backstage and drop pixel.</p>
           <AutonomousTrajectoryAnimation />
-          <MoreInfoPopup title="Autonomous Details">
+          <MoreInfoPopup title="Autonomous Details" buttonText="More Info">
             <p>{{ t.centerstageAutonomousDetails }}</p>
           </MoreInfoPopup>
         </div>
@@ -73,7 +73,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Teleop</h3>
           <p>Navigate through truss/stage door, collect pixels, place on backdrop. Focus on mosaics and height lines.</p>
-          <MoreInfoPopup title="Teleop Details">
+          <MoreInfoPopup title="Teleop Details" buttonText="More Info">
             <p>{{ t.centerstageTeleOpDetails }}</p>
           </MoreInfoPopup>
         </div>
@@ -81,7 +81,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Endgame</h3>
           <p>Score pixels for 15-20 seconds, then launch drone and park backstage.</p>
-          <MoreInfoPopup title="Endgame Details">
+          <MoreInfoPopup title="Endgame Details" buttonText="More Info">
             <p>{{ t.centerstageEndgameDetails }}</p>
           </MoreInfoPopup>
         </div>
@@ -97,9 +97,9 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Chassis</h3>
           <p><strong>Final Solution:</strong> Mecanum wheel drive with spacious layout and proper hub mounting.</p>
           <ChassisEvolutionAnimation />
-          <MoreInfoPopup title="Chassis Evolution Issues">
-            <p>Initial X-drive chassis was cramped. Control Hub attached with single screw and zip-tie, making it fragile. Solved by redesigning with mecanum wheels, adding Expansion Hub, and creating custom mounting holders.</p>
-          </MoreInfoPopup>
+        <MoreInfoPopup title="Design Evolution: Chassis">
+          <p>Initial X-drive chassis was cramped. Control Hub attached with single screw and zip-tie, making it fragile. Solved by redesigning with mecanum wheels, adding Expansion Hub, and creating custom mounting holders.</p>
+        </MoreInfoPopup>
           <Model3DPlaceholder title="3D Model: Final Chassis" description="Explore the mecanum wheel chassis in 3D" />
         </div>
 
@@ -107,7 +107,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Intake</h3>
           <p><strong>Final Solution:</strong> Angled "crab claw" with toothed wheels for reliable pixel capture.</p>
           <IntakeEvolutionAnimation />
-          <MoreInfoPopup title="Intake Evolution Issues">
+          <MoreInfoPopup title="Design Evolution: Intake">
             <p><strong>V1 - Dynamic Brush:</strong> Spinning shaft with toilet-brush head. Abandoned due to motor limitations (no expansion hub).</p>
             <p><strong>V2 - Precision Claw:</strong> Single-pixel claw with position servo. Required too-precise alignment.</p>
             <p><strong>V3 - Angled Claw:</strong> Scissor mechanism with counter-rotating gears. More forgiving capture angle.</p>
@@ -118,7 +118,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Pantograph Arm</h3>
           <p><strong>Final Solution:</strong> Tetrix 40:1 motor-powered pantograph maintaining constant angle.</p>
           <PantographArmAnimation />
-          <MoreInfoPopup title="Arm Evolution Issues">
+          <MoreInfoPopup title="Design Evolution: Pantograph Arm">
             <p>Initially one continuous-rotation servo (lacked torque). Upgraded to two servos in parallel. After obtaining Expansion Hub, replaced with Tetrix 40:1 motor for greater lifting power.</p>
           </MoreInfoPopup>
         </div>
@@ -127,7 +127,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Drone Launcher</h3>
           <p><strong>Final Solution:</strong> Elastic band mechanism with servo-controlled release rod.</p>
           <DroneLauncherAnimation />
-          <MoreInfoPopup title="Launcher Evolution">
+          <MoreInfoPopup title="Design Evolution: Drone Launcher">
             <p>V1: Basic design. V2: Added custom mounting holes to secure launcher to chassis. Elastic held under tension by position servo, armed during match, released in endgame.</p>
           </MoreInfoPopup>
         </div>
@@ -148,7 +148,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h4>Driver Controls</h4>
         <DriverControlTable season="centerstage" :language="language" />
 
-        <MoreInfoPopup title="Programming Challenges">
+        <MoreInfoPopup title="Programming Challenges" buttonText="More Info">
           <p>{{ t.programmingChallenges }}</p>
           <p><strong>Phone Power Issue:</strong> Motorola G4 Play couldn't power two controllers. Solved by switching to Nokia 5 and redistributing tasks.</p>
         </MoreInfoPopup>
@@ -224,7 +224,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <strong>Into the Deep (2024-25):</strong> Robots collect samples, score in baskets/chambers, and climb the submersible.
         </p>
         <IntoTheDeepFieldAnimation />
-        <MoreInfoPopup title="Into the Deep Detailed Rules">
+        <MoreInfoPopup title="Into the Deep Detailed Rules" buttonText="More Info">
           <p>{{ t.intoTheDeepGameDetails }}</p>
           <ul>
             <li><strong>Scoring:</strong> Samples in net zones (2 pts), low basket (4 pts), high basket (8 pts)</li>
@@ -257,7 +257,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <h3>Intake System</h3>
           <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
           <BladeStabilizationAnimation />
-          <MoreInfoPopup title="Intake Evolution Issues">
+          <MoreInfoPopup title="Design Evolution: Intake System">
             <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
             <p><strong>Solution:</strong> Redesigned claw shape, added structural support, replaced blades with stoppers, created 3D-printed hexagonal discs to lock blades at 90°.</p>
           </MoreInfoPopup>
@@ -267,7 +267,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Slider System</h3>
           <p><strong>Final Solution:</strong> Single vertical slider with integrated arm.</p>
-          <MoreInfoPopup title="Slider Evolution Issues">
+          <MoreInfoPopup title="Design Evolution: Slider System">
             <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
             <p><strong>Solution:</strong> Eliminated horizontal slider. Single vertical slider with attached arm. No transfer between containers—intake grabs and slider lifts directly to high basket.</p>
           </MoreInfoPopup>

@@ -111,7 +111,7 @@ const selectSeason = (seasonId: typeof props.activeSeason) => {
     border-bottom: 2px solid var(--mechabyte-green);
     padding: 10px 0;
     margin-bottom: 20px;
-    position: relative; /* Override sticky positioning for mobile to prevent layout issues */
+    /* Keep sticky on all screen sizes as requested */
   }
   
   .tabs-container {
