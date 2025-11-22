@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { translations } from '../i18n/translations';
+import SeasonTabs from '../components/SeasonTabs.vue';
+import CollapsibleSection from '../components/CollapsibleSection.vue';
+import MoreInfoPopup from '../components/MoreInfoPopup.vue';
 import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
 import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
@@ -11,12 +14,15 @@ import BladeStabilizationAnimation from '../components/animations/BladeStabiliza
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
+import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
+import Model3DPlaceholder from '../components/Model3DPlaceholder.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
 </script>
 
 <template>
@@ -28,720 +34,617 @@ const t = computed(() => translations[props.language]);
       <p class="mission-statement">{{ t.portfolioMission }}</p>
     </section>
 
-    <!-- FTC Overview Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.ftcOverviewTitle }}</h2>
-      <p class="section-content">{{ t.ftcOverviewContent }}</p>
-      
-      <h3 class="subsection-title">{{ t.howGamesWorkTitle }}</h3>
-      
-      <div class="game-details">
-        <div class="game-season">
-          <h4 class="game-season-title">{{ t.centerstageSeason }}</h4>
+    <!-- Season Navigation -->
+    <SeasonTabs v-model:activeSeason="activeSeason" />
+
+    <!-- 2023-2024 CenterStage Season -->
+    <div v-if="activeSeason === '2023-2024'" class="season-content">
+      <!-- How the Games Work -->
+      <section class="content-section">
+        <h2 class="section-title">How the Games Work</h2>
+        <p class="intro-text">
+          <strong>CenterStage (2023-24):</strong> Robots collect hexagonal pixels and place them on backdrops, create mosaics, and launch paper drones.
+        </p>
+        <CenterStageFieldAnimation />
+        <MoreInfoPopup title="CenterStage Detailed Rules">
           <p>{{ t.centerstageGameDetails }}</p>
-          <CenterStageFieldAnimation />
-        </div>
+          <ul>
+            <li><strong>Autonomous:</strong> Place purple pixel on spike mark (10 pts) or team-prop (20 pts); pixels backstage (3 pts) or backdrop (5 pts)</li>
+            <li><strong>Teleop:</strong> Place pixels backstage (1 pt) or backdrop (3 pts); create mosaics (10 pt bonus); cross height lines (10 pts/line)</li>
+            <li><strong>Endgame:</strong> Launch drones over truss (variable pts); parking positions (10-30 pts); suspend from rigging (20 pts)</li>
+          </ul>
+        </MoreInfoPopup>
+      </section>
+
+      <!-- Game Strategy -->
+      <section class="content-section">
+        <h2 class="section-title">Game Strategy</h2>
+        <p class="strategy-goal"><strong>Goal:</strong> {{ t.centerstageGoal }}</p>
         
-        <div class="game-season">
-          <h4 class="game-season-title">{{ t.intoTheDeepSeason }}</h4>
-          <p>{{ t.intoTheDeepGameDetails }}</p>
-          <IntoTheDeepFieldAnimation />
+        <div class="strategy-phase">
+          <h3>Autonomous</h3>
+          <p>Start with pre-loaded pixel. Follow timing-based trajectory to park backstage and drop pixel.</p>
+          <AutonomousTrajectoryAnimation />
+          <MoreInfoPopup title="Autonomous Details">
+            <p>{{ t.centerstageAutonomousDetails }}</p>
+          </MoreInfoPopup>
         </div>
-      </div>
-    </section>
 
-    <!-- Team Composition Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.ourTeamTitle }}</h2>
-      
-      <div class="season-section">
-        <h3 class="season-title">{{ t.intoTheDeepSeason }}</h3>
-        <div class="team-roles">
-          <div class="role-card">
-            <h4>{{ t.mentorsTitle }}</h4>
-            <p>{{ t.portfolioIntoTheDeepMentors }}</p>
+        <div class="strategy-phase">
+          <h3>Teleop</h3>
+          <p>Navigate through truss/stage door, collect pixels, place on backdrop. Focus on mosaics and height lines.</p>
+          <MoreInfoPopup title="Teleop Details">
+            <p>{{ t.centerstageTeleOpDetails }}</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="strategy-phase">
+          <h3>Endgame</h3>
+          <p>Score pixels for 15-20 seconds, then launch drone and park backstage.</p>
+          <MoreInfoPopup title="Endgame Details">
+            <p>{{ t.centerstageEndgameDetails }}</p>
+          </MoreInfoPopup>
+        </div>
+
+        <StrategySummaryTable :summary="t.centerstageStrategySummary" />
+      </section>
+
+      <!-- Robot Evolution -->
+      <section class="content-section">
+        <h2 class="section-title">Robot Evolution</h2>
+        
+        <div class="evolution-component">
+          <h3>Chassis</h3>
+          <p><strong>Final Solution:</strong> Mecanum wheel drive with spacious layout and proper hub mounting.</p>
+          <ChassisEvolutionAnimation />
+          <MoreInfoPopup title="Chassis Evolution Issues">
+            <p>Initial X-drive chassis was cramped. Control Hub attached with single screw and zip-tie, making it fragile. Solved by redesigning with mecanum wheels, adding Expansion Hub, and creating custom mounting holders.</p>
+          </MoreInfoPopup>
+          <Model3DPlaceholder title="3D Model: Final Chassis" description="Explore the mecanum wheel chassis in 3D" />
+        </div>
+
+        <div class="evolution-component">
+          <h3>Intake</h3>
+          <p><strong>Final Solution:</strong> Angled "crab claw" with toothed wheels for reliable pixel capture.</p>
+          <IntakeEvolutionAnimation />
+          <MoreInfoPopup title="Intake Evolution Issues">
+            <p><strong>V1 - Dynamic Brush:</strong> Spinning shaft with toilet-brush head. Abandoned due to motor limitations (no expansion hub).</p>
+            <p><strong>V2 - Precision Claw:</strong> Single-pixel claw with position servo. Required too-precise alignment.</p>
+            <p><strong>V3 - Angled Claw:</strong> Scissor mechanism with counter-rotating gears. More forgiving capture angle.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Pantograph Arm</h3>
+          <p><strong>Final Solution:</strong> Tetrix 40:1 motor-powered pantograph maintaining constant angle.</p>
+          <PantographArmAnimation />
+          <MoreInfoPopup title="Arm Evolution Issues">
+            <p>Initially one continuous-rotation servo (lacked torque). Upgraded to two servos in parallel. After obtaining Expansion Hub, replaced with Tetrix 40:1 motor for greater lifting power.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Drone Launcher</h3>
+          <p><strong>Final Solution:</strong> Elastic band mechanism with servo-controlled release rod.</p>
+          <DroneLauncherAnimation />
+          <MoreInfoPopup title="Launcher Evolution">
+            <p>V1: Basic design. V2: Added custom mounting holes to secure launcher to chassis. Elastic held under tension by position servo, armed during match, released in endgame.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <PhotoGalleryPlaceholder 
+          title="Team Build Photos - CenterStage" 
+          caption="Building and testing the robot throughout the season"
+          :count="4" 
+        />
+      </section>
+
+      <!-- Programming Approach -->
+      <section class="content-section">
+        <h2 class="section-title">Programming Approach</h2>
+        <p><strong>Autonomous:</strong> Timing-based movements (no odometry/vision). 4 programs for different starting positions.</p>
+        <p><strong>Teleop:</strong> Driver 1 handles movement and arm; Driver 2 handles intake and drone.</p>
+        
+        <h4>Driver Controls</h4>
+        <DriverControlTable season="centerstage" :language="language" />
+
+        <MoreInfoPopup title="Programming Challenges">
+          <p>{{ t.programmingChallenges }}</p>
+          <p><strong>Phone Power Issue:</strong> Motorola G4 Play couldn't power two controllers. Solved by switching to Nokia 5 and redistributing tasks.</p>
+        </MoreInfoPopup>
+      </section>
+
+      <!-- Outreach & Events -->
+      <section class="content-section">
+        <h2 class="section-title">Outreach & Events</h2>
+        <div class="events-grid">
+          <div class="event-card">
+            <h4>Movie Night</h4>
+            <p>Fundraising event with robot showcase</p>
           </div>
-          <div class="role-card">
-            <h4>{{ t.nonTechnicalTeamTitle }}</h4>
-            <p>{{ t.portfolioIntoTheDeepNonTechnical }}</p>
+          <div class="event-card">
+            <h4>Pancakes Sale</h4>
+            <p>Raised ~5,000 RON</p>
           </div>
-          <div class="role-card">
-            <h4>{{ t.technicalTeamTitle }}</h4>
-            <p>{{ t.portfolioIntoTheDeepTechnical }}</p>
+          <div class="event-card">
+            <h4>Paradis Run</h4>
+            <p>Charity event participation</p>
+          </div>
+          <div class="event-card">
+            <h4>Nikola Tesla Festival</h4>
+            <p>Collaborated with other teams</p>
           </div>
         </div>
-      </div>
+        <PhotoGalleryPlaceholder 
+          title="Outreach Events" 
+          caption="Community engagement and fundraising activities"
+          :count="4" 
+        />
+      </section>
 
-      <div class="season-section">
-        <h3 class="season-title">{{ t.centerstageSeason }}</h3>
+      <!-- Team Credits -->
+      <section class="content-section team-credits">
+        <h2 class="section-title">All of this was possible thanks to these people:</h2>
         <div class="team-roles">
           <div class="role-card">
             <h4>{{ t.mentorsTitle }}</h4>
             <p>{{ t.portfolioCenterstageMentor }}</p>
           </div>
           <div class="role-card">
-            <h4>{{ t.nonTechnicalTeamTitle }}</h4>
-            <p>{{ t.portfolioCenterstageNonTechnical }}</p>
-          </div>
-          <div class="role-card">
             <h4>{{ t.technicalTeamTitle }}</h4>
             <p>{{ t.portfolioCenterstageTechnical }}</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Game Strategy Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.gameStrategyTitle }}</h2>
-      
-      <div class="strategy-season">
-        <h3 class="season-title">{{ t.centerstageSeason }}</h3>
-        
-        <!-- Goal Statement -->
-        <div class="strategy-goal">
-          <p>{{ t.centerstageGoal }}</p>
-        </div>
-        
-        <!-- Autonomous Details -->
-        <div class="strategy-detail">
-          <h4>{{ t.autonomousTitle }}</h4>
-          <p class="detail-text">{{ t.centerstageAutonomousDetails }}</p>
-        </div>
-        
-        <!-- Autonomous Trajectory Animation -->
-        <AutonomousTrajectoryAnimation />
-        
-        <!-- Teleop Details -->
-        <div class="strategy-detail">
-          <h4>{{ t.teleOpTitle }}</h4>
-          <p class="detail-text">{{ t.centerstageTeleOpDetails }}</p>
-        </div>
-        
-        <!-- Endgame Details -->
-        <div class="strategy-detail">
-          <h4>{{ t.endgameTitle }}</h4>
-          <p class="detail-text">{{ t.centerstageEndgameDetails }}</p>
-        </div>
-        
-        <!-- Strategy Summary Table -->
-        <div class="strategy-summary">
-          <h4>{{ language === 'en' ? 'Summary' : 'Rezumat' }}</h4>
-          <StrategySummaryTable :summary="t.centerstageStrategySummary" />
-        </div>
-      </div>
-
-      <div class="strategy-season">
-        <h3 class="season-title">{{ t.intoTheDeepSeason }}</h3>
-        <div class="strategy-phases">
-          <div class="phase-card">
-            <h4>{{ t.teleOpTitle }}</h4>
-            <p>{{ t.intoTheDeepTeleOp }}</p>
-          </div>
-          <div class="phase-card">
-            <h4>{{ t.endgameTitle }}</h4>
-            <p>{{ t.intoTheDeepEndgame }}</p>
+          <div class="role-card">
+            <h4>{{ t.nonTechnicalTeamTitle }}</h4>
+            <p>{{ t.portfolioCenterstageNonTechnical }}</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Robot Evolution Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.robotEvolutionTitle }}</h2>
-      
-      <div class="evolution-season">
-        <h3 class="season-title">{{ t.centerstageSeason }}</h3>
-        
-        <div class="component-evolution">
-          <h4>{{ t.driveTrainTitle }}</h4>
-          <p>{{ t.centerstageDriveTrainEvolution }}</p>
-        </div>
-        
-        <!-- Chassis Evolution Animation -->
-        <ChassisEvolutionAnimation />
-        
-        <div class="component-evolution">
-          <h4>{{ t.intakeTitle }}</h4>
-          <p>{{ t.centerstageIntakeEvolution }}</p>
-        </div>
-        
-        <!-- Intake Evolution Animation -->
-        <IntakeEvolutionAnimation />
-        
-        <div class="component-evolution">
-          <h4>{{ t.armTitle }}</h4>
-          <p>{{ t.centerstageArmEvolution }}</p>
-        </div>
-        
-        <!-- Pantograph Arm Animation -->
-        <PantographArmAnimation />
-        
-        <div class="component-evolution">
-          <h4>{{ t.launcherTitle }}</h4>
-          <p>{{ t.centerstageLauncherEvolution }}</p>
-        </div>
-        
-        <!-- Drone Launcher Animation -->
-        <DroneLauncherAnimation />
-      </div>
+      <!-- Collapsible Sections -->
+      <CollapsibleSection title="Lessons Learned & Growth">
+        <p>{{ t.lessonsLearned }}</p>
+      </CollapsibleSection>
 
-      <div class="evolution-season">
-        <h3 class="season-title">{{ t.intoTheDeepSeason }}</h3>
-        
-        <div class="component-evolution">
-          <h4>{{ t.firstVersionLabel }}</h4>
-          <p>{{ t.intoTheDeepFirstVersion }}</p>
-        </div>
-        
-        <div class="component-evolution">
-          <h4>{{ t.upgradeAttemptsLabel }}</h4>
-          <p>{{ t.intoTheDeepUpgradeAttempts }}</p>
-        </div>
-        
-        <div class="component-evolution">
-          <h4>{{ t.currentVersionLabel }}</h4>
-          <p>{{ t.intoTheDeepCurrentVersion }}</p>
-        </div>
-        
-        <div class="component-evolution">
-          <h4>{{ t.constructionImprovementsLabel }}</h4>
-          <p>{{ t.intoTheDeepConstructionImprovements }}</p>
-        </div>
-        
-        <!-- Blade Stabilization Animation -->
-        <BladeStabilizationAnimation />
-      </div>
-    </section>
+      <CollapsibleSection title="Future Outlook">
+        <p>{{ t.futureOutlook }}</p>
+      </CollapsibleSection>
 
-    <!-- Programming & Controls Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.programmingTitle }}</h2>
-      
-      <div class="programming-content">
-        <h4>{{ t.autonomousApproachLabel }}</h4>
-        <p>{{ t.programmingDescription }}</p>
-      </div>
-      
-      <div class="programming-content">
-        <h4>{{ t.programmingChallengesTitle }}</h4>
-        <p>{{ t.programmingChallenges }}</p>
-      </div>
-      
-      <div class="programming-content">
-        <h4>{{ t.driverControlsTitle }}</h4>
-        <p>{{ t.driverLayoutDescription }}</p>
-        
-        <h5 class="control-table-title">{{ t.centerstageSeason }}</h5>
-        <DriverControlTable season="centerstage" />
-        
-        <h5 class="control-table-title">{{ t.intoTheDeepSeason }}</h5>
-        <DriverControlTable season="into-the-deep" />
-      </div>
-    </section>
+      <CollapsibleSection title="Sustainability & Funding">
+        <p>Fundraising through bake sales, movie nights, and school sponsorship. First corporate sponsor: Professional Dentist. Focus on recruiting younger members and building alumni support network.</p>
+      </CollapsibleSection>
+    </div>
 
-    <!-- Outreach & Events Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.outreachEventsTitle }}</h2>
-      
-      <div class="outreach-subsection">
-        <h3>{{ t.socialMediaTitle }}</h3>
-        <p>{{ t.socialMediaDescription }}</p>
-      </div>
+    <!-- 2024-2025 Into the Deep Season -->
+    <div v-if="activeSeason === '2024-2025'" class="season-content">
+      <!-- How the Games Work -->
+      <section class="content-section">
+        <h2 class="section-title">How the Games Work</h2>
+        <p class="intro-text">
+          <strong>Into the Deep (2024-25):</strong> Robots collect samples, score in baskets/chambers, and climb the submersible.
+        </p>
+        <IntoTheDeepFieldAnimation />
+        <MoreInfoPopup title="Into the Deep Detailed Rules">
+          <p>{{ t.intoTheDeepGameDetails }}</p>
+          <ul>
+            <li><strong>Scoring:</strong> Samples in net zones (2 pts), low basket (4 pts), high basket (8 pts)</li>
+            <li><strong>Specimens:</strong> Clips attached by human players. Low chamber (6 pts), high chamber (10 pts)</li>
+            <li><strong>Endgame:</strong> Touch low rung (3 pts), low-level ascent (15 pts), high-level ascent (30 pts), park in observation (3 pts)</li>
+          </ul>
+        </MoreInfoPopup>
+      </section>
 
-      <div class="outreach-subsection">
-        <h3>{{ t.inPersonEventsTitle }}</h3>
+      <!-- Game Strategy -->
+      <section class="content-section">
+        <h2 class="section-title">Game Strategy</h2>
+        
+        <div class="strategy-phase">
+          <h3>Teleop</h3>
+          <p>Collect samples one at a time. Score in high basket for maximum efficiency.</p>
+        </div>
+
+        <div class="strategy-phase">
+          <h3>Endgame</h3>
+          <p>Continue scoring until final seconds, then park in net zone.</p>
+        </div>
+      </section>
+
+      <!-- Robot Evolution -->
+      <section class="content-section">
+        <h2 class="section-title">Robot Evolution</h2>
+        
+        <div class="evolution-component">
+          <h3>Intake System</h3>
+          <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
+          <BladeStabilizationAnimation />
+          <MoreInfoPopup title="Intake Evolution Issues">
+            <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
+            <p><strong>Solution:</strong> Redesigned claw shape, added structural support, replaced blades with stoppers, created 3D-printed hexagonal discs to lock blades at 90°.</p>
+          </MoreInfoPopup>
+          <Model3DPlaceholder title="3D Model: Blade Stabilizer" description="View the 3D-printed hexagonal disc solution" />
+        </div>
+
+        <div class="evolution-component">
+          <h3>Slider System</h3>
+          <p><strong>Final Solution:</strong> Single vertical slider with integrated arm.</p>
+          <MoreInfoPopup title="Slider Evolution Issues">
+            <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
+            <p><strong>Solution:</strong> Eliminated horizontal slider. Single vertical slider with attached arm. No transfer between containers—intake grabs and slider lifts directly to high basket.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <PhotoGalleryPlaceholder 
+          title="Team Build Photos - Into the Deep" 
+          caption="Iterating and improving throughout the season"
+          :count="4" 
+        />
+      </section>
+
+      <!-- Programming Approach -->
+      <section class="content-section">
+        <h2 class="section-title">Programming Approach</h2>
+        <p><strong>Autonomous:</strong> Timing-based with 4 cases (forward, backward, left, right) combined based on starting position.</p>
+        <p><strong>Teleop:</strong> Driver 1 handles movement; Driver 2 handles slider and intake/outtake.</p>
+        
+        <h4>Driver Controls</h4>
+        <DriverControlTable season="into-the-deep" :language="language" />
+      </section>
+
+      <!-- Outreach & Events -->
+      <section class="content-section">
+        <h2 class="section-title">Outreach & Events</h2>
         <div class="events-grid">
-          <div 
-            v-for="(event, index) in t.outreachEvents" 
-            :key="index"
-            class="event-card"
-          >
-            <h4>{{ event.name }}</h4>
-            <p>{{ event.description }}</p>
+          <div class="event-card">
+            <h4>Winter Dive Meet</h4>
+            <p>Scored 3/6 matches in Iași</p>
+          </div>
+          <div class="event-card">
+            <h4>STEMPOSSUM</h4>
+            <p>Robotics & AI collaboration</p>
+          </div>
+          <div class="event-card">
+            <h4>UGAL Inventics</h4>
+            <p>Showcased innovations</p>
+          </div>
+          <div class="event-card">
+            <h4>Christmas Market</h4>
+            <p>Raised 2,000 RON from decorations</p>
           </div>
         </div>
-      </div>
-    </section>
+        <PhotoGalleryPlaceholder 
+          title="Outreach Events" 
+          caption="Competitions and community engagement"
+          :count="4" 
+        />
+      </section>
 
-    <!-- Sustainability & Funding Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.sustainabilityTitle }}</h2>
-      
-      <div class="sustainability-content">
-        <h3>{{ t.fundraisingTitle }}</h3>
-        <p>{{ t.fundraisingDescription }}</p>
-      </div>
-      
-      <div class="sustainability-content">
-        <h3>{{ t.sustainabilityPlanTitle }}</h3>
-        <p>{{ t.sustainabilityDescription }}</p>
-      </div>
-    </section>
+      <!-- Team Credits -->
+      <section class="content-section team-credits">
+        <h2 class="section-title">All of this was possible thanks to these people:</h2>
+        <div class="team-roles">
+          <div class="role-card">
+            <h4>{{ t.mentorsTitle }}</h4>
+            <p>{{ t.portfolioIntoTheDeepMentors }}</p>
+          </div>
+          <div class="role-card">
+            <h4>{{ t.technicalTeamTitle }}</h4>
+            <p>{{ t.portfolioIntoTheDeepTechnical }}</p>
+          </div>
+          <div class="role-card">
+            <h4>{{ t.nonTechnicalTeamTitle }}</h4>
+            <p>{{ t.portfolioIntoTheDeepNonTechnical }}</p>
+          </div>
+        </div>
+      </section>
 
-    <!-- Lessons Learned Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.lessonsLearnedTitle }}</h2>
-      <p class="section-content">{{ t.lessonsLearned }}</p>
-    </section>
+      <!-- Collapsible Sections -->
+      <CollapsibleSection title="Lessons Learned & Growth">
+        <p>Applied lessons from CenterStage to streamline mechanisms. Focused on weight distribution and reliability. Adopted 3D-printed improvements. Programming evolved to multi-case autonomous routines.</p>
+      </CollapsibleSection>
 
-    <!-- Future Outlook Section -->
-    <section class="content-section">
-      <h2 class="section-title">{{ t.futureOutlookTitle }}</h2>
-      <p class="section-content">{{ t.futureOutlook }}</p>
-    </section>
+      <CollapsibleSection title="Future Outlook">
+        <p>Integration of sensors for autonomous navigation could improve scoring. Corporate sponsorships may fund advanced motors and vision systems. Sustainability plan ensures continued growth.</p>
+      </CollapsibleSection>
+
+      <CollapsibleSection title="Sustainability & Funding">
+        <p>Continued fundraising through sales and events. Expanded sponsor network. Focus on recruiting younger students and maintaining alumni support.</p>
+      </CollapsibleSection>
+    </div>
+
+    <!-- 2025-2026 Upcoming Season -->
+    <div v-if="activeSeason === '2025-2026'" class="season-content">
+      <section class="content-section upcoming-season">
+        <h2 class="section-title">2025-2026 Season</h2>
+        <div class="coming-soon">
+          <p class="coming-soon-text">🚀 Coming Soon!</p>
+          <p>The 2025-2026 FTC season game will be revealed soon. Stay tuned for our robot design, strategy, and journey documentation.</p>
+          <div class="placeholder-areas">
+            <div class="placeholder-box">
+              <h4>Game Overview</h4>
+              <p>Game mechanics and field layout will be added once announced</p>
+            </div>
+            <div class="placeholder-box">
+              <h4>Robot Design</h4>
+              <p>Design process and evolution will be documented here</p>
+            </div>
+            <div class="placeholder-box">
+              <h4>Team & Events</h4>
+              <p>Team roster and outreach activities for the new season</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .portfolio-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  padding: 2vw 0;
-  gap: 2vw;
+  min-height: 100vh;
+  background: var(--background-grey);
+  color: white;
 }
 
 .content-section {
-  display: flex;
-  width: clamp(68.75vw, 1200px, 90vw);
-  padding: 2vw;
-  flex-direction: column;
-  gap: 1.5vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  background: var(--dark-grey);
+  max-width: 1200px;
+  margin: 0 auto 4vw;
+  padding: 0 2vw;
 }
 
 .header-section {
   text-align: center;
-  align-items: center;
+  padding: 4vw 2vw;
 }
 
 .main-title {
+  font-size: 3.5vw;
   color: var(--mechabyte-green);
-  font-size: 3vw;
-  margin-bottom: 0.5vw;
+  margin-bottom: 1vw;
 }
 
 .subtitle {
-  color: var(--mechabyte-green);
   font-size: 1.8vw;
-  margin-bottom: 1vw;
-  font-weight: 400;
+  color: #ddd;
+  margin-bottom: 2vw;
 }
 
 .mission-statement {
-  line-height: 1.8;
-  max-width: 80%;
-  text-align: left;
   font-size: 1.1vw;
+  line-height: 1.8;
+  color: #ccc;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .section-title {
-  color: var(--mechabyte-green);
   font-size: 2.2vw;
-  margin-bottom: 1vw;
+  color: var(--mechabyte-green);
+  margin-bottom: 2vw;
   border-bottom: 0.2vw solid var(--mechabyte-green);
-  padding-bottom: 0.5vw;
+  padding-bottom: 0.8vw;
 }
 
-.season-section,
-.strategy-season,
-.evolution-season {
+.intro-text {
+  font-size: 1.1vw;
+  line-height: 1.8;
+  color: #ddd;
   margin-bottom: 2vw;
 }
 
-.season-title {
-  color: var(--mechabyte-green);
-  font-size: 1.6vw;
-  margin-bottom: 1vw;
-}
-
-.team-roles,
-.strategy-phases {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5vw;
-}
-
-.role-card,
-.phase-card {
-  background: var(--background-grey);
-  padding: 1.5vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-}
-
-.role-card h4,
-.phase-card h4 {
-  color: var(--mechabyte-green);
-  margin-bottom: 0.8vw;
-  font-size: 1.3vw;
-}
-
-.role-card p,
-.phase-card p {
-  line-height: 1.6;
-  font-size: 1vw;
-}
-
-.component-evolution {
-  margin-bottom: 2vw;
-  padding: 1.5vw;
-  background: var(--background-grey);
+.strategy-goal {
+  background: rgba(0, 255, 0, 0.1);
   border-left: 0.3vw solid var(--mechabyte-green);
-}
-
-.component-evolution h4 {
-  color: var(--mechabyte-green);
-  margin-bottom: 0.8vw;
-  font-size: 1.4vw;
-}
-
-.component-evolution p {
-  line-height: 1.7;
-  font-size: 1vw;
-}
-
-.programming-content {
-  margin-bottom: 1.5vw;
-}
-
-.programming-content h4 {
-  color: var(--mechabyte-green);
-  margin-bottom: 0.8vw;
-  font-size: 1.3vw;
-}
-
-.programming-content p {
-  line-height: 1.7;
-  font-size: 1vw;
-}
-
-.outreach-subsection {
+  padding: 1vw 1.5vw;
   margin-bottom: 2vw;
+  font-size: 1.1vw;
 }
 
-.outreach-subsection h3 {
+.strategy-phase {
+  margin-bottom: 3vw;
+}
+
+.strategy-phase h3 {
+  font-size: 1.6vw;
   color: var(--mechabyte-green);
-  font-size: 1.5vw;
   margin-bottom: 1vw;
 }
 
-.outreach-subsection > p {
-  line-height: 1.7;
-  margin-bottom: 1.5vw;
+.strategy-phase p {
   font-size: 1vw;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 1vw;
+}
+
+.evolution-component {
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.15vw solid rgba(0, 255, 0, 0.2);
+  border-radius: 0.5vw;
+  padding: 2vw;
+  margin-bottom: 3vw;
+}
+
+.evolution-component h3 {
+  font-size: 1.6vw;
+  color: var(--mechabyte-green);
+  margin-bottom: 1vw;
+}
+
+.evolution-component p {
+  font-size: 1vw;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 1.5vw;
 }
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5vw;
+  margin-bottom: 2vw;
 }
 
 .event-card {
-  background: var(--background-grey);
-  padding: 1.2vw;
-  border: 0.1vw solid var(--mechabyte-green);
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.1vw solid rgba(0, 255, 0, 0.3);
   border-radius: 0.5vw;
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 1.5vw;
+  transition: all 0.3s ease;
 }
 
 .event-card:hover {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: var(--mechabyte-green);
   transform: translateY(-0.3vw);
-  box-shadow: 0 0.4vw 0.8vw rgba(0, 255, 0, 0.2);
 }
 
 .event-card h4 {
   color: var(--mechabyte-green);
-  margin-bottom: 0.6vw;
   font-size: 1.2vw;
-}
-
-.event-card p {
-  line-height: 1.6;
-  font-size: 0.95vw;
-}
-
-.sustainability-content {
-  margin-bottom: 1.5vw;
-}
-
-.sustainability-content h3 {
-  color: var(--mechabyte-green);
-  font-size: 1.5vw;
-  margin-bottom: 0.8vw;
-}
-
-.sustainability-content p {
-  line-height: 1.7;
-  font-size: 1vw;
-}
-
-.section-content {
-  line-height: 1.8;
-  font-size: 1vw;
-  margin-bottom: 1.5vw;
-}
-
-.subsection-title {
-  color: var(--mechabyte-green);
-  font-size: 1.8vw;
-  margin-top: 2vw;
-  margin-bottom: 1vw;
-}
-
-.game-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2vw;
-}
-
-.game-season {
-  background: var(--background-grey);
-  padding: 1.5vw;
-  border-radius: 0.5vw;
-  border-left: 0.3vw solid var(--mechabyte-green);
-}
-
-.game-season-title {
-  color: var(--mechabyte-green);
-  font-size: 1.4vw;
-  margin-bottom: 1vw;
-}
-
-.game-season p {
-  line-height: 1.7;
-  font-size: 1vw;
-  margin-bottom: 1.5vw;
-}
-
-.control-table-title {
-  color: var(--mechabyte-green);
-  font-size: 1.2vw;
-  margin-top: 1.5vw;
   margin-bottom: 0.5vw;
 }
 
-.strategy-goal {
+.event-card p {
+  font-size: 0.9vw;
+  color: #ccc;
+}
+
+.team-credits {
   background: rgba(0, 255, 0, 0.05);
+  border: 0.2vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  padding: 3vw;
+}
+
+.team-roles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2vw;
+}
+
+.role-card {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0.1vw solid rgba(0, 255, 0, 0.3);
+  border-radius: 0.5vw;
   padding: 1.5vw;
-  border-left: 0.3vw solid var(--mechabyte-green);
-  margin-bottom: 2vw;
 }
 
-.strategy-goal p {
-  font-size: 1.1vw;
-  color: #fff;
-  line-height: 1.8;
-  margin: 0;
-}
-
-.strategy-detail {
-  margin-bottom: 2vw;
-}
-
-.strategy-detail h4 {
+.role-card h4 {
   color: var(--mechabyte-green);
-  font-size: 1.4vw;
+  font-size: 1.3vw;
   margin-bottom: 1vw;
-  text-decoration: underline;
-  text-decoration-color: var(--mechabyte-green);
-  text-underline-offset: 0.5vw;
 }
 
-.detail-text {
-  font-size: 1vw;
-  line-height: 1.8;
-  white-space: pre-line;
+.role-card p {
+  font-size: 0.95vw;
+  line-height: 1.6;
+  color: #ddd;
 }
 
-.strategy-summary {
+.upcoming-season {
+  text-align: center;
+  padding: 4vw 2vw;
+}
+
+.coming-soon {
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.2vw dashed rgba(0, 255, 0, 0.5);
+  border-radius: 1vw;
+  padding: 4vw;
+  margin: 2vw 0;
+}
+
+.coming-soon-text {
+  font-size: 3vw;
+  color: var(--mechabyte-green);
+  margin-bottom: 1.5vw;
+}
+
+.placeholder-areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2vw;
   margin-top: 3vw;
 }
 
-.strategy-summary h4 {
+.placeholder-box {
+  background: rgba(0, 255, 0, 0.05);
+  border: 0.1vw solid rgba(0, 255, 0, 0.3);
+  border-radius: 0.5vw;
+  padding: 2vw;
+}
+
+.placeholder-box h4 {
   color: var(--mechabyte-green);
-  font-size: 1.6vw;
+  font-size: 1.4vw;
   margin-bottom: 1vw;
-  text-align: center;
-  font-weight: 700;
+}
+
+.placeholder-box p {
+  font-size: 1vw;
+  color: #aaa;
+  font-style: italic;
 }
 
 @media only screen and (max-width: 1000px) {
-  .portfolio-page {
-    padding: 20px 0;
-    gap: 20px;
-  }
-
-  .content-section {
-    width: 90vw;
-    padding: 20px;
-    gap: 20px;
-  }
-
   .main-title {
     font-size: 32px;
-    margin-bottom: 10px;
   }
-
+  
   .subtitle {
     font-size: 20px;
-    margin-bottom: 15px;
   }
-
+  
   .mission-statement {
-    font-size: 16px;
-    max-width: 100%;
+    font-size: 15px;
   }
-
+  
   .section-title {
-    font-size: 26px;
-    margin-bottom: 15px;
+    font-size: 24px;
     border-bottom: 2px solid var(--mechabyte-green);
-    padding-bottom: 8px;
-  }
-
-  .season-title {
-    font-size: 22px;
-    margin-bottom: 15px;
-  }
-
-  .team-roles,
-  .strategy-phases {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .role-card,
-  .phase-card {
-    padding: 15px;
-  }
-
-  .role-card h4,
-  .phase-card h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .role-card p,
-  .phase-card p {
-    font-size: 14px;
-  }
-
-  .component-evolution {
-    padding: 15px;
+    padding-bottom: 10px;
     margin-bottom: 20px;
-    border-left: 3px solid var(--mechabyte-green);
   }
-
-  .component-evolution h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
+  
+  .intro-text,
+  .strategy-goal,
+  .strategy-phase p,
+  .evolution-component p {
+    font-size: 15px;
   }
-
-  .component-evolution p {
-    font-size: 14px;
+  
+  .strategy-phase h3,
+  .evolution-component h3 {
+    font-size: 20px;
   }
-
-  .programming-content h4,
-  .outreach-subsection h3,
-  .sustainability-content h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .programming-content p,
-  .outreach-subsection > p,
-  .sustainability-content p {
-    font-size: 14px;
-  }
-
-  .events-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .event-card {
-    padding: 15px;
-  }
-
-  .event-card:hover {
-    transform: translateY(-3px);
-  }
-
+  
   .event-card h4 {
     font-size: 16px;
-    margin-bottom: 8px;
   }
-
+  
   .event-card p {
     font-size: 13px;
   }
   
-  .section-content {
-    font-size: 14px;
-  }
-  
-  .subsection-title {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 15px;
-  }
-  
-  .game-season {
-    padding: 15px;
-    border-left: 3px solid var(--mechabyte-green);
-  }
-  
-  .game-season-title {
+  .role-card h4 {
     font-size: 18px;
-    margin-bottom: 12px;
   }
   
-  .game-season p {
+  .role-card p {
     font-size: 14px;
   }
   
-  .control-table-title {
-    font-size: 16px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  .coming-soon-text {
+    font-size: 28px;
   }
   
-  .strategy-goal {
-    padding: 15px;
-    border-left: 3px solid var(--mechabyte-green);
-    margin-bottom: 20px;
-  }
-  
-  .strategy-goal p {
-    font-size: 15px;
-  }
-  
-  .strategy-detail {
-    margin-bottom: 20px;
-  }
-  
-  .strategy-detail h4 {
+  .placeholder-box h4 {
     font-size: 18px;
-    margin-bottom: 12px;
-    text-underline-offset: 5px;
   }
   
-  .detail-text {
+  .placeholder-box p {
     font-size: 14px;
-  }
-  
-  .strategy-summary {
-    margin-top: 30px;
-  }
-  
-  .strategy-summary h4 {
-    font-size: 20px;
-    margin-bottom: 15px;
   }
 }
 </style>
