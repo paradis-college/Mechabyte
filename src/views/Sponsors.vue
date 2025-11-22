@@ -156,6 +156,15 @@ onUnmounted(() => {
         </div>
       </div>
       
+      <!-- Sustainability Button - Top Section -->
+      <div class="top-actions">
+        <MicroButton 
+          :label="t.sustainabilityGrowthLabel"
+          variant="secondary"
+          @click="showSustainability = true"
+        />
+      </div>
+      
       <div class="impact-section">
         <h2>{{ t.sponsorshipImpactTitle }}</h2>
         <ul class="impact-list">
@@ -179,14 +188,6 @@ onUnmounted(() => {
             <p>{{ point }}</p>
           </div>
         </div>
-      </div>
-      <!-- Sustainability Button -->
-      <div class="sustainability-section">
-        <MicroButton 
-          :label="t.sustainabilityGrowthLabel"
-          variant="secondary"
-          @click="showSustainability = true"
-        />
       </div>
 
       <!-- Sustainability Popup -->
@@ -247,6 +248,13 @@ h2 {
 
 .sponsors-section {
   width: 100%;
+  margin-bottom: 2vw;
+}
+
+.top-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-bottom: 2vw;
 }
 
@@ -320,20 +328,6 @@ h2 {
   line-height: 1.6;
 }
 
-.sustainability-section {
-  width: 100%;
-  padding: 1.5vw;
-  background: var(--dark-grey);
-  border: 0.1vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-  margin-bottom: 2vw;
-}
-
-.sustainability-section p {
-  line-height: 1.7;
-  margin-top: 0.5vw;
-}
-
 .cta-section {
   width: 100%;
   padding: 2vw;
@@ -389,11 +383,6 @@ h2 {
 
   .point-card {
     padding: 15px;
-  }
-
-  .sustainability-section {
-    padding: 15px;
-    margin-bottom: 20px;
   }
 
   .sponsors-notice,

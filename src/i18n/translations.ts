@@ -355,26 +355,23 @@ export const translations: { en: Translation; ro: Translation } = {
     ],
     whySponsorTitle: 'Why Sponsor Mechabyte?',
     whySponsorPoints: [
-      '💡 Direct pipeline to talented engineers building tomorrow\'s tech workforce',
-      '📈 Logo visibility at international competitions and community events',
-      '🎯 Tax-deductible investment in education and community development',
-      '🤝 Measurable CSR impact supporting local STEM initiatives',
-      '🌟 Early access to motivated STEM students for recruitment',
-      '🏅 Partnership with cutting-edge technology and innovation'
+      'Tax-deductible investment in education and community development',
+      'Logo visibility at international competitions and community events',
+      'Supporting local STEM initiatives and youth development',
+      'Direct pipeline to talented engineers building tomorrow\'s tech workforce'
     ],
     becomeSponsorTitle: 'Become a Sponsor',
-    becomeSponsorText: 'Invest in innovation, empower young engineers, and build your brand alongside Romania\'s brightest STEM talent!',
+    becomeSponsorText: 'Invest in Romanian robotics and shape tomorrow\'s tech workforce!',
 
     supportTitle: 'Support Our Mission',
     supportIntro: 'There are many ways to support Mechabyte and contribute to STEM education in our community. Whether through financial sponsorship, volunteer time, equipment donations, or mentorship, your support makes a real difference.',
     sponsorBenefitsTitle: 'Sponsorship Benefits',
     sponsorBenefits: [
-      'Logo placement on team robot, banners, and competition materials with prominent visibility at events',
-      'Recognition on our website and social media platforms, reaching our community and followers',
-      'Mentions in press releases and media coverage related to our competitions and achievements',
-      'Invitation to team demonstrations and competition events, with opportunities to interact with team members',
-      'Opportunity to engage with students and showcase your organization through workshops or facility tours',
-      'Tax-deductible contribution supporting education, with documentation provided for tax purposes'
+      'Logo featured on robot, website, and socials',
+      'Recognition at FTC events',
+      'Access to team updates',
+      'Connect with STEM talent',
+      'CSR impact metrics'
     ],
     volunteerTitle: 'Volunteer Opportunities',
     volunteerText: 'We welcome volunteers who want to share their expertise with our team. Whether you have experience in engineering, programming, marketing, or business, your guidance can help our members develop valuable skills. Volunteers can participate in workshops, provide technical mentorship, or assist with event planning and execution.',
@@ -697,26 +694,23 @@ export const translations: { en: Translation; ro: Translation } = {
     ],
     whySponsorTitle: 'De Ce Să Sponsorizați Mechabyte?',
     whySponsorPoints: [
-      '💡 Pipeline direct către ingineri talentați construind forța de muncă tech de mâine',
-      '📈 Vizibilitate logo la competiții internaționale și evenimente comunitare',
-      '🎯 Investiție deductibilă fiscal în educație și dezvoltare comunitară',
-      '🤝 Impact CSR măsurabil susținând inițiative STEM locale',
-      '🌟 Acces timpuriu la studenți STEM motivați pentru recrutare',
-      '🏅 Parteneriat cu tehnologie de vârf și inovație'
+      'Investiție deductibilă fiscal în educație și dezvoltare comunitară',
+      'Vizibilitate logo la competiții internaționale și evenimente comunitare',
+      'Susținerea inițiativelor STEM locale și dezvoltarea tinerilor',
+      'Pipeline direct către ingineri talentați construind forța de muncă tech de mâine'
     ],
     becomeSponsorTitle: 'Deveniți Sponsor',
-    becomeSponsorText: 'Investiți în inovare, împuterniciți tineri ingineri și construiți brandul alături de cele mai strălucite talente STEM din România!',
+    becomeSponsorText: 'Investește în robotica românească și formează forța de muncă tech de mâine!',
 
     supportTitle: 'Susține Misiunea Noastră',
     supportIntro: 'Există multe modalități de a susține Mechabyte și de a contribui la educația STEM în comunitatea noastră. Fie prin sponsorizare financiară, timp voluntar, donații de echipamente sau mentorat, susținerea dumneavoastră face o diferență reală.',
     sponsorBenefitsTitle: 'Beneficiile Sponsorilor',
     sponsorBenefits: [
-      'Plasarea logo-ului pe robotul echipei, bannere și materiale de competiție cu vizibilitate proeminentă la evenimente',
-      'Recunoaștere pe site-ul nostru web și platformele de social media, ajungând la comunitatea și urmăritorii noștri',
-      'Mențiuni în comunicatele de presă și acoperirea media legată de competițiile și realizările noastre',
-      'Invitație la demonstrații ale echipei și evenimente de competiție, cu oportunități de a interacționa cu membrii echipei',
-      'Oportunitatea de a interacționa cu studenții și de a prezenta organizația dumneavoastră prin workshop-uri sau tururi ale facilității',
-      'Contribuție deductibilă fiscal care susține educația, cu documentație furnizată în scopuri fiscale'
+      'Logo pe robot, site și rețele sociale',
+      'Recunoaștere la evenimente FTC',
+      'Acces la actualizări echipă',
+      'Conectare cu talente STEM',
+      'Metrici impact CSR'
     ],
     volunteerTitle: 'Oportunități de Voluntariat',
     volunteerText: 'Binevenimos voluntari care doresc să împărtășească expertiza lor cu echipa noastră. Indiferent dacă aveți experiență în inginerie, programare, marketing sau afaceri, îndrumarea dumneavoastră poate ajuta membrii noștri să dezvolte abilități valoroase. Voluntarii pot participa la workshop-uri, pot oferi mentorat tehnic sau pot asista la planificarea și executarea evenimentelor.',

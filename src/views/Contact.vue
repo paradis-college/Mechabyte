@@ -67,17 +67,25 @@ const t = computed(() => translations[props.language]);
         <div class="info-card">
           <h3>{{ t.scheduleDemoTitle }}</h3>
           <p>{{ t.scheduleDemo }}</p>
-          <button class="btn-primary schedule-demo-btn">
+          <a 
+            :href="`mailto:${t.contactDetails.email}?subject=${language === 'en' ? 'Schedule a Demo Request' : 'Cerere Programare Demonstrație'}&body=${language === 'en' ? 'Hi Mechabyte Team,%0D%0A%0D%0AI would like to schedule a robot demonstration.' : 'Bună echipa Mechabyte,%0D%0A%0D%0AAș dori să programez o demonstrație cu robotul.'}`"
+            class="btn-primary schedule-demo-btn"
+          >
             {{ language === 'en' ? 'Schedule a Demo' : 'Programează o Demonstrație' }}
-          </button>
+          </a>
         </div>
         
         <div class="info-card">
           <h3>{{ t.stayConnectedTitle }}</h3>
           <p>{{ t.connectWithUs }}</p>
-          <button class="btn-primary stay-connected-btn">
+          <a 
+            :href="t.contactDetails.instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary stay-connected-btn"
+          >
             {{ language === 'en' ? 'Stay Connected' : 'Rămâi Conectat' }}
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -229,6 +237,9 @@ h2 {
 .schedule-demo-btn,
 .stay-connected-btn {
   margin-top: auto;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
 }
 
 @media only screen and (max-width: 1000px) {

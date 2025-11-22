@@ -26,24 +26,13 @@ const showDonateInfo = ref(false);
         :subtitle="t.supportIntro"
       />
       
-      <!-- Tax Benefits - First and Prominent -->
-      <div class="tax-benefits-highlight value-card">
+      <!-- Tax Benefits - First and Prominent with Glow -->
+      <div class="tax-benefits-highlight value-card glow-on-hover">
         <h2>💰 {{ t.taxDeductibleTitle }}</h2>
         <p>{{ t.taxDeductibleText }}</p>
       </div>
       
-      <!-- Sponsorship Benefits with Logo Placement -->
-      <div class="benefits-section">
-        <h2 class="section-title">🏆 {{ t.sponsorBenefitsTitle }}</h2>
-        <div class="benefits-grid">
-          <div v-for="(benefit, index) in t.sponsorBenefits" :key="index" class="benefit-card value-card">
-            <div class="benefit-icon">{{ index + 1 }}</div>
-            <p>{{ benefit }}</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Volunteer & Mentorship (For Parents) -->
+      <!-- Get Involved - Top Section -->
       <div class="cta-buttons-section">
         <h2 class="section-title">🤝 {{ language === 'en' ? 'Get Involved' : 'Implică-te' }}</h2>
         <div class="cta-buttons">
@@ -56,6 +45,17 @@ const showDonateInfo = ref(false);
             variant="secondary"
             @click="showDonateInfo = true"
           />
+        </div>
+      </div>
+      
+      <!-- Sponsorship Benefits with Logo Placement -->
+      <div class="benefits-section">
+        <h2 class="section-title">🏆 {{ t.sponsorBenefitsTitle }}</h2>
+        <div class="benefits-grid">
+          <div v-for="(benefit, index) in t.sponsorBenefits" :key="index" class="benefit-card value-card">
+            <div class="benefit-icon">{{ index + 1 }}</div>
+            <p>{{ benefit }}</p>
+          </div>
         </div>
       </div>
 
@@ -168,6 +168,10 @@ const showDonateInfo = ref(false);
 .tax-benefits-highlight {
   width: 100%;
   background: linear-gradient(135deg, var(--dark-grey) 0%, var(--mechabyte-grey) 100%);
+}
+
+.tax-benefits-highlight.glow-on-hover:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
 }
 
 .tax-benefits-highlight h2 {
