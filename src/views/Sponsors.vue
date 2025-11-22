@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
+import { useRouter } from 'vue-router';
 import { translations } from '../i18n/translations';
 import SponsorCard from '../components/SponsorCard.vue';
+import MicroButton from '../components/MicroButton.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
+const router = useRouter();
 const t = computed(() => translations[props.language]);
 
 // Sponsor data with images and descriptions
@@ -183,9 +186,10 @@ onUnmounted(() => {
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
-        <RouterLink to="/contact" class="cta-button">
-          {{ t.contactUsLabel }}
-        </RouterLink>
+        <MicroButton 
+          :label="t.contactUsLabel"
+          @click="router.push('/contact')"
+        />
       </div>
     </section>
   </div>

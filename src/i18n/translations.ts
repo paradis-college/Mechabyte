@@ -340,24 +340,24 @@ export const translations: { en: Translation; ro: Translation } = {
     currentSponsorsTitle: 'Current Sponsors',
     sponsorshipImpactTitle: 'How Sponsorships Help',
     sponsorshipImpact: [
-      'Equipment & Materials: Sponsorships fund the purchase of motors, sensors, structural components, and other materials needed to build and improve our robot throughout the season.',
-      'Competition Fees & Travel: Support covers registration fees for competitions and travel expenses to regional and potentially national tournaments.',
-      'Tools & Workspace: Contributions help us maintain our workshop with necessary tools, safety equipment, and workspace improvements.',
-      'Outreach Programs: Funding enables us to conduct community workshops, purchase materials for demonstrations, and expand our impact in promoting STEM education.',
-      'Professional Development: Sponsorships support team training, including workshops, technical resources, and learning materials that enhance our skills.',
-      'Team Operations: Support covers operational costs such as team uniforms, marketing materials, website hosting, and communication tools.'
+      '⚙️ Equipment & Materials → Build competitive robots',
+      '🏆 Competition Fees & Travel → Compete globally',
+      '🔧 Tools & Workspace → Professional development',
+      '👥 Outreach Programs → Inspire 100+ students annually',
+      '📚 Training Resources → World-class skill development',
+      '🚀 Operations → Sustain team growth'
     ],
     whySponsorTitle: 'Why Sponsor Mechabyte?',
     whySponsorPoints: [
-      'Support STEM education and inspire young innovators in Romania, contributing to the development of the next generation of engineers and problem-solvers',
-      'Gain visibility at regional and international robotics competitions, with your logo displayed on our robot, banners, and team materials',
-      'Associate your brand with innovation, technology, and education, demonstrating commitment to future workforce development',
-      'Invest in the future workforce and next generation of engineers, with potential access to talented students for internships and recruitment',
-      'Demonstrate corporate social responsibility and community engagement, making a tangible impact on youth development in Iași',
-      'Access to talented students for internships and recruitment opportunities, connecting with motivated individuals passionate about technology'
+      '💡 Build tomorrow\'s tech workforce → Direct pipeline to talented engineers',
+      '📈 Brand visibility → Logo at international competitions & events',
+      '🎯 Tax benefits → Deductible investment in education',
+      '🤝 CSR impact → Measurable community development',
+      '🌟 Early talent access → Recruit motivated STEM students',
+      '🏅 Innovation partnership → Align with cutting-edge technology'
     ],
     becomeSponsorTitle: 'Become a Sponsor',
-    becomeSponsorText: 'Join us in empowering the next generation of innovators. Your support will help us continue developing technical skills, competing at the highest level, and inspiring our community through STEM education.',
+    becomeSponsorText: 'Invest in innovation. Empower young engineers. Build your brand alongside Romania\'s brightest STEM talent.',
 
     supportTitle: 'Support Our Mission',
     supportIntro: 'There are many ways to support Mechabyte and contribute to STEM education in our community. Whether through financial sponsorship, volunteer time, equipment donations, or mentorship, your support makes a real difference.',
@@ -519,8 +519,8 @@ export const translations: { en: Translation; ro: Translation } = {
     autonomousApproachLabel: 'Autonomous Approach',
     ourGoalsLabel: 'Our Goals',
     ourGoalsText: 'We implement STEM core values—responsibility, compassion, and perseverance—as we constantly improve our capabilities. Our mission is to inspire future generations to follow their dreams in science, technology, engineering, and mathematics while building a strong, collaborative team that exemplifies gracious professionalism.',
-    sustainabilityGrowthLabel: 'Sustainability & Growth',
-    sustainabilityGrowthText: 'Early seasons relied heavily on fundraising events like pancake sales, biscuit sales, and decorations at Christmas markets. Now, with two full FTC seasons of experience and solid competition results, we can better present our achievements to potential sponsors. Our sustainability plan includes recruiting and training younger students, maintaining an alumni support network, partnering with corporations that share our values, and careful budgeting with categories for equipment expenditure and emergency funds.',
+    sustainabilityGrowthLabel: 'Sustainability & Growth → Build With Us',
+    sustainabilityGrowthText: '💼 Partner with proven excellence. 🏆 2 seasons → Real results. 📊 Strategic growth → New talent pipeline. 🤝 Long-term impact → Your ROI: Skilled workforce + brand visibility + community impact.',
     contactUsLabel: 'Contact Us'
   },
 
@@ -676,24 +676,24 @@ export const translations: { en: Translation; ro: Translation } = {
     currentSponsorsTitle: 'Sponsori Actuali',
     sponsorshipImpactTitle: 'Cum Ajută Sponsorizările',
     sponsorshipImpact: [
-      'Echipament și Materiale: Sponsorizările finanțează achiziționarea de motoare, senzori, componente structurale și alte materiale necesare pentru a construi și îmbunătăți robotul nostru pe parcursul sezonului.',
-      'Taxe de Competiție și Călătorie: Susținerea acoperă taxele de înregistrare pentru competiții și cheltuielile de călătorie la turnee regionale și potențial naționale.',
-      'Unelte și Spațiu de Lucru: Contribuțiile ne ajută să menținem atelierul nostru cu unelte necesare, echipament de siguranță și îmbunătățiri ale spațiului de lucru.',
-      'Programe de Outreach: Finanțarea ne permite să desfășurăm workshop-uri comunitare, să achiziționăm materiale pentru demonstrații și să extindem impactul nostru în promovarea educației STEM.',
-      'Dezvoltare Profesională: Sponsorizările susțin instruirea echipei, incluzând workshop-uri, resurse tehnice și materiale de învățare care ne îmbunătățesc abilitățile.',
-      'Operațiuni ale Echipei: Susținerea acoperă costurile operaționale precum uniforme de echipă, materiale de marketing, găzduire site web și instrumente de comunicare.'
+      '⚙️ Echipament & Materiale → Roboți competitivi',
+      '🏆 Taxe Competiție & Călătorie → Competiții globale',
+      '🔧 Unelte & Spațiu → Dezvoltare profesională',
+      '👥 Programe Outreach → Inspirăm 100+ elevi anual',
+      '📚 Resurse Training → Dezvoltare abilități de clasă mondială',
+      '🚀 Operațiuni → Creștere sustenabilă'
     ],
     whySponsorTitle: 'De Ce Să Sponsorizați Mechabyte?',
     whySponsorPoints: [
-      'Susțineți educația STEM și inspirați tineri inovatori din România, contribuind la dezvoltarea următorei generații de ingineri și soluționatori de probleme',
-      'Obțineți vizibilitate la competiții regionale și internaționale de robotică, cu logo-ul dumneavoastră afișat pe robotul nostru, bannere și materiale ale echipei',
-      'Asociați brandul dumneavoastră cu inovația, tehnologia și educația, demonstrând angajamentul față de dezvoltarea forței de muncă viitoare',
-      'Investiți în forța de muncă viitoare și următoarea generație de ingineri, cu acces potențial la studenți talentați pentru stagii și recrutare',
-      'Demonstrați responsabilitate socială corporativă și implicare comunitară, având un impact tangibil asupra dezvoltării tinerilor din Iași',
-      'Acces la studenți talentați pentru stagii și oportunități de recrutare, conectându-vă cu persoane motivate pasionate de tehnologie'
+      '💡 Construiți forța de muncă tech de mâine → Pipeline direct către ingineri talentați',
+      '📈 Vizibilitate brand → Logo la competiții & evenimente internaționale',
+      '🎯 Beneficii fiscale → Investiție deductibilă în educație',
+      '🤝 Impact CSR → Dezvoltare comunitară măsurabilă',
+      '🌟 Acces talent timpuriu → Recrutați studenți STEM motivați',
+      '🏅 Parteneriat inovare → Aliniere cu tehnologie de vârf'
     ],
     becomeSponsorTitle: 'Deveniți Sponsor',
-    becomeSponsorText: 'Alăturați-vă nouă în împuternicirea următorei generații de inovatori. Susținerea dumneavoastră ne va ajuta să continuăm să dezvoltăm abilități tehnice, să concurăm la cel mai înalt nivel și să inspirăm comunitatea noastră prin educația STEM.',
+    becomeSponsorText: 'Investiți în inovare. Împuterniciți tineri ingineri. Construiți brandul alături de cele mai strălucite talente STEM din România.',
 
     supportTitle: 'Susține Misiunea Noastră',
     supportIntro: 'Există multe modalități de a susține Mechabyte și de a contribui la educația STEM în comunitatea noastră. Fie prin sponsorizare financiară, timp voluntar, donații de echipamente sau mentorat, susținerea dumneavoastră face o diferență reală.',
@@ -855,8 +855,8 @@ export const translations: { en: Translation; ro: Translation } = {
     autonomousApproachLabel: 'Abordare Autonomă',
     ourGoalsLabel: 'Obiectivele Noastre',
     ourGoalsText: 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.',
-    sustainabilityGrowthLabel: 'Sustenabilitate și Creștere',
-    sustainabilityGrowthText: 'Sezoanele timpurii s-au bazat în mare măsură pe evenimente de strângere de fonduri precum vânzări de clătite, biscuiți și decorațiuni la târgurile de Crăciun. Acum, cu două sezoane complete FTC de experiență și rezultate solide în competiție, putem prezenta mai bine realizările noastre sponsorilor potențiali. Planul nostru de sustenabilitate include recrutarea și instruirea studenților mai tineri, menținerea unei rețele de suport a absolvenților, parteneriate cu corporații care împărtășesc valorile noastre și bugetare atentă cu categorii pentru cheltuieli de echipament și fonduri de urgență.',
+    sustainabilityGrowthLabel: 'Sustenabilitate & Creștere → Construiți Cu Noi',
+    sustainabilityGrowthText: '💼 Partener cu excelență dovedită. 🏆 2 sezoane → Rezultate reale. 📊 Creștere strategică → Pipeline talent nou. 🤝 Impact pe termen lung → ROI-ul dvs: Forță de muncă calificată + vizibilitate brand + impact comunitar.',
     contactUsLabel: 'Contactați-ne'
   }
 };
