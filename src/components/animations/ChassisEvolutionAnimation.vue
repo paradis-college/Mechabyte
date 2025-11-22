@@ -243,7 +243,7 @@ const sketch = (p: p5) => {
     p.text('Technical Advantages:', centerX, centerY + 105);
     p.textSize(9);
     p.fill(220);
-    p.text('• Omn directional movement capability', centerX, centerY + 125);
+    p.text('• Omnidirectional movement capability', centerX, centerY + 125);
     p.text('• Expansion Hub for 8 motors total', centerX, centerY + 140);
     p.text('• Custom structural mounts', centerX, centerY + 155);
     
@@ -255,7 +255,9 @@ const sketch = (p: p5) => {
 };
 
 onMounted(() => {
-  p5Instance = new p5(sketch);
+  if (canvasContainer.value) {
+    p5Instance = new p5(sketch);
+  }
 });
 
 onBeforeUnmount(() => {
