@@ -8,15 +8,15 @@ let p5Instance: p5 | null = null;
 const sketch = (p: p5) => {
   let showVersion = 0; // 0: X-drive, 1: Mecanum
   let transitionTimer = 0;
-  const transitionTime = 240;
+  const transitionTime = 300;
 
   p.setup = () => {
-    const canvas = p.createCanvas(600, 400);
+    const canvas = p.createCanvas(700, 450);
     canvas.parent(canvasContainer.value!);
   };
 
   p.draw = () => {
-    p.background(30, 30, 40);
+    p.background(25, 25, 35);
     
     transitionTimer++;
     if (transitionTimer > transitionTime) {
@@ -26,10 +26,10 @@ const sketch = (p: p5) => {
     
     // Title
     p.textAlign(p.CENTER);
-    p.textSize(18);
+    p.textSize(20);
     p.fill(0, 255, 0);
     p.noStroke();
-    p.text('Chassis Evolution', p.width / 2, 30);
+    p.text('Chassis Evolution: Drive System Redesign', p.width / 2, 35);
     
     if (showVersion === 0) {
       drawXDrive(p);
@@ -40,28 +40,33 @@ const sketch = (p: p5) => {
 
   const drawXDrive = (p: p5) => {
     const centerX = p.width / 2;
-    const centerY = p.height / 2;
+    const centerY = p.height / 2 + 10;
     
-    p.textSize(14);
-    p.fill(0, 255, 0);
-    p.text('Version 1: X-Drive (45° Omni Wheels)', centerX, 60);
+    p.textSize(16);
+    p.fill(255, 180, 0);
+    p.text('Initial Design: X-Drive Configuration', centerX, 70);
     
-    p.textSize(11);
+    p.textSize(12);
     p.fill(200);
-    p.text('Stable but cramped - Control Hub zip-tied', centerX, 85);
+    p.text('45° omni wheels • Compact layout • Limited expansion', centerX, 95);
     
-    // Chassis frame
-    p.stroke(0, 200, 0);
-    p.strokeWeight(3);
+    // Chassis frame - compact
+    p.stroke(0, 180, 0);
+    p.strokeWeight(4);
     p.noFill();
-    p.rect(centerX - 100, centerY - 80, 200, 160);
+    p.rect(centerX - 110, centerY - 85, 220, 170);
+    
+    // Dimensions
+    p.textSize(10);
+    p.fill(100, 200, 255);
+    p.text('18" × 18"', centerX, centerY - 95);
     
     // X-Drive wheels at 45 degrees
     const wheelPositions = [
-      { x: centerX - 90, y: centerY - 70 },  // Top-left
-      { x: centerX + 90, y: centerY - 70 },  // Top-right
-      { x: centerX - 90, y: centerY + 70 },  // Bottom-left
-      { x: centerX + 90, y: centerY + 70 }   // Bottom-right
+      { x: centerX - 100, y: centerY - 75, label: 'FL' },
+      { x: centerX + 100, y: centerY - 75, label: 'FR' },
+      { x: centerX - 100, y: centerY + 75, label: 'BL' },
+      { x: centerX + 100, y: centerY + 75, label: 'BR' }
     ];
     
     for (let i = 0; i < wheelPositions.length; i++) {
@@ -70,74 +75,96 @@ const sketch = (p: p5) => {
       p.translate(pos.x, pos.y);
       p.rotate(p.PI / 4); // 45 degree rotation
       
-      // Wheel
+      // Wheel body
       p.fill(255, 200, 0);
-      p.stroke(200);
+      p.stroke(180);
       p.strokeWeight(2);
-      p.rect(-15, -8, 30, 16);
+      p.rect(-18, -10, 36, 20);
       
       // Rollers to show omni wheel
-      p.stroke(150);
+      p.stroke(120);
       p.strokeWeight(1);
-      for (let j = -10; j < 15; j += 5) {
-        p.line(j, -8, j, 8);
+      for (let j = -15; j < 18; j += 6) {
+        p.line(j, -10, j, 10);
       }
       
+      // 45° angle indicator
+      p.noFill();
+      p.stroke(255, 150, 0);
+      p.strokeWeight(1);
+      p.arc(0, 0, 40, 40, -p.PI / 6, p.PI / 6);
+      
       p.pop();
+      
+      // Wheel label
+      p.textSize(8);
+      p.fill(200);
+      p.noStroke();
+      p.text(pos.label, pos.x, pos.y - 25);
     }
     
-    // Control hub (with zip-tie indicator)
-    p.fill(60, 60, 80);
-    p.stroke(0, 255, 0);
-    p.strokeWeight(2);
-    p.rect(centerX - 30, centerY - 20, 60, 40);
+    // Motor configuration
+    p.textSize(9);
+    p.fill(255, 200, 0);
+    p.text('4 Motors (Drive only)', centerX, centerY - 55);
     
-    p.textSize(8);
+    // Control hub (cramped space)
+    p.fill(50, 50, 70);
+    p.stroke(0, 200, 0);
+    p.strokeWeight(2);
+    p.rect(centerX - 35, centerY - 25, 70, 50);
+    
+    p.textSize(9);
     p.fill(0, 255, 0);
     p.noStroke();
-    p.text('Control Hub', centerX, centerY);
+    p.text('Control Hub', centerX, centerY - 5);
+    p.text('(Single)', centerX, centerY + 8);
     
-    // Zip-tie (red indicator of fragile attachment)
-    p.stroke(255, 50, 50);
-    p.strokeWeight(3);
-    p.noFill();
-    p.arc(centerX - 30, centerY - 20, 20, 20, p.PI, p.PI + p.HALF_PI);
-    
-    // Issues label
+    // Technical limitations
+    p.textSize(10);
+    p.fill(255, 150, 100);
+    p.text('Technical Constraints:', centerX, centerY + 105);
     p.textSize(9);
-    p.fill(255, 100, 100);
-    p.text('Issue: Zip-tied hub, cramped space', centerX, centerY + 110);
+    p.fill(220);
+    p.text('• Cramped internal space', centerX, centerY + 125);
+    p.text('• No expansion capacity', centerX, centerY + 140);
+    p.text('• Limited motor ports', centerX, centerY + 155);
     
     // Team attribution
-    p.textSize(8);
+    p.textSize(9);
     p.fill(150);
-    p.text('Built by: Maia Sava, Șerban Untu, Rareș Cozma', centerX, p.height - 20);
+    p.text('Initial Build: Maia Sava, Șerban Untu, Rareș Cozma', centerX, p.height - 15);
   };
 
   const drawMecanumDrive = (p: p5) => {
     const centerX = p.width / 2;
-    const centerY = p.height / 2;
+    const centerY = p.height / 2 + 10;
     
-    p.textSize(14);
-    p.fill(0, 255, 0);
-    p.text('Version 2: Mecanum Drive (Final)', centerX, 60);
+    p.textSize(16);
+    p.fill(0, 255, 100);
+    p.text('Improved Design: Mecanum Drive System', centerX, 70);
     
-    p.textSize(11);
+    p.textSize(12);
     p.fill(200);
-    p.text('Spacious, stable, with Expansion Hub', centerX, 85);
+    p.text('Omnidirectional movement • Expansion Hub • Custom mounting', centerX, 95);
     
     // Larger chassis frame
-    p.stroke(0, 200, 0);
-    p.strokeWeight(3);
+    p.stroke(0, 220, 0);
+    p.strokeWeight(4);
     p.noFill();
-    p.rect(centerX - 120, centerY - 90, 240, 180);
+    p.rect(centerX - 130, centerY - 95, 260, 190);
+    
+    // Dimensions
+    p.textSize(10);
+    p.fill(100, 200, 255);
+    p.text('18" × 18" (More internal space)', centerX, centerY - 105);
     
     // Mecanum wheels (0 degree, with rollers at 45°)
     const wheelPositions = [
-      { x: centerX - 110, y: centerY - 80 },
-      { x: centerX + 110, y: centerY - 80 },
-      { x: centerX - 110, y: centerY + 80 },
-      { x: centerX + 110, y: centerY + 80 }
+      { x: centerX - 120, y: centerY - 85, label: 'FL', rollerDir: 1 },
+      { x: centerX + 120, y: centerY - 85, label: 'FR', rollerDir: -1 },
+      { x: centerX - 120, y: centerY + 85, label: 'BL', rollerDir: -1 },
+      { x: centerX + 120, y: centerY + 85, label: 'BR', rollerDir: 1 }
     ];
     
     for (let i = 0; i < wheelPositions.length; i++) {
@@ -146,114 +173,107 @@ const sketch = (p: p5) => {
       p.translate(pos.x, pos.y);
       
       // Wheel body
-      p.fill(255, 200, 0);
-      p.stroke(200);
+      p.fill(100, 255, 100);
+      p.stroke(180);
       p.strokeWeight(2);
-      p.rect(-15, -10, 30, 20);
+      p.rect(-18, -12, 36, 24);
       
       // Diagonal rollers for mecanum
-      p.stroke(150);
+      p.stroke(120);
       p.strokeWeight(2);
-      const rollerAngle = (i === 0 || i === 3) ? p.PI / 4 : -p.PI / 4;
-      for (let j = -12; j < 15; j += 6) {
+      const rollerAngle = pos.rollerDir * p.PI / 4;
+      for (let j = -15; j < 18; j += 6) {
         p.push();
         p.translate(j, 0);
         p.rotate(rollerAngle);
-        p.line(0, -12, 0, 12);
+        p.line(0, -14, 0, 14);
         p.pop();
       }
       
+      // Movement direction arrows
+      p.noFill();
+      p.stroke(0, 255, 200);
+      p.strokeWeight(1);
+      p.beginShape();
+      p.vertex(-25, -18);
+      p.vertex(-20, -13);
+      p.vertex(-25, -8);
+      p.endShape();
+      
       p.pop();
+      
+      // Wheel label
+      p.textSize(8);
+      p.fill(200);
+      p.noStroke();
+      p.text(pos.label, pos.x, pos.y - 30);
     }
     
-    // Control Hub + Expansion Hub (properly mounted)
-    p.fill(60, 60, 80);
-    p.stroke(0, 255, 0);
-    p.strokeWeight(2);
-    p.rect(centerX - 40, centerY - 30, 80, 25);
-    p.rect(centerX - 40, centerY + 5, 80, 25);
+    // Motor configuration
+    p.textSize(9);
+    p.fill(100, 255, 100);
+    p.text('8 Motor Ports Available', centerX, centerY - 55);
     
-    p.textSize(7);
+    // Control Hub + Expansion Hub (properly mounted)
+    p.fill(50, 50, 70);
+    p.stroke(0, 220, 0);
+    p.strokeWeight(2);
+    p.rect(centerX - 50, centerY - 35, 100, 30);
+    p.rect(centerX - 50, centerY + 10, 100, 30);
+    
+    p.textSize(9);
     p.fill(0, 255, 0);
     p.noStroke();
-    p.text('Control Hub', centerX, centerY - 17);
-    p.text('Expansion Hub', centerX, centerY + 18);
+    p.text('Control Hub', centerX, centerY - 20);
+    p.text('Expansion Hub', centerX, centerY + 25);
     
-    // Custom holders (green mounting points)
-    p.fill(0, 255, 0);
-    for (let dx of [-40, 40]) {
-      for (let dy of [-30, 30]) {
-        p.circle(centerX + dx, centerY + dy, 8);
+    // Custom mounting points (structural improvement)
+    p.fill(0, 255, 150);
+    p.stroke(0, 200, 100);
+    p.strokeWeight(1);
+    for (let dx of [-50, 50]) {
+      for (let dy of [-35, 45]) {
+        p.circle(centerX + dx, centerY + dy, 10);
       }
     }
     
-    // Success label
+    // Technical improvements
+    p.textSize(10);
+    p.fill(100, 255, 150);
+    p.text('Technical Advantages:', centerX, centerY + 105);
     p.textSize(9);
-    p.fill(0, 255, 0);
-    p.text('Success: Stable, custom mounts, more space', centerX, centerY + 110);
+    p.fill(220);
+    p.text('• Omn directional movement capability', centerX, centerY + 125);
+    p.text('• Expansion Hub for 8 motors total', centerX, centerY + 140);
+    p.text('• Custom structural mounts', centerX, centerY + 155);
     
     // Team attribution
-    p.textSize(8);
+    p.textSize(9);
     p.fill(150);
-    p.text('Built by: Maia Sava, Șerban Untu, Cristian Ghidireac', centerX, p.height - 20);
+    p.text('Redesign: Maia Sava, Șerban Untu, Cristian Ghidireac', centerX, p.height - 15);
   };
 };
 
 onMounted(() => {
-  if (canvasContainer.value) {
-    p5Instance = new p5(sketch);
-  }
+  p5Instance = new p5(sketch);
 });
 
 onBeforeUnmount(() => {
-  if (p5Instance) {
-    p5Instance.remove();
-    p5Instance = null;
-  }
+  p5Instance?.remove();
 });
 </script>
 
 <template>
-  <div class="animation-wrapper">
-    <div ref="canvasContainer" class="canvas-container"></div>
-    <p class="animation-caption">Chassis Evolution: From cramped X-drive to spacious Mecanum drive with proper hub mounting</p>
-  </div>
+  <div ref="canvasContainer" class="animation-container"></div>
 </template>
 
 <style scoped>
-.animation-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1vw;
-  margin: 2vw 0;
-}
-
-.canvas-container {
-  width: 100%;
-  max-width: 600px;
+.animation-container {
   display: flex;
   justify-content: center;
-  border: 0.2vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-  background: #1a1a20;
-}
-
-.animation-caption {
-  font-size: 0.9vw;
-  color: var(--mechabyte-green);
-  text-align: center;
-  font-style: italic;
-}
-
-@media only screen and (max-width: 1000px) {
-  .animation-caption {
-    font-size: 12px;
-  }
-  
-  .canvas-container {
-    border: 2px solid var(--mechabyte-green);
-  }
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 </style>
