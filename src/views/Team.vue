@@ -3,6 +3,8 @@ import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import TeamMemberCard from '../components/TeamMemberCard.vue';
 import MicroButton from '../components/MicroButton.vue';
+import SectionHeader from '../components/SectionHeader.vue';
+import FindMorePane from '../components/FindMorePane.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -16,6 +18,11 @@ const showCollaborationStyle = ref(false);
 const showRecruitment = ref(false);
 const showTraining = ref(false);
 const showDailyLife = ref(false);
+
+// State for the 3 info popups
+const showCollaborationInfo = ref(false);
+const showTrainingInfo = ref(false);
+const showEnvironmentInfo = ref(false);
 
 const toggleSection = (section: string) => {
   switch(section) {
@@ -37,46 +44,100 @@ const toggleSection = (section: string) => {
   }
 };
 
-// Team members data from original App.vue
+// Team members data with role progression
+// Role progression rules:
+// - First year = Junior
+// - Second year = Senior
+// - Third year = Team Leader
+// - Special role mappings applied for specific members as indicated
 type Member = {
   name: string;
   department: string;
   role?: string;
+  season?: string;
 };
 
+// 2025-2026 Season - Current Team
+const currentSeasonMembers = ref<Member[]>([
+  // Technical Team - 2025-2026
+  { name: "Ianis Cotoc", department: "Technical", role: "Team Leader", season: "2025-2026" },
+  { name: "David Grigore", department: "Technical", role: "Senior Design", season: "2025-2026" },
+  { name: "Ștefan Albu", department: "Technical", role: "Senior Design", season: "2025-2026" },
+  { name: "Alexia Vancea", department: "Technical", role: "Senior", season: "2025-2026" },
+  { name: "Teodor Matricală", department: "Technical", role: "Senior", season: "2025-2026" },
+  { name: "Catrinel Bănuță", department: "Technical", role: "Junior", season: "2025-2026" },
+  { name: "Rareș Berheci", department: "Technical", role: "Junior", season: "2025-2026" },
+  // Non-Technical Team - 2025-2026
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Team Leader", season: "2025-2026" },
+  { name: "Veronika Glazkova", department: "Non-Technical", role: "Senior", season: "2025-2026" },
+  { name: "Cristiana Balan", department: "Non-Technical", role: "Senior", season: "2025-2026" },
+  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Junior", season: "2025-2026" },
+  // Collaborators & Mentors - 2025-2026
+  { name: "Bobu Dragos", department: "Collaborator", role: "Collaborator", season: "2025-2026" },
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2025-2026" },
+  { name: "Tudor Tocila", department: "Mentor", role: "Mentor", season: "2025-2026" },
+  { name: "Sebastian Rosca", department: "Mentor", role: "Mentor", season: "2025-2026" },
+]);
+
+// 2024-2025 Season (Into the Deep) - Previous Season
 const members = ref<Member[]>([
   // Technical Team - Into the Deep (2024-2025)
-  { name: "Alexia Vancea", department: "Technical", role: "Technical" },
-  { name: "Ianis Cotoc", department: "Technical", role: "Technical" },
-  { name: "Teodor Matricală", department: "Technical", role: "Technical" },
-  { name: "Catrinel Bănuță", department: "Technical", role: "Technical" },
-  { name: "Rareș Berheci", department: "Technical", role: "Technical" },
+  { name: "Alexia Vancea", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Ianis Cotoc", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Teodor Matricală", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Catrinel Bănuță", department: "Technical", role: "Technical", season: "2024-2025" },
+  { name: "Rareș Berheci", department: "Technical", role: "Technical", season: "2024-2025" },
   // Non-Technical Team - Into the Deep (2024-2025)
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
-  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing" },
-  { name: "Cristiana Balan", department: "Non-Technical", role: "Design" },
-  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach" },
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
+  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
+  { name: "Cristiana Balan", department: "Non-Technical", role: "Design", season: "2024-2025" },
+  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach", season: "2024-2025" },
   // Mentors - Into the Deep (2024-2025)
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" },
-  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor" }
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2024-2025" },
+  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor", season: "2024-2025" }
 ]);
 
 // Previous season (Centerstage 2023-2024) members
 const previousSeasonMembers = ref<Member[]>([
   // Technical Team - Centerstage
-  { name: "Maia Sava", department: "Technical", role: "Building & Programming" },
-  { name: "Șerban Untu", department: "Technical", role: "Building & Programming" },
-  { name: "Rareș Cozma", department: "Technical", role: "Building" },
-  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design" },
-  { name: "David Grigore", department: "Technical", role: "Design & Building" },
-  { name: "Ștefan Albu", department: "Technical", role: "Design" },
+  { name: "Maia Sava", department: "Technical", role: "Building & Programming", season: "2023-2024" },
+  { name: "Șerban Untu", department: "Technical", role: "Building & Programming", season: "2023-2024" },
+  { name: "Rareș Cozma", department: "Technical", role: "Building", season: "2023-2024" },
+  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design", season: "2023-2024" },
+  { name: "David Grigore", department: "Technical", role: "Design & Building", season: "2023-2024" },
+  { name: "Ștefan Albu", department: "Technical", role: "Design", season: "2023-2024" },
   // Non-Technical Team - Centerstage
-  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing" },
-  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing" },
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing" },
+  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
+  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
+  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
   // Mentor - Centerstage
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor" }
+  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2023-2024" }
 ]);
+
+// Alumni - members who are no longer active
+const alumniMembers = ref<Member[]>([
+  { name: "Aayush Khadka", department: "Alumni", role: "Marketing (2023-2024)", season: "Alumni" },
+  { name: "Maia Sava", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
+  { name: "Șerban Untu", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
+  { name: "Rareș Cozma", department: "Alumni", role: "Building (2023-2024)", season: "Alumni" },
+  { name: "Cristian Ghidireac", department: "Alumni", role: "Building & Design (2023-2024)", season: "Alumni" },
+]);
+
+const currentTechnicalMembers = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Technical")
+);
+
+const currentNonTechnicalMembers = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Non-Technical")
+);
+
+const currentCollaborators = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Collaborator")
+);
+
+const currentMentors = computed(() => 
+  currentSeasonMembers.value.filter(m => m.department === "Mentor")
+);
 
 const technicalMembers = computed(() => 
   members.value.filter(m => m.department === "Technical")
@@ -106,8 +167,19 @@ const previousMentors = computed(() =>
 <template>
   <div class="team-page">
     <section class="content-section">
-      <h1>{{ t.teamTitle }}</h1>
-      <p class="intro-text">{{ t.teamIntro }}</p>
+      <SectionHeader 
+        :title="t.teamTitle"
+        :subtitle="t.teamIntro"
+      />
+      
+      <div class="role-progression-note">
+        <p v-if="language === 'en'">
+          <strong>Role Progression:</strong> Team members advance through Junior (1st year) → Senior (2nd year) → Team Leader (3rd year) as they gain experience.
+        </p>
+        <p v-else>
+          <strong>Progresie Roluri:</strong> Membrii echipei avansează prin Junior (an 1) → Senior (an 2) → Lider de Echipă (an 3) pe măsură ce câștigă experiență.
+        </p>
+      </div>
       
       <div class="cta-buttons">
         <MicroButton 
@@ -123,67 +195,146 @@ const previousMentors = computed(() =>
           :label="language === 'en' ? 'How We Recruit' : 'Cum Recrutăm'" 
           @click="toggleSection('recruitment')"
         />
+        <MicroButton 
+          :label="t.collaborationTitle"
+          @click="showCollaborationInfo = true"
+        />
+        <MicroButton 
+          :label="t.trainingTitle"
+          variant="secondary"
+          @click="showTrainingInfo = true"
+        />
+        <MicroButton 
+          :label="t.teamEnvironmentTitle"
+          @click="showEnvironmentInfo = true"
+        />
       </div>
+
+      <!-- FindMorePane popups for team info -->
+      <FindMorePane 
+        :show="showCollaborationInfo"
+        :title="t.collaborationTitle"
+        @close="showCollaborationInfo = false"
+      >
+        <p>{{ t.teamCollaboration }}</p>
+      </FindMorePane>
+
+      <FindMorePane 
+        :show="showTrainingInfo"
+        :title="t.trainingTitle"
+        @close="showTrainingInfo = false"
+      >
+        <p>{{ t.teamTraining }}</p>
+      </FindMorePane>
+
+      <FindMorePane 
+        :show="showEnvironmentInfo"
+        :title="t.teamEnvironmentTitle"
+        @close="showEnvironmentInfo = false"
+      >
+        <p>{{ t.teamEnvironment }}</p>
+      </FindMorePane>
 
       <!-- Bonus Content Sections -->
       <transition name="fade">
         <div v-if="showTeamStructure" class="bonus-content">
           <h3>{{ language === 'en' ? '🏗️ Our Team Structure' : '🏗️ Structura Echipei Noastre' }}</h3>
-          <p v-if="language === 'en'">
-            Mechabyte operates with two parallel teams working in synergy. Our Technical Team focuses on programming, hardware development, and CAD design, 
-            with 9 dedicated members who bring the robot to life. The Non-Technical Team, with 6 members, handles marketing, design, and community outreach. 
-            This dual structure ensures that while our engineers perfect the robot's performance, our outreach team shares our story with the community 
-            and builds partnerships that sustain our program. Our mentor Andreea Ioniță provides guidance and ensures both teams work cohesively toward our common goals.
-          </p>
-          <p v-else>
-            Mechabyte operează cu două echipe paralele care lucrează în sinergie. Echipa Tehnică se concentrează pe programare, dezvoltare hardware și design CAD,
-            cu 9 membri dedicați care dau viață robotului. Echipa Non-Tehnică, cu 6 membri, se ocupă de marketing, design și outreach comunitar.
-            Această structură duală asigură că în timp ce inginerii noștri perfecționează performanța robotului, echipa de outreach împărtășește povestea noastră cu comunitatea
-            și construiește parteneriate care susțin programul nostru. Mentorul nostru Andreea Ioniță oferă îndrumare și asigură că ambele echipe lucrează coeziv către obiectivele noastre comune.
-          </p>
+          <template v-if="language === 'en'">
+            <p>Two teams, one mission. Technical builds robots. Marketing builds community.</p>
+            <p>Engineers perfect performance. Outreach shares our story. Both essential for success.</p>
+          </template>
+          <template v-else>
+            <p>Două echipe, o misiune. Echipa tehnică construiește roboți. Marketing construiește comunitate.</p>
+            <p>Inginerii perfecționează performanța. Outreach-ul împărtășește povestea. Ambele esențiale.</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showCollaborationStyle" class="bonus-content">
           <h3>{{ language === 'en' ? '🤝 How We Work Together' : '🤝 Cum Lucrăm Împreună' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamCollaboration }} Beyond formal meetings, we maintain active group chats where ideas flow 24/7. 
-            Technical and non-technical members regularly cross-pollinate ideas - a designer might suggest a robot feature, 
-            or a programmer might contribute to marketing materials. This fluid collaboration has led to some of our best innovations.
-          </p>
-          <p v-else>
-            {{ t.teamCollaboration }} Dincolo de întâlnirile formale, menținem chat-uri de grup active unde ideile circulă 24/7.
-            Membrii tehnici și non-tehnici își schimbă regulat idei - un designer poate sugera o funcționalitate a robotului,
-            sau un programator poate contribui la materialele de marketing. Această colaborare fluidă a dus la unele dintre cele mai bune inovații ale noastre.
-          </p>
+          <template v-if="language === 'en'">
+            <p>Active group chats 24/7. Ideas flow freely between technical and creative minds.</p>
+            <p>Designers suggest robot features. Programmers help with marketing. Fluid collaboration = best innovations.</p>
+          </template>
+          <template v-else>
+            <p>Chat-uri active 24/7. Ideile circulă liber între mințile tehnice și creative.</p>
+            <p>Designerii sugerează funcții pentru robot. Programatorii ajută la marketing. Colaborare fluidă = cele mai bune inovații.</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showRecruitment" class="bonus-content">
           <h3>{{ language === 'en' ? '🎯 Joining Mechabyte' : '🎯 Alăturarea la Mechabyte' }}</h3>
-          <p v-if="language === 'en'">
-            We recruit new members at the start of each academic year through open information sessions at Paradise International College. 
-            No prior robotics experience is required - we look for passion, dedication, and willingness to learn. New members start with a 
-            2-week orientation where they rotate through all departments to find their best fit. We value diverse perspectives and believe 
-            that every student, regardless of their background, can contribute meaningfully to our team's success.
-          </p>
-          <p v-else>
-            Recrutăm membri noi la începutul fiecărui an academic prin sesiuni de informare deschise la Paradise International College.
-            Nu este necesară experiență anterioară în robotică - căutăm pasiune, dedicare și dorința de a învăța. Membrii noi încep cu o
-            orientare de 2 săptămâni în care rotesc prin toate departamentele pentru a-și găsi cea mai bună potrivire. Prețuim perspectivele diverse și credem
-            că fiecare student, indiferent de experiența sa, poate contribui semnificativ la succesul echipei noastre.
-          </p>
+          <template v-if="language === 'en'">
+            <p>📅 Recruitment: Start of academic year at Paradise College</p>
+            <p>✨ Requirements: Passion + dedication + willingness to learn (no prior experience needed!)</p>
+            <p>🔄 Process: 2-week orientation rotating through all departments</p>
+            <p>💡 We believe: Every student can contribute meaningfully, regardless of background</p>
+          </template>
+          <template v-else>
+            <p>📅 Recrutare: Începutul anului academic la Paradise College</p>
+            <p>✨ Cerințe: Pasiune + dedicare + dorința de a învăța (fără experiență necesară!)</p>
+            <p>🔄 Proces: Orientare 2 săptămâni prin toate departamentele</p>
+            <p>💡 Credem: Fiecare student poate contribui, indiferent de experiență</p>
+          </template>
         </div>
       </transition>
-      <!-- Our Goals Section -->
-      <div class="text-section goals-section">
-        <h2>{{ t.ourGoalsLabel }}</h2>
-        <p>{{ t.ourGoalsText }}</p>
+      
+      <!-- 2025-2026 Season - Current Team -->
+      <h2 class="season-header current">
+        {{ language === 'en' ? '2025-2026 Season' : 'Sezonul 2025-2026' }}
+      </h2>
+      
+      <div class="team-section">
+        <h2>{{ t.technicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentTechnicalMembers" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
       </div>
       
-      <h2 class="season-header">{{ t.intoTheDeepSeason }}</h2>
+      <div class="team-section">
+        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentNonTechnicalMembers" 
+            :key="index"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+      
+      <div class="team-section">
+        <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in currentMentors" 
+            :key="`mentor-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+          <TeamMemberCard 
+            v-for="(member, index) in currentCollaborators" 
+            :key="`collab-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
+        </div>
+      </div>
+
+      <!-- 2024-2025 Season (Previous) -->
+      <h2 class="season-header previous-season">{{ t.intoTheDeepSeason }}</h2>
       
       <div class="team-section">
         <h2>{{ t.technicalTeamTitle }}</h2>
@@ -239,34 +390,36 @@ const previousMentors = computed(() =>
       <transition name="fade">
         <div v-if="showTraining" class="bonus-content">
           <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamTraining }} We've developed a comprehensive curriculum including Java programming workshops, CAD software training sessions,
-            and hands-on hardware assembly tutorials. Senior members mentor newer teammates through pair programming and design reviews. 
-            We also organize field trips to tech companies and universities to expose our members to career possibilities in STEM fields.
-          </p>
-          <p v-else>
-            {{ t.teamTraining }} Am dezvoltat un curriculum cuprinzător incluzând workshop-uri de programare Java, sesiuni de instruire pentru software CAD,
-            și tutoriale practice de asamblare hardware. Membrii seniori îndrumă colegii mai noi prin programare în perechi și revizuiri de design.
-            De asemenea, organizăm excursii la companii tech și universități pentru a expune membrii noștri la posibilități de carieră în domeniile STEM.
-          </p>
+          <template v-if="language === 'en'">
+            <p>💻 Java programming + CAD software + Hardware assembly</p>
+            <p>👥 Senior members mentor through pair programming & design reviews</p>
+            <p>🏢 Field trips to tech companies = career inspiration</p>
+          </template>
+          <template v-else>
+            <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
+            <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+            <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
+          </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showDailyLife" class="bonus-content">
           <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
-          <p v-if="language === 'en'">
-            {{ t.teamEnvironment }} A typical practice session starts with a team standup where everyone shares their progress and challenges. 
-            Then teams split into their focus areas - programmers debugging code, CAD designers iterating on mechanisms, and marketing creating content. 
-            The energy is electric during testing sessions when we see code come to life on the robot. We celebrate every small victory, from a successful 
-            autonomous run to completing a sponsorship presentation. It's intense, challenging, and incredibly rewarding.
-          </p>
-          <p v-else>
-            {{ t.teamEnvironment }} O sesiune tipică de antrenament începe cu un standup de echipă unde toată lumea își împărtășește progresul și provocările.
-            Apoi echipele se împart pe domeniile lor de focus - programatori care corectează cod, designeri CAD care iterează pe mecanisme și marketing care creează conținut.
-            Energia este electrică în timpul sesiunilor de testare când vedem codul luând viață pe robot. Celebrăm fiecare mică victorie, de la o
-            rulare autonomă reușită până la finalizarea unei prezentări de sponsorizare. Este intens, provocator și incredibil de satisfăcător.
-          </p>
+          <template v-if="language === 'en'">
+            <p>🕐 Team standup → Share progress & challenges</p>
+            <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+            <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
+            <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
+            <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+          </template>
+          <template v-else>
+            <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
+            <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
+            <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
+            <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
+            <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+          </template>
         </div>
       </transition>
       
@@ -312,20 +465,17 @@ const previousMentors = computed(() =>
         </div>
       </div>
       
-      <div class="text-sections">
-        <div class="text-section">
-          <h2>{{ t.collaborationTitle }}</h2>
-          <p>{{ t.teamCollaboration }}</p>
-        </div>
-        
-        <div class="text-section">
-          <h2>{{ t.trainingTitle }}</h2>
-          <p>{{ t.teamTraining }}</p>
-        </div>
-        
-        <div class="text-section">
-          <h2>{{ t.teamEnvironmentTitle }}</h2>
-          <p>{{ t.teamEnvironment }}</p>
+      <!-- Alumni Section -->
+      <div class="team-section">
+        <h2>{{ t.alumniTitle }}</h2>
+        <div class="members-grid">
+          <TeamMemberCard 
+            v-for="(member, index) in alumniMembers" 
+            :key="`alumni-${index}`"
+            :member-name="member.name"
+            :department="member.department"
+            :role="member.role"
+          />
         </div>
       </div>
     </section>
@@ -381,9 +531,25 @@ h2 {
   width: 100%;
 }
 
+.season-header.current {
+  margin-top: 3rem;
+}
+
 .season-header.previous-season {
   margin-top: 3vw;
   opacity: 0.85;
+}
+
+.role-progression-note {
+  background: var(--dark-grey);
+  padding: 1rem;
+  border-left: 3px solid var(--mechabyte-green);
+  margin-bottom: 2rem;
+}
+
+.role-progression-note p {
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .team-section {

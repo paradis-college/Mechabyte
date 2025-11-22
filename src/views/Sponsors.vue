@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
+import { useRouter } from 'vue-router';
 import { translations } from '../i18n/translations';
 import SponsorCard from '../components/SponsorCard.vue';
+import MicroButton from '../components/MicroButton.vue';
+import FindMorePane from '../components/FindMorePane.vue';
 import '../styles/components/ScannerBeam.css';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
+const router = useRouter();
 const t = computed(() => translations[props.language]);
+
+// State for sustainability popup
+const showSustainability = ref(false);
 
 // Sponsor data with images and descriptions
 type Sponsor = {
@@ -23,39 +30,51 @@ const sponsors = ref<Sponsor[]>([
   {
     name: 'Paradis International College',
     logo: new URL('../assets/images/sponsors/paradis college.jpg', import.meta.url).href,
-    descriptionEn: 'Our home institution and primary sponsor. Paradis International College shares our commitment to excellence in education, innovation, and developing future leaders. Their support provides us with facilities, resources, and the foundation to pursue our robotics goals.',
-    descriptionRo: 'Instituția noastră gazdă și sponsor principal. Paradis International College împărțește angajamentul nostru față de excelența în educație, inovație și dezvoltarea liderilor viitori. Susținerea lor ne oferă facilități, resurse și fundația pentru a ne urmări obiectivele în robotică.',
+    descriptionEn: 'Institutional excellence starts with solid foundations.',
+    descriptionRo: 'Excelența instituțională începe cu fundații solide.',
     isPrimary: true
   },
   {
     name: 'BRD',
     logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
-    descriptionEn: 'BRD - Groupe Société Générale supports innovation and education in Romania. Their values of responsibility, commitment, and team spirit align perfectly with Mechabyte\'s mission to inspire young innovators and promote STEM education in our community.',
-    descriptionRo: 'BRD - Groupe Société Générale susține inovația și educația în România. Valorile lor de responsabilitate, angajament și spirit de echipă se aliniază perfect cu misiunea Mechabyte de a inspira tineri inovatori și de a promova educația STEM în comunitatea noastră.'
+    descriptionEn: 'Financial responsibility powers sustainable innovation.',
+    descriptionRo: 'Responsabilitatea financiară alimentează inovația durabilă.'
   },
   {
     name: 'First Tech Challenge',
     logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
-    descriptionEn: 'FIRST Tech Challenge is the global robotics competition that brings our team together. FTC shares our values of gracious professionalism, innovation, and teamwork, providing the framework for our growth and development in robotics.',
-    descriptionRo: 'FIRST Tech Challenge este competiția globală de robotică care ne reunește echipa. FTC împărtășește valorile noastre de profesionalism grațios, inovație și muncă în echipă, oferind cadrul pentru creșterea și dezvoltarea noastră în robotică.'
+    descriptionEn: 'Gracious professionalism in competition and life.',
+    descriptionRo: 'Profesionalism grațios în competiție și viață.'
   },
   {
     name: 'Nație prin Educație',
     logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
-    descriptionEn: 'Nație prin Educație is a movement dedicated to transforming Romania through quality education. Their vision of empowering youth through learning resonates with Mechabyte\'s commitment to STEM education and community outreach.',
-    descriptionRo: 'Nație prin Educație este o mișcare dedicată transformării României prin educație de calitate. Viziunea lor de a împuternici tinerii prin învățare rezonează cu angajamentul Mechabyte față de educația STEM și implicarea comunitară.'
+    descriptionEn: 'Education transforms nations, one student at a time.',
+    descriptionRo: 'Educația transformă națiuni, câte un student.'
   },
   {
     name: 'Professional Dentist',
     logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
-    descriptionEn: 'Professional Dentist supports our team with their commitment to excellence and precision. Just as they focus on meticulous care in dental health, we apply the same attention to detail in our robot design and engineering processes.',
-    descriptionRo: 'Professional Dentist sprijină echipa noastră cu angajamentul lor față de excelență și precizie. Așa cum ei se concentrează pe îngrijirea meticuloasă a sănătății dentare, noi aplicăm aceeași atenție la detalii în designul robotului și procesele de inginerie.'
+    descriptionEn: 'Precision and attention to detail matter everywhere.',
+    descriptionRo: 'Precizia și atenția la detalii contează peste tot.'
   },
   {
     name: 'SAM Ideas',
     logo: new URL('../assets/images/sponsors/SAM ideas.jpg', import.meta.url).href,
-    descriptionEn: 'SAM Ideas champions innovation and creative problem-solving. Their support helps us push boundaries in robotics design and encourages us to think outside the box, perfectly aligning with our value of continuous innovation.',
-    descriptionRo: 'SAM Ideas promovează inovația și rezolvarea creativă a problemelor. Susținerea lor ne ajută să împingem limitele în designul roboticii și ne încurajează să gândim în afara cutiei, aliniate perfect cu valoarea noastră de inovație continuă.'
+    descriptionEn: 'Think outside the box, build beyond boundaries.',
+    descriptionRo: 'Gândește în afara cutiei, construiește dincolo de limite.'
+  },
+  {
+    name: 'Pulse',
+    logo: new URL('../assets/images/sponsors/pulse.jpeg', import.meta.url).href,
+    descriptionEn: 'Industry connections accelerate tech growth.',
+    descriptionRo: 'Conexiunile din industrie accelerează creșterea tehnologică.'
+  },
+  {
+    name: 'TrustTeam',
+    logo: new URL('../assets/images/sponsors/trustteam.jpeg', import.meta.url).href,
+    descriptionEn: 'Teamwork + technology = unstoppable force.',
+    descriptionRo: 'Muncă în echipă + tehnologie = forță de neoprit.'
   }
 ]);
 
@@ -137,6 +156,15 @@ onUnmounted(() => {
         </div>
       </div>
       
+      <!-- Sustainability Button - Top Section -->
+      <div class="top-actions">
+        <MicroButton 
+          :label="t.sustainabilityGrowthLabel"
+          variant="secondary"
+          @click="showSustainability = true"
+        />
+      </div>
+      
       <div class="impact-section">
         <h2>{{ t.sponsorshipImpactTitle }}</h2>
         <ul class="impact-list">
@@ -161,19 +189,23 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-      
-      <!-- Sustainability Section -->
-      <div class="sustainability-section">
-        <h2>{{ t.sustainabilityGrowthLabel }}</h2>
-        <p>{{ t.sustainabilityGrowthText }}</p>
-      </div>
+
+      <!-- Sustainability Popup -->
+      <FindMorePane 
+        :show="showSustainability"
+        :title="t.sustainabilityGrowthLabel"
+        @close="showSustainability = false"
+      >
+        <p style="white-space: pre-line;">{{ t.sustainabilityGrowthText }}</p>
+      </FindMorePane>
       
       <div class="cta-section">
         <h2>{{ t.becomeSponsorTitle }}</h2>
         <p>{{ t.becomeSponsorText }}</p>
-        <RouterLink to="/contact" class="cta-button">
-          {{ t.contactUsLabel }}
-        </RouterLink>
+        <MicroButton 
+          :label="t.contactUsLabel"
+          @click="router.push('/contact')"
+        />
       </div>
     </section>
   </div>
@@ -216,6 +248,13 @@ h2 {
 
 .sponsors-section {
   width: 100%;
+  margin-bottom: 2vw;
+}
+
+.top-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-bottom: 2vw;
 }
 
@@ -289,20 +328,6 @@ h2 {
   line-height: 1.6;
 }
 
-.sustainability-section {
-  width: 100%;
-  padding: 1.5vw;
-  background: var(--dark-grey);
-  border: 0.1vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-  margin-bottom: 2vw;
-}
-
-.sustainability-section p {
-  line-height: 1.7;
-  margin-top: 0.5vw;
-}
-
 .cta-section {
   width: 100%;
   padding: 2vw;
@@ -358,11 +383,6 @@ h2 {
 
   .point-card {
     padding: 15px;
-  }
-
-  .sustainability-section {
-    padding: 15px;
-    margin-bottom: 20px;
   }
 
   .sponsors-notice,
