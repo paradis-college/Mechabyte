@@ -4,6 +4,10 @@ import { translations } from '../i18n/translations';
 import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
 import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
+import ChassisEvolutionAnimation from '../components/animations/ChassisEvolutionAnimation.vue';
+import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
+import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
+import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 
 const props = defineProps<{
@@ -134,6 +138,9 @@ const t = computed(() => translations[props.language]);
           <p>{{ t.centerstageDriveTrainEvolution }}</p>
         </div>
         
+        <!-- Chassis Evolution Animation -->
+        <ChassisEvolutionAnimation />
+        
         <div class="component-evolution">
           <h4>{{ t.intakeTitle }}</h4>
           <p>{{ t.centerstageIntakeEvolution }}</p>
@@ -147,10 +154,16 @@ const t = computed(() => translations[props.language]);
           <p>{{ t.centerstageArmEvolution }}</p>
         </div>
         
+        <!-- Pantograph Arm Animation -->
+        <PantographArmAnimation />
+        
         <div class="component-evolution">
           <h4>{{ t.launcherTitle }}</h4>
           <p>{{ t.centerstageLauncherEvolution }}</p>
         </div>
+        
+        <!-- Drone Launcher Animation -->
+        <DroneLauncherAnimation />
       </div>
 
       <div class="evolution-season">
@@ -175,6 +188,9 @@ const t = computed(() => translations[props.language]);
           <h4>{{ t.constructionImprovementsLabel }}</h4>
           <p>{{ t.intoTheDeepConstructionImprovements }}</p>
         </div>
+        
+        <!-- Blade Stabilization Animation -->
+        <BladeStabilizationAnimation />
       </div>
     </section>
 
