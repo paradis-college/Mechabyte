@@ -5,10 +5,19 @@ import p5 from 'p5';
 const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
+// Animation phase constants
+const AnimationPhase = {
+  COLLECT_SAMPLES: 0,
+  SCORE_IN_BASKET: 1,
+  CLIMB_SUBMERSIBLE: 2
+} as const;
+
+type AnimationPhaseType = typeof AnimationPhase[keyof typeof AnimationPhase];
+
 const sketch = (p: p5) => {
   let robot = { x: 0, y: 0, angle: 0, arm: { extended: false, height: 0 } };
   let samples: Array<{ x: number; y: number; color: string; collected: boolean }> = [];
-  let animationPhase = 0; // 0: collect samples, 1: score in basket, 2: climb submersible
+  let animationPhase: AnimationPhaseType = AnimationPhase.COLLECT_SAMPLES;
   let phaseTimer = 0;
 
   p.setup = () => {
@@ -43,11 +52,11 @@ const sketch = (p: p5) => {
     // Update animation
     phaseTimer++;
     
-    if (animationPhase === 0) {
+    if (animationPhase === AnimationPhase.COLLECT_SAMPLES) {
       collectSamples(p);
-    } else if (animationPhase === 1) {
+    } else if (animationPhase === AnimationPhase.SCORE_IN_BASKET) {
       scoreInBasket(p);
-    } else if (animationPhase === 2) {
+    } else if (animationPhase === AnimationPhase.CLIMB_SUBMERSIBLE) {
       climbSubmersible(p);
     }
     
@@ -169,7 +178,7 @@ const sketch = (p: p5) => {
       }
     } else {
       // All samples collected, move to scoring phase
-      animationPhase = 1;
+      animationPhase = AnimationPhase.SCORE_IN_BASKET;
       phaseTimer = 0;
     }
   };
@@ -190,7 +199,7 @@ const sketch = (p: p5) => {
       robot.arm.height = Math.min(robot.arm.height + 1, 80);
     } else if (phaseTimer > 150) {
       // Scored in basket, move to climbing phase
-      animationPhase = 2;
+      animationPhase = AnimationPhase.CLIMB_SUBMERSIBLE;
       phaseTimer = 0;
       robot.arm.extended = false;
       robot.arm.height = 0;
@@ -218,7 +227,7 @@ const sketch = (p: p5) => {
   };
 
   const resetAnimation = () => {
-    animationPhase = 0;
+    animationPhase = AnimationPhase.COLLECT_SAMPLES;
     phaseTimer = 0;
     robot.x = 100;
     robot.y = p.height - 80;

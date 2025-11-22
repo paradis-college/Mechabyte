@@ -5,8 +5,15 @@ import p5 from 'p5';
 const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
+// Intake version constants
+const IntakeVersion = {
+  BRUSH: 0,
+  CLAW_V2: 1,
+  CLAW_V3_ANGLED: 2
+} as const;
+
 const sketch = (p: p5) => {
-  let currentVersion = 0; // 0: brush, 1: claw v2, 2: claw v3 (angled)
+  let currentVersion = IntakeVersion.BRUSH;
   let animationTimer = 0;
   const transitionTime = 180; // frames between versions
 
@@ -31,11 +38,11 @@ const sketch = (p: p5) => {
     p.noStroke();
     p.text('Intake Evolution', p.width / 2, 30);
     
-    if (currentVersion === 0) {
+    if (currentVersion === IntakeVersion.BRUSH) {
       drawBrushIntake(p);
-    } else if (currentVersion === 1) {
+    } else if (currentVersion === IntakeVersion.CLAW_V2) {
       drawClawV2(p);
-    } else if (currentVersion === 2) {
+    } else if (currentVersion === IntakeVersion.CLAW_V3_ANGLED) {
       drawClawV3(p);
     }
   };

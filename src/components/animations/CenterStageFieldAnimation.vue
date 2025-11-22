@@ -5,11 +5,20 @@ import p5 from 'p5';
 const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
+// Animation phase constants
+const AnimationPhase = {
+  COLLECT_PIXELS: 0,
+  PLACE_ON_BACKDROP: 1,
+  LAUNCH_DRONE: 2
+} as const;
+
+type AnimationPhaseType = typeof AnimationPhase[keyof typeof AnimationPhase];
+
 const sketch = (p: p5) => {
   let robot = { x: 0, y: 0, angle: 0 };
   let pixels: Array<{ x: number; y: number; collected: boolean }> = [];
   let drone = { x: 0, y: 0, launched: false, velocity: { x: 0, y: 0 } };
-  let animationPhase = 0; // 0: collect pixels, 1: place on backdrop, 2: launch drone
+  let animationPhase: AnimationPhaseType = AnimationPhase.COLLECT_PIXELS;
   let phaseTimer = 0;
 
   p.setup = () => {
@@ -44,13 +53,13 @@ const sketch = (p: p5) => {
     // Update animation
     phaseTimer++;
     
-    if (animationPhase === 0) {
+    if (animationPhase === AnimationPhase.COLLECT_PIXELS) {
       // Phase 0: Collect pixels
       collectPixels(p);
-    } else if (animationPhase === 1) {
+    } else if (animationPhase === AnimationPhase.PLACE_ON_BACKDROP) {
       // Phase 1: Move to backdrop and place pixels
       placePixels(p);
-    } else if (animationPhase === 2) {
+    } else if (animationPhase === AnimationPhase.LAUNCH_DRONE) {
       // Phase 2: Launch drone
       launchDrone(p);
     }
@@ -66,7 +75,7 @@ const sketch = (p: p5) => {
     drawRobot(p, robot.x, robot.y, robot.angle);
     
     // Draw drone
-    if (drone.launched || animationPhase === 2) {
+    if (drone.launched || animationPhase === AnimationPhase.LAUNCH_DRONE) {
       drawDrone(p, drone.x, drone.y);
     }
     
@@ -176,7 +185,7 @@ const sketch = (p: p5) => {
       }
     } else {
       // All pixels collected, move to next phase
-      animationPhase = 1;
+      animationPhase = AnimationPhase.PLACE_ON_BACKDROP;
       phaseTimer = 0;
     }
   };
@@ -195,7 +204,7 @@ const sketch = (p: p5) => {
       robot.angle = Math.atan2(dy, dx);
     } else if (phaseTimer > 100) {
       // Placed pixels, move to drone launch
-      animationPhase = 2;
+      animationPhase = AnimationPhase.LAUNCH_DRONE;
       phaseTimer = 0;
       drone.x = robot.x;
       drone.y = robot.y - 30;
@@ -216,7 +225,7 @@ const sketch = (p: p5) => {
   };
 
   const resetAnimation = () => {
-    animationPhase = 0;
+    animationPhase = AnimationPhase.COLLECT_PIXELS;
     phaseTimer = 0;
     robot.x = 100;
     robot.y = p.height - 80;
