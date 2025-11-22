@@ -24,6 +24,10 @@
   flex-direction: column;
   gap: 1vw;
   transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .feature-card:hover {

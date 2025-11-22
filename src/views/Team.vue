@@ -4,6 +4,7 @@ import { translations } from '../i18n/translations';
 import TeamMemberCard from '../components/TeamMemberCard.vue';
 import MicroButton from '../components/MicroButton.vue';
 import SectionHeader from '../components/SectionHeader.vue';
+import FindMorePane from '../components/FindMorePane.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -17,6 +18,11 @@ const showCollaborationStyle = ref(false);
 const showRecruitment = ref(false);
 const showTraining = ref(false);
 const showDailyLife = ref(false);
+
+// State for the 3 info popups
+const showCollaborationInfo = ref(false);
+const showTrainingInfo = ref(false);
+const showEnvironmentInfo = ref(false);
 
 const toggleSection = (section: string) => {
   switch(section) {
@@ -189,7 +195,45 @@ const previousMentors = computed(() =>
           :label="language === 'en' ? 'How We Recruit' : 'Cum Recrutăm'" 
           @click="toggleSection('recruitment')"
         />
+        <MicroButton 
+          :label="t.collaborationTitle"
+          @click="showCollaborationInfo = true"
+        />
+        <MicroButton 
+          :label="t.trainingTitle"
+          variant="secondary"
+          @click="showTrainingInfo = true"
+        />
+        <MicroButton 
+          :label="t.teamEnvironmentTitle"
+          @click="showEnvironmentInfo = true"
+        />
       </div>
+
+      <!-- FindMorePane popups for team info -->
+      <FindMorePane 
+        :show="showCollaborationInfo"
+        :title="t.collaborationTitle"
+        @close="showCollaborationInfo = false"
+      >
+        <p>{{ t.teamCollaboration }}</p>
+      </FindMorePane>
+
+      <FindMorePane 
+        :show="showTrainingInfo"
+        :title="t.trainingTitle"
+        @close="showTrainingInfo = false"
+      >
+        <p>{{ t.teamTraining }}</p>
+      </FindMorePane>
+
+      <FindMorePane 
+        :show="showEnvironmentInfo"
+        :title="t.teamEnvironmentTitle"
+        @close="showEnvironmentInfo = false"
+      >
+        <p>{{ t.teamEnvironment }}</p>
+      </FindMorePane>
 
       <!-- Bonus Content Sections -->
       <transition name="fade">
@@ -432,23 +476,6 @@ const previousMentors = computed(() =>
             :department="member.department"
             :role="member.role"
           />
-        </div>
-      </div>
-      
-      <div class="text-sections">
-        <div class="text-section">
-          <h2>{{ t.collaborationTitle }}</h2>
-          <p>{{ t.teamCollaboration }}</p>
-        </div>
-        
-        <div class="text-section">
-          <h2>{{ t.trainingTitle }}</h2>
-          <p>{{ t.teamTraining }}</p>
-        </div>
-        
-        <div class="text-section">
-          <h2>{{ t.teamEnvironmentTitle }}</h2>
-          <p>{{ t.teamEnvironment }}</p>
         </div>
       </div>
     </section>

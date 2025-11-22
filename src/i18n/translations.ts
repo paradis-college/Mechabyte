@@ -539,7 +539,7 @@ export const translations: { en: Translation; ro: Translation } = {
     homeTitle: 'Bine ați venit la Mechabyte',
     homeWelcome: 'Inovăm Viitorul Prin Robotică',
     aboutTitle: 'Despre Noi',
-    aboutText: 'Mechabyte este o echipă pasionată de robotică de la Paradise International College din Iași, România, care participă la FIRST Tech Challenge (FTC). Suntem un grup divers de studenți dedicați inovației, muncii în echipă și implicării comunitare. Echipa noastră reunește expertiza tehnică în programare, inginerie și design CAD cu abilități creative în marketing, outreach și design pentru a crea roboți competitivi, având în același timp un impact pozitiv în comunitatea noastră.',
+    aboutText: 'Combinăm învățare practică cu inginerie de competiție pentru a ajuta studenții să construiască roboți reali, abilități reale și cariere de durată. Alătură-te atelierelor, sponsorizează creșterea noastră sau cunoaște echipa care construiește liderii roboticii de mâine.',
     missionTitle: 'Misiunea Noastră',
     missionItems: [
       'Promovarea educației STEM și a roboticii în comunitatea noastră prin workshop-uri și demonstrații',

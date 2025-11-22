@@ -23,51 +23,51 @@ const sponsors = ref<Sponsor[]>([
   {
     name: 'Paradis International College',
     logo: new URL('../assets/images/sponsors/paradis college.jpg', import.meta.url).href,
-    descriptionEn: 'Learned: Institutional excellence starts with solid foundations.',
-    descriptionRo: 'Învățat: Excelența instituțională începe cu fundații solide.',
+    descriptionEn: 'Institutional excellence starts with solid foundations.',
+    descriptionRo: 'Excelența instituțională începe cu fundații solide.',
     isPrimary: true
   },
   {
     name: 'BRD',
     logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
-    descriptionEn: 'Learned: Financial responsibility powers sustainable innovation.',
-    descriptionRo: 'Învățat: Responsabilitatea financiară alimentează inovația durabilă.'
+    descriptionEn: 'Financial responsibility powers sustainable innovation.',
+    descriptionRo: 'Responsabilitatea financiară alimentează inovația durabilă.'
   },
   {
     name: 'First Tech Challenge',
     logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
-    descriptionEn: 'Learned: Gracious professionalism in competition and life.',
-    descriptionRo: 'Învățat: Profesionalism grațios în competiție și viață.'
+    descriptionEn: 'Gracious professionalism in competition and life.',
+    descriptionRo: 'Profesionalism grațios în competiție și viață.'
   },
   {
     name: 'Nație prin Educație',
     logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
-    descriptionEn: 'Learned: Education transforms nations, one student at a time.',
-    descriptionRo: 'Învățat: Educația transformă națiuni, câte un student.'
+    descriptionEn: 'Education transforms nations, one student at a time.',
+    descriptionRo: 'Educația transformă națiuni, câte un student.'
   },
   {
     name: 'Professional Dentist',
     logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
-    descriptionEn: 'Learned: Precision and attention to detail matter everywhere.',
-    descriptionRo: 'Învățat: Precizia și atenția la detalii contează peste tot.'
+    descriptionEn: 'Precision and attention to detail matter everywhere.',
+    descriptionRo: 'Precizia și atenția la detalii contează peste tot.'
   },
   {
     name: 'SAM Ideas',
     logo: new URL('../assets/images/sponsors/SAM ideas.jpg', import.meta.url).href,
-    descriptionEn: 'Learned: Think outside the box, build beyond boundaries.',
-    descriptionRo: 'Învățat: Gândește în afara cutiei, construiește dincolo de limite.'
+    descriptionEn: 'Think outside the box, build beyond boundaries.',
+    descriptionRo: 'Gândește în afara cutiei, construiește dincolo de limite.'
   },
   {
     name: 'Pulse',
     logo: new URL('../assets/images/sponsors/pulse.jpeg', import.meta.url).href,
-    descriptionEn: 'Learned: Industry connections accelerate tech growth.',
-    descriptionRo: 'Învățat: Conexiunile din industrie accelerează creșterea tehnologică.'
+    descriptionEn: 'Industry connections accelerate tech growth.',
+    descriptionRo: 'Conexiunile din industrie accelerează creșterea tehnologică.'
   },
   {
     name: 'TrustTeam',
     logo: new URL('../assets/images/sponsors/trustteam.jpeg', import.meta.url).href,
-    descriptionEn: 'Learned: Teamwork + technology = unstoppable force.',
-    descriptionRo: 'Învățat: Muncă în echipă + tehnologie = forță de neoprit.'
+    descriptionEn: 'Teamwork + technology = unstoppable force.',
+    descriptionRo: 'Muncă în echipă + tehnologie = forță de neoprit.'
   }
 ]);
 

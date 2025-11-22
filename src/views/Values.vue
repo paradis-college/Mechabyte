@@ -165,8 +165,8 @@ onUnmounted(() => {
         </div>
       </div>
       
-      <div class="ambassador-section">
-        <h3>{{ t.ambassadorRoleTitle }}</h3>
+      <div class="ambassador-section value-card">
+        <h3>🎯 {{ t.ambassadorRoleTitle }}</h3>
         <p class="ambassador-text">{{ t.ambassadorStatement }}</p>
       </div>
     </section>
@@ -235,16 +235,19 @@ h2 {
 
 .ambassador-section {
   width: 100%;
-  padding: 1.5vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  background: var(--mechabyte-grey);
-  border-radius: 0.5vw;
   margin-top: 1vw;
+}
+
+.ambassador-section h3 {
+  color: var(--mechabyte-green);
+  font-size: clamp(18px, 1.8vw, 24px);
+  margin-bottom: 0.5vw;
 }
 
 .ambassador-text {
   line-height: 1.6;
   font-style: italic;
+  color: var(--light-grey);
 }
 
 .cta-buttons {

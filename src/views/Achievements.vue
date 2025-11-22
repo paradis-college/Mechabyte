@@ -12,8 +12,17 @@ const props = defineProps<{
 
 const t = computed(() => translations[props.language]);
 
+// Reverse the achievements list to show most recent first
+const achievementsList = computed(() => {
+  const list = t.value.achievementsList || [];
+  return [...list].reverse();
+});
+
 // State for FindMorePane
 const showFirstRobotDetails = ref(false);
+const showTeamFormationDetails = ref(false);
+const showRegionalCompDetails = ref(false);
+const showTechDevDetails = ref(false);
 
 // Scanner beam effect
 const cardVisibility = ref<Record<number, boolean>>({});
@@ -31,8 +40,7 @@ const setCardRef = (el: Element | ComponentPublicInstance | null, id: number) =>
 
 onMounted(() => {
   // Initialize visibility for all achievements
-  const achievementsList = t.value.achievementsList || [];
-  achievementsList.forEach((_: any, index: number) => {
+  achievementsList.value.forEach((_: any, index: number) => {
     cardVisibility.value[index] = false;
     cardSweep.value[index] = false;
   });
@@ -82,7 +90,7 @@ onUnmounted(() => {
       />
       
       <div class="timeline">
-        <div v-for="(achievement, index) in t.achievementsList" :key="index" class="timeline-item">
+        <div v-for="(achievement, index) in achievementsList" :key="index" class="timeline-item">
           <div class="timeline-marker"></div>
           <div 
             :ref="(el) => setCardRef(el, index)"
@@ -93,10 +101,31 @@ onUnmounted(() => {
             <h2>{{ achievement.title }}</h2>
             <p>{{ achievement.description }}</p>
             <MicroButton 
-              v-if="index === 1"
+              v-if="achievement.title === 'Team Formation' || achievement.title === 'Formarea Echipei'"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showTeamFormationDetails = true"
+              class="modal-btn"
+            />
+            <MicroButton 
+              v-if="achievement.title === 'First Robot Build' || achievement.title === 'Prima Construcție de Robot'"
               :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
               variant="secondary"
               @click="showFirstRobotDetails = true"
+              class="modal-btn"
+            />
+            <MicroButton 
+              v-if="achievement.title === 'FTC Regional Competition' || achievement.title === 'Competiția Regională FTC'"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showRegionalCompDetails = true"
+              class="modal-btn"
+            />
+            <MicroButton 
+              v-if="achievement.title === 'Technical Development' || achievement.title === 'Dezvoltare Tehnică'"
+              :label="language === 'en' ? 'Find out more' : 'Află mai multe'"
+              variant="secondary"
+              @click="showTechDevDetails = true"
               class="modal-btn"
             />
           </div>
@@ -131,6 +160,62 @@ onUnmounted(() => {
           </ul>
           <p class="modal-text">Această experiență ne-a învățat importanța testării, iterației și muncii în echipă în ingineria roboticii.</p>
         </div>
+      </FindMorePane>
+
+      <!-- FindMorePane for Team Formation -->
+      <FindMorePane 
+        :show="showTeamFormationDetails"
+        :title="language === 'en' ? '🎯 Team Formation Story' : '🎯 Povestea Formării Echipei'"
+        @close="showTeamFormationDetails = false"
+      >
+        <template v-if="language === 'en'">
+          <p>Mechabyte was born from a shared passion for robotics and innovation at Paradise International College.</p>
+          <p>Founded by students who wanted to bring world-class robotics education to Iași, Romania.</p>
+          <p>Our founding principle: Make STEM accessible, competitive, and fun for everyone.</p>
+        </template>
+        <template v-else>
+          <p>Mechabyte s-a născut dintr-o pasiune comună pentru robotică și inovație la Paradise International College.</p>
+          <p>Fondată de studenți care au dorit să aducă educație robotică de clasă mondială la Iași, România.</p>
+          <p>Principiul nostru fondator: Faceți STEM accesibil, competitiv și distractiv pentru toată lumea.</p>
+        </template>
+      </FindMorePane>
+
+      <!-- FindMorePane for Regional Competition -->
+      <FindMorePane 
+        :show="showRegionalCompDetails"
+        :title="language === 'en' ? '🏆 FTC Regional Competition' : '🏆 Competiția Regională FTC'"
+        @close="showRegionalCompDetails = false"
+      >
+        <template v-if="language === 'en'">
+          <p>Our first major competition tested everything we built and learned.</p>
+          <p><strong>Challenges faced:</strong> Technical issues, time pressure, fierce competition</p>
+          <p><strong>Lessons learned:</strong> Resilience, quick problem-solving, gracious professionalism</p>
+          <p>Result: Experience that shaped our team's competitive spirit and technical excellence.</p>
+        </template>
+        <template v-else>
+          <p>Prima noastră competiție majoră a testat tot ce am construit și învățat.</p>
+          <p><strong>Provocări întâmpinate:</strong> Probleme tehnice, presiune de timp, competiție acerbă</p>
+          <p><strong>Lecții învățate:</strong> Reziliență, rezolvare rapidă a problemelor, profesionalism grațios</p>
+          <p>Rezultat: Experiență care a modelat spiritul competitiv și excelența tehnică a echipei.</p>
+        </template>
+      </FindMorePane>
+
+      <!-- FindMorePane for Technical Development -->
+      <FindMorePane 
+        :show="showTechDevDetails"
+        :title="language === 'en' ? '⚙️ Technical Development Journey' : '⚙️ Călătoria Dezvoltării Tehnice'"
+        @close="showTechDevDetails = false"
+      >
+        <template v-if="language === 'en'">
+          <p>Continuous improvement through coding, CAD design, and hardware engineering.</p>
+          <p>✓ Advanced autonomous programming<br>✓ Precision mechanical systems<br>✓ Sensor integration<br>✓ Control algorithms</p>
+          <p>Each iteration made us stronger, smarter, faster.</p>
+        </template>
+        <template v-else>
+          <p>Îmbunătățire continuă prin codare, design CAD și inginerie hardware.</p>
+          <p>✓ Programare autonomă avansată<br>✓ Sisteme mecanice de precizie<br>✓ Integrare senzori<br>✓ Algoritmi de control</p>
+          <p>Fiecare iterație ne-a făcut mai puternici, mai deștepți, mai rapizi.</p>
+        </template>
       </FindMorePane>
     </section>
   </div>
