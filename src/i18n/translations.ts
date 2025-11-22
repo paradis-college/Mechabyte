@@ -155,6 +155,11 @@ export type Translation = {
   portfolioCenterstageTechnical: string;
   
   // Game strategy content
+  centerstageGoal: string;
+  centerstageAutonomousDetails: string;
+  centerstageTeleOpDetails: string;
+  centerstageEndgameDetails: string;
+  centerstageStrategySummary: Array<{ period: string; mandatory: string[]; optional: string[]; scoring: string }>;
   centerstageAutonomous: string;
   centerstageTeleOp: string;
   centerstageEndgame: string;
@@ -470,6 +475,15 @@ export const translations: { en: Translation; ro: Translation } = {
     portfolioCenterstageTechnical: 'Technical: Maia Sava (Building & Programming), Șerban Untu (Building & Programming), Rareș Cozma (Building), Cristian Ghidireac (Building & Design), David Grigore (Design & Building), Ștefan Albu (Design)',
 
     // Game strategy content
+    centerstageGoal: 'Since this is the first season in which we participate, our goal for the robot was to score as many points as possible.',
+    centerstageAutonomousDetails: 'We start off with a pre-loaded pixel in the intake claw. As we don\'t have any odometry, we programmed the robot on timing. Depending on the starting position, the robot will follow a preset trajectory in order to park in the backstage, and drop the pixel there. We have a total of 4 Autonomous programmes for each trajectory (2 which do the same thing).\n\nFirst starting position (backstage): When placing the robot in the field, it would face the backstage so that it should only go forward until it reached the desired location.\n\nSecond starting position (audience): When placed in the field, the robot would face towards the other alliance. The trajectory we established was going forward until tile C2 and then sideways until reaching the backstage.',
+    centerstageTeleOpDetails: 'Depending on our alliance, the strategy slightly varies. In essence the drivers will navigate through the truss and/or stage door to get one pixel at a time from either stacks or the human station. After successfully loading the pixel, the drivers would carefully navigate towards the backstage and place the pixel in the backdrop. If the pixel happens to fall in the backstage, the drivers will leave it there and focus to bring another pixel. If possible, the drive team will try to create mosaics and pass one line from the backdrop for the bonus points.',
+    centerstageEndgameDetails: 'During the first 15-20 seconds, the drivers will keep scoring pixels in the backdrop. In the final few seconds, the drone will be launched and the robot parked in the backstage.',
+    centerstageStrategySummary: [
+      { period: 'Autonomous', mandatory: ['park robot in backstage'], optional: ['drop pre-loaded pixel in backstage'], scoring: '5 - 8 pts' },
+      { period: 'Teleop', mandatory: ['place as many pixels on backdrop'], optional: ['place pixel in backstage', 'form mosaics', 'pass lines on backdrop'], scoring: '9 - 15 pts' },
+      { period: 'Endgame', mandatory: ['launch drone', 'park robot in backstage'], optional: [], scoring: '5 - 35 pts' }
+    ],
     centerstageAutonomous: 'Robot starts with a pre-loaded pixel in the intake claw. No odometry is used; all movements are based on timing. We have two main starting positions: backstage-facing (drive straight to park and drop pixel) and audience-facing (drive forward to tile C2, then sideways to backstage).',
     centerstageTeleOp: 'Drivers navigate through the truss or stage door to collect pixels from stacks or the human station. We deliver one pixel at a time to the backdrop. If a pixel falls in backstage, we leave it and fetch another. Our goal is to form mosaics and cross lines on the backdrop for bonus points.',
     centerstageEndgame: 'We continue scoring pixels for 15-20 seconds, then launch the drone and park in backstage for additional points.',
@@ -822,6 +836,15 @@ export const translations: { en: Translation; ro: Translation } = {
     portfolioCenterstageTechnical: 'Tehnic: Maia Sava (Construcție și Programare), Șerban Untu (Construcție și Programare), Rareș Cozma (Construcție), Cristian Ghidireac (Construcție și Design), David Grigore (Design și Construcție), Ștefan Albu (Design)',
 
     // Game strategy content
+    centerstageGoal: 'Deoarece acesta este primul sezon în care participăm, obiectivul nostru pentru robot a fost să marcăm cât mai multe puncte posibil.',
+    centerstageAutonomousDetails: 'Începem cu un pixel pre-încărcat în gheara de colectare. Deoarece nu avem odometrie, am programat robotul pe timp. În funcție de poziția de pornire, robotul va urma o traiectorie presetată pentru a parca în backstage și a lăsa pixelul acolo. Avem în total 4 programe Autonome pentru fiecare traiectorie (2 care fac același lucru).\n\nPrima poziție de pornire (backstage): Când plasăm robotul pe teren, ar fi orientat către backstage astfel încât ar trebui doar să meargă înainte până ajunge la locația dorită.\n\nA doua poziție de pornire (public): Când este plasat pe teren, robotul ar fi orientat către cealaltă alianță. Traiectoria pe care am stabilit-o a fost să mergem înainte până la tile C2 și apoi lateral până la ajungerea la backstage.',
+    centerstageTeleOpDetails: 'În funcție de alianta noastră, strategia variază ușor. În esență, piloții vor naviga prin truss și/sau ușa scenei pentru a obține câte un pixel pe rând fie de la stive, fie de la stația umană. După încărcarea cu succes a pixelului, piloții vor naviga cu atenție către backstage și vor plasa pixelul pe backdrop. Dacă pixelul se întâmplă să cadă în backstage, piloții îl vor lăsa acolo și se vor concentra să aducă un alt pixel. Dacă este posibil, echipa de conducere va încerca să creeze mozaicuri și să treacă o linie de pe backdrop pentru punctele bonus.',
+    centerstageEndgameDetails: 'În primele 15-20 secunde, piloții vor continua să marcheze pixeli pe backdrop. În ultimele câteva secunde, drona va fi lansată și robotul parcat în backstage.',
+    centerstageStrategySummary: [
+      { period: 'Autonom', mandatory: ['parcarea robotului în backstage'], optional: ['lăsarea pixelului pre-încărcat în backstage'], scoring: '5 - 8 pct' },
+      { period: 'Teleop', mandatory: ['plasarea cât mai multor pixeli pe backdrop'], optional: ['plasarea pixelului în backstage', 'formarea de mozaicuri', 'trecerea liniilor pe backdrop'], scoring: '9 - 15 pct' },
+      { period: 'Finalul Jocului', mandatory: ['lansarea dronei', 'parcarea robotului în backstage'], optional: [], scoring: '5 - 35 pct' }
+    ],
     centerstageAutonomous: 'Robotul pornește cu un pixel pre-încărcat în gheara de colectare. Nu folosim odometrie; toate mișcările sunt bazate pe timp. Avem două poziții principale de pornire: față către backstage (mers drept pentru parcare și eliberare pixel) și față către public (mers înainte către tile C2, apoi lateral către backstage).',
     centerstageTeleOp: 'Șoferii navighează prin truss sau ușa scenei pentru a colecta pixeli de la stive sau stația umană. Livrăm câte un pixel pe rând către backdrop. Dacă un pixel cade în backstage, îl lăsăm și luăm altul. Scopul nostru este să formăm mozaicuri și să traversăm linii pe backdrop pentru puncte bonus.',
     centerstageEndgame: 'Continuăm să marcăm pixeli timp de 15-20 secunde, apoi lansăm drona și parcăm în backstage pentru puncte suplimentare.',

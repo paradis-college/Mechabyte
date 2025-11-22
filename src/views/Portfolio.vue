@@ -8,7 +8,9 @@ import ChassisEvolutionAnimation from '../components/animations/ChassisEvolution
 import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
+import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
+import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -95,19 +97,37 @@ const t = computed(() => translations[props.language]);
       
       <div class="strategy-season">
         <h3 class="season-title">{{ t.centerstageSeason }}</h3>
-        <div class="strategy-phases">
-          <div class="phase-card">
-            <h4>{{ t.autonomousTitle }}</h4>
-            <p>{{ t.centerstageAutonomous }}</p>
-          </div>
-          <div class="phase-card">
-            <h4>{{ t.teleOpTitle }}</h4>
-            <p>{{ t.centerstageTeleOp }}</p>
-          </div>
-          <div class="phase-card">
-            <h4>{{ t.endgameTitle }}</h4>
-            <p>{{ t.centerstageEndgame }}</p>
-          </div>
+        
+        <!-- Goal Statement -->
+        <div class="strategy-goal">
+          <p>{{ t.centerstageGoal }}</p>
+        </div>
+        
+        <!-- Autonomous Details -->
+        <div class="strategy-detail">
+          <h4>{{ t.autonomousTitle }}</h4>
+          <p class="detail-text">{{ t.centerstageAutonomousDetails }}</p>
+        </div>
+        
+        <!-- Autonomous Trajectory Animation -->
+        <AutonomousTrajectoryAnimation />
+        
+        <!-- Teleop Details -->
+        <div class="strategy-detail">
+          <h4>{{ t.teleOpTitle }}</h4>
+          <p class="detail-text">{{ t.centerstageTeleOpDetails }}</p>
+        </div>
+        
+        <!-- Endgame Details -->
+        <div class="strategy-detail">
+          <h4>{{ t.endgameTitle }}</h4>
+          <p class="detail-text">{{ t.centerstageEndgameDetails }}</p>
+        </div>
+        
+        <!-- Strategy Summary Table -->
+        <div class="strategy-summary">
+          <h4>{{ language === 'en' ? 'Summary' : 'Rezumat' }}</h4>
+          <StrategySummaryTable :summary="t.centerstageStrategySummary" />
         </div>
       </div>
 
@@ -505,6 +525,51 @@ const t = computed(() => translations[props.language]);
   margin-bottom: 0.5vw;
 }
 
+.strategy-goal {
+  background: rgba(0, 255, 0, 0.05);
+  padding: 1.5vw;
+  border-left: 0.3vw solid var(--mechabyte-green);
+  margin-bottom: 2vw;
+}
+
+.strategy-goal p {
+  font-size: 1.1vw;
+  color: #fff;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.strategy-detail {
+  margin-bottom: 2vw;
+}
+
+.strategy-detail h4 {
+  color: var(--mechabyte-green);
+  font-size: 1.4vw;
+  margin-bottom: 1vw;
+  text-decoration: underline;
+  text-decoration-color: var(--mechabyte-green);
+  text-underline-offset: 0.5vw;
+}
+
+.detail-text {
+  font-size: 1vw;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.strategy-summary {
+  margin-top: 3vw;
+}
+
+.strategy-summary h4 {
+  color: var(--mechabyte-green);
+  font-size: 1.6vw;
+  margin-bottom: 1vw;
+  text-align: center;
+  font-weight: 700;
+}
+
 @media only screen and (max-width: 1000px) {
   .portfolio-page {
     padding: 20px 0;
@@ -644,6 +709,39 @@ const t = computed(() => translations[props.language]);
     font-size: 16px;
     margin-top: 20px;
     margin-bottom: 10px;
+  }
+  
+  .strategy-goal {
+    padding: 15px;
+    border-left: 3px solid var(--mechabyte-green);
+    margin-bottom: 20px;
+  }
+  
+  .strategy-goal p {
+    font-size: 15px;
+  }
+  
+  .strategy-detail {
+    margin-bottom: 20px;
+  }
+  
+  .strategy-detail h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    text-underline-offset: 5px;
+  }
+  
+  .detail-text {
+    font-size: 14px;
+  }
+  
+  .strategy-summary {
+    margin-top: 30px;
+  }
+  
+  .strategy-summary h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
   }
 }
 </style>
