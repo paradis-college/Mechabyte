@@ -166,34 +166,6 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         </MoreInfoPopup>
       </section>
 
-      <!-- Outreach & Events -->
-      <section class="content-section">
-        <h2 class="section-title">Outreach & Events</h2>
-        <div class="events-grid">
-          <div class="event-card">
-            <h4>Movie Night</h4>
-            <p>Fundraising event with robot showcase</p>
-          </div>
-          <div class="event-card">
-            <h4>Pancakes Sale</h4>
-            <p>Raised ~5,000 RON</p>
-          </div>
-          <div class="event-card">
-            <h4>Paradis Run</h4>
-            <p>Charity event participation</p>
-          </div>
-          <div class="event-card">
-            <h4>Nikola Tesla Festival</h4>
-            <p>Collaborated with other teams</p>
-          </div>
-        </div>
-        <PhotoGalleryPlaceholder 
-          title="Outreach Events" 
-          caption="Community engagement and fundraising activities"
-          :count="4" 
-        />
-      </section>
-
       <!-- Team Credits -->
       <section class="content-section team-credits">
         <h2 class="section-title">All of this was possible thanks to these people:</h2>
@@ -338,34 +310,6 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         
         <h4>Driver Controls</h4>
         <DriverControlTable season="into-the-deep" :language="language" />
-      </section>
-
-      <!-- Outreach & Events -->
-      <section class="content-section">
-        <h2 class="section-title">Outreach & Events</h2>
-        <div class="events-grid">
-          <div class="event-card">
-            <h4>Winter Dive Meet</h4>
-            <p>Scored 3/6 matches in Iași</p>
-          </div>
-          <div class="event-card">
-            <h4>STEMPOSSUM</h4>
-            <p>Robotics & AI collaboration</p>
-          </div>
-          <div class="event-card">
-            <h4>UGAL Inventics</h4>
-            <p>Showcased innovations</p>
-          </div>
-          <div class="event-card">
-            <h4>Christmas Market</h4>
-            <p>Raised 2,000 RON from decorations</p>
-          </div>
-        </div>
-        <PhotoGalleryPlaceholder 
-          title="Outreach Events" 
-          caption="Competitions and community engagement"
-          :count="4" 
-        />
       </section>
 
       <!-- Team Credits -->
@@ -528,37 +472,6 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
   margin-bottom: 1.5vw;
 }
 
-.events-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5vw;
-  margin-bottom: 2vw;
-}
-
-.event-card {
-  background: rgba(0, 0, 0, 0.3);
-  border: 0.1vw solid rgba(0, 255, 0, 0.3);
-  border-radius: 0.5vw;
-  padding: 1.5vw;
-  transition: all 0.3s ease;
-}
-
-.event-card:hover {
-  background: rgba(0, 255, 0, 0.1);
-  border-color: var(--mechabyte-green);
-  transform: translateY(-0.3vw);
-}
-
-.event-card h4 {
-  color: var(--mechabyte-green);
-  font-size: 1.2vw;
-  margin-bottom: 0.5vw;
-}
-
-.event-card p {
-  font-size: 0.9vw;
-  color: #ccc;
-}
 
 .team-credits {
   background: rgba(0, 255, 0, 0.05);
@@ -667,14 +580,6 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
   .strategy-phase h3,
   .evolution-component h3 {
     font-size: 20px;
-  }
-  
-  .event-card h4 {
-    font-size: 16px;
-  }
-  
-  .event-card p {
-    font-size: 13px;
   }
   
   .role-card h4 {
