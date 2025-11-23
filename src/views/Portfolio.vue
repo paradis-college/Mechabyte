@@ -19,6 +19,7 @@ import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeep
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
 import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEndgameAnimation.vue';
 import RobotMechanismAnimation from '../components/animations/RobotMechanismAnimation.vue';
+import ComponentEvolutionAnimation from '../components/animations/ComponentEvolutionAnimation.vue';
 import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
 import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
@@ -261,6 +262,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Intake System</h3>
           <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
+          <ComponentEvolutionAnimation component="intake" title="Intake System Evolution" />
           <BladeStabilizationAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Intake System">
             <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
@@ -269,8 +271,20 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         </div>
 
         <div class="evolution-component">
+          <h3>Claw Mechanism</h3>
+          <p><strong>Final Solution:</strong> Precision claw with 3D-printed stabilizers for reliable specimen capture.</p>
+          <ComponentEvolutionAnimation component="claw" title="Claw Design Evolution" />
+          <MoreInfoPopup title="Design Evolution: Claw">
+            <p><strong>V1:</strong> Oversized claw couldn't close fully, specimens fell frequently.</p>
+            <p><strong>V2:</strong> Redesigned shape with better closure mechanism.</p>
+            <p><strong>V3:</strong> Final design with 3D-printed disc stabilizers ensuring 90° blade alignment for consistent grab.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
           <h3>Slider System</h3>
           <p><strong>Final Solution:</strong> Single vertical slider with integrated arm.</p>
+          <ComponentEvolutionAnimation component="viper-slide" title="Slider System Evolution" />
           <SliderSystemAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Slider System">
             <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
