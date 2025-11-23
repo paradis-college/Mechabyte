@@ -155,9 +155,19 @@ export type Translation = {
   portfolioCenterstageTechnical: string;
   
   // Game strategy content
+  centerstageGoal: string;
+  centerstageAutonomousDetails: string;
+  centerstageTeleOpDetails: string;
+  centerstageEndgameDetails: string;
+  centerstageStrategySummary: Array<{ period: string; mandatory: string[]; optional: string[]; scoring: string }>;
   centerstageAutonomous: string;
   centerstageTeleOp: string;
   centerstageEndgame: string;
+  intoTheDeepGoal: string;
+  intoTheDeepAutonomousDetails: string;
+  intoTheDeepTeleOpDetails: string;
+  intoTheDeepEndgameDetails: string;
+  intoTheDeepStrategySummary: Array<{ period: string; mandatory: string[]; optional: string[]; scoring: string }>;
   intoTheDeepTeleOp: string;
   intoTheDeepEndgame: string;
   
@@ -192,6 +202,19 @@ export type Translation = {
   sustainabilityGrowthLabel: string;
   sustainabilityGrowthText: string;
   contactUsLabel: string;
+  
+  // New sections for detailed portfolio
+  ftcOverviewTitle: string;
+  ftcOverviewContent: string;
+  howGamesWorkTitle: string;
+  centerstageGameDetails: string;
+  intoTheDeepGameDetails: string;
+  programmingChallengesTitle: string;
+  programmingChallenges: string;
+  lessonsLearnedTitle: string;
+  lessonsLearned: string;
+  futureOutlookTitle: string;
+  futureOutlook: string;
 };
 
 // Translations object with English and Romanian content
@@ -457,11 +480,29 @@ export const translations: { en: Translation; ro: Translation } = {
     portfolioCenterstageTechnical: 'Technical: Maia Sava (Building & Programming), Șerban Untu (Building & Programming), Rareș Cozma (Building), Cristian Ghidireac (Building & Design), David Grigore (Design & Building), Ștefan Albu (Design)',
 
     // Game strategy content
+    centerstageGoal: 'Since this is the first season in which we participate, our goal for the robot was to score as many points as possible.',
+    centerstageAutonomousDetails: 'We start off with a pre-loaded pixel in the intake claw. As we don\'t have any odometry, we programmed the robot on timing. Depending on the starting position, the robot will follow a preset trajectory in order to park in the backstage, and drop the pixel there. We have a total of 4 Autonomous programmes for each trajectory (2 which do the same thing).\n\nFirst starting position (backstage): When placing the robot in the field, it would face the backstage so that it should only go forward until it reached the desired location.\n\nSecond starting position (audience): When placed in the field, the robot would face towards the other alliance. The trajectory we established was going forward until tile C2 and then sideways until reaching the backstage.',
+    centerstageTeleOpDetails: 'Depending on our alliance, the strategy slightly varies. In essence the drivers will navigate through the truss and/or stage door to get one pixel at a time from either stacks or the human station. After successfully loading the pixel, the drivers would carefully navigate towards the backstage and place the pixel in the backdrop. If the pixel happens to fall in the backstage, the drivers will leave it there and focus to bring another pixel. If possible, the drive team will try to create mosaics and pass one line from the backdrop for the bonus points.',
+    centerstageEndgameDetails: 'During the first 15-20 seconds, the drivers will keep scoring pixels in the backdrop. In the final few seconds, the drone will be launched and the robot parked in the backstage.',
+    centerstageStrategySummary: [
+      { period: 'Autonomous', mandatory: ['park robot in backstage'], optional: ['drop pre-loaded pixel in backstage'], scoring: '5 - 8 pts' },
+      { period: 'Teleop', mandatory: ['place as many pixels on backdrop'], optional: ['place pixel in backstage', 'form mosaics', 'pass lines on backdrop'], scoring: '9 - 15 pts' },
+      { period: 'Endgame', mandatory: ['launch drone', 'park robot in backstage'], optional: [], scoring: '5 - 35 pts' }
+    ],
     centerstageAutonomous: 'Robot starts with a pre-loaded pixel in the intake claw. No odometry is used; all movements are based on timing. We have two main starting positions: backstage-facing (drive straight to park and drop pixel) and audience-facing (drive forward to tile C2, then sideways to backstage).',
     centerstageTeleOp: 'Drivers navigate through the truss or stage door to collect pixels from stacks or the human station. We deliver one pixel at a time to the backdrop. If a pixel falls in backstage, we leave it and fetch another. Our goal is to form mosaics and cross lines on the backdrop for bonus points.',
     centerstageEndgame: 'We continue scoring pixels for 15-20 seconds, then launch the drone and park in backstage for additional points.',
+    intoTheDeepGoal: 'Score as many points as possible by collecting samples and scoring in baskets/chambers, then climbing the submersible.',
+    intoTheDeepAutonomousDetails: 'Robot starts from observation zone near the submersible. Using timing-based navigation, it moves to the submersible center (~1.5s), collects one sample, then delivers to the net zone (~2.0s total). The sample dropped in the net zone scores 2 points. Total autonomous time is approximately 3.5 seconds.',
+    intoTheDeepTeleOpDetails: 'Drivers navigate to collect samples one at a time from the submersible or field floor. Samples are scored in the high basket (8 pts each) for maximum efficiency. The vertical slider extends to reach the basket while the intake system releases the sample. If a sample is dropped, we abandon it and collect a new one rather than waste time retrieving it.',
+    intoTheDeepEndgameDetails: 'Continue scoring samples in the high basket until 15-20 seconds remain. In the final seconds, park the robot in the net zone (3 pts) or attempt a low-level ascent on the submersible ladder (15 pts) if time permits.',
+    intoTheDeepStrategySummary: [
+      { period: 'Autonomous', mandatory: [], optional: ['collect sample from submersible', 'score in net zone'], scoring: '0 - 2 pts' },
+      { period: 'Teleop', mandatory: ['collect and score samples'], optional: ['score in high basket (8 pts)', 'score specimens on chambers (6-10 pts)'], scoring: '8 - 40+ pts' },
+      { period: 'Endgame', mandatory: [], optional: ['park in net zone (3 pts)', 'low-level ascent (15 pts)', 'high-level ascent (30 pts)'], scoring: '0 - 30 pts' }
+    ],
     intoTheDeepTeleOp: 'We navigate to pick up one sample at a time from the field or submersible. Samples are placed in the highest basket in the net zone. If a sample falls, we abandon it and fetch a new one to maximize scoring efficiency.',
-    intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then launch the drone and park in the net zone for maximum points.',
+    intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then park in the net zone for additional points.',
 
     // Robot evolution content
     centerstageDriveTrainEvolution: 'Started with an X-drive chassis with omni wheels at 45°—stable but too small for all components. Intermediate version used X-drive with flipped metal bars; the control hub was attached with one screw and a zip tie, making it fragile and prone to deformation. Final version features a more stable, spacious chassis with an Expansion Hub, mecanum wheels, and custom holders for hubs, power switch, and motors.',
@@ -519,6 +560,19 @@ export const translations: { en: Translation; ro: Translation } = {
     ],
     fundraisingDescription: 'Our fundraising activities across both seasons included selling biscuits, Movie Night tickets, pancakes, decorations, and flowers. These events have been crucial in supporting our operational costs and competition participation.',
     sustainabilityDescription: 'Our sustainability plan focuses on: recruiting and training younger students to ensure continuity, maintaining alumni support network, partnering with corporations that share our values, and careful budgeting with categories for team expenditure (wheels, cables, electronics) and emergency funds. Main sponsors include Paradis International College, Professional Dentist, and others who believe in our mission.',
+    
+    // New detailed sections
+    ftcOverviewTitle: 'What is the FIRST Tech Challenge?',
+    ftcOverviewContent: 'The FIRST Tech Challenge (FTC) is an international robotics contest for high-school students. In each season, small alliances of two teams play short matches on a 12×12 ft field. Each team builds and programs a robot that fits inside an 18 inch cube and may expand during a match. A match begins with a 30 s autonomous period where robots follow pre-programmed instructions; it is followed by a 2 min driver-controlled period where drivers operate the robot with game controllers, and a final 30 s endgame with additional bonus tasks. Teams earn points by manipulating themed game elements and performing optional tasks, while abiding by safety and fairness rules.',
+    howGamesWorkTitle: 'How the Games Work',
+    centerstageGameDetails: 'In CenterStage (2023-24), the field featured a 12 ft square with foam tiles and 1 ft-high walls. Two trusses and a hinged stage door spanned mid-field; backdrops and backstage areas were at the back; wings were in the front corners. Robots collected hexagonal pixels and placed them on the backdrop, created mosaics, and launched paper drones over the truss into landing zones. Autonomous scoring included placing purple pixels on spike marks or backdrop, with parking backstage for bonus points.',
+    intoTheDeepGameDetails: 'Into the Deep (2024-25) uses a similar 12 ft square field with a central submersible structure holding samples, with low and high rungs and chambers. High and low baskets sit in opposite corners, with net zones beneath them; observation zones occupy the other corners. Robots collect plastic samples and place them in net zones or baskets (2-8 pts), while human players can attach clips to samples to turn them into specimens for chamber scoring (6-10 pts). The endgame features submersible ascent challenges with low-level (15 pts) and high-level (30 pts) scoring.',
+    programmingChallengesTitle: 'Programming Challenges',
+    programmingChallenges: 'Limited resources created significant programming challenges. During CenterStage, the team initially used a Motorola G4 Play phone instead of a dedicated Driver Hub. When both controllers were connected, the phone could not supply enough power, so only one driver could reliably control the robot. The issue was solved by using a different phone (Nokia 5) with better power delivery and redistributing tasks between drivers. Without vision systems or distance sensors in either season, the team relied entirely on timing-based autonomous routines with fixed durations for movements, sometimes using reduced power at the end to ensure precise positioning.',
+    lessonsLearnedTitle: 'Lessons Learned & Growth',
+    lessonsLearned: 'Mechabyte\'s two-season journey showcases how a team can evolve through persistence and resourcefulness. In CenterStage, constraints on budget and hardware forced creative solutions like zip-tied hubs and a crab-like claw; iterative redesigns and a pantograph arm enabled reliable pixel placement and drone launching. By Into the Deep, the team applied those lessons to streamline mechanisms, focus on weight distribution and reliability, and adopt 3D-printed improvements. The programming evolved from basic teleop to multi-case autonomous routines, demonstrating continuous learning and adaptation.',
+    futureOutlookTitle: 'Future Outlook',
+    futureOutlook: 'Looking ahead, further integration of sensors for autonomous navigation could improve scoring consistency, while corporate sponsorships may fund advanced motors and vision systems. With a sustainability plan recruiting younger students and alumni support, Mechabyte is well-positioned to continue its growth and embrace future FTC challenges. The team\'s commitment to gracious professionalism and community engagement ensures a strong foundation for years to come.',
     
     // Additional labels
     firstVersionLabel: 'First Version',
@@ -796,11 +850,29 @@ export const translations: { en: Translation; ro: Translation } = {
     portfolioCenterstageTechnical: 'Tehnic: Maia Sava (Construcție și Programare), Șerban Untu (Construcție și Programare), Rareș Cozma (Construcție), Cristian Ghidireac (Construcție și Design), David Grigore (Design și Construcție), Ștefan Albu (Design)',
 
     // Game strategy content
+    centerstageGoal: 'Deoarece acesta este primul sezon în care participăm, obiectivul nostru pentru robot a fost să marcăm cât mai multe puncte posibil.',
+    centerstageAutonomousDetails: 'Începem cu un pixel pre-încărcat în gheara de colectare. Deoarece nu avem odometrie, am programat robotul pe timp. În funcție de poziția de pornire, robotul va urma o traiectorie presetată pentru a parca în backstage și a lăsa pixelul acolo. Avem în total 4 programe Autonome pentru fiecare traiectorie (2 care fac același lucru).\n\nPrima poziție de pornire (backstage): Când plasăm robotul pe teren, ar fi orientat către backstage astfel încât ar trebui doar să meargă înainte până ajunge la locația dorită.\n\nA doua poziție de pornire (public): Când este plasat pe teren, robotul ar fi orientat către cealaltă alianță. Traiectoria pe care am stabilit-o a fost să mergem înainte până la tile C2 și apoi lateral până la ajungerea la backstage.',
+    centerstageTeleOpDetails: 'În funcție de alianta noastră, strategia variază ușor. În esență, piloții vor naviga prin truss și/sau ușa scenei pentru a obține câte un pixel pe rând fie de la stive, fie de la stația umană. După încărcarea cu succes a pixelului, piloții vor naviga cu atenție către backstage și vor plasa pixelul pe backdrop. Dacă pixelul se întâmplă să cadă în backstage, piloții îl vor lăsa acolo și se vor concentra să aducă un alt pixel. Dacă este posibil, echipa de conducere va încerca să creeze mozaicuri și să treacă o linie de pe backdrop pentru punctele bonus.',
+    centerstageEndgameDetails: 'În primele 15-20 secunde, piloții vor continua să marcheze pixeli pe backdrop. În ultimele câteva secunde, drona va fi lansată și robotul parcat în backstage.',
+    centerstageStrategySummary: [
+      { period: 'Autonom', mandatory: ['parcarea robotului în backstage'], optional: ['lăsarea pixelului pre-încărcat în backstage'], scoring: '5 - 8 pct' },
+      { period: 'Teleop', mandatory: ['plasarea cât mai multor pixeli pe backdrop'], optional: ['plasarea pixelului în backstage', 'formarea de mozaicuri', 'trecerea liniilor pe backdrop'], scoring: '9 - 15 pct' },
+      { period: 'Finalul Jocului', mandatory: ['lansarea dronei', 'parcarea robotului în backstage'], optional: [], scoring: '5 - 35 pct' }
+    ],
     centerstageAutonomous: 'Robotul pornește cu un pixel pre-încărcat în gheara de colectare. Nu folosim odometrie; toate mișcările sunt bazate pe timp. Avem două poziții principale de pornire: față către backstage (mers drept pentru parcare și eliberare pixel) și față către public (mers înainte către tile C2, apoi lateral către backstage).',
     centerstageTeleOp: 'Șoferii navighează prin truss sau ușa scenei pentru a colecta pixeli de la stive sau stația umană. Livrăm câte un pixel pe rând către backdrop. Dacă un pixel cade în backstage, îl lăsăm și luăm altul. Scopul nostru este să formăm mozaicuri și să traversăm linii pe backdrop pentru puncte bonus.',
     centerstageEndgame: 'Continuăm să marcăm pixeli timp de 15-20 secunde, apoi lansăm drona și parcăm în backstage pentru puncte suplimentare.',
+    intoTheDeepGoal: 'Marcați cât mai multe puncte posibil colectând mostre și marcând în coșuri/camere, apoi urcați pe submersibil.',
+    intoTheDeepAutonomousDetails: 'Robotul pornește din zona de observație lângă submersibil. Folosind navigare bazată pe timp, se deplasează la centrul submersibilului (~1.5s), colectează o mostră, apoi livrează în zona de plasă (~2.0s total). Mostra lăsată în zona de plasă aduce 2 puncte. Timpul total autonom este aproximativ 3.5 secunde.',
+    intoTheDeepTeleOpDetails: 'Șoferii navighează pentru a colecta mostre câte una pe rând din submersibil sau de pe sol. Mostrele sunt marcate în coșul înalt (8 pct fiecare) pentru eficiență maximă. Glisiera verticală se extinde pentru a ajunge la coș în timp ce sistemul de colectare eliberează mostra. Dacă o mostră cade, o abandonăm și colectăm una nouă în loc să pierdem timp recuperând-o.',
+    intoTheDeepEndgameDetails: 'Continuați să marcați mostre în coșul înalt până când rămân 15-20 secunde. În ultimele secunde, parcați robotul în zona de plasă (3 pct) sau încercați o ascensiune de nivel jos pe scara submersibilului (15 pct) dacă timpul permite.',
+    intoTheDeepStrategySummary: [
+      { period: 'Autonom', mandatory: [], optional: ['colectează mostră din submersibil', 'marchează în zona de plasă'], scoring: '0 - 2 pct' },
+      { period: 'Teleop', mandatory: ['colectează și marchează mostre'], optional: ['marchează în coșul înalt (8 pct)', 'marchează specimene pe camere (6-10 pct)'], scoring: '8 - 40+ pct' },
+      { period: 'Finalul Jocului', mandatory: [], optional: ['parcă în zona de plasă (3 pct)', 'ascensiune nivel jos (15 pct)', 'ascensiune nivel înalt (30 pct)'], scoring: '0 - 30 pct' }
+    ],
     intoTheDeepTeleOp: 'Navigăm pentru a lua câte o mostră pe rând de pe teren sau din submersibil. Mostrele sunt plasate în coșul cel mai înalt din zona de plasă. Dacă o mostră cade, o abandonăm și luăm una nouă pentru a maximiza eficiența punctajului.',
-    intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi lansăm drona și parcăm în zona de plasă pentru puncte maxime.',
+    intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi parcăm în zona de plasă pentru puncte suplimentare.',
 
     // Robot evolution content
     centerstageDriveTrainEvolution: 'Am început cu un șasiu X-drive cu roți omni la 45°—stabil dar prea mic pentru toate componentele. Versiunea intermediară a folosit X-drive cu bare metalice răsturnate; control hub-ul era atașat cu un șurub și un colier, făcându-l fragil și predispus la deformare. Versiunea finală prezintă un șasiu mai stabil și spațios cu Expansion Hub, roți mecanum și suporturi personalizate pentru hub-uri, întrerupător și motoare.',
@@ -869,6 +941,19 @@ export const translations: { en: Translation; ro: Translation } = {
     ourGoalsText: 'Implementăm valorile fundamentale STEM—responsabilitate, compasiune și perseverență—pe măsură ce ne îmbunătățim constant capacitățile. Misiunea noastră este să inspirăm generațiile viitoare să-și urmeze visele în știință, tehnologie, inginerie și matematică, construind în același timp o echipă puternică și colaborativă care exemplifică profesionalismul grațios.',
     sustainabilityGrowthLabel: 'Sustenabilitate & Creștere',
     sustainabilityGrowthText: 'Mechabyte reprezintă o investiție strategică în educație STEM sustenabilă și dezvoltarea forței de muncă. Cu două sezoane FTC complete demonstrând rezultate măsurabile, am stabilit cadre operaționale robuste și parteneriate comunitare.\n\nModelul nostru de sustenabilitate integrează pipeline-uri structurate de recrutare, programe comprehensive de training și angajament cu rețeaua de absolvenți. Menținem responsabilitate fiscală prin surse de finanțare diversificate și bugetare strategică, asigurând continuitatea programului pe termen lung.\n\nPrintr-un parteneriat cu Mechabyte, sponsorii investesc într-o platformă dovedită care oferă impact comunitar consistent, dezvoltă talente tehnice calificate și generează asociere pozitivă a brandului cu inovație și excelență educațională. Traiectoria noastră de creștere demonstrează scalabilitate și responsabilitate socială, creând valoare reciprocă pentru sponsori și comunitate.',
-    contactUsLabel: 'Contactați-ne'
+    contactUsLabel: 'Contactați-ne',
+    
+    // New detailed sections
+    ftcOverviewTitle: 'Ce este FIRST Tech Challenge?',
+    ftcOverviewContent: 'FIRST Tech Challenge (FTC) este un concurs internațional de robotică pentru studenții de liceu. În fiecare sezon, alianțe mici de două echipe joacă meciuri scurte pe un teren de 12×12 ft. Fiecare echipă construiește și programează un robot care se încadrează într-un cub de 18 inch și se poate extinde în timpul unui meci. Un meci începe cu o perioadă autonomă de 30 s în care roboții urmează instrucțiuni pre-programate; este urmată de o perioadă de 2 min controlată de piloți în care piloții operează robotul cu controlere de joc, și un endgame final de 30 s cu sarcini bonus suplimentare. Echipele câștigă puncte prin manipularea elementelor tematice de joc și efectuarea sarcinilor opționale, respectând regulile de siguranță și corectitudine.',
+    howGamesWorkTitle: 'Cum Funcționează Jocurile',
+    centerstageGameDetails: 'În CenterStage (2023-24), terenul prezenta un pătrat de 12 ft cu dale de spumă și pereți de 1 ft înălțime. Două trusses și o ușă de scenă cu balamale traversau mijlocul terenului; fundalurile și zonele backstage erau în spate; aripile erau în colțurile din față. Roboții colectau pixeli hexagonali și îi plasau pe fundal, creează mozaicuri și lansează drone de hârtie peste truss în zonele de aterizare. Punctajul autonom includea plasarea pixelilor mov pe marcaje spike sau fundal, cu parcare backstage pentru puncte bonus.',
+    intoTheDeepGameDetails: 'Into the Deep (2024-25) folosește un teren similar pătrat de 12 ft cu o structură centrală submersibilă care conține probe, cu trepte și camere joase și înalte. Coșuri înalte și joase stau în colțurile opuse, cu zone de plasă sub ele; zonele de observație ocupă celelalte colțuri. Roboții colectează probe din plastic și le plasează în zone de plasă sau coșuri (2-8 pct), în timp ce jucătorii umani pot atașa clipsuri la probe pentru a le transforma în specimene pentru punctaj în cameră (6-10 pct). Endgame-ul prezintă provocări de ascensiune submersibilă cu punctaj la nivel jos (15 pct) și nivel înalt (30 pct).',
+    programmingChallengesTitle: 'Provocări de Programare',
+    programmingChallenges: 'Resursele limitate au creat provocări semnificative de programare. În timpul CenterStage, echipa a folosit inițial un telefon Motorola G4 Play în loc de un Driver Hub dedicat. Când ambele controlere erau conectate, telefonul nu putea furniza suficientă energie, astfel încât doar un pilot putea controla în mod fiabil robotul. Problema a fost rezolvată folosind un telefon diferit (Nokia 5) cu livrare mai bună a energiei și redistribuirea sarcinilor între piloți. Fără sisteme de viziune sau senzori de distanță în niciun sezon, echipa s-a bazat în întregime pe rutine autonome bazate pe timp cu durări fixe pentru mișcări, uneori folosind putere redusă la final pentru a asigura poziționarea precisă.',
+    lessonsLearnedTitle: 'Lecții Învățate & Creștere',
+    lessonsLearned: 'Călătoria de două sezoane a Mechabyte demonstrează cum o echipă poate evolua prin persistență și ingeniozitate. În CenterStage, constrângerile de buget și hardware au forțat soluții creative precum hub-uri legate cu bride de plastic și o gheară asemănătoare cu un crab; redesign-urile iterative și un braț pantograf au permis plasarea fiabilă a pixelilor și lansarea dronelor. Până la Into the Deep, echipa a aplicat acele lecții pentru a simplifica mecanismele, a se concentra pe distribuția greutății și fiabilitate și a adopta îmbunătățiri imprimate 3D. Programarea a evoluat de la teleop de bază la rutine autonome multi-caz, demonstrând învățare și adaptare continuă.',
+    futureOutlookTitle: 'Perspectiva Viitorului',
+    futureOutlook: 'Privind înainte, integrarea ulterioară a senzorilor pentru navigarea autonomă ar putea îmbunătăți consistența punctajului, în timp ce sponsorizările corporative ar putea finanța motoare avansate și sisteme de viziune. Cu un plan de sustenabilitate care recrutează studenți mai tineri și suport de absolvenți, Mechabyte este bine poziționat pentru a-și continua creșterea și a îmbrățișa provocările FTC viitoare. Angajamentul echipei pentru profesionalismul grațios și implicarea comunitară asigură o fundație puternică pentru anii care vin.'
   }
 };
