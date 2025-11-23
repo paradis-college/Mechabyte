@@ -13,7 +13,10 @@ import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimat
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
-import CenterstageTeleOpAnimation from '../components/animations/CenterstageTeleOpAnimation.vue';
+import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
+import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEndgameAnimation.vue';
+import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
+import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
@@ -63,6 +66,9 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Game Strategy</h2>
         <p class="strategy-goal"><strong>Goal:</strong> {{ t.centerstageGoal }}</p>
         
+        <h3>Strategy Summary</h3>
+        <StrategySummaryTable :summary="t.centerstageStrategySummary" />
+        
         <div class="strategy-phase">
           <h3>Autonomous</h3>
           <p>Start with pre-loaded pixel. Follow timing-based trajectory to park backstage and drop pixel.</p>
@@ -84,12 +90,11 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Endgame</h3>
           <p>Score pixels for 15-20 seconds, then launch drone and park backstage.</p>
+          <CenterstageEndgameAnimation />
           <MoreInfoPopup title="Endgame Details" buttonText="More Info">
             <p>{{ t.centerstageEndgameDetails }}</p>
           </MoreInfoPopup>
         </div>
-
-        <StrategySummaryTable :summary="t.centerstageStrategySummary" />
       </section>
 
       <!-- Robot Evolution -->
@@ -242,6 +247,12 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Game Strategy</h2>
         <p class="intro-text">{{ t.intoTheDeepGoal }}</p>
         
+        <h3>Strategy Summary</h3>
+        <StrategySummaryTable 
+          :summary="t.intoTheDeepStrategySummary" 
+          class="strategy-table" 
+        />
+        
         <div class="strategy-phase">
           <h3>Autonomous</h3>
           <p>{{ t.intoTheDeepAutonomousDetails }}</p>
@@ -251,18 +262,14 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Teleop</h3>
           <p>{{ t.intoTheDeepTeleOpDetails }}</p>
+          <IntoTheDeepTeleOpAnimation />
         </div>
 
         <div class="strategy-phase">
           <h3>Endgame</h3>
           <p>{{ t.intoTheDeepEndgameDetails }}</p>
+          <IntoTheDeepEndgameAnimation />
         </div>
-
-        <h4>Strategy Summary</h4>
-        <StrategySummaryTable 
-          :data="t.intoTheDeepStrategySummary" 
-          class="strategy-table" 
-        />
       </section>
 
       <!-- Robot Evolution -->
