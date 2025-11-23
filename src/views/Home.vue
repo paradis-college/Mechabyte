@@ -14,6 +14,13 @@ const props = defineProps<{
 const router = useRouter();
 const t = computed(() => translations[props.language]);
 
+// Featured sponsors for preview
+const featuredSponsors = [
+  'Paradis International College',
+  'Professional Dentist',
+  'BRD'
+];
+
 // Navigation helpers
 const navigateToPortfolio = () => router.push('/portfolio');
 const navigateToOutreach = () => router.push('/outreach');
@@ -136,7 +143,7 @@ const navigateToTeam = () => router.push('/team');
         <div class="preview-highlights">
           <div class="highlight-stat">
             <div class="stat-number">30+</div>
-            <div class="stat-label">{{ language === 'en' ? 'Students Reached' : 'Studenți Atingi' }}</div>
+            <div class="stat-label">{{ language === 'en' ? 'Students Reached' : 'Studenți Atinși' }}</div>
           </div>
           <div class="highlight-stat">
             <div class="stat-number">5+</div>
@@ -154,7 +161,7 @@ const navigateToTeam = () => router.push('/team');
             <h3>{{ language === 'en' ? 'STEM Workshops' : 'Workshop-uri STEM' }}</h3>
             <p>{{ language === 'en'
               ? 'Hands-on robotics sessions teaching the next generation. Weekly workshops, coding fundamentals, and problem-solving challenges.'
-              : 'Sesiuni practice de robotică care predau următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări.' }}</p>
+              : 'Sesiuni practice de robotică care predau următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări de rezolvare a problemelor.' }}</p>
           </div>
 
           <div class="preview-card">
@@ -170,7 +177,7 @@ const navigateToTeam = () => router.push('/team');
             <h3>{{ language === 'en' ? 'Fundraising Events' : 'Evenimente de Strângere de Fonduri' }}</h3>
             <p>{{ language === 'en'
               ? 'Creative community events supporting our mission. Bake sales, movie nights, and showcase events that bring people together.'
-              : 'Evenimente comunitare creative care susțin misiunea noastră. Vânzări de prăjituri, seri de filme și evenimente showcase.' }}</p>
+              : 'Evenimente comunitare creative care susțin misiunea noastră. Vânzări de prăjituri, seri de filme și evenimente showcase care aduc oamenii împreună.' }}</p>
           </div>
         </div>
 
@@ -200,9 +207,7 @@ const navigateToTeam = () => router.push('/team');
           <div class="sponsor-highlight">
             <h3>{{ language === 'en' ? 'Featured Partners' : 'Parteneri Principali' }}</h3>
             <div class="sponsor-logos">
-              <div class="sponsor-logo-item">Paradis International College</div>
-              <div class="sponsor-logo-item">Professional Dentist</div>
-              <div class="sponsor-logo-item">BRD</div>
+              <div v-for="sponsor in featuredSponsors" :key="sponsor" class="sponsor-logo-item">{{ sponsor }}</div>
               <div class="sponsor-logo-item">{{ language === 'en' ? '& 5 more...' : '& încă 5...' }}</div>
             </div>
           </div>
