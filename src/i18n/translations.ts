@@ -518,9 +518,9 @@ export const translations: { en: Translation; ro: Translation } = {
     intoTheDeepTeleOpDetails: 'Drivers navigate to collect samples one at a time from the submersible or field floor. Samples are scored in the high basket (8 pts each) for maximum efficiency. The vertical slider extends to reach the basket while the intake system releases the sample. If a sample is dropped, we abandon it and collect a new one rather than waste time retrieving it.',
     intoTheDeepEndgameDetails: 'Continue scoring samples in the high basket until 15-20 seconds remain. In the final seconds, park the robot in the net zone (3 pts) or attempt a low-level ascent on the submersible ladder (15 pts) if time permits.',
     intoTheDeepStrategySummary: [
-      { period: 'Autonomous', mandatory: [], optional: ['collect sample from submersible', 'score in net zone'], scoring: '0 - 2 pts' },
-      { period: 'Teleop', mandatory: ['collect and score samples'], optional: ['score in high basket (8 pts)', 'score specimens on chambers (6-10 pts)'], scoring: '8 - 40+ pts' },
-      { period: 'Endgame', mandatory: [], optional: ['park in net zone (3 pts)', 'low-level ascent (15 pts)', 'high-level ascent (30 pts)'], scoring: '0 - 30 pts' }
+      { period: 'Autonomous', mandatory: ['park robot in netzone or level 1 ascend'], optional: ['place sample in net zone'], scoring: '3 pts' },
+      { period: 'Teleop', mandatory: ['place as many samples in high basket'], optional: ['place samples in low basket'], scoring: '24 - 48 pts' },
+      { period: 'Endgame', mandatory: ['park robot in netzone or level 1 ascend'], optional: ['level 2 ascend'], scoring: '3 - 15 pts' }
     ],
     intoTheDeepTeleOp: 'We navigate to pick up one sample at a time from the field or submersible. Samples are placed in the highest basket in the net zone. If a sample falls, we abandon it and fetch a new one to maximize scoring efficiency.',
     intoTheDeepEndgame: 'We continue scoring in the high basket until the final seconds, then park in the net zone for additional points.',
@@ -898,9 +898,9 @@ export const translations: { en: Translation; ro: Translation } = {
     intoTheDeepTeleOpDetails: 'Șoferii navighează pentru a colecta mostre câte una pe rând din submersibil sau de pe sol. Mostrele sunt marcate în coșul înalt (8 pct fiecare) pentru eficiență maximă. Glisiera verticală se extinde pentru a ajunge la coș în timp ce sistemul de colectare eliberează mostra. Dacă o mostră cade, o abandonăm și colectăm una nouă în loc să pierdem timp recuperând-o.',
     intoTheDeepEndgameDetails: 'Continuați să marcați mostre în coșul înalt până când rămân 15-20 secunde. În ultimele secunde, parcați robotul în zona de plasă (3 pct) sau încercați o ascensiune de nivel jos pe scara submersibilului (15 pct) dacă timpul permite.',
     intoTheDeepStrategySummary: [
-      { period: 'Autonom', mandatory: [], optional: ['colectează mostră din submersibil', 'marchează în zona de plasă'], scoring: '0 - 2 pct' },
-      { period: 'Teleop', mandatory: ['colectează și marchează mostre'], optional: ['marchează în coșul înalt (8 pct)', 'marchează specimene pe camere (6-10 pct)'], scoring: '8 - 40+ pct' },
-      { period: 'Finalul Jocului', mandatory: [], optional: ['parcă în zona de plasă (3 pct)', 'ascensiune nivel jos (15 pct)', 'ascensiune nivel înalt (30 pct)'], scoring: '0 - 30 pct' }
+      { period: 'Autonom', mandatory: ['parcarea robotului în zona de plasă sau urcarea pe nivelul 1'], optional: ['plasarea mostrei în zona de plasă'], scoring: '3 pct' },
+      { period: 'Teleop', mandatory: ['plasarea cât mai multor mostre în coșul înalt'], optional: ['plasarea mostrelor în coșul jos'], scoring: '24 - 48 pct' },
+      { period: 'Finalul Jocului', mandatory: ['parcarea robotului în zona de plasă sau urcarea pe nivelul 1'], optional: ['urcarea pe nivelul 2'], scoring: '3 - 15 pct' }
     ],
     intoTheDeepTeleOp: 'Navigăm pentru a lua câte o mostră pe rând de pe teren sau din submersibil. Mostrele sunt plasate în coșul cel mai înalt din zona de plasă. Dacă o mostră cade, o abandonăm și luăm una nouă pentru a maximiza eficiența punctajului.',
     intoTheDeepEndgame: 'Continuăm să marcăm în coșul înalt până în ultimele secunde, apoi parcăm în zona de plasă pentru puncte suplimentare.',

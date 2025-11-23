@@ -6,14 +6,20 @@ import CollapsibleSection from '../components/CollapsibleSection.vue';
 import MoreInfoPopup from '../components/MoreInfoPopup.vue';
 import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
-import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
-import ChassisEvolutionAnimation from '../components/animations/ChassisEvolutionAnimation.vue';
-import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
-import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
-import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
+import IntakeEvolutionAnimationEnhanced from '../components/animations/IntakeEvolutionAnimationEnhanced.vue';
+import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
+import PantographArmAnimationEnhanced from '../components/animations/PantographArmAnimationEnhanced.vue';
+import DroneLauncherAnimationEnhanced from '../components/animations/DroneLauncherAnimationEnhanced.vue';
+import BladeStabilizationAnimationEnhanced from '../components/animations/BladeStabilizationAnimationEnhanced.vue';
+import SliderSystemAnimationEnhanced from '../components/animations/SliderSystemAnimationEnhanced.vue';
+import HangingMechanismAnimationEnhanced from '../components/animations/HangingMechanismAnimationEnhanced.vue';
+import ExtendableArmAnimationEnhanced from '../components/animations/ExtendableArmAnimationEnhanced.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
+import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
+import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEndgameAnimation.vue';
 import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
+import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
@@ -63,6 +69,9 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Game Strategy</h2>
         <p class="strategy-goal"><strong>Goal:</strong> {{ t.centerstageGoal }}</p>
         
+        <h3>Strategy Summary</h3>
+        <StrategySummaryTable :summary="t.centerstageStrategySummary" />
+        
         <div class="strategy-phase">
           <h3>Autonomous</h3>
           <p>Start with pre-loaded pixel. Follow timing-based trajectory to park backstage and drop pixel.</p>
@@ -84,32 +93,32 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Endgame</h3>
           <p>Score pixels for 15-20 seconds, then launch drone and park backstage.</p>
+          <CenterstageEndgameAnimation />
           <MoreInfoPopup title="Endgame Details" buttonText="More Info">
             <p>{{ t.centerstageEndgameDetails }}</p>
           </MoreInfoPopup>
         </div>
-
-        <StrategySummaryTable :summary="t.centerstageStrategySummary" />
       </section>
 
       <!-- Robot Evolution -->
       <section class="content-section">
         <h2 class="section-title">Robot Evolution</h2>
         
+        <Model3DPlaceholder title="3D Model: Complete Robot - CenterStage" description="Explore the full robot design in 3D" />
+        
         <div class="evolution-component">
           <h3>Chassis</h3>
           <p><strong>Final Solution:</strong> Mecanum wheel drive with spacious layout and proper hub mounting.</p>
-          <ChassisEvolutionAnimation />
+          <ChassisEvolutionAnimationEnhanced />
         <MoreInfoPopup title="Design Evolution: Chassis">
           <p>Initial X-drive chassis was cramped. Control Hub attached with single screw and zip-tie, making it fragile. Solved by redesigning with mecanum wheels, adding Expansion Hub, and creating custom mounting holders.</p>
         </MoreInfoPopup>
-          <Model3DPlaceholder title="3D Model: Final Chassis" description="Explore the mecanum wheel chassis in 3D" />
         </div>
 
         <div class="evolution-component">
           <h3>Intake</h3>
           <p><strong>Final Solution:</strong> Angled "crab claw" with toothed wheels for reliable pixel capture.</p>
-          <IntakeEvolutionAnimation />
+          <IntakeEvolutionAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Intake">
             <p><strong>V1 - Dynamic Brush:</strong> Spinning shaft with toilet-brush head. Abandoned due to motor limitations (no expansion hub).</p>
             <p><strong>V2 - Precision Claw:</strong> Single-pixel claw with position servo. Required too-precise alignment.</p>
@@ -120,7 +129,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Pantograph Arm</h3>
           <p><strong>Final Solution:</strong> Tetrix 40:1 motor-powered pantograph maintaining constant angle.</p>
-          <PantographArmAnimation />
+          <PantographArmAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Pantograph Arm">
             <p>Initially one continuous-rotation servo (lacked torque). Upgraded to two servos in parallel. After obtaining Expansion Hub, replaced with Tetrix 40:1 motor for greater lifting power.</p>
           </MoreInfoPopup>
@@ -129,7 +138,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Drone Launcher</h3>
           <p><strong>Final Solution:</strong> Elastic band mechanism with servo-controlled release rod.</p>
-          <DroneLauncherAnimation />
+          <DroneLauncherAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Drone Launcher">
             <p>V1: Basic design. V2: Added custom mounting holes to secure launcher to chassis. Elastic held under tension by position servo, armed during match, released in endgame.</p>
           </MoreInfoPopup>
@@ -242,6 +251,12 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Game Strategy</h2>
         <p class="intro-text">{{ t.intoTheDeepGoal }}</p>
         
+        <h3>Strategy Summary</h3>
+        <StrategySummaryTable 
+          :summary="t.intoTheDeepStrategySummary" 
+          class="strategy-table" 
+        />
+        
         <div class="strategy-phase">
           <h3>Autonomous</h3>
           <p>{{ t.intoTheDeepAutonomousDetails }}</p>
@@ -251,41 +266,60 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Teleop</h3>
           <p>{{ t.intoTheDeepTeleOpDetails }}</p>
+          <IntoTheDeepTeleOpAnimation />
         </div>
 
         <div class="strategy-phase">
           <h3>Endgame</h3>
           <p>{{ t.intoTheDeepEndgameDetails }}</p>
+          <IntoTheDeepEndgameAnimation />
         </div>
-
-        <h4>Strategy Summary</h4>
-        <StrategySummaryTable 
-          :summary="t.intoTheDeepStrategySummary" 
-          class="strategy-table" 
-        />
       </section>
 
       <!-- Robot Evolution -->
       <section class="content-section">
         <h2 class="section-title">Robot Evolution</h2>
         
+        <Model3DPlaceholder title="3D Model: Complete Robot - Into the Deep" description="Explore the full robot design in 3D" />
+        
         <div class="evolution-component">
           <h3>Intake System</h3>
           <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
-          <BladeStabilizationAnimation />
+          <BladeStabilizationAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Intake System">
             <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
             <p><strong>Solution:</strong> Redesigned claw shape, added structural support, replaced blades with stoppers, created 3D-printed hexagonal discs to lock blades at 90°.</p>
           </MoreInfoPopup>
-          <Model3DPlaceholder title="3D Model: Blade Stabilizer" description="View the 3D-printed hexagonal disc solution" />
         </div>
 
         <div class="evolution-component">
           <h3>Slider System</h3>
           <p><strong>Final Solution:</strong> Single vertical slider with integrated arm.</p>
+          <SliderSystemAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Slider System">
             <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
             <p><strong>Solution:</strong> Eliminated horizontal slider. Single vertical slider with attached arm. No transfer between containers—intake grabs and slider lifts directly to high basket.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Hanging Mechanism</h3>
+          <p><strong>Final Solution:</strong> Winch-driven hook system for submersible ascent.</p>
+          <HangingMechanismAnimationEnhanced />
+          <MoreInfoPopup title="Design Evolution: Hanging Mechanism">
+            <p><strong>Challenge:</strong> Endgame requires climbing the submersible for significant points (touch: 3 pts, low-level ascent: 15 pts, high-level ascent: 30 pts).</p>
+            <p><strong>Solution:</strong> Implemented a motorized winch system with extendable cable and hook. Hook extends upward to latch onto rung, then winch retracts cable to lift robot off the ground. Reliable and consistent for competition.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Extendable Horizontal Arm</h3>
+          <p><strong>Final Solution:</strong> Three-stage telescoping arm with servo-controlled gripper for horizontal reach.</p>
+          <ExtendableArmAnimationEnhanced />
+          <MoreInfoPopup title="Design Evolution: Extendable Arm">
+            <p><strong>Challenge:</strong> Need to reach samples from the submersible while maintaining compact robot size for maneuverability.</p>
+            <p><strong>Solution:</strong> Designed a 3-stage telescoping horizontal arm that extends up to 40cm. Linear actuator motor provides smooth extension/retraction. Servo-controlled gripper at end provides precise sample capture with force-sensing to avoid damage. Arm retracts fully into robot chassis when not in use, keeping within size constraints.</p>
+            <p><strong>Key Features:</strong> Telescoping design for maximum reach with minimum stored length. Integrated gripper with open/close capability. Rails guide each stage for stability. Can interface with both intake system and vertical slider for efficient sample transfer.</p>
           </MoreInfoPopup>
         </div>
 
