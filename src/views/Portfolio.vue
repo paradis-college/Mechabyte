@@ -13,6 +13,7 @@ import DroneLauncherAnimationEnhanced from '../components/animations/DroneLaunch
 import BladeStabilizationAnimationEnhanced from '../components/animations/BladeStabilizationAnimationEnhanced.vue';
 import SliderSystemAnimationEnhanced from '../components/animations/SliderSystemAnimationEnhanced.vue';
 import HangingMechanismAnimationEnhanced from '../components/animations/HangingMechanismAnimationEnhanced.vue';
+import ExtendableArmAnimationEnhanced from '../components/animations/ExtendableArmAnimationEnhanced.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
@@ -308,6 +309,17 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <MoreInfoPopup title="Design Evolution: Hanging Mechanism">
             <p><strong>Challenge:</strong> Endgame requires climbing the submersible for significant points (touch: 3 pts, low-level ascent: 15 pts, high-level ascent: 30 pts).</p>
             <p><strong>Solution:</strong> Implemented a motorized winch system with extendable cable and hook. Hook extends upward to latch onto rung, then winch retracts cable to lift robot off the ground. Reliable and consistent for competition.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Extendable Horizontal Arm</h3>
+          <p><strong>Final Solution:</strong> Three-stage telescoping arm with servo-controlled gripper for horizontal reach.</p>
+          <ExtendableArmAnimationEnhanced />
+          <MoreInfoPopup title="Design Evolution: Extendable Arm">
+            <p><strong>Challenge:</strong> Need to reach samples from the submersible while maintaining compact robot size for maneuverability.</p>
+            <p><strong>Solution:</strong> Designed a 3-stage telescoping horizontal arm that extends up to 40cm. Linear actuator motor provides smooth extension/retraction. Servo-controlled gripper at end provides precise sample capture with force-sensing to avoid damage. Arm retracts fully into robot chassis when not in use, keeping within size constraints.</p>
+            <p><strong>Key Features:</strong> Telescoping design for maximum reach with minimum stored length. Integrated gripper with open/close capability. Rails guide each stage for stability. Can interface with both intake system and vertical slider for efficient sample transfer.</p>
           </MoreInfoPopup>
         </div>
 
