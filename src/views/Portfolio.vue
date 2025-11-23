@@ -11,6 +11,7 @@ import ChassisEvolutionAnimation from '../components/animations/ChassisEvolution
 import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
+import SliderSystemAnimation from '../components/animations/SliderSystemAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
@@ -290,6 +291,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Slider System</h3>
           <p><strong>Final Solution:</strong> Single vertical slider with integrated arm.</p>
+          <SliderSystemAnimation />
           <MoreInfoPopup title="Design Evolution: Slider System">
             <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
             <p><strong>Solution:</strong> Eliminated horizontal slider. Single vertical slider with attached arm. No transfer between containers—intake grabs and slider lifts directly to high basket.</p>
