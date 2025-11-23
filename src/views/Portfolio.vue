@@ -6,7 +6,7 @@ import CollapsibleSection from '../components/CollapsibleSection.vue';
 import MoreInfoPopup from '../components/MoreInfoPopup.vue';
 import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
-import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
+import IntakeEvolutionAnimationEnhanced from '../components/animations/IntakeEvolutionAnimationEnhanced.vue';
 import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
 import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
@@ -116,7 +116,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Intake</h3>
           <p><strong>Final Solution:</strong> Angled "crab claw" with toothed wheels for reliable pixel capture.</p>
-          <IntakeEvolutionAnimation />
+          <IntakeEvolutionAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Intake">
             <p><strong>V1 - Dynamic Brush:</strong> Spinning shaft with toilet-brush head. Abandoned due to motor limitations (no expansion hub).</p>
             <p><strong>V2 - Precision Claw:</strong> Single-pixel claw with position servo. Required too-precise alignment.</p>
