@@ -11,6 +11,11 @@ import p5 from 'p5';
 const sketchContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
+// Easing function for smooth animations
+const easeInOutQuad = (t: number): number => {
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+};
+
 onMounted(() => {
   if (sketchContainer.value) {
     p5Instance = new p5((p: p5) => {
@@ -73,8 +78,8 @@ onMounted(() => {
             break;
             
           case 1: // Extending hook upward
-            hookExtension = p.lerp(0, 200, p.easeInOutQuad(progress));
-            hookRotation = p.lerp(0, -p.PI/6, p.easeInOutQuad(progress));
+            hookExtension = p.lerp(0, 200, easeInOutQuad(progress));
+            hookRotation = p.lerp(0, -p.PI/6, easeInOutQuad(progress));
             winchRotation += 0.2;
             break;
             
@@ -91,7 +96,7 @@ onMounted(() => {
             isHooked = true;
             ascentProgress = progress;
             // Robot moves up as winch pulls
-            robotY = p.lerp(500, 320, p.easeInOutQuad(progress));
+            robotY = p.lerp(500, 320, easeInOutQuad(progress));
             winchRotation += 0.3;
             break;
         }
@@ -316,7 +321,7 @@ onMounted(() => {
         p.fill(100, 255, 120);
         p.textSize(16);
         p.textAlign(p.LEFT);
-        p.textFont('Arial', 'bold');
+        p.textStyle(p.BOLD);
         p.text("Hanging Mechanism", 30, 45);
         
         // Phase indicators
@@ -327,7 +332,7 @@ onMounted(() => {
           { name: "Ascending", desc: "Winch pulls robot up (15 pts)" }
         ];
         
-        p.textFont('Arial', 'normal');
+        p.textStyle(p.NORMAL);
         p.textSize(12);
         const currentPhase = phases[phase];
         p.fill(255, 255, 100);
@@ -409,10 +414,6 @@ onMounted(() => {
         p.textSize(9);
         p.text(`${remaining}s`, 740, 592);
       }
-      
-      p.easeInOutQuad = (t: number): number => {
-        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-      };
       
     }, sketchContainer.value);
   }

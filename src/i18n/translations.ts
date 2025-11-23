@@ -53,6 +53,17 @@ export type Translation = {
   teamTraining: string;
   teamEnvironmentTitle: string;
   teamEnvironment: string;
+  
+  // Team descriptions by season
+  technicalTeamDesc2025: string;
+  nonTechnicalTeamDesc2025: string;
+  mentorsDesc2025: string;
+  technicalTeamDesc2024: string;
+  nonTechnicalTeamDesc2024: string;
+  mentorsDesc2024: string;
+  technicalTeamDesc2023: string;
+  nonTechnicalTeamDesc2023: string;
+  mentorsDesc2023: string;
 
   // Sponsors page
   sponsorsTitle: string;
@@ -363,6 +374,16 @@ export const translations: { en: Translation; ro: Translation } = {
     teamTraining: 'Day 1: Welcome chaos. New juniors are handed tools, not manuals.\n\nWeek 1-4: Seniors guide hands-on builds. Juniors solder their first circuit, write their first autonomous code, design their first CAD part.\n\nMonth 2-3: Juniors lead small projects. They mess up, debug, iterate. Seniors supervise but don\'t rescue.\n\nMonth 4-6: Juniors become confident. They start teaching the next wave.\n\nBy season end, yesterday\'s juniors are today\'s seniors. Tomorrow, they\'re team leaders.',
     teamEnvironmentTitle: 'Team Environment',
     teamEnvironment: 'Picture this: It\'s 11PM. Robot deadline is tomorrow.\n\nHalf the team is debugging motor stalls. The other half is making memes about it.\n\nSomeone orders pizza. Someone else plays terrible music. Everyone laughs.\n\nWe fail together. We celebrate together. We build together.\n\nBeyond the circuits and competitions, we\'re building friendships that outlast high school.\n\nSome of our best memories aren\'t victories—they\'re the 3AM breakthroughs and inside jokes that only we understand.',
+    
+    technicalTeamDesc2025: 'Building and programming robots for the 2025-2026 season. Focus on innovative designs and reliable autonomous systems.',
+    nonTechnicalTeamDesc2025: 'Managing outreach, marketing, and team branding. Creating compelling content and building community partnerships.',
+    mentorsDesc2025: 'Guiding the team with technical expertise and strategic direction. Supporting both competition and team development goals.',
+    technicalTeamDesc2024: 'Designed and built the Into the Deep robot. Developed vertical slider intake system and optimized scoring mechanisms.',
+    nonTechnicalTeamDesc2024: 'Managed social media campaigns, organized fundraising events, and coordinated outreach activities throughout the season.',
+    mentorsDesc2024: 'Provided technical guidance and mentorship during Into the Deep season. Helped team navigate competition challenges.',
+    technicalTeamDesc2023: 'Created the CenterStage robot with pantograph arm and drone launcher. Pioneered mecanum drive chassis design.',
+    nonTechnicalTeamDesc2023: 'Led marketing initiatives, fundraising events, and community engagement during the team\'s founding season.',
+    mentorsDesc2023: 'Founded and established the team. Provided initial training and guided first season competition participation.',
 
     sponsorsTitle: 'Our Sponsors',
     sponsorsIntro: 'Partner with Mechabyte — strengthen local STEM, gain tax benefits and connect with bright talent.',
@@ -733,6 +754,16 @@ export const translations: { en: Translation; ro: Translation } = {
     teamTraining: 'Ziua 1: Bine ați venit în haos. Juniorii noi primesc unelte, nu manuale.\n\nSăptămâna 1-4: Seniorii ghidează construcții practice. Juniorii lipesc primul circuit, scriu primul cod autonom, proiectează prima piesă CAD.\n\nLuna 2-3: Juniorii conduc proiecte mici. Greșesc, fac debug, iterează. Seniorii supraveghează dar nu salvează.\n\nLuna 4-6: Juniorii devin încrezători. Încep să predea următoarea generație.\n\nLa sfârșitul sezonului, juniorii de ieri sunt seniorii de azi. Mâine, sunt team leaderi.',
     teamEnvironmentTitle: 'Mediul Echipei',
     teamEnvironment: 'Imaginează-ți: E 23:00. Deadline-ul robotului e mâine.\n\nJumătate din echipă face debug la motoare blocate. Cealaltă jumătate face meme-uri despre asta.\n\nCineva comandă pizza. Altcineva pune muzică groaznică. Toți râd.\n\nEșuăm împreună. Sărbătorim împreună. Construim împreună.\n\nDincolo de circuite și competiții, construim prietenii care durează mai mult decât liceul.\n\nUnele dintre cele mai bune amintiri nu sunt victorii—sunt descoperirile de la 3 dimineața și glumele pe care doar noi le înțelegem.',
+    
+    technicalTeamDesc2025: 'Construiește și programează roboți pentru sezonul 2025-2026. Accent pe design-uri inovatoare și sisteme autonome fiabile.',
+    nonTechnicalTeamDesc2025: 'Gestionează activități de outreach, marketing și branding. Creează conținut captivant și parteneriate comunitare.',
+    mentorsDesc2025: 'Ghidează echipa cu expertiză tehnică și direcție strategică. Susține obiectivele de competiție și dezvoltare a echipei.',
+    technicalTeamDesc2024: 'A proiectat și construit robotul Into the Deep. A dezvoltat sistemul de intake cu slider vertical și mecanisme de scoring optimizate.',
+    nonTechnicalTeamDesc2024: 'A gestionat campanii social media, a organizat evenimente de fundraising și a coordonat activități de outreach pe tot sezonul.',
+    mentorsDesc2024: 'A furnizat îndrumare tehnică și mentorat în sezonul Into the Deep. A ajutat echipa să navigheze provocările competiției.',
+    technicalTeamDesc2023: 'A creat robotul CenterStage cu braț pantograf și lansator de drone. A pionierat design-ul șasiului cu roți mecanum.',
+    nonTechnicalTeamDesc2023: 'A condus inițiative de marketing, evenimente de fundraising și engagement comunitar în sezonul de fondare.',
+    mentorsDesc2023: 'A fondat și stabilit echipa. A oferit training inițial și a ghidat participarea în prima competiție.',
 
     sponsorsTitle: 'Sponsorii Noștri',
     sponsorsIntro: 'Partener cu Mechabyte — întărește STEM-ul local, obține beneficii fiscale și conectează-te cu talente strălucitoare.',
