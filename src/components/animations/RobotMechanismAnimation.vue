@@ -15,6 +15,20 @@ const sketch = (p: p5) => {
   let clawOpen = false;
   let animationPhase = 0;
   
+  // Animation timing constants
+  const INTAKE_LOWER_DURATION = 2;
+  const CLAW_CLOSE_DURATION = 3;
+  const SLIDER_RAISE_DURATION = 5;
+  const CLAW_OPEN_DURATION = 6;
+  const SAMPLE_RELEASE_START = 5.5;
+  const SAMPLE_FLIGHT_DURATION = 0.5;
+  const RESET_DURATION = 8;
+  
+  // Sample trajectory constants
+  const SAMPLE_FLIGHT_DISTANCE_X = 150;
+  const SAMPLE_FLIGHT_HEIGHT_Y = -180;
+  const SAMPLE_ARC_AMPLITUDE = 50;
+  
   // Robot component positions
   let intakeY = 0;
   let slideY = 0;
@@ -53,47 +67,47 @@ const sketch = (p: p5) => {
     animationPhase += 0.02;
     
     // Phase 1: Lower intake (0-2s)
-    if (animationPhase < 2) {
-      intakeY = p.lerp(0, 60, animationPhase / 2);
+    if (animationPhase < INTAKE_LOWER_DURATION) {
+      intakeY = p.lerp(0, 60, animationPhase / INTAKE_LOWER_DURATION);
     }
     // Phase 2: Close claw / grab sample (2-3s)
-    else if (animationPhase < 3) {
+    else if (animationPhase < CLAW_CLOSE_DURATION) {
       intakeY = 60;
-      clawAngle = p.lerp(45, 10, (animationPhase - 2) / 1);
+      clawAngle = p.lerp(45, 10, (animationPhase - INTAKE_LOWER_DURATION) / 1);
       if (animationPhase > 2.5 && !sampleHeld) {
         sampleHeld = true;
       }
     }
     // Phase 3: Raise slider (3-5s)
-    else if (animationPhase < 5) {
+    else if (animationPhase < SLIDER_RAISE_DURATION) {
       clawAngle = 10;
       intakeY = 60;
-      slideY = p.lerp(0, -120, (animationPhase - 3) / 2);
+      slideY = p.lerp(0, -120, (animationPhase - CLAW_CLOSE_DURATION) / 2);
       if (sampleHeld) {
         sampleX = 0;
         sampleY = 60 - slideY;
       }
     }
     // Phase 4: Open claw / release sample (5-6s)
-    else if (animationPhase < 6) {
+    else if (animationPhase < CLAW_OPEN_DURATION) {
       slideY = -120;
       intakeY = 60;
-      clawAngle = p.lerp(10, 45, (animationPhase - 5) / 1);
+      clawAngle = p.lerp(10, 45, (animationPhase - SLIDER_RAISE_DURATION) / 1);
       if (sampleHeld) {
         sampleX = 0;
         sampleY = 60 - slideY;
       }
-      if (animationPhase > 5.5) {
+      if (animationPhase > SAMPLE_RELEASE_START) {
         sampleHeld = false;
         // Sample flies to basket
-        const t = (animationPhase - 5.5) / 0.5;
-        sampleX = p.lerp(0, 150, t);
-        sampleY = p.lerp(60 - slideY, -180 + 50 * Math.sin(t * Math.PI), t);
+        const t = (animationPhase - SAMPLE_RELEASE_START) / SAMPLE_FLIGHT_DURATION;
+        sampleX = p.lerp(0, SAMPLE_FLIGHT_DISTANCE_X, t);
+        sampleY = p.lerp(60 - slideY, SAMPLE_FLIGHT_HEIGHT_Y + SAMPLE_ARC_AMPLITUDE * Math.sin(t * Math.PI), t);
       }
     }
     // Phase 5: Reset (6-8s)
-    else if (animationPhase < 8) {
-      const t = (animationPhase - 6) / 2;
+    else if (animationPhase < RESET_DURATION) {
+      const t = (animationPhase - CLAW_OPEN_DURATION) / 2;
       slideY = p.lerp(-120, 0, t);
       intakeY = p.lerp(60, 0, t);
       clawAngle = p.lerp(45, 45, t);
@@ -344,10 +358,12 @@ const sketch = (p: p5) => {
   };
 
   p.windowResized = () => {
+    const CANVAS_BASE_SIZE = 600;
+    const CANVAS_ASPECT_RATIO = 0.7;
     const container = canvasContainer.value;
     if (!container) return;
     const width = container.clientWidth;
-    const height = Math.min(600, width * 0.7);
+    const height = Math.min(CANVAS_BASE_SIZE, width * CANVAS_ASPECT_RATIO);
     p.resizeCanvas(width, height);
   };
 };

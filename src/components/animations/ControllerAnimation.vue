@@ -10,32 +10,40 @@ const props = defineProps<{
 const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
+// Color constants
+const COLORS = {
+  PRIMARY: [0, 255, 0] as [number, number, number],
+  WARNING: [255, 200, 0] as [number, number, number],
+  DANGER: [255, 100, 0] as [number, number, number],
+  INFO: [100, 200, 255] as [number, number, number]
+};
+
 // Controller mappings based on season and driver
 const controllerMappings = {
   centerstage: {
     1: [
-      { button: 'Left Stick', action: 'Drive & Strafe', color: [0, 255, 0] },
-      { button: 'Right Stick', action: 'Rotate', color: [0, 255, 0] },
-      { button: 'D-Pad Up/Down', action: 'Raise/Lower Arm', color: [0, 255, 0] },
-      { button: 'Y Button', action: 'Arm Drone', color: [255, 200, 0] },
-      { button: 'A Button', action: 'Release Drone', color: [255, 100, 0] }
+      { button: 'Left Stick', action: 'Drive & Strafe', color: COLORS.PRIMARY },
+      { button: 'Right Stick', action: 'Rotate', color: COLORS.PRIMARY },
+      { button: 'D-Pad Up/Down', action: 'Raise/Lower Arm', color: COLORS.PRIMARY },
+      { button: 'Y Button', action: 'Arm Drone', color: COLORS.WARNING },
+      { button: 'A Button', action: 'Release Drone', color: COLORS.DANGER }
     ],
     2: [
-      { button: 'Left Bumper', action: 'Open Intake', color: [0, 255, 0] },
-      { button: 'Right Bumper', action: 'Close Intake', color: [0, 255, 0] },
-      { button: 'D-Pad Up/Down', action: 'Assist Arm (Secondary)', color: [100, 200, 255] }
+      { button: 'Left Bumper', action: 'Open Intake', color: COLORS.PRIMARY },
+      { button: 'Right Bumper', action: 'Close Intake', color: COLORS.PRIMARY },
+      { button: 'D-Pad Up/Down', action: 'Assist Arm (Secondary)', color: COLORS.INFO }
     ]
   },
   'into-the-deep': {
     1: [
-      { button: 'Left Stick', action: 'Drive & Strafe', color: [0, 255, 0] },
-      { button: 'Right Stick', action: 'Rotate', color: [0, 255, 0] }
+      { button: 'Left Stick', action: 'Drive & Strafe', color: COLORS.PRIMARY },
+      { button: 'Right Stick', action: 'Rotate', color: COLORS.PRIMARY }
     ],
     2: [
-      { button: 'D-Pad Up/Down', action: 'Extend/Retract Slider', color: [0, 255, 0] },
-      { button: 'Left Stick Y', action: 'Raise/Lower Intake', color: [0, 255, 0] },
-      { button: 'Left Bumper', action: 'Open Intake', color: [255, 200, 0] },
-      { button: 'Right Bumper', action: 'Close Intake & Out-take', color: [255, 100, 0] }
+      { button: 'D-Pad Up/Down', action: 'Extend/Retract Slider', color: COLORS.PRIMARY },
+      { button: 'Left Stick Y', action: 'Raise/Lower Intake', color: COLORS.PRIMARY },
+      { button: 'Left Bumper', action: 'Open Intake', color: COLORS.WARNING },
+      { button: 'Right Bumper', action: 'Close Intake & Out-take', color: COLORS.DANGER }
     ]
   }
 };

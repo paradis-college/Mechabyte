@@ -129,7 +129,9 @@ const sketch = (p: p5) => {
   };
 
   const drawClaw = (p: p5, scale: number, version: number, color: number[]) => {
-    const openAngle = Math.sin(animationPhase) * 20 + 30;
+    const ANGLE_AMPLITUDE = 20;
+    const BASE_ANGLE = 30;
+    const openAngle = Math.sin(animationPhase) * ANGLE_AMPLITUDE + BASE_ANGLE;
     
     p.push();
     
