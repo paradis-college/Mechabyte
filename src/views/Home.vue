@@ -14,46 +14,27 @@ const props = defineProps<{
 const router = useRouter();
 const t = computed(() => translations[props.language]);
 
-// State for toggling bonus content visibility
-const showTeamHistory = ref(false);
-const showRobotFacts = ref(false);
-const showFtcDetails = ref(false);
-const showCompetitionTips = ref(false);
-const showBehindScenes = ref(false);
-
-const toggleSection = (section: string) => {
-  switch(section) {
-    case 'teamHistory':
-      showTeamHistory.value = !showTeamHistory.value;
-      break;
-    case 'robotFacts':
-      showRobotFacts.value = !showRobotFacts.value;
-      break;
-    case 'ftcDetails':
-      showFtcDetails.value = !showFtcDetails.value;
-      break;
-    case 'competitionTips':
-      showCompetitionTips.value = !showCompetitionTips.value;
-      break;
-    case 'behindScenes':
-      showBehindScenes.value = !showBehindScenes.value;
-      break;
-  }
-};
+// Navigation helpers
+const navigateToPortfolio = () => router.push('/portfolio');
+const navigateToOutreach = () => router.push('/outreach');
+const navigateToSponsors = () => router.push('/sponsors');
+const navigateToContact = () => router.push('/contact');
+const navigateToTeam = () => router.push('/team');
 </script>
 
 <template>
   <div class="home-page">
-    <!-- Decorative gear background with circuit board traces - positioned behind content -->
-    <!-- To enable parallax, change to: <GearConveyor :enable-parallax="true" /> -->
+    <!-- Decorative gear background -->
     <GearConveyor />
     
-    <!-- Hero section with robot arm -->
+    <!-- Hero Section -->
     <div class="hero-section">
       <img class="banner" alt="Mechabyte banner" src="/banner.png" />
+      <h1 class="hero-title">{{ t.homeTitle }}</h1>
+      <p class="hero-subtitle">{{ t.homeWelcome }}</p>
     </div>
     
-    <!-- Image with overlaid robot arm -->
+    <!-- Robot Showcase with overlaid robot arm -->
     <div class="robot-showcase">
       <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
       <HeroRobotArm :size="300" class="hero-robot-overlay" />
@@ -62,151 +43,243 @@ const toggleSection = (section: string) => {
     <!-- Feature Cards Section -->
     <FeatureCards :language="language" />
     
-    <section class="content-section">
-      <h1>{{ t.homeTitle }}</h1>
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
       
-      <!-- Revealed welcome text -->
-      <p 
-        class="welcome-text reveal"
-      >
-        {{ t.homeWelcome }}
-      </p>
-      
-      <div class="cta-buttons">
-        <MicroButton 
-          :label="language === 'en' ? 'Team History' : 'Istoria Echipei'" 
-          @click="toggleSection('teamHistory')"
-        />
-        <MicroButton 
-          :label="language === 'en' ? 'Robot Facts' : 'Fapte despre Robot'" 
-          variant="secondary"
-          @click="toggleSection('robotFacts')"
-        />
-        <MicroButton 
-          :label="language === 'en' ? 'Behind the Scenes' : 'În Culise'" 
-          @click="toggleSection('behindScenes')"
-        />
-      </div>
-
-      <!-- Bonus Content Sections -->
-      <transition name="fade">
-        <div v-if="showTeamHistory" class="bonus-content">
-          <h3>{{ language === 'en' ? '🤖 Our Journey Begins' : '🤖 Călătoria Noastră Începe' }}</h3>
-          <template v-if="language === 'en'">
-            <p>Mechabyte was founded in 2024 by passionate students with a shared dream: world-class robotics education in Iași.</p>
-            <p>From weekly classroom meetings to a full competitive team with state-of-the-art equipment. We're proving that robotics transforms education.</p>
-          </template>
-          <template v-else>
-            <p>Mechabyte a fost fondat în 2024 de studenți pasionați cu un vis comun: educație robotică de clasă mondială la Iași.</p>
-            <p>De la întâlniri săptămânale în clasă la o echipă competitivă completă cu echipamente de ultimă generație. Dovedim că robotica transformă educația.</p>
-          </template>
-        </div>
-      </transition>
-
-      <transition name="fade">
-        <div v-if="showRobotFacts" class="bonus-content">
-          <h3>{{ language === 'en' ? '⚙️ Cool Robot Facts' : '⚙️ Fapte Interesante despre Robot' }}</h3>
-          <ul>
-            <li v-if="language === 'en'">Lifts 5kg objects with precision</li>
-            <li v-else>Ridică obiecte de 5kg cu precizie</li>
-            
-            <li v-if="language === 'en'">Custom-coded by our team</li>
-            <li v-else>Programat custom de echipa noastră</li>
-            
-            <li v-if="language === 'en'">Computer vision tracking</li>
-            <li v-else>Urmărire prin viziune computerizată</li>
-            
-            <li v-if="language === 'en'">50+ design iterations</li>
-            <li v-else>50+ iterații de design</li>
+      <!-- About & Mission Section -->
+      <section class="intro-section content-card">
+        <h2 class="section-title">{{ t.aboutTitle }}</h2>
+        <p class="section-text">{{ t.aboutText }}</p>
+        
+        <div class="mission-box">
+          <h3>{{ t.missionTitle }}</h3>
+          <ul class="mission-list">
+            <li v-for="(item, index) in t.missionItems" :key="index">{{ item }}</li>
           </ul>
         </div>
-      </transition>
 
-      <transition name="fade">
-        <div v-if="showBehindScenes" class="bonus-content">
-          <h3>{{ language === 'en' ? '🎬 Behind the Scenes' : '🎬 În Culise' }}</h3>
-          <template v-if="language === 'en'">
-            <p>Our team meets 4 times weekly for 3-hour build sessions.</p>
-            <p>There's always music playing, Friday pizza, and 3D printers humming non-stop.</p>
-            <p>Best ideas come at 9 PM. Duct tape fixes everything (temporarily!). ✨</p>
-          </template>
-          <template v-else>
-            <p>Echipa se întâlnește de 4 ori pe săptămână pentru sesiuni de 3 ore.</p>
-            <p>Mereu este muzică, pizza vinerea, și imprimante 3D în acțiune non-stop.</p>
-            <p>Cele mai bune idei vin la 21:00. Banda adezivă repară totul (temporar!). ✨</p>
-          </template>
+        <div class="cta-group">
+          <MicroButton 
+            :label="language === 'en' ? 'Meet the Team' : 'Cunoaște Echipa'"
+            @click="navigateToTeam"
+          />
+          <MicroButton 
+            :label="language === 'en' ? 'Contact Us' : 'Contactează-ne'"
+            variant="secondary"
+            @click="navigateToContact"
+          />
         </div>
-      </transition>
-      
-      <h2 id="about-section">{{ t.aboutTitle }}</h2>
-      <p class="about-text">{{ t.aboutText }}</p>
-      
-      <h2 id="mission-section">{{ t.missionTitle }}</h2>
-      <ul class="mission-list">
-        <li v-for="(item, index) in t.missionItems" :key="index">{{ item }}</li>
-      </ul>
-      
-      <h2>{{ t.ftcTitle }}</h2>
-      <p class="ftc-description">{{ t.ftcDescription }}</p>
+      </section>
 
-      <div class="cta-buttons">
-        <MicroButton 
-          :label="language === 'en' ? 'Competition Tips' : 'Sfaturi pentru Competiție'" 
-          variant="secondary"
-          @click="toggleSection('competitionTips')"
-        />
-        <MicroButton 
-          :label="language === 'en' ? 'FTC Details' : 'Detalii FTC'" 
-          @click="toggleSection('ftcDetails')"
-        />
-      </div>
-
-      <transition name="fade">
-        <div v-if="showFtcDetails" class="bonus-content">
-          <h3>{{ language === 'en' ? '🏆 FTC Competition Format' : '🏆 Formatul Competiției FTC' }}</h3>
-          <p v-if="language === 'en'">
-            Each FTC match lasts 2 minutes and 30 seconds, divided into an Autonomous period (30 seconds) 
-            where the robot operates independently, and a Driver-Controlled period (2 minutes) where our drivers take the wheel.
-            Teams compete in alliances of two, requiring not just technical skill but also strategic partnerships and communication.
-            Scoring is complex, with bonus points for speed, accuracy, and endgame challenges!
-          </p>
-          <p v-else>
-            Fiecare meci FTC durează 2 minute și 30 de secunde, împărțit într-o perioadă Autonomă (30 de secunde)
-            în care robotul operează independent, și o perioadă Controlată de Șoferi (2 minute) când șoferii noștri preiau controlul.
-            Echipele concurează în alianțe de doi, necesitând nu doar abilități tehnice, ci și parteneriate strategice și comunicare.
-            Punctajul este complex, cu puncte bonus pentru viteză, acuratețe și provocări de final de joc!
+      <!-- Portfolio Preview Section -->
+      <section class="preview-section portfolio-preview content-card">
+        <div class="preview-header">
+          <h2 class="section-title">
+            <span class="icon">🤖</span>
+            {{ language === 'en' ? 'Our Robots & Competitions' : 'Roboții și Competițiile Noastre' }}
+          </h2>
+          <p class="preview-subtitle">
+            {{ language === 'en' 
+              ? 'Explore our robot designs, competition strategies, and technical evolution across FTC seasons' 
+              : 'Explorează designurile roboților, strategiile de competiție și evoluția tehnică de-a lungul sezoanelor FTC' }}
           </p>
         </div>
-      </transition>
 
-      <transition name="fade">
-        <div v-if="showCompetitionTips" class="bonus-content">
-          <h3>{{ language === 'en' ? '💡 Insider Competition Tips' : '💡 Sfaturi Interne pentru Competiție' }}</h3>
-          <ul>
-            <li v-if="language === 'en'">Always bring backup parts - Murphy's Law loves robotics competitions!</li>
-            <li v-else>Aduceți întotdeauna piese de rezervă - Legea lui Murphy adoră competițiile de robotică!</li>
-            
-            <li v-if="language === 'en'">Practice your autonomous routine until you can run it blindfolded</li>
-            <li v-else>Exersați rutina autonomă până când o puteți rula cu ochii închiși</li>
-            
-            <li v-if="language === 'en'">Good driver communication is worth more than a perfect robot</li>
-            <li v-else>Comunicarea bună a șoferului valorează mai mult decât un robot perfect</li>
-            
-            <li v-if="language === 'en'">Document everything in your engineering notebook - judges love details!</li>
-            <li v-else>Documentați totul în caietul vostru de inginerie - jurații iubesc detaliile!</li>
-          </ul>
+        <div class="preview-grid">
+          <div class="preview-card">
+            <div class="preview-icon">⚙️</div>
+            <h3>{{ language === 'en' ? 'Robot Evolution' : 'Evoluția Robotului' }}</h3>
+            <p>{{ language === 'en'
+              ? 'From initial prototypes to competition-ready machines. See how our designs evolved through 50+ iterations.' 
+              : 'De la prototipuri inițiale la mașini gata de competiție. Vezi cum designurile noastre au evoluat prin 50+ iterații.' }}</p>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-icon">🏆</div>
+            <h3>{{ language === 'en' ? 'FTC Competitions' : 'Competiții FTC' }}</h3>
+            <p>{{ language === 'en'
+              ? 'CenterStage (2023-24) and Into the Deep (2024-25) seasons. Strategy, autonomous programming, and game-winning designs.'
+              : 'Sezoanele CenterStage (2023-24) și Into the Deep (2024-25). Strategie, programare autonomă și design-uri câștigătoare.' }}</p>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-icon">💻</div>
+            <h3>{{ language === 'en' ? 'Technical Innovation' : 'Inovație Tehnică' }}</h3>
+            <p>{{ language === 'en'
+              ? 'Custom code, precision engineering, and innovative mechanisms. Computer vision, sensor integration, and autonomous navigation.'
+              : 'Cod personalizat, inginerie de precizie și mecanisme inovatoare. Viziune computerizată, integrare senzori și navigare autonomă.' }}</p>
+          </div>
         </div>
-      </transition>
-      
-      <!-- CTA Button with micro-interactions -->
-      <div class="cta-section">
-        <MicroButton 
-          :label="t.contactCta"
-          @click="router.push('/contact')"
-        >
-        </MicroButton>
-      </div>
-    </section>
+
+        <div class="preview-cta">
+          <MicroButton 
+            :label="language === 'en' ? 'Explore Full Portfolio →' : 'Explorează Portofoliul Complet →'"
+            @click="navigateToPortfolio"
+          />
+        </div>
+      </section>
+
+      <!-- Outreach Preview Section -->
+      <section class="preview-section outreach-preview content-card">
+        <div class="preview-header">
+          <h2 class="section-title">
+            <span class="icon">🤝</span>
+            {{ language === 'en' ? 'Community Impact & Outreach' : 'Impact Comunitar & Outreach' }}
+          </h2>
+          <p class="preview-subtitle">
+            {{ language === 'en'
+              ? 'Discover how we\'re bringing robotics education and STEM opportunities to our community'
+              : 'Descoperă cum aducem educația în robotică și oportunități STEM în comunitatea noastră' }}
+          </p>
+        </div>
+
+        <div class="preview-highlights">
+          <div class="highlight-stat">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">{{ language === 'en' ? 'Students Reached' : 'Studenți Atingi' }}</div>
+          </div>
+          <div class="highlight-stat">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">{{ language === 'en' ? 'Community Events' : 'Evenimente Comunitare' }}</div>
+          </div>
+          <div class="highlight-stat">
+            <div class="stat-number">2</div>
+            <div class="stat-label">{{ language === 'en' ? 'FTC Seasons' : 'Sezoane FTC' }}</div>
+          </div>
+        </div>
+
+        <div class="preview-grid">
+          <div class="preview-card">
+            <div class="preview-icon">🔬</div>
+            <h3>{{ language === 'en' ? 'STEM Workshops' : 'Workshop-uri STEM' }}</h3>
+            <p>{{ language === 'en'
+              ? 'Hands-on robotics sessions teaching the next generation. Weekly workshops, coding fundamentals, and problem-solving challenges.'
+              : 'Sesiuni practice de robotică care predau următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări.' }}</p>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-icon">🏫</div>
+            <h3>{{ language === 'en' ? 'School Partnerships' : 'Parteneriate Școlare' }}</h3>
+            <p>{{ language === 'en'
+              ? 'Collaborating with local schools to make robotics accessible. Interactive demonstrations and mentorship programs.'
+              : 'Colaborare cu școli locale pentru a face robotica accesibilă. Demonstrații interactive și programe de mentorat.' }}</p>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-icon">🎉</div>
+            <h3>{{ language === 'en' ? 'Fundraising Events' : 'Evenimente de Strângere de Fonduri' }}</h3>
+            <p>{{ language === 'en'
+              ? 'Creative community events supporting our mission. Bake sales, movie nights, and showcase events that bring people together.'
+              : 'Evenimente comunitare creative care susțin misiunea noastră. Vânzări de prăjituri, seri de filme și evenimente showcase.' }}</p>
+          </div>
+        </div>
+
+        <div class="preview-cta">
+          <MicroButton 
+            :label="language === 'en' ? 'See All Outreach Activities →' : 'Vezi Toate Activitățile Outreach →'"
+            @click="navigateToOutreach"
+          />
+        </div>
+      </section>
+
+      <!-- Sponsors Preview Section -->
+      <section class="preview-section sponsors-preview content-card">
+        <div class="preview-header">
+          <h2 class="section-title">
+            <span class="icon">💼</span>
+            {{ language === 'en' ? 'Our Sponsors & Partners' : 'Sponsorii și Partenerii Noștri' }}
+          </h2>
+          <p class="preview-subtitle">
+            {{ language === 'en'
+              ? 'Meet the organizations making our robotics journey possible through their generous support'
+              : 'Cunoaște organizațiile care fac posibilă călătoria noastră în robotică prin sprijinul lor generos' }}
+          </p>
+        </div>
+
+        <div class="sponsors-showcase">
+          <div class="sponsor-highlight">
+            <h3>{{ language === 'en' ? 'Featured Partners' : 'Parteneri Principali' }}</h3>
+            <div class="sponsor-logos">
+              <div class="sponsor-logo-item">Paradis International College</div>
+              <div class="sponsor-logo-item">Professional Dentist</div>
+              <div class="sponsor-logo-item">BRD</div>
+              <div class="sponsor-logo-item">{{ language === 'en' ? '& 5 more...' : '& încă 5...' }}</div>
+            </div>
+          </div>
+
+          <div class="sponsor-impact">
+            <h3>{{ language === 'en' ? 'What Sponsorship Enables' : 'Ce Permite Sponsorizarea' }}</h3>
+            <ul class="impact-list">
+              <li>{{ language === 'en' 
+                ? '🔧 Advanced robotics equipment and tools' 
+                : '🔧 Echipamente și unelte avansate de robotică' }}</li>
+              <li>{{ language === 'en'
+                ? '🎓 Competition registration and travel'
+                : '🎓 Înregistrare la competiții și călătorii' }}</li>
+              <li>{{ language === 'en'
+                ? '💡 Innovation through cutting-edge technology'
+                : '💡 Inovație prin tehnologie de ultimă generație' }}</li>
+              <li>{{ language === 'en'
+                ? '🌱 Growth of STEM education in our region'
+                : '🌱 Creșterea educației STEM în regiunea noastră' }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sponsor-cta-box">
+          <h3>{{ language === 'en' ? 'Interested in Supporting Us?' : 'Interesat să ne Sprijini?' }}</h3>
+          <p>{{ language === 'en'
+            ? 'Partner with us to empower the next generation of engineers and innovators.'
+            : 'Fii partenerul nostru pentru a împuternici următoarea generație de ingineri și inovatori.' }}</p>
+          <div class="cta-group">
+            <MicroButton 
+              :label="language === 'en' ? 'View All Sponsors →' : 'Vezi Toți Sponsorii →'"
+              @click="navigateToSponsors"
+            />
+            <MicroButton 
+              :label="language === 'en' ? 'Become a Sponsor' : 'Devino Sponsor'"
+              variant="secondary"
+              @click="navigateToContact"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- FTC Info Section -->
+      <section class="ftc-info content-card">
+        <h2 class="section-title">{{ t.ftcTitle }}</h2>
+        <p class="section-text">{{ t.ftcDescription }}</p>
+        <div class="ftc-stats">
+          <div class="ftc-stat">
+            <span class="stat-icon">⏱️</span>
+            <span class="stat-text">{{ language === 'en' ? '2:30 Match Duration' : '2:30 Durată Meci' }}</span>
+          </div>
+          <div class="ftc-stat">
+            <span class="stat-icon">🤝</span>
+            <span class="stat-text">{{ language === 'en' ? '2-Team Alliances' : 'Alianțe de 2 Echipe' }}</span>
+          </div>
+          <div class="ftc-stat">
+            <span class="stat-icon">🌍</span>
+            <span class="stat-text">{{ language === 'en' ? 'Global Competition' : 'Competiție Globală' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA Section -->
+      <section class="final-cta content-card">
+        <h2>{{ language === 'en' ? 'Ready to Join the Journey?' : 'Gata să te Alături Călătoriei?' }}</h2>
+        <p>{{ language === 'en'
+          ? 'Whether you\'re a student, mentor, sponsor, or just curious about robotics - there\'s a place for you at Mechabyte.'
+          : 'Fie că ești student, mentor, sponsor sau pur și simplu curios despre robotică - există un loc pentru tine la Mechabyte.' }}</p>
+        <div class="cta-group">
+          <MicroButton 
+            :label="t.contactCta"
+            @click="navigateToContact"
+          />
+        </div>
+      </section>
+
+    </div>
   </div>
 </template>
 
@@ -222,32 +295,53 @@ const toggleSection = (section: string) => {
 
 .banner,
 .snapshot,
-.content-section {
+.content-wrapper {
   position: relative;
   z-index: 1;
 }
 
+/* Hero Section */
 .hero-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2vw;
+  gap: 1.5vw;
   margin-top: 1vw;
   margin-bottom: 2vw;
+  text-align: center;
+  padding: 0 2vw;
 }
 
 .banner {
   width: 15vw;
   height: 10vw;
+  margin-bottom: 1vw;
 }
 
+.hero-title {
+  font-size: clamp(32px, 4vw, 64px);
+  color: var(--mechabyte-green);
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 28px);
+  color: var(--light-grey);
+  max-width: 800px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Robot Showcase */
 .robot-showcase {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: 2vw;
+  margin-bottom: 3vw;
 }
 
 .snapshot {
@@ -255,6 +349,8 @@ const toggleSection = (section: string) => {
   width: auto;
   max-width: 100%;
   display: block;
+  border-radius: 1vw;
+  box-shadow: 0 10px 40px rgba(0, 255, 0, 0.2);
 }
 
 .hero-robot-overlay {
@@ -266,113 +362,326 @@ const toggleSection = (section: string) => {
   z-index: 10;
 }
 
-.content-section {
+/* Content Wrapper */
+.content-wrapper {
   display: flex;
-  width: clamp(68.75vw, 1200px, 90vw);
-  padding: 2vw;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  margin-bottom: 2vw;
-}
-
-h1 {
-  color: var(--mechabyte-green);
+  align-items: center;
   width: 100%;
+  max-width: 1400px;
+  padding: 0 2vw;
+  gap: 3vw;
+  margin-bottom: 4vw;
 }
 
-h2 {
-  color: var(--mechabyte-green);
-  margin-top: 1.5vw;
-  margin-bottom: 0.5vw;
-}
-
-.welcome-text {
-  font-size: clamp(14px, 1.8vw, 24px);
-  font-weight: 600;
-  color: var(--mechabyte-green);
-  margin-bottom: 1vw;
-}
-
-.about-text,
-.ftc-description {
-  line-height: 1.6;
-  margin-bottom: 1vw;
-}
-
-.mission-list,
-.activities-list {
-  margin-left: 2vw;
-  line-height: 1.8;
-  list-style-type: disc;
-}
-
-.mission-list li,
-.activities-list li {
-  margin-bottom: 0.5vw;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1vw;
-  margin-top: 1vw;
-  margin-bottom: 2vw;
-  flex-wrap: wrap;
-}
-
-.bonus-content {
-  background: var(--dark-grey);
+/* Content Cards */
+.content-card {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
   border: 0.15vw solid var(--mechabyte-green);
-  border-radius: 0.5vw;
-  padding: 1.5vw;
-  margin: 1vw 0;
-  width: 100%;
+  border-radius: 1vw;
+  padding: 3vw;
+  box-shadow: 0 5px 30px rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.bonus-content h3 {
+.content-card:hover {
+  box-shadow: 0 8px 40px rgba(0, 255, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Section Titles */
+.section-title {
   color: var(--mechabyte-green);
-  margin-bottom: 1vw;
-  font-size: clamp(16px, 1.5vw, 22px);
-}
-
-.bonus-content p {
-  line-height: 1.6;
-  margin-bottom: 0.5vw;
-}
-
-.bonus-content ul {
-  margin-left: 2vw;
-  line-height: 1.8;
-  list-style-type: disc;
-}
-
-.bonus-content li {
-  margin-bottom: 0.5vw;
-}
-
-/* Fade transition for bonus content */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.cta-section {
+  font-size: clamp(24px, 2.5vw, 40px);
+  margin-bottom: 1.5vw;
   display: flex;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
+  gap: 1vw;
+}
+
+.section-title .icon {
+  font-size: clamp(28px, 3vw, 48px);
+}
+
+.section-text {
+  line-height: 1.8;
+  font-size: clamp(15px, 1.2vw, 20px);
+  color: var(--light-grey);
+  margin-bottom: 2vw;
+}
+
+/* Intro Section */
+.intro-section {
+  text-align: center;
+}
+
+.mission-box {
+  background: rgba(0, 255, 0, 0.05);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.8vw;
+  padding: 2vw;
+  margin: 2vw 0;
+  text-align: left;
+}
+
+.mission-box h3 {
+  color: var(--mechabyte-green);
+  font-size: clamp(20px, 1.8vw, 28px);
+  margin-bottom: 1vw;
+}
+
+.mission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mission-list li {
+  padding: 0.8vw 0;
+  padding-left: 2vw;
+  position: relative;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1.6;
+}
+
+.mission-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--mechabyte-green);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Preview Sections */
+.preview-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 50, 0, 0.3) 100%);
+}
+
+.preview-header {
+  text-align: center;
+  margin-bottom: 3vw;
+}
+
+.preview-subtitle {
+  font-size: clamp(14px, 1.1vw, 18px);
+  color: var(--light-grey);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2vw;
+  margin-bottom: 2vw;
+}
+
+.preview-card {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0.1vw solid rgba(0, 255, 0, 0.3);
+  border-radius: 0.8vw;
+  padding: 2vw;
+  transition: all 0.3s ease;
+}
+
+.preview-card:hover {
+  border-color: var(--mechabyte-green);
+  background: rgba(0, 255, 0, 0.05);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+}
+
+.preview-icon {
+  font-size: clamp(32px, 3vw, 48px);
+  margin-bottom: 1vw;
+}
+
+.preview-card h3 {
+  color: var(--mechabyte-green);
+  font-size: clamp(18px, 1.5vw, 24px);
+  margin-bottom: 1vw;
+}
+
+.preview-card p {
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.6;
+  color: var(--light-grey);
+}
+
+.preview-cta {
+  text-align: center;
   margin-top: 2vw;
 }
 
+/* Outreach Highlights */
+.preview-highlights {
+  display: flex;
+  justify-content: space-around;
+  gap: 2vw;
+  margin-bottom: 3vw;
+  flex-wrap: wrap;
+}
+
+.highlight-stat {
+  text-align: center;
+  flex: 1;
+  min-width: 150px;
+}
+
+.stat-number {
+  font-size: clamp(36px, 4vw, 64px);
+  color: var(--mechabyte-green);
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.stat-label {
+  font-size: clamp(12px, 1vw, 16px);
+  color: var(--light-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Sponsors Showcase */
+.sponsors-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2vw;
+  margin-bottom: 2vw;
+}
+
+.sponsor-highlight,
+.sponsor-impact {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0.1vw solid rgba(0, 255, 0, 0.3);
+  border-radius: 0.8vw;
+  padding: 2vw;
+}
+
+.sponsor-highlight h3,
+.sponsor-impact h3 {
+  color: var(--mechabyte-green);
+  font-size: clamp(18px, 1.5vw, 24px);
+  margin-bottom: 1.5vw;
+}
+
+.sponsor-logos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1vw;
+}
+
+.sponsor-logo-item {
+  background: rgba(0, 255, 0, 0.1);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  padding: 1vw;
+  text-align: center;
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 600;
+  color: var(--mechabyte-green);
+}
+
+.impact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.impact-list li {
+  padding: 0.8vw 0;
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.6;
+  color: var(--light-grey);
+}
+
+.sponsor-cta-box {
+  background: rgba(0, 255, 0, 0.05);
+  border: 0.15vw solid var(--mechabyte-green);
+  border-radius: 0.8vw;
+  padding: 2.5vw;
+  text-align: center;
+}
+
+.sponsor-cta-box h3 {
+  color: var(--mechabyte-green);
+  font-size: clamp(20px, 1.8vw, 28px);
+  margin-bottom: 1vw;
+}
+
+.sponsor-cta-box p {
+  font-size: clamp(14px, 1.1vw, 18px);
+  color: var(--light-grey);
+  margin-bottom: 2vw;
+  line-height: 1.6;
+}
+
+/* FTC Info */
+.ftc-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 2vw;
+  margin-top: 2vw;
+  flex-wrap: wrap;
+}
+
+.ftc-stat {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 1vw 2vw;
+  background: rgba(0, 255, 0, 0.1);
+  border: 0.1vw solid var(--mechabyte-green);
+  border-radius: 0.5vw;
+  flex: 1;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.stat-icon {
+  font-size: clamp(24px, 2vw, 32px);
+}
+
+.stat-text {
+  font-size: clamp(13px, 1vw, 16px);
+  color: var(--light-grey);
+  font-weight: 600;
+}
+
+/* CTA Groups */
+.cta-group {
+  display: flex;
+  gap: 1.5vw;
+  justify-content: center;
+  margin-top: 2vw;
+  flex-wrap: wrap;
+}
+
+/* Final CTA */
+.final-cta {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+  border: 0.2vw solid var(--mechabyte-green);
+}
+
+.final-cta h2 {
+  color: var(--mechabyte-green);
+  font-size: clamp(24px, 2.5vw, 40px);
+  margin-bottom: 1vw;
+}
+
+.final-cta p {
+  font-size: clamp(14px, 1.2vw, 20px);
+  color: var(--light-grey);
+  max-width: 700px;
+  margin: 0 auto 2vw;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
 @media only screen and (max-width: 1000px) {
   .banner {
     width: 40vw;
@@ -388,17 +697,40 @@ h2 {
     top: 5%;
   }
 
-  .content-section {
-    width: 90vw;
+  .content-wrapper {
+    padding: 0 4vw;
+  }
+
+  .content-card {
     padding: 20px;
+    border-radius: 12px;
   }
 
-  .cta-buttons {
-    gap: 15px;
+  .preview-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .bonus-content {
-    padding: 15px;
+  .sponsors-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .ftc-stats {
+    flex-direction: column;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .preview-highlights {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sponsor-logos {
+    grid-template-columns: 1fr;
   }
 }
 </style>
