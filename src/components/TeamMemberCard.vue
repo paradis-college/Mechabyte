@@ -18,6 +18,10 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits<{
+  (e: 'click'): void;
+}>();
+
 // Map of team member names to their image paths
 const imageMap: Record<string, string> = {
   'Șerban': new URL('../assets/images/Serban.jpeg', import.meta.url).href,
@@ -35,10 +39,28 @@ const imageMap: Record<string, string> = {
 const memberImage = computed(() => {
   return imageMap[props.memberName] || null;
 });
+
+// Determine if member is a Team Leader or Senior for special effects
+const isTeamLeader = computed(() => {
+  return props.role.toLowerCase().includes('team leader') || props.role.toLowerCase().includes('leader');
+});
+
+const isSenior = computed(() => {
+  return props.role.toLowerCase().includes('senior') && !isTeamLeader.value;
+});
+
+const handleClick = () => {
+  emit('click');
+};
 </script>
 
 <template>
-  <div :id="`team-member-card-${props.memberName.toLowerCase()}`" class="team-member-card">
+  <div 
+    :id="`team-member-card-${props.memberName.toLowerCase()}`" 
+    class="team-member-card"
+    :class="{ 'team-leader': isTeamLeader, 'senior': isSenior }"
+    @click="handleClick"
+  >
     <div class="card-photo-container">
       <img v-if="memberImage" :src="memberImage" :alt="`${props.memberName} photo`" />
       <Silhouette v-else class="silhouette" />
@@ -56,6 +78,12 @@ const memberImage = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.team-member-card:hover {
+  transform: translateY(-5px);
 }
 
 .card-photo-container {
@@ -67,11 +95,60 @@ const memberImage = computed(() => {
   border-radius: 20px;
   border: 0.05vw solid var(--mechabyte-green);
   background: var(--mechabyte-grey);
-  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .card-photo-container:hover {
   box-shadow: 0 0 0.5vw 0.1vw var(--mechabyte-green);
+}
+
+/* Team Leader glowing effect */
+.team-member-card.team-leader .card-photo-container {
+  border: 2px solid var(--mechabyte-green);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
+              0 0 40px rgba(0, 255, 0, 0.4),
+              inset 0 0 20px rgba(0, 255, 0, 0.1);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.team-member-card.team-leader .card-photo-container:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8),
+              0 0 60px rgba(0, 255, 0, 0.5),
+              inset 0 0 30px rgba(0, 255, 0, 0.2);
+}
+
+.team-member-card.team-leader .team-member-name {
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+  font-weight: bold;
+}
+
+/* Senior subtle effect */
+.team-member-card.senior .card-photo-container {
+  border: 1.5px solid var(--mechabyte-green);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3),
+              inset 0 0 10px rgba(0, 255, 0, 0.05);
+}
+
+.team-member-card.senior .card-photo-container:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5),
+              inset 0 0 15px rgba(0, 255, 0, 0.1);
+}
+
+.team-member-card.senior .team-member-name {
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
+                0 0 40px rgba(0, 255, 0, 0.4),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.8),
+                0 0 60px rgba(0, 255, 0, 0.6),
+                inset 0 0 30px rgba(0, 255, 0, 0.2);
+  }
 }
 
 img {
@@ -94,5 +171,21 @@ img {
   color: var(--mechabyte-green);
   font-size: 0.9em;
   margin-top: -5px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .card-photo-container {
+    width: 150px;
+    height: 225px;
+  }
+  
+  .team-member-card.team-leader .card-photo-container {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6),
+                0 0 30px rgba(0, 255, 0, 0.4);
+  }
+  
+  .team-member-card.senior .card-photo-container {
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+  }
 }
 </style>

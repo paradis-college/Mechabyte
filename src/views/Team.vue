@@ -2,10 +2,12 @@
 import { computed, ref } from 'vue';
 import { translations } from '../i18n/translations';
 import TeamMemberCard from '../components/TeamMemberCard.vue';
+import TeamMemberPopup, { type TeamMemberProfile } from '../components/TeamMemberPopup.vue';
 import MicroButton from '../components/MicroButton.vue';
 import SectionHeader from '../components/SectionHeader.vue';
 import FindMorePane from '../components/FindMorePane.vue';
 import SeasonTabs from '../components/SeasonTabs.vue';
+import { teamProfiles } from '../data/teamProfiles';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -13,6 +15,10 @@ const props = defineProps<{
 
 const t = computed(() => translations[props.language]);
 const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2025-2026');
+
+// Popup state
+const showMemberPopup = ref(false);
+const selectedMember = ref<TeamMemberProfile | null>(null);
 
 // State for toggling bonus content visibility
 const showTeamStructure = ref(false);
@@ -43,6 +49,14 @@ const toggleSection = (section: string) => {
     case 'dailyLife':
       showDailyLife.value = !showDailyLife.value;
       break;
+  }
+};
+
+const handleMemberClick = (memberName: string) => {
+  const profile = teamProfiles[memberName];
+  if (profile) {
+    selectedMember.value = profile;
+    showMemberPopup.value = true;
   }
 };
 
@@ -303,6 +317,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
             <TeamMemberCard 
               v-for="(member, index) in currentCollaborators" 
@@ -310,6 +325,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -324,6 +340,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -338,6 +355,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -406,6 +424,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -420,6 +439,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -434,6 +454,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -502,6 +523,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -516,6 +538,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -530,6 +553,7 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
@@ -544,11 +568,19 @@ const previousMentors = computed(() =>
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
+              @click="handleMemberClick(member.name)"
             />
           </div>
         </div>
       </section>
     </div>
+
+    <!-- Team Member Popup -->
+    <TeamMemberPopup
+      :show="showMemberPopup"
+      :member="selectedMember"
+      @close="showMemberPopup = false"
+    />
   </div>
 </template>
 
