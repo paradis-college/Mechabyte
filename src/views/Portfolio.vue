@@ -10,7 +10,7 @@ import IntakeEvolutionAnimationEnhanced from '../components/animations/IntakeEvo
 import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
 import PantographArmAnimationEnhanced from '../components/animations/PantographArmAnimationEnhanced.vue';
 import DroneLauncherAnimationEnhanced from '../components/animations/DroneLauncherAnimationEnhanced.vue';
-import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
+import BladeStabilizationAnimationEnhanced from '../components/animations/BladeStabilizationAnimationEnhanced.vue';
 import SliderSystemAnimation from '../components/animations/SliderSystemAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
@@ -283,7 +283,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Intake System</h3>
           <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
-          <BladeStabilizationAnimation />
+          <BladeStabilizationAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Intake System">
             <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
             <p><strong>Solution:</strong> Redesigned claw shape, added structural support, replaced blades with stoppers, created 3D-printed hexagonal discs to lock blades at 90°.</p>
