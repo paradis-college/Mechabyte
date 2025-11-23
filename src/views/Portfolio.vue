@@ -13,7 +13,7 @@ import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimat
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
-import CenterstageTeleOpAnimation from '../components/animations/CenterstageTeleOpAnimation.vue';
+import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
@@ -260,7 +260,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
 
         <h4>Strategy Summary</h4>
         <StrategySummaryTable 
-          :data="t.intoTheDeepStrategySummary" 
+          :summary="t.intoTheDeepStrategySummary" 
           class="strategy-table" 
         />
       </section>

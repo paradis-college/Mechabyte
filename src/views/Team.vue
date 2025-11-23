@@ -5,12 +5,14 @@ import TeamMemberCard from '../components/TeamMemberCard.vue';
 import MicroButton from '../components/MicroButton.vue';
 import SectionHeader from '../components/SectionHeader.vue';
 import FindMorePane from '../components/FindMorePane.vue';
+import SeasonTabs from '../components/SeasonTabs.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
 }>();
 
 const t = computed(() => translations[props.language]);
+const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2025-2026');
 
 // State for toggling bonus content visibility
 const showTeamStructure = ref(false);
@@ -166,7 +168,8 @@ const previousMentors = computed(() =>
 
 <template>
   <div class="team-page">
-    <section class="content-section">
+    <!-- Header Section -->
+    <section class="content-section header-section">
       <SectionHeader 
         :title="t.teamTitle"
         :subtitle="t.teamIntro"
@@ -281,225 +284,279 @@ const previousMentors = computed(() =>
           </template>
         </div>
       </transition>
-      
-      <!-- 2025-2026 Season - Current Team -->
-      <h2 class="season-header current">
-        {{ language === 'en' ? '2025-2026 Season' : 'Sezonul 2025-2026' }}
-      </h2>
-      
-      <div class="team-section">
-        <h2>{{ t.technicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in currentTechnicalMembers" 
-            :key="index"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in currentNonTechnicalMembers" 
-            :key="index"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in currentMentors" 
-            :key="`mentor-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-          <TeamMemberCard 
-            v-for="(member, index) in currentCollaborators" 
-            :key="`collab-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-
-      <!-- 2024-2025 Season (Previous) -->
-      <h2 class="season-header previous-season">{{ t.intoTheDeepSeason }}</h2>
-      
-      <div class="team-section">
-        <h2>{{ t.technicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in technicalMembers" 
-            :key="index"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in nonTechnicalMembers" 
-            :key="index"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.mentorsTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in mentors" 
-            :key="index"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-
-      <div class="cta-buttons">
-        <MicroButton 
-          :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
-          variant="secondary"
-          @click="toggleSection('training')"
-        />
-        <MicroButton 
-          :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
-          @click="toggleSection('dailyLife')"
-        />
-      </div>
-
-      <transition name="fade">
-        <div v-if="showTraining" class="bonus-content">
-          <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
-          <template v-if="language === 'en'">
-            <p>💻 Java programming + CAD software + Hardware assembly</p>
-            <p>👥 Senior members mentor through pair programming & design reviews</p>
-            <p>🏢 Field trips to tech companies = career inspiration</p>
-          </template>
-          <template v-else>
-            <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
-            <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
-            <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
-          </template>
-        </div>
-      </transition>
-
-      <transition name="fade">
-        <div v-if="showDailyLife" class="bonus-content">
-          <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
-          <template v-if="language === 'en'">
-            <p>🕐 Team standup → Share progress & challenges</p>
-            <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
-            <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
-            <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
-            <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
-          </template>
-          <template v-else>
-            <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
-            <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
-            <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
-            <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
-            <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
-          </template>
-        </div>
-      </transition>
-      
-      <!-- Previous Season Section -->
-      <h2 class="season-header previous-season">{{ t.previousSeasonTitle }} - {{ t.centerstageSeason }}</h2>
-      
-      <div class="team-section">
-        <h2>{{ t.technicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in previousTechnicalMembers" 
-            :key="`prev-tech-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.nonTechnicalTeamTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in previousNonTechnicalMembers" 
-            :key="`prev-nontech-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <div class="team-section">
-        <h2>{{ t.mentorsTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in previousMentors" 
-            :key="`prev-mentor-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
-      
-      <!-- Alumni Section -->
-      <div class="team-section">
-        <h2>{{ t.alumniTitle }}</h2>
-        <div class="members-grid">
-          <TeamMemberCard 
-            v-for="(member, index) in alumniMembers" 
-            :key="`alumni-${index}`"
-            :member-name="member.name"
-            :department="member.department"
-            :role="member.role"
-          />
-        </div>
-      </div>
     </section>
+
+    <!-- Season Navigation -->
+    <SeasonTabs v-model:activeSeason="activeSeason" />
+
+    <!-- 2025-2026 Season - Current Team -->
+    <div v-if="activeSeason === '2025-2026'" class="season-content">
+      <section class="content-section">
+        <div class="team-section">
+          <h2>{{ t.technicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in currentTechnicalMembers" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in currentNonTechnicalMembers" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in currentMentors" 
+              :key="`mentor-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+            <TeamMemberCard 
+              v-for="(member, index) in currentCollaborators" 
+              :key="`collab-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+
+        <div class="cta-buttons">
+          <MicroButton 
+            :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
+            variant="secondary"
+            @click="toggleSection('training')"
+          />
+          <MicroButton 
+            :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
+            @click="toggleSection('dailyLife')"
+          />
+        </div>
+
+        <transition name="fade">
+          <div v-if="showTraining" class="bonus-content">
+            <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
+            <template v-if="language === 'en'">
+              <p>💻 Java programming + CAD software + Hardware assembly</p>
+              <p>👥 Senior members mentor through pair programming & design reviews</p>
+              <p>🏢 Field trips to tech companies = career inspiration</p>
+            </template>
+            <template v-else>
+              <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
+              <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+              <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
+            </template>
+          </div>
+        </transition>
+
+        <transition name="fade">
+          <div v-if="showDailyLife" class="bonus-content">
+            <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
+            <template v-if="language === 'en'">
+              <p>🕐 Team standup → Share progress & challenges</p>
+              <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+              <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
+              <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
+              <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+            </template>
+            <template v-else>
+              <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
+              <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
+              <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
+              <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
+              <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+            </template>
+          </div>
+        </transition>
+      </section>
+    </div>
+
+    <!-- 2024-2025 Season (Into the Deep) -->
+    <div v-if="activeSeason === '2024-2025'" class="season-content">
+      <section class="content-section">
+        <div class="team-section">
+          <h2>{{ t.technicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in technicalMembers" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in nonTechnicalMembers" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ t.mentorsTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in mentors" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+
+        <div class="cta-buttons">
+          <MicroButton 
+            :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
+            variant="secondary"
+            @click="toggleSection('training')"
+          />
+          <MicroButton 
+            :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
+            @click="toggleSection('dailyLife')"
+          />
+        </div>
+
+        <transition name="fade">
+          <div v-if="showTraining" class="bonus-content">
+            <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
+            <template v-if="language === 'en'">
+              <p>💻 Java programming + CAD software + Hardware assembly</p>
+              <p>👥 Senior members mentor through pair programming & design reviews</p>
+              <p>🏢 Field trips to tech companies = career inspiration</p>
+            </template>
+            <template v-else>
+              <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
+              <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+              <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
+            </template>
+          </div>
+        </transition>
+
+        <transition name="fade">
+          <div v-if="showDailyLife" class="bonus-content">
+            <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
+            <template v-if="language === 'en'">
+              <p>🕐 Team standup → Share progress & challenges</p>
+              <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+              <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
+              <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
+              <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+            </template>
+            <template v-else>
+              <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
+              <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
+              <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
+              <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
+              <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+            </template>
+          </div>
+        </transition>
+      </section>
+    </div>
+
+    <!-- 2023-2024 Season (CenterStage) -->
+    <div v-if="activeSeason === '2023-2024'" class="season-content">
+      <section class="content-section">
+        <div class="team-section">
+          <h2>{{ t.technicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in previousTechnicalMembers" 
+              :key="`prev-tech-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in previousNonTechnicalMembers" 
+              :key="`prev-nontech-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <div class="team-section">
+          <h2>{{ t.mentorsTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in previousMentors" 
+              :key="`prev-mentor-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+        
+        <!-- Alumni Section -->
+        <div class="team-section">
+          <h2>{{ t.alumniTitle }}</h2>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in alumniMembers" 
+              :key="`alumni-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .team-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  padding: 2vw 0;
+  min-height: 100vh;
+  background: var(--background-grey);
+  color: white;
+}
+
+.header-section {
+  text-align: center;
+  padding: 4vw 2vw 2vw;
 }
 
 .content-section {
-  display: flex;
-  width: clamp(68.75vw, 1200px, 90vw);
-  padding: 2vw;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  margin-bottom: 2vw;
+  max-width: 1200px;
+  margin: 0 auto 4vw;
+  padding: 0 2vw;
 }
 
 h1 {
@@ -510,6 +567,7 @@ h1 {
 h2 {
   color: var(--mechabyte-green);
   margin-bottom: 1vw;
+  font-size: 2.2vw;
 }
 
 .intro-text {
@@ -517,27 +575,8 @@ h2 {
   margin-bottom: 1vw;
 }
 
-.goals-section {
+.season-content {
   width: 100%;
-  margin-bottom: 1vw;
-}
-
-.season-header {
-  color: var(--mechabyte-green);
-  font-size: 1.8vw;
-  margin: 2vw 0 1vw 0;
-  padding-bottom: 0.5vw;
-  border-bottom: 0.2vw solid var(--mechabyte-green);
-  width: 100%;
-}
-
-.season-header.current {
-  margin-top: 3rem;
-}
-
-.season-header.previous-season {
-  margin-top: 3vw;
-  opacity: 0.85;
 }
 
 .role-progression-note {
@@ -545,6 +584,9 @@ h2 {
   padding: 1rem;
   border-left: 3px solid var(--mechabyte-green);
   margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .role-progression-note p {
@@ -554,7 +596,7 @@ h2 {
 
 .team-section {
   width: 100%;
-  margin-bottom: 2vw;
+  margin-bottom: 3vw;
 }
 
 .members-grid {
@@ -563,25 +605,6 @@ h2 {
   gap: 2vw;
   width: 100%;
   margin-top: 1vw;
-}
-
-.text-sections {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2vw;
-  margin-top: 1vw;
-}
-
-.text-section {
-  padding: 1.5vw;
-  border: 0.1vw solid var(--mechabyte-green);
-  background: var(--dark-grey);
-  border-radius: 0.5vw;
-}
-
-.text-section p {
-  line-height: 1.6;
 }
 
 .cta-buttons {
@@ -593,23 +616,25 @@ h2 {
 }
 
 .bonus-content {
-  background: var(--dark-grey);
-  border: 0.15vw solid var(--mechabyte-green);
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.15vw solid rgba(0, 255, 0, 0.2);
   border-radius: 0.5vw;
-  padding: 1.5vw;
-  margin: 1vw 0;
+  padding: 2vw;
+  margin: 1vw 0 2vw;
   width: 100%;
 }
 
 .bonus-content h3 {
   color: var(--mechabyte-green);
   margin-bottom: 1vw;
-  font-size: clamp(16px, 1.5vw, 22px);
+  font-size: clamp(16px, 1.6vw, 22px);
 }
 
 .bonus-content p {
   line-height: 1.6;
   margin-bottom: 0.5vw;
+  font-size: 1vw;
+  color: #ddd;
 }
 
 /* Fade transition for bonus content */
@@ -628,20 +653,22 @@ h2 {
 }
 
 @media only screen and (max-width: 1000px) {
+  .header-section {
+    padding: 30px 20px 20px;
+  }
+
   .content-section {
     width: 90vw;
-    padding: 20px;
+    padding: 0 20px;
   }
 
-  .season-header {
-    font-size: 22px;
-    margin: 25px 0 15px 0;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--mechabyte-green);
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
   }
 
-  .season-header.previous-season {
-    margin-top: 35px;
+  .team-section {
+    margin-bottom: 30px;
   }
 
   .members-grid {
@@ -649,16 +676,23 @@ h2 {
     gap: 15px;
   }
 
-  .text-section {
-    padding: 15px;
-  }
-
   .cta-buttons {
     gap: 15px;
   }
 
   .bonus-content {
-    padding: 15px;
+    padding: 20px;
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 8px;
+    margin: 15px 0 20px;
+  }
+
+  .bonus-content h3 {
+    font-size: 18px;
+  }
+
+  .bonus-content p {
+    font-size: 15px;
   }
 }
 </style>
