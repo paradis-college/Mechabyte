@@ -156,6 +156,69 @@ const sketch = (p: p5) => {
           sampleY = 0;
         }
       }
+    } else if (props.season === 'centerstage') {
+      // CenterStage: Collect pixel and place on backdrop
+      // Phase 1: Driver 1 moves robot forward to pixel (0-3s)
+      if (phase < 3) {
+        controllerInputs.driver1.leftStick.y = -0.8;
+        robotY = phase * 20;
+      }
+      // Phase 2: Driver 1 raises arm, Driver 2 opens intake (3-5s)
+      else if (phase < 5) {
+        controllerInputs.driver1.leftStick.y = 0;
+        controllerInputs.driver1.buttons['dpad_up'] = true;
+        controllerInputs.driver2.buttons['left_bumper'] = true;
+        // Pixel appears on field
+        if (sampleX === 0 && sampleY === 0) {
+          sampleX = 0;
+          sampleY = 60 + 30;
+        }
+      }
+      // Phase 3: Driver 2 closes intake to grab pixel (5-7s)
+      else if (phase < 7) {
+        controllerInputs.driver1.buttons['dpad_up'] = false;
+        controllerInputs.driver2.buttons['left_bumper'] = false;
+        controllerInputs.driver2.buttons['right_bumper'] = true;
+        clawOpen = false;
+        if (phase > 6) {
+          sampleHeld = true;
+        }
+      }
+      // Phase 4: Driver 1 raises arm more (7-10s)
+      else if (phase < 10) {
+        controllerInputs.driver2.buttons['right_bumper'] = false;
+        controllerInputs.driver1.buttons['dpad_up'] = true;
+        sliderHeight = (phase - 7) * 30;
+      }
+      // Phase 5: Driver 1 moves robot to backdrop (10-13s)
+      else if (phase < 13) {
+        controllerInputs.driver1.buttons['dpad_up'] = false;
+        controllerInputs.driver1.leftStick.x = 0.8;
+        robotX = (phase - 10) * 25;
+      }
+      // Phase 6: Driver 2 opens intake to release pixel (13-15s)
+      else if (phase < 15) {
+        controllerInputs.driver1.leftStick.x = 0;
+        controllerInputs.driver2.buttons['left_bumper'] = true;
+        clawOpen = true;
+        if (phase > 14) {
+          sampleHeld = false;
+          // Pixel flies to backdrop
+          const t = (phase - 14);
+          sampleX = robotX + 50;
+          sampleY = robotY - 80 - t * 20;
+        }
+      }
+      // Phase 7: Reset (15-20s)
+      else {
+        controllerInputs.driver2.buttons['right_bumper'] = false;
+        const t = (phase - 15) / 5;
+        sliderHeight = sliderHeight * (1 - t);
+        if (phase > 18) {
+          sampleX = 0;
+          sampleY = 0;
+        }
+      }
     }
   };
 
@@ -175,7 +238,7 @@ const sketch = (p: p5) => {
       p.line(0, i * (fieldHeight / 10), p.width, i * (fieldHeight / 10));
     }
     
-    // High basket (right side)
+    // Scoring zone (right side) - Basket or Backdrop
     p.fill(0, 100, 200, 150);
     p.stroke(0, 255, 255);
     p.strokeWeight(2 * scale);
@@ -184,9 +247,10 @@ const sketch = (p: p5) => {
     p.noStroke();
     p.textSize(9 * scale);
     p.textAlign(p.CENTER, p.CENTER);
-    p.text('HIGH\nBASKET', p.width - 50 * scale, 80 * scale);
+    const scoringLabel = props.season === 'into-the-deep' ? 'HIGH\nBASKET' : 'BACK\nDROP';
+    p.text(scoringLabel, p.width - 50 * scale, 80 * scale);
     
-    // Sample zone (center-left)
+    // Sample/Pixel zone (center-left)
     p.fill(255, 200, 0, 100);
     p.stroke(255, 200, 0);
     p.strokeWeight(2 * scale);
@@ -194,7 +258,8 @@ const sketch = (p: p5) => {
     p.fill(255, 200, 0);
     p.noStroke();
     p.textSize(8 * scale);
-    p.text('SAMPLE', p.width / 2, 230 * scale);
+    const itemLabel = props.season === 'into-the-deep' ? 'SAMPLE' : 'PIXEL';
+    p.text(itemLabel, p.width / 2, 230 * scale);
   };
 
   const drawRobot = (p: p5, scale: number, sliderH: number, isClawOpen: boolean) => {
@@ -337,6 +402,14 @@ const sketch = (p: p5) => {
       else if (phase < 10) phaseText = 'Driver 2: Raise slider';
       else if (phase < 13) phaseText = 'Driver 1: Move to basket';
       else if (phase < 15) phaseText = 'Driver 2: Release sample';
+      else phaseText = 'Resetting...';
+    } else if (props.season === 'centerstage') {
+      if (phase < 3) phaseText = 'Driver 1: Move forward to pixel';
+      else if (phase < 5) phaseText = 'Driver 1: Raise arm, Driver 2: Open intake';
+      else if (phase < 7) phaseText = 'Driver 2: Close intake, grab pixel';
+      else if (phase < 10) phaseText = 'Driver 1: Raise arm higher';
+      else if (phase < 13) phaseText = 'Driver 1: Move to backdrop';
+      else if (phase < 15) phaseText = 'Driver 2: Release pixel';
       else phaseText = 'Resetting...';
     }
     
