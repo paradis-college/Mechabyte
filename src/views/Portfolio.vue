@@ -18,6 +18,7 @@ import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTr
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
 import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEndgameAnimation.vue';
+import RobotMechanismAnimation from '../components/animations/RobotMechanismAnimation.vue';
 import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
 import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
@@ -252,6 +253,8 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
       <!-- Robot Evolution -->
       <section class="content-section">
         <h2 class="section-title">Robot Evolution</h2>
+        
+        <RobotMechanismAnimation title="Complete Robot System - Into the Deep" />
         
         <Model3DPlaceholder title="3D Model: Complete Robot - Into the Deep" description="Explore the full robot design in 3D" />
         
