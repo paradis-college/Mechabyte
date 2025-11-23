@@ -12,6 +12,7 @@ import PantographArmAnimationEnhanced from '../components/animations/PantographA
 import DroneLauncherAnimationEnhanced from '../components/animations/DroneLauncherAnimationEnhanced.vue';
 import BladeStabilizationAnimationEnhanced from '../components/animations/BladeStabilizationAnimationEnhanced.vue';
 import SliderSystemAnimationEnhanced from '../components/animations/SliderSystemAnimationEnhanced.vue';
+import HangingMechanismAnimationEnhanced from '../components/animations/HangingMechanismAnimationEnhanced.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
@@ -297,6 +298,16 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
           <MoreInfoPopup title="Design Evolution: Slider System">
             <p><strong>First Version:</strong> Dual sliders (horizontal + vertical), off-center, wobbly, storage box didn't reach basket.</p>
             <p><strong>Solution:</strong> Eliminated horizontal slider. Single vertical slider with attached arm. No transfer between containers—intake grabs and slider lifts directly to high basket.</p>
+          </MoreInfoPopup>
+        </div>
+
+        <div class="evolution-component">
+          <h3>Hanging Mechanism</h3>
+          <p><strong>Final Solution:</strong> Winch-driven hook system for submersible ascent.</p>
+          <HangingMechanismAnimationEnhanced />
+          <MoreInfoPopup title="Design Evolution: Hanging Mechanism">
+            <p><strong>Challenge:</strong> Endgame requires climbing the submersible for significant points (touch: 3 pts, low-level ascent: 15 pts, high-level ascent: 30 pts).</p>
+            <p><strong>Solution:</strong> Implemented a motorized winch system with extendable cable and hook. Hook extends upward to latch onto rung, then winch retracts cable to lift robot off the ground. Reliable and consistent for competition.</p>
           </MoreInfoPopup>
         </div>
 
