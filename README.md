@@ -160,7 +160,7 @@ We welcome contributions from team members and the community! Here's how you can
 
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/Mechabyte.git
+   git clone https://github.com/paradis-college/Mechabyte.git
    cd Mechabyte
    ```
 
@@ -201,7 +201,7 @@ We welcome contributions from team members and the community! Here's how you can
 - Test on multiple screen sizes
 - Verify both English and Romanian translations
 - Check accessibility (keyboard navigation, screen readers)
-- Follow the repository's [Copilot Instructions](/.github/COPILOT_INSTRUCTIONS.md)
+- Follow the repository's [Copilot Instructions](/.github/copilot-instructions.md)
 
 ## 📚 Additional Documentation
 
@@ -242,7 +242,7 @@ This project is maintained by Mechabyte #22590, Paradise International College, 
 - **Location**: Paradise International College, Iași, Romania
 - **Competition**: FIRST Tech Challenge (FTC)
 
-For questions or collaboration opportunities, please visit our [Contact page](https://mechabyte.example.com/contact) or reach out through our website.
+For questions or collaboration opportunities, please visit the Contact page on our website.
 
 ---
 
