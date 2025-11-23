@@ -21,6 +21,8 @@ import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEnd
 import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
 import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
+import DriverControlsInteractive from '../components/DriverControlsInteractive.vue';
+import ControllerRobotCoordination from '../components/animations/ControllerRobotCoordination.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
 import Model3DPlaceholder from '../components/Model3DPlaceholder.vue';
@@ -157,8 +159,11 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <p><strong>Autonomous:</strong> Timing-based movements (no odometry/vision). 4 programs for different starting positions.</p>
         <p><strong>Teleop:</strong> Driver 1 handles movement and arm; Driver 2 handles intake and drone.</p>
         
+        <h4>Controller-Robot Coordination</h4>
+        <ControllerRobotCoordination season="centerstage" />
+        
         <h4>Driver Controls</h4>
-        <DriverControlTable season="centerstage" :language="language" />
+        <DriverControlsInteractive season="centerstage" />
 
         <MoreInfoPopup title="Programming Challenges" buttonText="More Info">
           <p>{{ t.programmingChallenges }}</p>
@@ -308,8 +313,11 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <p><strong>Autonomous:</strong> Timing-based with 4 cases (forward, backward, left, right) combined based on starting position.</p>
         <p><strong>Teleop:</strong> Driver 1 handles movement; Driver 2 handles slider and intake/outtake.</p>
         
+        <h4>Controller-Robot Coordination</h4>
+        <ControllerRobotCoordination season="into-the-deep" />
+        
         <h4>Driver Controls</h4>
-        <DriverControlTable season="into-the-deep" :language="language" />
+        <DriverControlsInteractive season="into-the-deep" />
       </section>
 
       <!-- Team Credits -->
