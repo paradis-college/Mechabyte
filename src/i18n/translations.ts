@@ -247,6 +247,10 @@ export type Translation = {
     date?: string;
     moreInfo?: string;
     partnerships?: string;
+    mediaType?: 'image' | 'video' | 'social-embed' | 'gallery';
+    mediaUrl?: string;
+    mediaUrls?: string[];
+    socialEmbedCode?: string;
   }>;
   intoTheDeepEvents: Array<{ 
     name: string; 
@@ -256,6 +260,10 @@ export type Translation = {
     date?: string;
     moreInfo?: string;
     partnerships?: string;
+    mediaType?: 'image' | 'video' | 'social-embed' | 'gallery';
+    mediaUrl?: string;
+    mediaUrls?: string[];
+    socialEmbedCode?: string;
   }>;
 };
 
@@ -665,7 +673,9 @@ export const translations: { en: Translation; ro: Translation } = {
         impact: 'Strengthened school community bonds and increased visibility of the robotics team among students and faculty. Several new members joined after seeing us at the event. Contributed to raising over 15,000 RON for cancer support organizations through participant fees and donations.',
         date: 'Spring 2024',
         moreInfo: 'Paradis Run is more than just a fundraiser—it\'s a community tradition that brings together students, parents, teachers, and local residents for a meaningful cause. For Mechabyte, it was an opportunity to show that we care about more than just robots. Cancer has affected families in our school community, and participating in the run was our way of showing support. We ran as a team, wearing custom Mechabyte jerseys. Between the run and our information booth, we engaged with hundreds of people. Many were surprised to learn that our school had a robotics team, and several students signed up to join us for the next season. The event showed us that outreach isn\'t just about promoting robotics—it\'s about being an active, caring part of our community.',
-        partnerships: 'Organized by Paradise International College in partnership with Asociația Oameni Mici (Little People Association) supporting pediatric cancer patients and their families.'
+        partnerships: 'Organized by Paradise International College in partnership with Asociația Oameni Mici (Little People Association) supporting pediatric cancer patients and their families.',
+        mediaType: 'gallery',
+        mediaUrls: ['/assets/outreach/paradis-run-1.jpg', '/assets/outreach/paradis-run-2.jpg', '/assets/outreach/paradis-run-3.jpg', '/assets/outreach/paradis-run-4.jpg']
       },
       {
         name: 'Nikola Tesla Festival',
@@ -695,7 +705,9 @@ export const translations: { en: Translation; ro: Translation } = {
         impact: 'Presented to an international audience of over 500 attendees from 25+ countries. Received recognition for our systematic approach to robot development and comprehensive documentation. Made connections with university engineering departments at Alexandru Ioan Cuza University and Technical University Gheorghe Asachi, opening doors for future mentorship and lab access. Generated interest from potential sponsors impressed by our professionalism and innovation.',
         date: 'May 8-10, 2025',
         moreInfo: 'EUROINVENT was unlike any event we had attended before. Instead of competing against other robots, we were presenting our engineering process to judges, inventors, and academics from around the world. We prepared a professional poster explaining our robot\'s key mechanisms—the blade stabilization system, telescoping arm, and winch-driven hanging mechanism. We practiced our presentation in both English and Romanian. During the three-day exhibition, we gave dozens of presentations, answered technical questions, and learned from other inventors\' projects. University professors from UAIC and TU Iași were particularly interested in our 3D-printed stabilization discs and offered to provide mentorship and access to their engineering labs. Several companies asked for our contact information, expressing interest in sponsorship. The experience taught us how to communicate technical concepts to diverse audiences and showed us that our work has value beyond the competition field.',
-        partnerships: 'Event organized by the Romanian Inventors Forum. Connected with Alexandru Ioan Cuza University (UAIC) and Technical University Gheorghe Asachi engineering departments. Networking with international delegations from Moldova, Poland, and Hungary.'
+        partnerships: 'Event organized by the Romanian Inventors Forum. Connected with Alexandru Ioan Cuza University (UAIC) and Technical University Gheorghe Asachi engineering departments. Networking with international delegations from Moldova, Poland, and Hungary.',
+        mediaType: 'image',
+        mediaUrl: 'https://github.com/user-attachments/assets/a6fe0aac-8a2a-487f-874c-78b75d2955e6'
       },
       {
         name: 'INOVA 2024 - Sibiu',
@@ -704,7 +716,9 @@ export const translations: { en: Translation; ro: Translation } = {
         impact: 'Received recognition for our innovative approaches to mechanical design and autonomous programming in a challenging competitive environment. Made valuable connections with engineering students and faculty from Romanian military academies, expanding our network beyond civilian FTC teams. Learned about advanced engineering principles used in defense applications that could apply to robotics.',
         date: 'April 11-13, 2024',
         moreInfo: 'INOVA was an eye-opening experience. We were nervous presenting our robot at a military academy alongside university-level engineering projects, but the judges and participants were welcoming and impressed by our high school team\'s work. The academy students shared insights about systems engineering, project management, and rigorous testing procedures used in military applications. These conversations influenced how we approach robot development—we now conduct more systematic testing and maintain better documentation. The event also showed us potential career paths in engineering and technology that we hadn\'t considered before.',
-        partnerships: 'Hosted by Nicolae Bălcescu Land Forces Academy. Interacted with engineering students from Romanian military and technical universities.'
+        partnerships: 'Hosted by Nicolae Bălcescu Land Forces Academy. Interacted with engineering students from Romanian military and technical universities.',
+        mediaType: 'image',
+        mediaUrl: 'https://github.com/user-attachments/assets/0b4f626b-cbae-4cd4-9e17-636423fff253'
       },
       {
         name: 'STEMPOSSUM',

@@ -5,6 +5,7 @@ import SeasonTabs from '../components/SeasonTabs.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
 import MoreInfoPopup from '../components/MoreInfoPopup.vue';
 import CollapsibleSection from '../components/CollapsibleSection.vue';
+import MediaViewer from '../components/MediaViewer.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -62,6 +63,17 @@ const getEventDetailTitle = (eventName: string) => {
           >
             <h3 class="event-name">{{ event.name }}</h3>
             <p class="event-date" v-if="event.date">{{ event.date }}</p>
+            
+            <!-- Media Viewer -->
+            <MediaViewer 
+              v-if="event.mediaType"
+              :mediaType="event.mediaType"
+              :mediaUrl="event.mediaUrl"
+              :mediaUrls="event.mediaUrls"
+              :socialEmbedCode="event.socialEmbedCode"
+              :altText="event.name"
+            />
+            
             <p class="event-full-description">{{ event.fullDescription }}</p>
             <div class="event-impact">
               <h4>Impact:</h4>
@@ -102,6 +114,17 @@ const getEventDetailTitle = (eventName: string) => {
           >
             <h3 class="event-name">{{ event.name }}</h3>
             <p class="event-date" v-if="event.date">{{ event.date }}</p>
+            
+            <!-- Media Viewer -->
+            <MediaViewer 
+              v-if="event.mediaType"
+              :mediaType="event.mediaType"
+              :mediaUrl="event.mediaUrl"
+              :mediaUrls="event.mediaUrls"
+              :socialEmbedCode="event.socialEmbedCode"
+              :altText="event.name"
+            />
+            
             <p class="event-full-description">{{ event.fullDescription }}</p>
             <div class="event-impact">
               <h4>Impact:</h4>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<{
   title: string;
@@ -17,6 +17,15 @@ const toggle = () => {
 const close = () => {
   isOpen.value = false;
 };
+
+// Prevent body scroll when popup is open
+watch(isOpen, (newValue) => {
+  if (newValue) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});
 </script>
 
 <template>
