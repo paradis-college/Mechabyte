@@ -7,6 +7,7 @@ export type Translation = {
     achievements: string;
     team: string;
     portfolio: string;
+    outreach: string;
     sponsors: string;
     support: string;
     contact: string;
@@ -226,6 +227,25 @@ export type Translation = {
   lessonsLearned: string;
   futureOutlookTitle: string;
   futureOutlook: string;
+  
+  // Outreach page
+  outreachTitle: string;
+  outreachSubtitle: string;
+  outreachMission: string;
+  centerstageEvents: Array<{ 
+    name: string; 
+    shortDescription: string; 
+    fullDescription: string;
+    impact: string;
+    date?: string;
+  }>;
+  intoTheDeepEvents: Array<{ 
+    name: string; 
+    shortDescription: string; 
+    fullDescription: string;
+    impact: string;
+    date?: string;
+  }>;
 };
 
 // Translations object with English and Romanian content
@@ -237,6 +257,7 @@ export const translations: { en: Translation; ro: Translation } = {
       achievements: 'Achievements',
       team: 'Team',
       portfolio: 'Portfolio',
+      outreach: 'Outreach',
       sponsors: 'Sponsors',
       support: 'Support',
       contact: 'Contact'
@@ -595,6 +616,73 @@ export const translations: { en: Translation; ro: Translation } = {
     futureOutlookTitle: 'Future Outlook',
     futureOutlook: 'Looking ahead, further integration of sensors for autonomous navigation could improve scoring consistency, while corporate sponsorships may fund advanced motors and vision systems. With a sustainability plan recruiting younger students and alumni support, Mechabyte is well-positioned to continue its growth and embrace future FTC challenges. The team\'s commitment to gracious professionalism and community engagement ensures a strong foundation for years to come.',
     
+    // Outreach page
+    outreachTitle: 'Outreach & Events',
+    outreachSubtitle: 'Community Engagement & Partnerships',
+    outreachMission: 'Beyond building robots, we believe in building connections. Our outreach efforts aim to inspire the next generation, give back to our community, and create lasting partnerships that help us grow.',
+    
+    centerstageEvents: [
+      {
+        name: 'Movie Night',
+        shortDescription: 'Fundraising event with robot showcase',
+        fullDescription: 'Our annual movie night brought together students, families, and community members for an evening of entertainment and robotics. We set up our CenterStage robot for demonstrations between screenings, allowing attendees to see the robot in action and learn about the FIRST Tech Challenge.',
+        impact: 'Raised funds for the team while introducing 50+ community members to FTC robotics. Many expressed interest in supporting our future endeavors.',
+        date: 'Fall 2023'
+      },
+      {
+        name: 'Pancakes Sale',
+        shortDescription: 'Raised ~5,000 RON',
+        fullDescription: 'Team members organized a pancake sale at school, preparing and serving homemade pancakes to students, teachers, and parents. This grassroots fundraising effort required coordination, marketing through social media, and hands-on involvement from all team members.',
+        impact: 'Generated approximately 5,000 RON (~€1,000) to fund robot parts, competition fees, and team supplies. Built team unity through collaborative work.',
+        date: 'Winter 2023-2024'
+      },
+      {
+        name: 'Paradis Run',
+        shortDescription: 'Charity event participation',
+        fullDescription: 'Mechabyte participated in the annual Paradis Run, a charity event organized by our school. Team members ran together wearing team shirts, promoting health, fitness, and school spirit while raising awareness about our robotics program.',
+        impact: 'Strengthened school community bonds and increased visibility of the robotics team among students and faculty. Several new members joined after seeing us at the event.',
+        date: 'Spring 2024'
+      },
+      {
+        name: 'Nikola Tesla Festival',
+        shortDescription: 'Collaborated with other teams',
+        fullDescription: 'We traveled to the Nikola Tesla Festival, a regional science and innovation showcase. Working alongside other FTC teams from Romania, we demonstrated our robot, shared engineering insights, and engaged with hundreds of students interested in STEM fields.',
+        impact: 'Connected with 3 other FTC teams to share knowledge and strategies. Inspired numerous students to explore robotics and engineering. Established ongoing collaboration relationships.',
+        date: 'Spring 2024'
+      }
+    ],
+    
+    intoTheDeepEvents: [
+      {
+        name: 'Winter Dive Meet',
+        shortDescription: 'Scored 3/6 matches in Iași',
+        fullDescription: 'Our first official competition for the Into the Deep season took place in Iași. Despite being a young team, we competed in 6 qualification matches, scoring successfully in 3 of them. The experience provided invaluable lessons in competition strategy, alliance selection, and gracious professionalism.',
+        impact: 'Gained critical competition experience. Identified robot weaknesses leading to improved designs. Built relationships with alliance partners and competing teams.',
+        date: 'January 2025'
+      },
+      {
+        name: 'STEMPOSSUM',
+        shortDescription: 'Robotics & AI collaboration',
+        fullDescription: 'STEMPOSSUM is a regional STEM education initiative focused on robotics and artificial intelligence. We participated as guest presenters, demonstrating our robot\'s capabilities, discussing our engineering process, and leading hands-on activities for younger students interested in coding and robotics.',
+        impact: 'Mentored 40+ middle school students in basic programming and mechanical design. Positioned Mechabyte as a leader in regional STEM education.',
+        date: 'Fall 2024'
+      },
+      {
+        name: 'UGAL Inventics',
+        shortDescription: 'Showcased innovations',
+        fullDescription: 'The "Inventics" competition at Alexandru Ioan Cuza University (UGAL) celebrates student innovation across multiple disciplines. We presented our Into the Deep robot design, highlighting unique mechanisms like our blade stabilization system and telescoping arm. Judges included university professors and industry professionals.',
+        impact: 'Received recognition for innovative design approaches. Made connections with university engineering departments for potential mentorship and sponsorship.',
+        date: 'November 2024'
+      },
+      {
+        name: 'Christmas Market',
+        shortDescription: 'Raised 2,000 RON from decorations',
+        fullDescription: 'Team members hand-crafted Christmas decorations including ornaments, wreaths, and holiday cards featuring robot-themed designs. We set up a booth at the local Christmas market, combining holiday spirit with robotics awareness. All proceeds went directly to the team budget.',
+        impact: 'Generated 2,000 RON (~€400) for team expenses. Demonstrated creativity beyond technical skills. Engaged with 200+ market visitors about FTC.',
+        date: 'December 2024'
+      }
+    ],
+    
     // Additional labels
     firstVersionLabel: 'First Version',
     upgradeAttemptsLabel: 'Upgrade Attempts',
@@ -615,6 +703,7 @@ export const translations: { en: Translation; ro: Translation } = {
       achievements: 'Realizări',
       team: 'Echipă',
       portfolio: 'Portofoliu',
+      outreach: 'Implicare',
       sponsors: 'Sponsori',
       support: 'Susține',
       contact: 'Contact'
@@ -985,6 +1074,73 @@ export const translations: { en: Translation; ro: Translation } = {
     lessonsLearnedTitle: 'Lecții Învățate & Creștere',
     lessonsLearned: 'Călătoria de două sezoane a Mechabyte demonstrează cum o echipă poate evolua prin persistență și ingeniozitate. În CenterStage, constrângerile de buget și hardware au forțat soluții creative precum hub-uri legate cu bride de plastic și o gheară asemănătoare cu un crab; redesign-urile iterative și un braț pantograf au permis plasarea fiabilă a pixelilor și lansarea dronelor. Până la Into the Deep, echipa a aplicat acele lecții pentru a simplifica mecanismele, a se concentra pe distribuția greutății și fiabilitate și a adopta îmbunătățiri imprimate 3D. Programarea a evoluat de la teleop de bază la rutine autonome multi-caz, demonstrând învățare și adaptare continuă.',
     futureOutlookTitle: 'Perspectiva Viitorului',
-    futureOutlook: 'Privind înainte, integrarea ulterioară a senzorilor pentru navigarea autonomă ar putea îmbunătăți consistența punctajului, în timp ce sponsorizările corporative ar putea finanța motoare avansate și sisteme de viziune. Cu un plan de sustenabilitate care recrutează studenți mai tineri și suport de absolvenți, Mechabyte este bine poziționat pentru a-și continua creșterea și a îmbrățișa provocările FTC viitoare. Angajamentul echipei pentru profesionalismul grațios și implicarea comunitară asigură o fundație puternică pentru anii care vin.'
+    futureOutlook: 'Privind înainte, integrarea ulterioară a senzorilor pentru navigarea autonomă ar putea îmbunătăți consistența punctajului, în timp ce sponsorizările corporative ar putea finanța motoare avansate și sisteme de viziune. Cu un plan de sustenabilitate care recrutează studenți mai tineri și suport de absolvenți, Mechabyte este bine poziționat pentru a-și continua creșterea și a îmbrățișa provocările FTC viitoare. Angajamentul echipei pentru profesionalismul grațios și implicarea comunitară asigură o fundație puternică pentru anii care vin.',
+    
+    // Outreach page
+    outreachTitle: 'Implicare și Evenimente',
+    outreachSubtitle: 'Implicare Comunitară și Parteneriate',
+    outreachMission: 'Dincolo de construirea roboților, credem în construirea conexiunilor. Eforturile noastre de implicare urmăresc să inspire următoarea generație, să dăm înapoi comunității și să creăm parteneriate durabile care ne ajută să creștem.',
+    
+    centerstageEvents: [
+      {
+        name: 'Seară de Film',
+        shortDescription: 'Eveniment de strângere de fonduri cu prezentarea robotului',
+        fullDescription: 'Seara noastră anuală de film a reunit studenți, familii și membri ai comunității pentru o seară de divertisment și robotică. Am instalat robotul nostru CenterStage pentru demonstrații între proiecții, permițând participanților să vadă robotul în acțiune și să învețe despre FIRST Tech Challenge.',
+        impact: 'Am strâns fonduri pentru echipă și am introdus peste 50 de membri ai comunității în robotica FTC. Mulți și-au exprimat interesul de a susține eforturile noastre viitoare.',
+        date: 'Toamna 2023'
+      },
+      {
+        name: 'Vânzare de Clătite',
+        shortDescription: 'Am strâns ~5.000 RON',
+        fullDescription: 'Membrii echipei au organizat o vânzare de clătite la școală, preparând și servind clătite făcute în casă pentru studenți, profesori și părinți. Acest efort de strângere de fonduri de la bază a necesitat coordonare, marketing prin social media și implicarea directă a tuturor membrilor echipei.',
+        impact: 'Am generat aproximativ 5.000 RON (~€1.000) pentru a finanța piese de robot, taxe de competiție și materiale pentru echipă. Am construit unitatea echipei prin muncă colaborativă.',
+        date: 'Iarna 2023-2024'
+      },
+      {
+        name: 'Paradis Run',
+        shortDescription: 'Participare la eveniment caritabil',
+        fullDescription: 'Mechabyte a participat la Paradis Run anual, un eveniment caritabil organizat de școala noastră. Membrii echipei au alergat împreună purtând tricouri de echipă, promovând sănătatea, fitness-ul și spiritul școlar, ridicând în același timp gradul de conștientizare despre programul nostru de robotică.',
+        impact: 'Am întărit legăturile cu comunitatea școlară și am crescut vizibilitatea echipei de robotică în rândul studenților și profesorilor. Mai mulți membri noi s-au alăturat după ce ne-au văzut la eveniment.',
+        date: 'Primăvara 2024'
+      },
+      {
+        name: 'Festivalul Nikola Tesla',
+        shortDescription: 'Colaborare cu alte echipe',
+        fullDescription: 'Am călătorit la Festivalul Nikola Tesla, o expoziție regională de știință și inovație. Lucrând alături de alte echipe FTC din România, am demonstrat robotul nostru, am împărtășit cunoștințe de inginerie și ne-am implicat cu sute de studenți interesați de domeniile STEM.',
+        impact: 'Ne-am conectat cu alte 3 echipe FTC pentru a împărtăși cunoștințe și strategii. Am inspirat numeroși studenți să exploreze robotica și ingineria. Am stabilit relații de colaborare continuă.',
+        date: 'Primăvara 2024'
+      }
+    ],
+    
+    intoTheDeepEvents: [
+      {
+        name: 'Winter Dive Meet',
+        shortDescription: 'Am punctat în 3/6 meciuri la Iași',
+        fullDescription: 'Prima noastră competiție oficială pentru sezonul Into the Deep a avut loc la Iași. Deși suntem o echipă tânără, am concurat în 6 meciuri de calificare, punctând cu succes în 3 dintre ele. Experiența a oferit lecții neprețuite în strategia de competiție, selecția alianțelor și profesionalismul grațios.',
+        impact: 'Am câștigat experiență critică de competiție. Am identificat punctele slabe ale robotului, conducând la proiecte îmbunătățite. Am construit relații cu partenerii de alianță și echipele adversare.',
+        date: 'Ianuarie 2025'
+      },
+      {
+        name: 'STEMPOSSUM',
+        shortDescription: 'Colaborare Robotică și IA',
+        fullDescription: 'STEMPOSSUM este o inițiativă regională de educație STEM axată pe robotică și inteligență artificială. Am participat ca prezentatori invitați, demonstrând capacitățile robotului nostru, discutând procesul nostru de inginerie și conducând activități practice pentru studenții mai tineri interesați de programare și robotică.',
+        impact: 'Am mentorat peste 40 de elevi de gimnaziu în programare de bază și design mecanic. Am poziționat Mechabyte ca lider în educația STEM regională.',
+        date: 'Toamna 2024'
+      },
+      {
+        name: 'UGAL Inventics',
+        shortDescription: 'Am prezentat inovații',
+        fullDescription: 'Competiția "Inventics" de la Universitatea Alexandru Ioan Cuza (UGAL) celebrează inovația studenților în multiple discipline. Am prezentat designul robotului nostru Into the Deep, evidențiind mecanisme unice precum sistemul nostru de stabilizare a lamelor și brațul telescopic. Juriul a inclus profesori universitari și profesioniști din industrie.',
+        impact: 'Am primit recunoaștere pentru abordări inovatoare de design. Am făcut conexiuni cu departamentele de inginerie universitare pentru potențială mentorat și sponsorizare.',
+        date: 'Noiembrie 2024'
+      },
+      {
+        name: 'Târgul de Crăciun',
+        shortDescription: 'Am strâns 2.000 RON din decorațiuni',
+        fullDescription: 'Membrii echipei au creat manual decorațiuni de Crăciun, inclusiv ornamente, coroane și felicitări cu design-uri tematice robotice. Am amenajat un stand la târgul local de Crăciun, combinând spiritul sărbătorilor cu conștientizarea roboticii. Toate veniturile au mers direct la bugetul echipei.',
+        impact: 'Am generat 2.000 RON (~€400) pentru cheltuielile echipei. Am demonstrat creativitate dincolo de abilitățile tehnice. Ne-am implicat cu peste 200 de vizitatori despre FTC.',
+        date: 'Decembrie 2024'
+      }
+    ]
   }
 };
