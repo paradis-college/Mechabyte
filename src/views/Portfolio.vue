@@ -7,7 +7,7 @@ import MoreInfoPopup from '../components/MoreInfoPopup.vue';
 import CenterStageFieldAnimation from '../components/animations/CenterStageFieldAnimation.vue';
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
 import IntakeEvolutionAnimation from '../components/animations/IntakeEvolutionAnimation.vue';
-import ChassisEvolutionAnimation from '../components/animations/ChassisEvolutionAnimation.vue';
+import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
 import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
@@ -102,14 +102,15 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
       <section class="content-section">
         <h2 class="section-title">Robot Evolution</h2>
         
+        <Model3DPlaceholder title="3D Model: Complete Robot - CenterStage" description="Explore the full robot design in 3D" />
+        
         <div class="evolution-component">
           <h3>Chassis</h3>
           <p><strong>Final Solution:</strong> Mecanum wheel drive with spacious layout and proper hub mounting.</p>
-          <ChassisEvolutionAnimation />
+          <ChassisEvolutionAnimationEnhanced />
         <MoreInfoPopup title="Design Evolution: Chassis">
           <p>Initial X-drive chassis was cramped. Control Hub attached with single screw and zip-tie, making it fragile. Solved by redesigning with mecanum wheels, adding Expansion Hub, and creating custom mounting holders.</p>
         </MoreInfoPopup>
-          <Model3DPlaceholder title="3D Model: Final Chassis" description="Explore the mecanum wheel chassis in 3D" />
         </div>
 
         <div class="evolution-component">
@@ -277,6 +278,8 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
       <section class="content-section">
         <h2 class="section-title">Robot Evolution</h2>
         
+        <Model3DPlaceholder title="3D Model: Complete Robot - Into the Deep" description="Explore the full robot design in 3D" />
+        
         <div class="evolution-component">
           <h3>Intake System</h3>
           <p><strong>Final Solution:</strong> Lightweight rotating blades with 3D-printed disc stabilizers.</p>
@@ -285,7 +288,6 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
             <p><strong>First Version Issues:</strong> Oversized claw couldn't close fully, specimens fell. Heavy butcher-shop blades acted as obstacles, often aligned parallel and failed to grab.</p>
             <p><strong>Solution:</strong> Redesigned claw shape, added structural support, replaced blades with stoppers, created 3D-printed hexagonal discs to lock blades at 90°.</p>
           </MoreInfoPopup>
-          <Model3DPlaceholder title="3D Model: Blade Stabilizer" description="View the 3D-printed hexagonal disc solution" />
         </div>
 
         <div class="evolution-component">
