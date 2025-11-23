@@ -13,6 +13,7 @@ import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimat
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
+import CenterstageTeleOpAnimation from '../components/animations/CenterstageTeleOpAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
@@ -74,6 +75,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="strategy-phase">
           <h3>Teleop</h3>
           <p>Navigate through truss/stage door, collect pixels, place on backdrop. Focus on mosaics and height lines.</p>
+          <CenterstageTeleOpAnimation />
           <MoreInfoPopup title="Teleop Details" buttonText="More Info">
             <p>{{ t.centerstageTeleOpDetails }}</p>
           </MoreInfoPopup>
