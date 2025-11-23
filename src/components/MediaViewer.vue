@@ -86,6 +86,8 @@ const goToImage = (index: number) => {
     </div>
 
     <!-- Social Media Embed -->
+    <!-- Note: socialEmbedCode should only contain trusted embed codes from official social media platforms (Instagram, Twitter, Facebook, TikTok) -->
+    <!-- The team controls these values in translations.ts - never accept user-generated HTML -->
     <div v-else-if="mediaType === 'social-embed' && socialEmbedCode" class="media-social" v-html="socialEmbedCode"></div>
 
     <!-- Placeholder -->

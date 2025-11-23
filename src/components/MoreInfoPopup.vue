@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onUnmounted } from 'vue';
 
 const props = withDefaults(defineProps<{
   title: string;
@@ -25,6 +25,11 @@ watch(isOpen, (newValue) => {
   } else {
     document.body.style.overflow = '';
   }
+});
+
+// Cleanup: restore body overflow when component is unmounted
+onUnmounted(() => {
+  document.body.style.overflow = '';
 });
 </script>
 
