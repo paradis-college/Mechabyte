@@ -10,11 +10,12 @@ const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
 const sketch = (p: p5) => {
-  // Constants - FASTER, MORE ACCURATE
+  // Constants - Properly paced to match game structure
   const CANVAS_BASE_SIZE = 800;
   const CANVAS_ASPECT_RATIO = 0.7;
-  const ANIMATION_SPEED = 0.04; // 2.5x faster
+  const ANIMATION_SPEED = 0.02; // Slower, more realistic pace
   const FIELD_SIZE = 360;
+  const FIELD_BOUNDS = 150; // Keep robot within field bounds
   
   // Enhanced color scheme
   const COLORS = {
@@ -64,9 +65,14 @@ const sketch = (p: p5) => {
     
     updateAnimation(animationPhase);
     
-    // Apply physics
+    // Apply physics with boundary constraints
     robotX += robotVelX;
     robotY += robotVelY;
+    
+    // Keep robot within field bounds
+    robotX = p.constrain(robotX, -FIELD_BOUNDS, FIELD_BOUNDS);
+    robotY = p.constrain(robotY, -FIELD_BOUNDS / 2, FIELD_BOUNDS);
+    
     robotVelX *= 0.92;
     robotVelY *= 0.92;
     
@@ -99,7 +105,8 @@ const sketch = (p: p5) => {
   };
 
   const updateAnimation = (phase: number) => {
-    const cycleDuration = props.season === 'into-the-deep' ? 10 : 11;
+    // Match game structure: Autonomous (3-4s) → Teleop (12-15s) → Endgame (3-4s)
+    const cycleDuration = props.season === 'into-the-deep' ? 20 : 22;
     
     if (phase > cycleDuration) {
       animationPhase = 0;
@@ -114,100 +121,142 @@ const sketch = (p: p5) => {
     }
     
     if (props.season === 'into-the-deep') {
-      if (phase < 1.5) {
-        controllerInputs.driver1.leftStick.y = -0.9;
-        robotVelY = -4.5;
-      } else if (phase < 2.5) {
+      // AUTONOMOUS (0-3s): park robot + place sample in net zone
+      if (phase < 3) {
+        controllerInputs.driver1.leftStick.y = -0.7;
+        robotVelY = -2.5;
+      }
+      // TELEOP (3-16s): collect samples and score in high basket
+      else if (phase < 4.5) {
+        // Driver 2: Lower intake
         controllerInputs.driver1.leftStick.y = 0;
         robotVelY = 0;
         controllerInputs.driver2.buttons['dpad_down'] = true;
-      } else if (phase < 4) {
+      } else if (phase < 6.5) {
+        // Driver 2: Close claw, grab sample
         controllerInputs.driver2.buttons['dpad_down'] = false;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        clawAngle = p.lerp(45, 15, (phase - 2.5) / 1.5);
-        if (phase > 3.5 && !sampleHeld) {
-          const nearSample = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 20 && Math.abs(s.y - robotY) < 20);
-          if (nearSample) { nearSample.held = true; sampleHeld = true; }
+        clawAngle = p.lerp(45, 15, (phase - 4.5) / 2);
+        if (phase > 6 && !sampleHeld) {
+          const nearSample = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 25 && Math.abs(s.y - robotY) < 25);
+          if (nearSample) { 
+            nearSample.held = true; 
+            sampleHeld = true; 
+          }
         }
-      } else if (phase < 5.5) {
+      } else if (phase < 9) {
+        // Driver 2: Raise slider
         controllerInputs.driver2.buttons['left_bumper'] = false;
         controllerInputs.driver2.buttons['dpad_up'] = true;
-        sliderHeight = p.lerp(0, 100, (phase - 4) / 1.5);
-      } else if (phase < 7.5) {
+        sliderHeight = p.lerp(0, 100, (phase - 6.5) / 2.5);
+      } else if (phase < 12) {
+        // Driver 1: Navigate to high basket
         controllerInputs.driver2.buttons['dpad_up'] = false;
-        controllerInputs.driver1.leftStick.x = 0.9;
-        controllerInputs.driver1.leftStick.y = -0.3;
-        robotVelX = 5;
-        robotVelY = -1;
-      } else if (phase < 8.5) {
+        controllerInputs.driver1.leftStick.x = 0.8;
+        controllerInputs.driver1.leftStick.y = -0.2;
+        robotVelX = 3;
+        robotVelY = -0.5;
+      } else if (phase < 14) {
+        // Driver 2: Release sample → SCORE
         controllerInputs.driver1.leftStick.x = 0;
-        robotVelX = robotVelY = 0;
+        controllerInputs.driver1.leftStick.y = 0;
+        robotVelX = 0;
+        robotVelY = 0;
         controllerInputs.driver2.buttons['right_bumper'] = true;
-        clawAngle = p.lerp(15, 50, (phase - 7.5) / 1);
-        if (phase > 8 && sampleHeld) {
+        clawAngle = p.lerp(15, 50, (phase - 12) / 2);
+        if (phase > 13 && sampleHeld) {
           const heldSample = samples.find(s => s.held);
-          if (heldSample && robotX > 100) {
+          if (heldSample && robotX > 80) {
             heldSample.held = false;
             heldSample.scored = true;
             sampleHeld = false;
             samplesScored++;
           }
         }
-      } else {
+      }
+      // ENDGAME (16-20s): park in netzone or ascend
+      else if (phase < 17) {
+        // Return movement
         controllerInputs.driver2.buttons['right_bumper'] = false;
-        controllerInputs.driver1.leftStick.x = -0.8;
-        robotVelX = -4;
-        sliderHeight *= (1 - (phase - 8.5) / 1.5);
+        controllerInputs.driver1.leftStick.x = -0.6;
+        robotVelX = -2.5;
+        sliderHeight *= 0.85;
+      } else {
+        // Park in netzone
+        controllerInputs.driver1.leftStick.x = 0;
+        robotVelX = 0;
+        sliderHeight *= 0.8;
       }
     } else {
-      // CenterStage
-      if (phase < 1.5) {
-        controllerInputs.driver1.leftStick.y = -0.9;
-        robotVelY = -4.5;
-      } else if (phase < 3) {
+      // CENTERSTAGE - Similar structure
+      // AUTONOMOUS (0-3s)
+      if (phase < 3) {
+        controllerInputs.driver1.leftStick.y = -0.7;
+        robotVelY = -2.5;
+      }
+      // TELEOP (3-18s)
+      else if (phase < 5) {
+        // Raise arm + open intake
         controllerInputs.driver1.leftStick.y = 0;
         robotVelY = 0;
         controllerInputs.driver1.buttons['dpad_up'] = true;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        sliderHeight = p.lerp(0, 40, (phase - 1.5) / 1.5);
-      } else if (phase < 4.5) {
+        sliderHeight = p.lerp(0, 40, (phase - 3) / 2);
+      } else if (phase < 7.5) {
+        // Close intake, grab pixel
         controllerInputs.driver1.buttons['dpad_up'] = false;
         controllerInputs.driver2.buttons['left_bumper'] = false;
         controllerInputs.driver2.buttons['right_bumper'] = true;
-        clawAngle = p.lerp(45, 15, (phase - 3) / 1.5);
-        if (phase > 4 && !sampleHeld) {
-          const nearPixel = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 20 && Math.abs(s.y - robotY) < 20);
-          if (nearPixel) { nearPixel.held = true; sampleHeld = true; }
+        clawAngle = p.lerp(45, 15, (phase - 5) / 2.5);
+        if (phase > 7 && !sampleHeld) {
+          const nearPixel = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 25 && Math.abs(s.y - robotY) < 25);
+          if (nearPixel) { 
+            nearPixel.held = true; 
+            sampleHeld = true; 
+          }
         }
-      } else if (phase < 6) {
+      } else if (phase < 10) {
+        // Raise arm higher
         controllerInputs.driver2.buttons['right_bumper'] = false;
         controllerInputs.driver1.buttons['dpad_up'] = true;
-        sliderHeight = p.lerp(40, 90, (phase - 4.5) / 1.5);
-      } else if (phase < 8) {
+        sliderHeight = p.lerp(40, 90, (phase - 7.5) / 2.5);
+      } else if (phase < 13.5) {
+        // Navigate to backdrop
         controllerInputs.driver1.buttons['dpad_up'] = false;
-        controllerInputs.driver1.leftStick.x = 0.9;
+        controllerInputs.driver1.leftStick.x = 0.8;
         controllerInputs.driver1.leftStick.y = -0.2;
-        robotVelX = 5;
-        robotVelY = -0.8;
-      } else if (phase < 9) {
+        robotVelX = 3;
+        robotVelY = -0.5;
+      } else if (phase < 15.5) {
+        // Release pixel → SCORE
         controllerInputs.driver1.leftStick.x = 0;
-        robotVelX = robotVelY = 0;
+        controllerInputs.driver1.leftStick.y = 0;
+        robotVelX = 0;
+        robotVelY = 0;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        clawAngle = p.lerp(15, 50, (phase - 8) / 1);
-        if (phase > 8.5 && sampleHeld) {
+        clawAngle = p.lerp(15, 50, (phase - 13.5) / 2);
+        if (phase > 14.5 && sampleHeld) {
           const heldPixel = samples.find(s => s.held);
-          if (heldPixel && robotX > 100) {
+          if (heldPixel && robotX > 80) {
             heldPixel.held = false;
             heldPixel.scored = true;
             sampleHeld = false;
             samplesScored++;
           }
         }
-      } else {
+      }
+      // ENDGAME (18-22s)
+      else if (phase < 19) {
+        // Return movement
         controllerInputs.driver2.buttons['left_bumper'] = false;
-        controllerInputs.driver1.leftStick.x = -0.8;
-        robotVelX = -4;
-        sliderHeight *= (1 - (phase - 9) / 2);
+        controllerInputs.driver1.leftStick.x = -0.6;
+        robotVelX = -2.5;
+        sliderHeight *= 0.85;
+      } else {
+        // Park
+        controllerInputs.driver1.leftStick.x = 0;
+        robotVelX = 0;
+        sliderHeight *= 0.8;
       }
     }
   };
@@ -392,32 +441,78 @@ const sketch = (p: p5) => {
   const drawUI = (p: p5, scale: number) => {
     const phase = animationPhase;
     let phaseText = '';
+    let gamePhase = '';
     
     if (props.season === 'into-the-deep') {
-      if (phase < 1.5) phaseText = 'Driver 1: Navigate to sample';
-      else if (phase < 2.5) phaseText = 'Driver 2: Lower intake';
-      else if (phase < 4) phaseText = 'Driver 2: Grab sample';
-      else if (phase < 5.5) phaseText = 'Driver 2: Raise slider';
-      else if (phase < 7.5) phaseText = 'Driver 1: Navigate to HIGH BASKET';
-      else if (phase < 8.5) phaseText = 'Driver 2: SCORE → 8 Points!';
-      else phaseText = 'Return to start';
+      if (phase < 3) {
+        gamePhase = 'AUTONOMOUS';
+        phaseText = 'Park robot in netzone (3 pts)';
+      } else if (phase < 4.5) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 2: Lower intake';
+      } else if (phase < 6.5) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 2: Close claw → Grab sample';
+      } else if (phase < 9) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 2: Raise slider';
+      } else if (phase < 12) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 1: Navigate to HIGH BASKET';
+      } else if (phase < 14) {
+        gamePhase = 'TELEOP';
+        phaseText = `Driver 2: Release sample → SCORE! (8 pts) | Scored: ${samplesScored}`;
+      } else if (phase < 16) {
+        gamePhase = 'ENDGAME';
+        phaseText = 'Continue scoring samples';
+      } else {
+        gamePhase = 'ENDGAME';
+        phaseText = 'Park in netzone (3 pts)';
+      }
     } else {
-      if (phase < 1.5) phaseText = 'Driver 1: Navigate to pixel';
-      else if (phase < 3) phaseText = 'D1: Raise arm + D2: Open intake';
-      else if (phase < 4.5) phaseText = 'Driver 2: Grab pixel';
-      else if (phase < 6) phaseText = 'Driver 1: Raise arm higher';
-      else if (phase < 8) phaseText = 'Driver 1: Navigate to BACKDROP';
-      else if (phase < 9) phaseText = 'Driver 2: SCORE → 3 Points!';
-      else phaseText = 'Return to start';
+      if (phase < 3) {
+        gamePhase = 'AUTONOMOUS';
+        phaseText = 'Park robot (3 pts)';
+      } else if (phase < 5) {
+        gamePhase = 'TELEOP';
+        phaseText = 'D1: Raise arm + D2: Open intake';
+      } else if (phase < 7.5) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 2: Close intake → Grab pixel';
+      } else if (phase < 10) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 1: Raise arm higher';
+      } else if (phase < 13.5) {
+        gamePhase = 'TELEOP';
+        phaseText = 'Driver 1: Navigate to BACKDROP';
+      } else if (phase < 15.5) {
+        gamePhase = 'TELEOP';
+        phaseText = `Driver 2: Release pixel → SCORE! (3 pts) | Scored: ${samplesScored}`;
+      } else if (phase < 18) {
+        gamePhase = 'ENDGAME';
+        phaseText = 'Continue scoring pixels';
+      } else {
+        gamePhase = 'ENDGAME';
+        phaseText = 'Park robot (3 pts)';
+      }
     }
     
+    // UI Box
     p.fill(0, 0, 0, 200);
     p.noStroke();
-    p.rect(15 * scale, 15 * scale, p.width - 30 * scale, 40 * scale, 6 * scale);
+    p.rect(15 * scale, 15 * scale, p.width - 30 * scale, 50 * scale, 6 * scale);
+    
+    // Game Phase Label
     p.fill(...COLORS.ROBOT_GREEN as [number, number, number]);
-    p.textSize(13 * scale);
+    p.textSize(11 * scale);
     p.textAlign(p.LEFT, p.TOP);
-    p.text(phaseText, 25 * scale, 25 * scale);
+    p.textStyle(p.BOLD);
+    p.text(gamePhase, 25 * scale, 22 * scale);
+    
+    // Phase Text
+    p.textStyle(p.NORMAL);
+    p.textSize(12 * scale);
+    p.text(phaseText, 25 * scale, 38 * scale);
   };
 
   p.windowResized = () => {
@@ -447,15 +542,15 @@ onBeforeUnmount(() => {
   <div class="controller-robot-coordination">
     <div class="animation-header">
       <h4>{{ season === 'into-the-deep' ? 'Into the Deep' : 'CenterStage' }} - Controller-Robot Coordination</h4>
-      <p class="description">Enhanced, faster-paced simulation matching game strategy</p>
+      <p class="description">Simulation following game structure: Autonomous → Teleop → Endgame</p>
     </div>
     <div ref="canvasContainer" class="canvas-container"></div>
     <div class="animation-footer">
       <p class="hint">
-        <strong>Strategy:</strong>
+        <strong>Game Structure:</strong>
         {{ season === 'into-the-deep' 
-          ? 'Collect samples → Score in high basket (8 pts each) → Maximize efficiency' 
-          : 'Collect pixels → Place on backdrop (3 pts each) → Create mosaics' 
+          ? 'Autonomous (park + sample) → Teleop (collect & score in high basket: 8 pts) → Endgame (park or ascend)' 
+          : 'Autonomous (park) → Teleop (collect & place on backdrop: 3 pts) → Endgame (park)' 
         }}
       </p>
     </div>
