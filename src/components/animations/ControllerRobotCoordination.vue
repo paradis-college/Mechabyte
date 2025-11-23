@@ -10,417 +10,414 @@ const canvasContainer = ref<HTMLDivElement | null>(null);
 let p5Instance: p5 | null = null;
 
 const sketch = (p: p5) => {
-  // Animation constants
-  const CANVAS_BASE_SIZE = 700;
-  const CANVAS_ASPECT_RATIO = 0.75;
+  // Constants - FASTER, MORE ACCURATE
+  const CANVAS_BASE_SIZE = 800;
+  const CANVAS_ASPECT_RATIO = 0.7;
+  const ANIMATION_SPEED = 0.04; // 2.5x faster
+  const FIELD_SIZE = 360;
   
-  // Animation state
+  // Enhanced color scheme
+  const COLORS = {
+    SAMPLE_YELLOW: [255, 220, 0],
+    PIXEL_PURPLE: [180, 50, 255],
+    BASKET_BLUE: [0, 180, 255],
+    BACKDROP_BLUE: [0, 150, 200],
+    ROBOT_GREEN: [0, 255, 100],
+    CONTROLLER_ACTIVE: [0, 255, 150]
+  };
+  
+  // State with physics
   let animationPhase = 0;
+  let robotX = 0, robotY = 0, robotVelX = 0, robotVelY = 0;
+  let robotAngle = 0;
+  let sliderHeight = 0;
+  let clawAngle = 45;
+  let sampleHeld = false;
+  let samplesScored = 0;
+  let samples: Array<{x: number, y: number, held: boolean, scored: boolean}> = [];
+  
   let controllerInputs = {
     driver1: { leftStick: { x: 0, y: 0 }, rightStick: { x: 0, y: 0 }, buttons: {} as Record<string, boolean> },
     driver2: { leftStick: { x: 0, y: 0 }, rightStick: { x: 0, y: 0 }, buttons: {} as Record<string, boolean> }
   };
-  
-  // Robot state
-  let robotX = 0;
-  let robotY = 0;
-  let robotAngle = 0;
-  let sliderHeight = 0;
-  let clawOpen = true;
-  let sampleHeld = false;
-  let sampleX = 0;
-  let sampleY = 0;
 
   p.setup = () => {
     const container = canvasContainer.value;
     if (!container) return;
-    
     const width = container.clientWidth;
     const height = Math.min(CANVAS_BASE_SIZE, width * CANVAS_ASPECT_RATIO);
     p.createCanvas(width, height);
-    p.frameRate(30);
+    p.frameRate(60);
+    
+    // Initialize samples
+    if (props.season === 'into-the-deep') {
+      samples = [{x: -80, y: 40, held: false, scored: false}, {x: -60, y: 60, held: false, scored: false}];
+    } else {
+      samples = [{x: -70, y: 50, held: false, scored: false}];
+    }
   };
 
   p.draw = () => {
-    // Background
     p.background(15, 20, 25);
-    
     const scale = Math.min(p.width, p.height) / 700;
-    animationPhase += 0.015;
+    animationPhase += ANIMATION_SPEED;
     
-    // Update animation based on phase
     updateAnimation(animationPhase);
     
-    // Draw field (top half)
-    p.push();
-    p.translate(0, 0);
+    // Apply physics
+    robotX += robotVelX;
+    robotY += robotVelY;
+    robotVelX *= 0.92;
+    robotVelY *= 0.92;
+    
+    // Draw field
     drawField(p, scale);
-    p.pop();
     
-    // Draw robot on field
+    // Draw samples
+    samples.forEach(s => {
+      if (!s.held && !s.scored) drawSample(p, scale, s.x, s.y);
+    });
+    
+    // Draw robot
     p.push();
-    p.translate(p.width / 2 + robotX * scale, 150 * scale + robotY * scale);
+    p.translate(p.width/2 + robotX*scale, p.height*0.25 + robotY*scale);
     p.rotate(robotAngle);
-    drawRobot(p, scale, sliderHeight, clawOpen);
+    drawRobot(p, scale, sliderHeight, clawAngle);
     p.pop();
     
-    // Draw sample if present
-    if (sampleX !== 0 || sampleY !== 0 || sampleHeld) {
-      drawSample(p, scale);
-    }
+    // Draw held sample
+    if (sampleHeld) drawSample(p, scale, robotX, robotY - 20 - sliderHeight*0.8);
     
-    // Draw controllers (bottom half)
+    // Draw controllers
     p.push();
-    p.translate(0, p.height * 0.55);
+    p.translate(0, p.height * 0.6);
     drawControllers(p, scale);
     p.pop();
     
-    // Draw labels and instructions
-    drawPhaseLabel(p, scale);
+    // Draw UI
+    drawUI(p, scale);
   };
 
   const updateAnimation = (phase: number) => {
-    const p5 = Math.PI;
+    const cycleDuration = props.season === 'into-the-deep' ? 10 : 11;
     
-    // Reset after full cycle
-    if (phase > 20) {
+    if (phase > cycleDuration) {
       animationPhase = 0;
-      robotX = 0;
-      robotY = 0;
-      robotAngle = 0;
-      sliderHeight = 0;
-      clawOpen = true;
+      robotX = robotY = robotVelX = robotVelY = robotAngle = sliderHeight = 0;
+      clawAngle = 45;
       sampleHeld = false;
-      sampleX = 0;
-      sampleY = 0;
+      samplesScored = 0;
+      samples.forEach(s => { s.held = s.scored = false; });
+      controllerInputs.driver1 = { leftStick: {x:0, y:0}, rightStick: {x:0, y:0}, buttons: {} };
+      controllerInputs.driver2 = { leftStick: {x:0, y:0}, rightStick: {x:0, y:0}, buttons: {} };
       return;
     }
     
     if (props.season === 'into-the-deep') {
-      // Phase 1: Driver 1 moves robot forward to sample (0-3s)
-      if (phase < 3) {
-        controllerInputs.driver1.leftStick.y = -0.8;
-        robotY = phase * 20;
-      }
-      // Phase 2: Driver 2 lowers intake, Driver 1 stops (3-5s)
-      else if (phase < 5) {
+      if (phase < 1.5) {
+        controllerInputs.driver1.leftStick.y = -0.9;
+        robotVelY = -4.5;
+      } else if (phase < 2.5) {
         controllerInputs.driver1.leftStick.y = 0;
+        robotVelY = 0;
         controllerInputs.driver2.buttons['dpad_down'] = true;
-        // Sample appears on field
-        if (sampleX === 0 && sampleY === 0) {
-          sampleX = 0;
-          sampleY = 60 + 30;
-        }
-      }
-      // Phase 3: Driver 2 closes intake to grab sample (5-7s)
-      else if (phase < 7) {
+      } else if (phase < 4) {
         controllerInputs.driver2.buttons['dpad_down'] = false;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        clawOpen = false;
-        if (phase > 6) {
-          sampleHeld = true;
+        clawAngle = p.lerp(45, 15, (phase - 2.5) / 1.5);
+        if (phase > 3.5 && !sampleHeld) {
+          const nearSample = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 20 && Math.abs(s.y - robotY) < 20);
+          if (nearSample) { nearSample.held = true; sampleHeld = true; }
         }
-      }
-      // Phase 4: Driver 2 raises slider (7-10s)
-      else if (phase < 10) {
+      } else if (phase < 5.5) {
         controllerInputs.driver2.buttons['left_bumper'] = false;
         controllerInputs.driver2.buttons['dpad_up'] = true;
-        sliderHeight = (phase - 7) * 30;
-      }
-      // Phase 5: Driver 1 moves robot to basket (10-13s)
-      else if (phase < 13) {
+        sliderHeight = p.lerp(0, 100, (phase - 4) / 1.5);
+      } else if (phase < 7.5) {
         controllerInputs.driver2.buttons['dpad_up'] = false;
-        controllerInputs.driver1.leftStick.x = 0.8;
-        robotX = (phase - 10) * 25;
-      }
-      // Phase 6: Driver 2 opens intake to release sample (13-15s)
-      else if (phase < 15) {
+        controllerInputs.driver1.leftStick.x = 0.9;
+        controllerInputs.driver1.leftStick.y = -0.3;
+        robotVelX = 5;
+        robotVelY = -1;
+      } else if (phase < 8.5) {
         controllerInputs.driver1.leftStick.x = 0;
+        robotVelX = robotVelY = 0;
         controllerInputs.driver2.buttons['right_bumper'] = true;
-        clawOpen = true;
-        if (phase > 14) {
-          sampleHeld = false;
-          // Sample flies to basket
-          const t = (phase - 14);
-          sampleX = robotX + 50;
-          sampleY = robotY - 80 - t * 20;
+        clawAngle = p.lerp(15, 50, (phase - 7.5) / 1);
+        if (phase > 8 && sampleHeld) {
+          const heldSample = samples.find(s => s.held);
+          if (heldSample && robotX > 100) {
+            heldSample.held = false;
+            heldSample.scored = true;
+            sampleHeld = false;
+            samplesScored++;
+          }
         }
-      }
-      // Phase 7: Reset (15-20s)
-      else {
+      } else {
         controllerInputs.driver2.buttons['right_bumper'] = false;
-        const t = (phase - 15) / 5;
-        sliderHeight = sliderHeight * (1 - t);
-        if (phase > 18) {
-          sampleX = 0;
-          sampleY = 0;
-        }
+        controllerInputs.driver1.leftStick.x = -0.8;
+        robotVelX = -4;
+        sliderHeight *= (1 - (phase - 8.5) / 1.5);
       }
-    } else if (props.season === 'centerstage') {
-      // CenterStage: Collect pixel and place on backdrop
-      // Phase 1: Driver 1 moves robot forward to pixel (0-3s)
-      if (phase < 3) {
-        controllerInputs.driver1.leftStick.y = -0.8;
-        robotY = phase * 20;
-      }
-      // Phase 2: Driver 1 raises arm, Driver 2 opens intake (3-5s)
-      else if (phase < 5) {
+    } else {
+      // CenterStage
+      if (phase < 1.5) {
+        controllerInputs.driver1.leftStick.y = -0.9;
+        robotVelY = -4.5;
+      } else if (phase < 3) {
         controllerInputs.driver1.leftStick.y = 0;
+        robotVelY = 0;
         controllerInputs.driver1.buttons['dpad_up'] = true;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        // Pixel appears on field
-        if (sampleX === 0 && sampleY === 0) {
-          sampleX = 0;
-          sampleY = 60 + 30;
-        }
-      }
-      // Phase 3: Driver 2 closes intake to grab pixel (5-7s)
-      else if (phase < 7) {
+        sliderHeight = p.lerp(0, 40, (phase - 1.5) / 1.5);
+      } else if (phase < 4.5) {
         controllerInputs.driver1.buttons['dpad_up'] = false;
         controllerInputs.driver2.buttons['left_bumper'] = false;
         controllerInputs.driver2.buttons['right_bumper'] = true;
-        clawOpen = false;
-        if (phase > 6) {
-          sampleHeld = true;
+        clawAngle = p.lerp(45, 15, (phase - 3) / 1.5);
+        if (phase > 4 && !sampleHeld) {
+          const nearPixel = samples.find(s => !s.held && !s.scored && Math.abs(s.x - robotX) < 20 && Math.abs(s.y - robotY) < 20);
+          if (nearPixel) { nearPixel.held = true; sampleHeld = true; }
         }
-      }
-      // Phase 4: Driver 1 raises arm more (7-10s)
-      else if (phase < 10) {
+      } else if (phase < 6) {
         controllerInputs.driver2.buttons['right_bumper'] = false;
         controllerInputs.driver1.buttons['dpad_up'] = true;
-        sliderHeight = (phase - 7) * 30;
-      }
-      // Phase 5: Driver 1 moves robot to backdrop (10-13s)
-      else if (phase < 13) {
+        sliderHeight = p.lerp(40, 90, (phase - 4.5) / 1.5);
+      } else if (phase < 8) {
         controllerInputs.driver1.buttons['dpad_up'] = false;
-        controllerInputs.driver1.leftStick.x = 0.8;
-        robotX = (phase - 10) * 25;
-      }
-      // Phase 6: Driver 2 opens intake to release pixel (13-15s)
-      else if (phase < 15) {
+        controllerInputs.driver1.leftStick.x = 0.9;
+        controllerInputs.driver1.leftStick.y = -0.2;
+        robotVelX = 5;
+        robotVelY = -0.8;
+      } else if (phase < 9) {
         controllerInputs.driver1.leftStick.x = 0;
+        robotVelX = robotVelY = 0;
         controllerInputs.driver2.buttons['left_bumper'] = true;
-        clawOpen = true;
-        if (phase > 14) {
-          sampleHeld = false;
-          // Pixel flies to backdrop
-          const t = (phase - 14);
-          sampleX = robotX + 50;
-          sampleY = robotY - 80 - t * 20;
+        clawAngle = p.lerp(15, 50, (phase - 8) / 1);
+        if (phase > 8.5 && sampleHeld) {
+          const heldPixel = samples.find(s => s.held);
+          if (heldPixel && robotX > 100) {
+            heldPixel.held = false;
+            heldPixel.scored = true;
+            sampleHeld = false;
+            samplesScored++;
+          }
         }
-      }
-      // Phase 7: Reset (15-20s)
-      else {
-        controllerInputs.driver2.buttons['right_bumper'] = false;
-        const t = (phase - 15) / 5;
-        sliderHeight = sliderHeight * (1 - t);
-        if (phase > 18) {
-          sampleX = 0;
-          sampleY = 0;
-        }
+      } else {
+        controllerInputs.driver2.buttons['left_bumper'] = false;
+        controllerInputs.driver1.leftStick.x = -0.8;
+        robotVelX = -4;
+        sliderHeight *= (1 - (phase - 9) / 2);
       }
     }
   };
 
   const drawField = (p: p5, scale: number) => {
-    const fieldHeight = p.height * 0.5;
+    const fieldHeight = p.height * 0.55;
+    const fieldWidth = FIELD_SIZE * scale;
+    const fieldX = (p.width - fieldWidth) / 2;
+    const fieldY = 20 * scale;
     
-    // Field background
-    p.fill(25, 30, 35);
-    p.noStroke();
-    p.rect(0, 0, p.width, fieldHeight);
+    // Field border
+    p.fill(30, 35, 40);
+    p.stroke(...COLORS.ROBOT_GREEN as [number, number, number], 150);
+    p.strokeWeight(3 * scale);
+    p.rect(fieldX, fieldY, fieldWidth, fieldWidth);
     
-    // Grid lines
-    p.stroke(40, 45, 50);
-    p.strokeWeight(1);
-    for (let i = 0; i < 10; i++) {
-      p.line(i * (p.width / 10), 0, i * (p.width / 10), fieldHeight);
-      p.line(0, i * (fieldHeight / 10), p.width, i * (fieldHeight / 10));
+    // Tiles
+    p.stroke(50, 55, 60);
+    p.strokeWeight(1 * scale);
+    for (let i = 0; i <= 6; i++) {
+      p.line(fieldX + i * fieldWidth / 6, fieldY, fieldX + i * fieldWidth / 6, fieldY + fieldWidth);
+      p.line(fieldX, fieldY + i * fieldWidth / 6, fieldX + fieldWidth, fieldY + i * fieldWidth / 6);
     }
     
-    // Scoring zone (right side) - Basket or Backdrop
-    p.fill(0, 100, 200, 150);
-    p.stroke(0, 255, 255);
-    p.strokeWeight(2 * scale);
-    p.rect(p.width - 80 * scale, 50 * scale, 60 * scale, 60 * scale);
-    p.fill(0, 255, 255);
-    p.noStroke();
-    p.textSize(9 * scale);
-    p.textAlign(p.CENTER, p.CENTER);
-    const scoringLabel = props.season === 'into-the-deep' ? 'HIGH\nBASKET' : 'BACK\nDROP';
-    p.text(scoringLabel, p.width - 50 * scale, 80 * scale);
+    // Scoring zone
+    const basketX = fieldX + fieldWidth - 70 * scale;
+    const basketY = fieldY + 40 * scale;
     
-    // Sample/Pixel zone (center-left)
-    p.fill(255, 200, 0, 100);
-    p.stroke(255, 200, 0);
-    p.strokeWeight(2 * scale);
-    p.circle(p.width / 2, 200 * scale, 30 * scale);
-    p.fill(255, 200, 0);
-    p.noStroke();
-    p.textSize(8 * scale);
-    const itemLabel = props.season === 'into-the-deep' ? 'SAMPLE' : 'PIXEL';
-    p.text(itemLabel, p.width / 2, 230 * scale);
+    if (props.season === 'into-the-deep') {
+      p.fill(...COLORS.BASKET_BLUE as [number, number, number], 150);
+      p.stroke(...COLORS.BASKET_BLUE as [number, number, number]);
+      p.strokeWeight(3 * scale);
+      p.rect(basketX, basketY, 55 * scale, 55 * scale, 3 * scale);
+      p.fill(...COLORS.BASKET_BLUE as [number, number, number]);
+      p.noStroke();
+      p.textSize(10 * scale);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text('HIGH\nBASKET\n8 PTS', basketX + 27.5 * scale, basketY + 27.5 * scale);
+    } else {
+      p.fill(...COLORS.BACKDROP_BLUE as [number, number, number], 150);
+      p.stroke(...COLORS.BACKDROP_BLUE as [number, number, number]);
+      p.strokeWeight(3 * scale);
+      p.rect(basketX, basketY, 55 * scale, 70 * scale, 3 * scale);
+      p.fill(...COLORS.BACKDROP_BLUE as [number, number, number]);
+      p.noStroke();
+      p.textSize(9 * scale);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text('BACKDROP\n3 PTS', basketX + 27.5 * scale, basketY + 60 * scale);
+    }
+    
+    // Score
+    p.fill(...COLORS.ROBOT_GREEN as [number, number, number]);
+    p.textSize(14 * scale);
+    p.textAlign(p.LEFT, p.TOP);
+    p.text(`Scored: ${samplesScored}`, fieldX + 10 * scale, fieldY + 10 * scale);
   };
 
-  const drawRobot = (p: p5, scale: number, sliderH: number, isClawOpen: boolean) => {
-    // Robot chassis
-    p.fill(40, 45, 50);
-    p.stroke(0, 255, 0);
-    p.strokeWeight(2 * scale);
-    p.rect(-30 * scale, -20 * scale, 60 * scale, 40 * scale, 3 * scale);
+  const drawRobot = (p: p5, scale: number, sliderH: number, clawAng: number) => {
+    const s = scale * 0.9;
     
-    // Wheels
-    p.fill(60, 60, 60);
-    p.circle(-25 * scale, -18 * scale, 10 * scale);
-    p.circle(25 * scale, -18 * scale, 10 * scale);
-    p.circle(-25 * scale, 18 * scale, 10 * scale);
-    p.circle(25 * scale, 18 * scale, 10 * scale);
+    // Chassis
+    p.fill(50, 55, 65);
+    p.stroke(...COLORS.ROBOT_GREEN as [number, number, number]);
+    p.strokeWeight(2 * s);
+    p.rect(-35 * s, -25 * s, 70 * s, 50 * s, 5 * s);
     
-    // Slider (vertical rail)
-    p.stroke(100, 100, 100);
-    p.strokeWeight(3 * scale);
-    p.line(0, -20 * scale, 0, -20 * scale - 50 * scale);
+    // Control hub
+    p.fill(0, 150, 50);
+    p.rect(-12 * s, -12 * s, 24 * s, 24 * s, 2 * s);
     
-    // Slider carriage
+    // Mecanum wheels
+    [-32, 32].forEach(x => [-22, 22].forEach(y => {
+      p.fill(70, 70, 70);
+      p.ellipse(x * s, y * s, 14 * s, 20 * s);
+    }));
+    
+    // Slider
+    p.stroke(120, 120, 120);
+    p.strokeWeight(4 * s);
+    p.line(0, -25 * s, 0, -85 * s);
+    
+    // Carriage
     p.push();
-    p.translate(0, -20 * scale - sliderH * scale);
-    p.fill(60, 65, 70);
-    p.stroke(0, 255, 0);
-    p.strokeWeight(2 * scale);
-    p.rect(-15 * scale, -10 * scale, 30 * scale, 15 * scale, 2 * scale);
-    
-    // Intake/Claw
-    const clawAngle = isClawOpen ? 40 : 10;
-    p.push();
-    p.translate(-10 * scale, 5 * scale);
-    p.rotate(-clawAngle * Math.PI / 180);
+    p.translate(0, -25 * s - sliderH * s * 0.6);
     p.fill(70, 75, 80);
-    p.rect(-3 * scale, 0, 6 * scale, 20 * scale);
-    p.pop();
+    p.stroke(...COLORS.ROBOT_GREEN as [number, number, number]);
+    p.strokeWeight(2 * s);
+    p.rect(-18 * s, -12 * s, 36 * s, 18 * s, 3 * s);
     
-    p.push();
-    p.translate(10 * scale, 5 * scale);
-    p.rotate(clawAngle * Math.PI / 180);
-    p.fill(70, 75, 80);
-    p.rect(-3 * scale, 0, 6 * scale, 20 * scale);
-    p.pop();
+    // Claw arms
+    [-12, 12].forEach((side, i) => {
+      p.push();
+      p.translate(side * s, 6 * s);
+      p.rotate((i === 0 ? -1 : 1) * clawAng * Math.PI / 180);
+      p.fill(80, 180, 80);
+      p.rect(-4 * s, 0, 8 * s, 25 * s, 2 * s);
+      p.fill(...COLORS.ROBOT_GREEN as [number, number, number], 200);
+      p.circle(0, 20 * s, 10 * s);
+      p.pop();
+    });
     
     p.pop();
   };
 
-  const drawSample = (p: p5, scale: number) => {
-    if (sampleHeld) {
-      // Sample is held by robot
-      const sx = p.width / 2 + robotX * scale;
-      const sy = 150 * scale + robotY * scale - 20 * scale - sliderHeight * scale;
-      p.fill(255, 200, 0);
-      p.stroke(255, 150, 0);
-      p.strokeWeight(2 * scale);
-      p.circle(sx, sy, 12 * scale);
-    } else if (sampleX !== 0 || sampleY !== 0) {
-      // Sample is on field or in flight
-      const sx = p.width / 2 + sampleX * scale;
-      const sy = 150 * scale + sampleY * scale;
-      p.fill(255, 200, 0);
-      p.stroke(255, 150, 0);
-      p.strokeWeight(2 * scale);
-      p.circle(sx, sy, 12 * scale);
+  const drawSample = (p: p5, scale: number, x: number, y: number) => {
+    const sx = p.width/2 + x*scale;
+    const sy = p.height*0.25 + y*scale;
+    const color = props.season === 'into-the-deep' ? COLORS.SAMPLE_YELLOW : COLORS.PIXEL_PURPLE;
+    
+    p.fill(...color as [number, number, number]);
+    p.stroke(color[0]-50, color[1]-50, color[2]);
+    p.strokeWeight(2 * scale);
+    
+    if (props.season === 'into-the-deep') {
+      p.beginShape();
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i;
+        p.vertex(sx + Math.cos(angle) * 10 * scale, sy + Math.sin(angle) * 10 * scale);
+      }
+      p.endShape(p.CLOSE);
+    } else {
+      p.rect(sx - 9 * scale, sy - 9 * scale, 18 * scale, 18 * scale, 2 * scale);
     }
   };
 
   const drawControllers = (p: p5, scale: number) => {
-    const controllerY = p.height * 0.15;
-    
-    // Driver 1 controller (left)
-    p.push();
-    p.translate(p.width * 0.25, controllerY);
-    drawController(p, scale, controllerInputs.driver1, 1);
-    p.pop();
-    
-    // Driver 2 controller (right)
-    p.push();
-    p.translate(p.width * 0.75, controllerY);
-    drawController(p, scale, controllerInputs.driver2, 2);
-    p.pop();
+    [0.25, 0.75].forEach((pos, i) => {
+      p.push();
+      p.translate(p.width * pos, p.height * 0.08);
+      drawController(p, scale * 1.1, i === 0 ? controllerInputs.driver1 : controllerInputs.driver2, i + 1);
+      p.pop();
+    });
   };
 
   const drawController = (p: p5, scale: number, inputs: typeof controllerInputs.driver1, driverNum: number) => {
-    // Controller body
-    p.fill(40, 45, 50);
-    p.stroke(0, 255, 0, 150);
+    const activeColor = COLORS.CONTROLLER_ACTIVE;
+    
+    // Body
+    p.fill(55, 60, 70);
+    p.stroke(...COLORS.ROBOT_GREEN as [number, number, number], 120);
     p.strokeWeight(2 * scale);
-    p.ellipse(0, 0, 100 * scale, 60 * scale);
+    p.beginShape();
+    [-50, 50, 60, 50, -50, -60].forEach((x, i) => {
+      const y = [25, 25, 0, -25, -25, 0][i];
+      p.vertex(x * scale, y * scale);
+    });
+    p.endShape(p.CLOSE);
     
-    // Left stick
-    const leftStickX = inputs.leftStick.x * 8 * scale;
-    const leftStickY = inputs.leftStick.y * 8 * scale;
-    p.fill(60, 65, 70);
-    p.stroke(inputs.leftStick.x !== 0 || inputs.leftStick.y !== 0 ? p.color(0, 255, 0) : p.color(0, 255, 0, 100));
-    p.strokeWeight(inputs.leftStick.x !== 0 || inputs.leftStick.y !== 0 ? 3 * scale : 1 * scale);
-    p.circle(-25 * scale + leftStickX, leftStickY, 15 * scale);
+    // Grips
+    [-40, 40].forEach(x => p.ellipse(x * scale, 10 * scale, 25 * scale, 35 * scale));
     
-    // Right stick
-    const rightStickX = inputs.rightStick.x * 8 * scale;
-    const rightStickY = inputs.rightStick.y * 8 * scale;
-    p.stroke(inputs.rightStick.x !== 0 || inputs.rightStick.y !== 0 ? p.color(0, 255, 0) : p.color(0, 255, 0, 100));
-    p.strokeWeight(inputs.rightStick.x !== 0 || inputs.rightStick.y !== 0 ? 3 * scale : 1 * scale);
-    p.circle(25 * scale + rightStickX, rightStickY, 15 * scale);
-    
-    // Buttons
-    const buttonActive = (name: string) => inputs.buttons[name] === true;
+    // Sticks
+    [-30, 30].forEach((x, i) => {
+      const stick = i === 0 ? inputs.leftStick : inputs.rightStick;
+      const active = stick.x !== 0 || stick.y !== 0;
+      p.fill(active ? activeColor[0] : 70, active ? activeColor[1] : 75, active ? activeColor[2] : 80);
+      p.stroke(active ? p.color(...activeColor as [number, number, number]) : p.color(100, 100, 100));
+      p.strokeWeight(active ? 3 * scale : 1 * scale);
+      p.circle(x * scale + stick.x * 10 * scale, stick.y * 10 * scale, 18 * scale);
+    });
     
     // D-pad
-    p.fill(buttonActive('dpad_up') || buttonActive('dpad_down') ? p.color(0, 255, 0) : p.color(50, 55, 60));
-    p.stroke(0, 255, 0, 100);
-    p.strokeWeight(1 * scale);
-    p.rect(-25 * scale - 6 * scale, -18 * scale - 2 * scale, 12 * scale, 4 * scale);
-    p.rect(-25 * scale - 2 * scale, -18 * scale - 6 * scale, 4 * scale, 12 * scale);
+    const dpadActive = inputs.buttons['dpad_up'] || inputs.buttons['dpad_down'];
+    p.fill(dpadActive ? activeColor[0] : 60, dpadActive ? activeColor[1] : 65, dpadActive ? activeColor[2] : 70);
+    p.rect(-38 * scale, -23 * scale, 16 * scale, 6 * scale);
+    p.rect(-33 * scale, -28 * scale, 6 * scale, 16 * scale);
     
     // Bumpers
-    p.fill(buttonActive('left_bumper') ? p.color(0, 255, 0) : p.color(50, 55, 60));
-    p.rect(-35 * scale, -32 * scale, 25 * scale, 4 * scale, 2 * scale);
+    [inputs.buttons['left_bumper'], inputs.buttons['right_bumper']].forEach((active, i) => {
+      p.fill(active ? activeColor[0] : 60, active ? activeColor[1] : 65, active ? activeColor[2] : 70);
+      p.rect((i === 0 ? -50 : 20) * scale, -32 * scale, 30 * scale, 5 * scale, 2 * scale);
+    });
     
-    p.fill(buttonActive('right_bumper') ? p.color(0, 255, 0) : p.color(50, 55, 60));
-    p.rect(10 * scale, -32 * scale, 25 * scale, 4 * scale, 2 * scale);
-    
-    // Driver label
-    p.fill(0, 255, 0);
+    // Label
+    p.fill(...COLORS.ROBOT_GREEN as [number, number, number]);
     p.noStroke();
-    p.textSize(10 * scale);
+    p.textSize(11 * scale);
     p.textAlign(p.CENTER, p.CENTER);
-    p.text(`Driver ${driverNum}`, 0, 35 * scale);
+    p.text(`Driver ${driverNum}`, 0, 40 * scale);
   };
 
-  const drawPhaseLabel = (p: p5, scale: number) => {
+  const drawUI = (p: p5, scale: number) => {
     const phase = animationPhase;
     let phaseText = '';
     
     if (props.season === 'into-the-deep') {
-      if (phase < 3) phaseText = 'Driver 1: Move forward to sample';
-      else if (phase < 5) phaseText = 'Driver 2: Lower intake';
-      else if (phase < 7) phaseText = 'Driver 2: Close claw, grab sample';
-      else if (phase < 10) phaseText = 'Driver 2: Raise slider';
-      else if (phase < 13) phaseText = 'Driver 1: Move to basket';
-      else if (phase < 15) phaseText = 'Driver 2: Release sample';
-      else phaseText = 'Resetting...';
-    } else if (props.season === 'centerstage') {
-      if (phase < 3) phaseText = 'Driver 1: Move forward to pixel';
-      else if (phase < 5) phaseText = 'Driver 1: Raise arm, Driver 2: Open intake';
-      else if (phase < 7) phaseText = 'Driver 2: Close intake, grab pixel';
-      else if (phase < 10) phaseText = 'Driver 1: Raise arm higher';
-      else if (phase < 13) phaseText = 'Driver 1: Move to backdrop';
-      else if (phase < 15) phaseText = 'Driver 2: Release pixel';
-      else phaseText = 'Resetting...';
+      if (phase < 1.5) phaseText = 'Driver 1: Navigate to sample';
+      else if (phase < 2.5) phaseText = 'Driver 2: Lower intake';
+      else if (phase < 4) phaseText = 'Driver 2: Grab sample';
+      else if (phase < 5.5) phaseText = 'Driver 2: Raise slider';
+      else if (phase < 7.5) phaseText = 'Driver 1: Navigate to HIGH BASKET';
+      else if (phase < 8.5) phaseText = 'Driver 2: SCORE → 8 Points!';
+      else phaseText = 'Return to start';
+    } else {
+      if (phase < 1.5) phaseText = 'Driver 1: Navigate to pixel';
+      else if (phase < 3) phaseText = 'D1: Raise arm + D2: Open intake';
+      else if (phase < 4.5) phaseText = 'Driver 2: Grab pixel';
+      else if (phase < 6) phaseText = 'Driver 1: Raise arm higher';
+      else if (phase < 8) phaseText = 'Driver 1: Navigate to BACKDROP';
+      else if (phase < 9) phaseText = 'Driver 2: SCORE → 3 Points!';
+      else phaseText = 'Return to start';
     }
     
-    p.fill(0, 0, 0, 180);
+    p.fill(0, 0, 0, 200);
     p.noStroke();
-    p.rect(10 * scale, 10 * scale, p.width - 20 * scale, 35 * scale, 5 * scale);
-    
-    p.fill(0, 255, 0);
-    p.textSize(12 * scale);
+    p.rect(15 * scale, 15 * scale, p.width - 30 * scale, 40 * scale, 6 * scale);
+    p.fill(...COLORS.ROBOT_GREEN as [number, number, number]);
+    p.textSize(13 * scale);
     p.textAlign(p.LEFT, p.TOP);
-    p.text(phaseText, 20 * scale, 20 * scale);
+    p.text(phaseText, 25 * scale, 25 * scale);
   };
 
   p.windowResized = () => {
@@ -449,12 +446,18 @@ onBeforeUnmount(() => {
 <template>
   <div class="controller-robot-coordination">
     <div class="animation-header">
-      <h4>Controller-Robot Coordination Demo</h4>
-      <p class="description">Watch how both drivers work together to control the robot and complete tasks</p>
+      <h4>{{ season === 'into-the-deep' ? 'Into the Deep' : 'CenterStage' }} - Controller-Robot Coordination</h4>
+      <p class="description">Enhanced, faster-paced simulation matching game strategy</p>
     </div>
     <div ref="canvasContainer" class="canvas-container"></div>
     <div class="animation-footer">
-      <p class="hint">The animation shows a complete cycle: navigate → collect sample → score in basket</p>
+      <p class="hint">
+        <strong>Strategy:</strong>
+        {{ season === 'into-the-deep' 
+          ? 'Collect samples → Score in high basket (8 pts each) → Maximize efficiency' 
+          : 'Collect pixels → Place on backdrop (3 pts each) → Create mosaics' 
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -463,26 +466,30 @@ onBeforeUnmount(() => {
 .controller-robot-coordination {
   width: 100%;
   margin: 2vw 0;
-  background: rgba(0, 0, 0, 0.4);
-  border: 0.15vw solid rgba(0, 255, 0, 0.4);
-  border-radius: 0.5vw;
-  padding: 1.5vw;
+  background: linear-gradient(135deg, rgba(0, 20, 30, 0.95), rgba(0, 40, 50, 0.95));
+  border: 0.2vw solid rgba(0, 255, 100, 0.5);
+  border-radius: 0.8vw;
+  padding: 2vw;
   overflow: hidden;
+  box-shadow: 0 0.5vw 2vw rgba(0, 255, 100, 0.15);
 }
 
 .animation-header {
   text-align: center;
-  margin-bottom: 1vw;
+  margin-bottom: 1.5vw;
+  padding-bottom: 1vw;
+  border-bottom: 0.1vw solid rgba(0, 255, 100, 0.3);
 }
 
 .animation-header h4 {
   color: var(--mechabyte-green);
-  font-size: 1.5vw;
+  font-size: 1.6vw;
   margin-bottom: 0.5vw;
+  text-shadow: 0 0 1vw rgba(0, 255, 100, 0.4);
 }
 
 .description {
-  color: #aaa;
+  color: #bbb;
   font-size: 1vw;
   font-style: italic;
 }
@@ -492,51 +499,44 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 0.3vw;
+  background: rgba(10, 15, 20, 0.6);
+  border-radius: 0.5vw;
+  border: 0.1vw solid rgba(0, 255, 100, 0.2);
 }
 
 .animation-footer {
   text-align: center;
-  margin-top: 1vw;
+  margin-top: 1.5vw;
   padding-top: 1vw;
-  border-top: 0.1vw solid rgba(0, 255, 0, 0.2);
+  border-top: 0.1vw solid rgba(0, 255, 100, 0.3);
 }
 
 .hint {
-  color: #888;
-  font-size: 0.85vw;
-  font-style: italic;
+  color: #aaa;
+  font-size: 0.95vw;
+}
+
+.hint strong {
+  color: var(--mechabyte-green);
 }
 
 @media only screen and (max-width: 1000px) {
   .controller-robot-coordination {
-    border: 1px solid rgba(0, 255, 0, 0.4);
-    border-radius: 8px;
-    padding: 15px;
+    border: 2px solid rgba(0, 255, 100, 0.5);
+    border-radius: 10px;
+    padding: 20px;
   }
 
   .animation-header h4 {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 20px;
   }
 
   .description {
     font-size: 14px;
   }
 
-  .canvas-container {
-    border-radius: 5px;
-  }
-
-  .animation-footer {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(0, 255, 0, 0.2);
-  }
-
   .hint {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 </style>
