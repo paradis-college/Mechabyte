@@ -9,7 +9,7 @@ import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepField
 import IntakeEvolutionAnimationEnhanced from '../components/animations/IntakeEvolutionAnimationEnhanced.vue';
 import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
 import PantographArmAnimationEnhanced from '../components/animations/PantographArmAnimationEnhanced.vue';
-import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
+import DroneLauncherAnimationEnhanced from '../components/animations/DroneLauncherAnimationEnhanced.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import SliderSystemAnimation from '../components/animations/SliderSystemAnimation.vue';
 import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTrajectoryAnimation.vue';
@@ -136,7 +136,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Drone Launcher</h3>
           <p><strong>Final Solution:</strong> Elastic band mechanism with servo-controlled release rod.</p>
-          <DroneLauncherAnimation />
+          <DroneLauncherAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Drone Launcher">
             <p>V1: Basic design. V2: Added custom mounting holes to secure launcher to chassis. Elastic held under tension by position servo, armed during match, released in endgame.</p>
           </MoreInfoPopup>
