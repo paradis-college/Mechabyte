@@ -18,7 +18,7 @@ import AutonomousTrajectoryAnimation from '../components/animations/AutonomousTr
 import IntoTheDeepAutonomousAnimation from '../components/animations/IntoTheDeepAutonomousAnimation.vue';
 import IntoTheDeepTeleOpAnimation from '../components/animations/IntoTheDeepTeleOpAnimation.vue';
 import IntoTheDeepEndgameAnimation from '../components/animations/IntoTheDeepEndgameAnimation.vue';
-import CenterstageTeleOpAnimation from '../components/animations/CenterStageTeleOpAnimation.vue';
+import CenterstageTeleOpAnimation from '../components/animations/CenterstageTeleOpAnimation.vue';
 import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import DriverControlsInteractive from '../components/DriverControlsInteractive.vue';
