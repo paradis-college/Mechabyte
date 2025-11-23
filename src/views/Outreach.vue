@@ -3,6 +3,8 @@ import { ref, computed } from 'vue';
 import { translations } from '../i18n/translations';
 import SeasonTabs from '../components/SeasonTabs.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
+import MoreInfoPopup from '../components/MoreInfoPopup.vue';
+import CollapsibleSection from '../components/CollapsibleSection.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -19,6 +21,21 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
       <h1 class="main-title">{{ t.outreachTitle }}</h1>
       <h2 class="subtitle">{{ t.outreachSubtitle }}</h2>
       <p class="mission-statement">{{ t.outreachMission }}</p>
+    </section>
+
+    <!-- Origin Story & Key Themes (before tabs) -->
+    <section class="content-section origin-section">
+      <CollapsibleSection :title="language === 'en' ? 'Our Journey: Starting from Scratch' : 'Călătoria Noastră: Pornind de la Zero'">
+        <p class="origin-story">{{ t.outreachOriginStory }}</p>
+      </CollapsibleSection>
+
+      <CollapsibleSection :title="t.outreachSocialMediaTitle">
+        <p class="social-media-desc">{{ t.outreachSocialMediaDesc }}</p>
+      </CollapsibleSection>
+
+      <CollapsibleSection :title="t.outreachTeamFriendshipsTitle">
+        <p class="team-friendships-desc">{{ t.outreachTeamFriendshipsDesc }}</p>
+      </CollapsibleSection>
     </section>
 
     <!-- Season Navigation -->
@@ -46,6 +63,12 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
+            <MoreInfoPopup v-if="event.moreInfo" :title="event.name + ' - Detailed Story'" buttonText="More Info">
+              <p>{{ event.moreInfo }}</p>
+              <p v-if="event.partnerships" class="partnerships-info">
+                <strong>Partnerships:</strong> {{ event.partnerships }}
+              </p>
+            </MoreInfoPopup>
           </div>
         </div>
 
@@ -80,6 +103,12 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
+            <MoreInfoPopup v-if="event.moreInfo" :title="event.name + ' - Detailed Story'" buttonText="More Info">
+              <p>{{ event.moreInfo }}</p>
+              <p v-if="event.partnerships" class="partnerships-info">
+                <strong>Partnerships:</strong> {{ event.partnerships }}
+              </p>
+            </MoreInfoPopup>
           </div>
         </div>
 
@@ -156,6 +185,26 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
   color: #ccc;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.origin-section {
+  margin-bottom: 3vw;
+}
+
+.origin-story,
+.social-media-desc,
+.team-friendships-desc {
+  font-size: 1vw;
+  line-height: 1.8;
+  color: #ddd;
+}
+
+.partnerships-info {
+  margin-top: 1vw;
+  padding-top: 1vw;
+  border-top: 0.1vw solid rgba(0, 255, 0, 0.2);
+  font-size: 0.95vw;
+  color: #ccc;
 }
 
 .section-title {
@@ -289,6 +338,19 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
   
   .mission-statement {
     font-size: 15px;
+  }
+
+  .origin-story,
+  .social-media-desc,
+  .team-friendships-desc {
+    font-size: 14px;
+  }
+
+  .partnerships-info {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid rgba(0, 255, 0, 0.2);
+    font-size: 13px;
   }
   
   .section-title {

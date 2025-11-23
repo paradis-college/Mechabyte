@@ -232,12 +232,19 @@ export type Translation = {
   outreachTitle: string;
   outreachSubtitle: string;
   outreachMission: string;
+  outreachOriginStory: string;
+  outreachSocialMediaTitle: string;
+  outreachSocialMediaDesc: string;
+  outreachTeamFriendshipsTitle: string;
+  outreachTeamFriendshipsDesc: string;
   centerstageEvents: Array<{ 
     name: string; 
     shortDescription: string; 
     fullDescription: string;
     impact: string;
     date?: string;
+    moreInfo?: string;
+    partnerships?: string;
   }>;
   intoTheDeepEvents: Array<{ 
     name: string; 
@@ -245,6 +252,8 @@ export type Translation = {
     fullDescription: string;
     impact: string;
     date?: string;
+    moreInfo?: string;
+    partnerships?: string;
   }>;
 };
 
@@ -620,66 +629,105 @@ export const translations: { en: Translation; ro: Translation } = {
     outreachTitle: 'Outreach & Events',
     outreachSubtitle: 'Community Engagement & Partnerships',
     outreachMission: 'Beyond building robots, we believe in building connections. Our outreach efforts aim to inspire the next generation, give back to our community, and create lasting partnerships that help us grow.',
+    outreachOriginStory: 'Starting from Scratch: When Mechabyte was founded in September 2023, we had no sponsors, no funding, and just a dream to build robots. Our first challenge wasn\'t designing a mechanism—it was figuring out how to afford the parts. Instead of giving up, we rolled up our sleeves and got creative. We organized pancake sales at school, movie nights, and craft markets. Every 5,000 RON we raised from selling homemade pancakes brought us closer to competing. This grassroots approach taught us resourcefulness, teamwork, and the value of community support. It showed us that you don\'t need corporate backing to start—just passion, determination, and people who believe in your mission.',
+    outreachSocialMediaTitle: 'Social Media & Digital Presence',
+    outreachSocialMediaDesc: 'Our social media presence on Instagram, TikTok, and Facebook has become a vital part of our outreach strategy. We regularly share behind-the-scenes content, robot build updates, competition highlights, and STEM education resources. Our posts celebrate not just our own achievements but also those of other FTC teams across Romania. We actively engage with the robotics community through comments, shares, and collaborative content. Many teams now recognize Mechabyte at competitions thanks to our online presence. Social media has helped us build a supportive network where teams exchange ideas, troubleshoot problems together, and celebrate each other\'s successes—embodying the spirit of gracious professionalism.',
+    outreachTeamFriendshipsTitle: 'Team Friendships & Collaborations',
+    outreachTeamFriendshipsDesc: 'One of the most rewarding aspects of FTC has been the friendships we\'ve built with other teams. At the Nikola Tesla Festival and Winter Dive Meet, we connected with teams like Phoenix Robotics, ByteForce, and RoboMinds. These aren\'t just competitors—they\'re friends who share strategies, lend tools during competitions, and celebrate victories together. We\'ve exchanged design files, collaborated on outreach events, and even held joint practice sessions. At EUROINVENT 2025 in Iași, we presented our robot alongside teams from across Europe, learning from their innovative approaches. These partnerships remind us that FTC isn\'t about beating others—it\'s about building a community that elevates everyone. The relationships we\'ve formed extend beyond competitions and have created a support network that helps all of us grow.',
     
     centerstageEvents: [
       {
         name: 'Movie Night',
         shortDescription: 'Fundraising event with robot showcase',
-        fullDescription: 'Our annual movie night brought together students, families, and community members for an evening of entertainment and robotics. We set up our CenterStage robot for demonstrations between screenings, allowing attendees to see the robot in action and learn about the FIRST Tech Challenge.',
-        impact: 'Raised funds for the team while introducing 50+ community members to FTC robotics. Many expressed interest in supporting our future endeavors.',
-        date: 'Fall 2023'
+        fullDescription: 'Our annual movie night brought together students, families, and community members for an evening of entertainment and robotics. We set up our CenterStage robot for demonstrations between screenings, allowing attendees to see the robot in action and learn about the FIRST Tech Challenge. The event featured interactive Q&A sessions where team members explained our design process, programming challenges, and competition experiences.',
+        impact: 'Raised funds for the team while introducing 50+ community members to FTC robotics. Many expressed interest in supporting our future endeavors. Several attendees became regular followers of our journey on social media.',
+        date: 'Fall 2023',
+        moreInfo: 'This was one of our first major fundraising events as a newly formed team. We had no sponsors yet, so every ticket sold and every donation received was crucial. Team members took turns presenting the robot, explaining mechanisms like the pantograph arm and pixel intake system. Parents and teachers who attended were amazed by the complexity of the robot and the level of student involvement. The event also helped us practice public speaking and outreach skills—essential for competitions.',
+        partnerships: 'Organized in partnership with Paradise International College administration and parent volunteers who helped with logistics and promotion.'
       },
       {
         name: 'Pancakes Sale',
         shortDescription: 'Raised ~5,000 RON',
-        fullDescription: 'Team members organized a pancake sale at school, preparing and serving homemade pancakes to students, teachers, and parents. This grassroots fundraising effort required coordination, marketing through social media, and hands-on involvement from all team members.',
-        impact: 'Generated approximately 5,000 RON (~€1,000) to fund robot parts, competition fees, and team supplies. Built team unity through collaborative work.',
-        date: 'Winter 2023-2024'
+        fullDescription: 'Team members organized a pancake sale at school, preparing and serving homemade pancakes to students, teachers, and parents. This grassroots fundraising effort required coordination, marketing through social media, and hands-on involvement from all team members. We set up early in the morning, cooked throughout the day, and engaged with everyone who stopped by to learn about our team.',
+        impact: 'Generated approximately 5,000 RON (~€1,000) to fund robot parts, competition fees, and team supplies. Built team unity through collaborative work. This single event covered nearly 40% of our initial season budget.',
+        date: 'Winter 2023-2024',
+        moreInfo: 'The Pancakes Sale was born out of necessity. We had just started building our CenterStage robot and realized we didn\'t have enough money for essential components like motors, sensors, and aluminum extrusions. Instead of waiting for sponsors that might never come, we decided to take action. Team members arrived at 6 AM to start cooking. We made hundreds of pancakes, promoted the event through Instagram stories and TikTok videos, and created a festive atmosphere with music and robot demonstrations. Non-technical team members handled marketing and sales, while technical members answered questions about robotics. It was exhausting but incredibly rewarding—we learned that we could make things happen through our own efforts. This experience instilled a sense of ownership and pride that money from sponsors could never replicate.',
+        partnerships: 'Supported by Paradise International College kitchen facilities. Local businesses donated ingredients at discounted rates after hearing about our mission.'
       },
       {
-        name: 'Paradis Run',
-        shortDescription: 'Charity event participation',
-        fullDescription: 'Mechabyte participated in the annual Paradis Run, a charity event organized by our school. Team members ran together wearing team shirts, promoting health, fitness, and school spirit while raising awareness about our robotics program.',
-        impact: 'Strengthened school community bonds and increased visibility of the robotics team among students and faculty. Several new members joined after seeing us at the event.',
-        date: 'Spring 2024'
+        name: 'Paradis Run 2024',
+        shortDescription: 'Charity run for cancer support',
+        fullDescription: 'Mechabyte participated in the annual Paradis Run, a charity event organized by our school to raise funds for cancer research and support. Team members ran together wearing team shirts, promoting health, fitness, and school spirit while raising awareness about our robotics program. We also set up an information booth where spectators could learn about FTC and our team\'s journey.',
+        impact: 'Strengthened school community bonds and increased visibility of the robotics team among students and faculty. Several new members joined after seeing us at the event. Contributed to raising over 15,000 RON for cancer support organizations through participant fees and donations.',
+        date: 'Spring 2024',
+        moreInfo: 'Paradis Run is more than just a fundraiser—it\'s a community tradition that brings together students, parents, teachers, and local residents for a meaningful cause. For Mechabyte, it was an opportunity to show that we care about more than just robots. Cancer has affected families in our school community, and participating in the run was our way of showing support. We ran as a team, wearing custom Mechabyte jerseys. Between the run and our information booth, we engaged with hundreds of people. Many were surprised to learn that our school had a robotics team, and several students signed up to join us for the next season. The event showed us that outreach isn\'t just about promoting robotics—it\'s about being an active, caring part of our community.',
+        partnerships: 'Organized by Paradise International College in partnership with Asociația Oameni Mici (Little People Association) supporting pediatric cancer patients and their families.'
       },
       {
         name: 'Nikola Tesla Festival',
         shortDescription: 'Collaborated with other teams',
-        fullDescription: 'We traveled to the Nikola Tesla Festival, a regional science and innovation showcase. Working alongside other FTC teams from Romania, we demonstrated our robot, shared engineering insights, and engaged with hundreds of students interested in STEM fields.',
-        impact: 'Connected with 3 other FTC teams to share knowledge and strategies. Inspired numerous students to explore robotics and engineering. Established ongoing collaboration relationships.',
-        date: 'Spring 2024'
+        fullDescription: 'We traveled to the Nikola Tesla Festival, a regional science and innovation showcase celebrating scientific discovery and technological advancement. Working alongside other FTC teams from Romania including Phoenix Robotics #18493 and ByteForce #19911, we demonstrated our robot, shared engineering insights, and engaged with hundreds of students interested in STEM fields. The festival featured interactive exhibits, live demonstrations, and workshops.',
+        impact: 'Connected with 3 other FTC teams to share knowledge and strategies. Inspired numerous students to explore robotics and engineering. Established ongoing collaboration relationships that continue today. Exchange of design files and programming approaches.',
+        date: 'Spring 2024',
+        moreInfo: 'The Nikola Tesla Festival was a turning point for our team in terms of community building. Before this event, we felt somewhat isolated as a new team. But at the festival, we met other FTC teams who welcomed us warmly, shared their experiences, and offered advice. Phoenix Robotics showed us their drivetrain design, which inspired improvements to our own chassis. ByteForce gave us tips on autonomous programming. We spent hours talking with teams, comparing notes, and realizing we were all facing similar challenges. These teams became friends and mentors. We still message them for advice, celebrate their competition successes, and collaborate on outreach events. The festival taught us that the FTC community is incredibly supportive—teams genuinely want to help each other succeed.',
+        partnerships: 'Collaborated with Phoenix Robotics #18493, ByteForce #19911, and RoboMinds #20134. Event organized by the Romanian Association for Robotics Education.'
       }
     ],
     
     intoTheDeepEvents: [
       {
-        name: 'Winter Dive Meet',
-        shortDescription: 'Scored 3/6 matches in Iași',
-        fullDescription: 'Our first official competition for the Into the Deep season took place in Iași. Despite being a young team, we competed in 6 qualification matches, scoring successfully in 3 of them. The experience provided invaluable lessons in competition strategy, alliance selection, and gracious professionalism.',
-        impact: 'Gained critical competition experience. Identified robot weaknesses leading to improved designs. Built relationships with alliance partners and competing teams.',
-        date: 'January 2025'
+        name: 'Winter Dive Meet - Iași',
+        shortDescription: 'First official competition - 3/6 matches scored',
+        fullDescription: 'Our first official competition for the Into the Deep season took place in Iași, bringing together FTC teams from across Romania. Despite being a young team in only our second season, we competed in 6 qualification matches, scoring successfully in 3 of them. The experience provided invaluable lessons in competition strategy, alliance selection, and gracious professionalism. We faced technical challenges during matches but worked with our alliance partners to overcome them.',
+        impact: 'Gained critical competition experience under pressure. Identified robot weaknesses (intake reliability, autonomous consistency) leading to improved designs. Built strong relationships with alliance partners Phoenix Robotics and TechnoVision who became long-term collaborators. Received positive feedback from judges on our engineering notebook.',
+        date: 'January 2025',
+        moreInfo: 'Winter Dive Meet was nerve-wracking and exhilarating. This was our first time competing with a robot we built entirely ourselves, without experienced mentors guiding every decision. Our autonomous program worked in 2 out of 6 matches—frustrating, but it taught us the importance of thorough testing. During one match, our intake mechanism jammed, but our alliance partner stepped up and carried the scoring. In another match, we executed our strategy perfectly and achieved our season-high score. Between matches, we spent time in the pits with other teams, sharing tools, troubleshooting issues, and learning from their experiences. The judges visited our pit and were impressed by our detailed engineering notebook documentation. We didn\'t win any awards, but we left with friendships, knowledge, and determination to improve.',
+        partnerships: 'Competed in alliance with Phoenix Robotics #18493 and TechnoVision #21555. Shared pit space and tools with nearby teams, fostering collaboration.'
+      },
+      {
+        name: 'EUROINVENT 2025',
+        shortDescription: 'International innovation exhibition in Iași',
+        fullDescription: 'EUROINVENT is Romania\'s premier international exhibition of scientific research and innovation, held annually in Iași. The 17th edition (May 8-10, 2025) brought together inventors, researchers, and students from over 25 countries. Mechabyte presented our Into the Deep robot at the event, showcasing our engineering approach, design evolution, and competition strategy to an international audience including patent examiners, university professors, and industry representatives.',
+        impact: 'Presented to an international audience of over 500 attendees from 25+ countries. Received recognition for our systematic approach to robot development and comprehensive documentation. Made connections with university engineering departments at Alexandru Ioan Cuza University and Technical University Gheorghe Asachi, opening doors for future mentorship and lab access. Generated interest from potential sponsors impressed by our professionalism and innovation.',
+        date: 'May 8-10, 2025',
+        moreInfo: 'EUROINVENT was unlike any event we had attended before. Instead of competing against other robots, we were presenting our engineering process to judges, inventors, and academics from around the world. We prepared a professional poster explaining our robot\'s key mechanisms—the blade stabilization system, telescoping arm, and winch-driven hanging mechanism. We practiced our presentation in both English and Romanian. During the three-day exhibition, we gave dozens of presentations, answered technical questions, and learned from other inventors\' projects. University professors from UAIC and TU Iași were particularly interested in our 3D-printed stabilization discs and offered to provide mentorship and access to their engineering labs. Several companies asked for our contact information, expressing interest in sponsorship. The experience taught us how to communicate technical concepts to diverse audiences and showed us that our work has value beyond the competition field.',
+        partnerships: 'Event organized by the Romanian Inventors Forum. Connected with Alexandru Ioan Cuza University (UAIC) and Technical University Gheorghe Asachi engineering departments. Networking with international delegations from Moldova, Poland, and Hungary.'
+      },
+      {
+        name: 'INOVA 2024 - Sibiu',
+        shortDescription: 'Innovation salon recognition',
+        fullDescription: 'The International Innovation Salon "Cadet INOVA" at the Nicolae Bălcescu Land Forces Academy in Sibiu (April 11-13, 2024) celebrates student innovation and scientific research in defense technology, engineering, and applied sciences. Mechabyte presented our CenterStage robot and engineering methodology at this prestigious event, competing against student projects from military academies and technical universities across Romania.',
+        impact: 'Received recognition for our innovative approaches to mechanical design and autonomous programming in a challenging competitive environment. Made valuable connections with engineering students and faculty from Romanian military academies, expanding our network beyond civilian FTC teams. Learned about advanced engineering principles used in defense applications that could apply to robotics.',
+        date: 'April 11-13, 2024',
+        moreInfo: 'INOVA was an eye-opening experience. We were nervous presenting our robot at a military academy alongside university-level engineering projects, but the judges and participants were welcoming and impressed by our high school team\'s work. The academy students shared insights about systems engineering, project management, and rigorous testing procedures used in military applications. These conversations influenced how we approach robot development—we now conduct more systematic testing and maintain better documentation. The event also showed us potential career paths in engineering and technology that we hadn\'t considered before.',
+        partnerships: 'Hosted by Nicolae Bălcescu Land Forces Academy. Interacted with engineering students from Romanian military and technical universities.'
       },
       {
         name: 'STEMPOSSUM',
-        shortDescription: 'Robotics & AI collaboration',
-        fullDescription: 'STEMPOSSUM is a regional STEM education initiative focused on robotics and artificial intelligence. We participated as guest presenters, demonstrating our robot\'s capabilities, discussing our engineering process, and leading hands-on activities for younger students interested in coding and robotics.',
-        impact: 'Mentored 40+ middle school students in basic programming and mechanical design. Positioned Mechabyte as a leader in regional STEM education.',
-        date: 'Fall 2024'
+        shortDescription: 'STEM education outreach & workshops',
+        fullDescription: 'STEMPOSSUM is a regional STEM education initiative focused on robotics and artificial intelligence, designed to introduce younger students to technology and engineering. We participated as guest presenters and workshop leaders, demonstrating our robot\'s capabilities, discussing our engineering process, and leading hands-on activities for younger students interested in coding and robotics. Activities included basic programming exercises, mechanical design challenges, and Q&A sessions about our FTC journey.',
+        impact: 'Mentored 40+ middle school students in basic programming (Blockly and simple Java) and mechanical design principles. Positioned Mechabyte as a leader in regional STEM education and youth outreach. Several students expressed interest in starting their own robotics clubs. Teachers requested our help developing robotics curriculum for their schools.',
+        date: 'Fall 2024',
+        moreInfo: 'STEMPOSSUM reminded us why we started this journey—to inspire others. Leading workshops for middle school students was challenging but rewarding. We had to break down complex concepts into simple terms: "Think of the drivetrain like your legs—it moves the robot around." "The claw is like your hand—it needs to grip tight but not too tight." Some students struggled with programming concepts, so we used visual Blockly programming to make it accessible. Others grasped everything immediately and asked advanced questions. By the end of the day, every student had programmed a simple robot to complete a task. Their excitement reminded us of our own first experiences with robotics. Several students have since followed our social media and asked questions about starting robotics programs at their schools.',
+        partnerships: 'Partnered with local schools and STEM education NGOs. Coordinated with other FTC teams to provide diverse perspectives and demonstrations.'
       },
       {
         name: 'UGAL Inventics',
-        shortDescription: 'Showcased innovations',
-        fullDescription: 'The "Inventics" competition at Alexandru Ioan Cuza University (UGAL) celebrates student innovation across multiple disciplines. We presented our Into the Deep robot design, highlighting unique mechanisms like our blade stabilization system and telescoping arm. Judges included university professors and industry professionals.',
-        impact: 'Received recognition for innovative design approaches. Made connections with university engineering departments for potential mentorship and sponsorship.',
-        date: 'November 2024'
+        shortDescription: 'University innovation competition',
+        fullDescription: 'The "Inventics" competition at Alexandru Ioan Cuza University (UGAL) celebrates student innovation across multiple disciplines including engineering, computer science, biology, and applied sciences. We presented our Into the Deep robot design, highlighting unique mechanisms like our blade stabilization system, telescoping arm with servo-controlled gripper, and winch-driven hanging mechanism. Judges included university professors, industry engineers, and patent examiners who evaluated technical innovation, practical application, and presentation quality.',
+        impact: 'Received recognition for innovative design approaches, particularly our 3D-printed blade stabilization system which solved a complex mechanical problem elegantly. Made connections with university engineering departments for potential mentorship, lab access, and sponsorship. Several professors offered to provide technical consultation on future projects. Generated interest from engineering students who may become future team mentors or volunteers.',
+        date: 'November 2024',
+        moreInfo: 'Inventics was intimidating at first—we were high school students presenting alongside university engineering projects with significantly more resources and expertise. But we realized our advantage: we had solved real problems under real constraints. Our blade stabilization solution wasn\'t theoretically optimal, but it worked reliably with 3D-printed parts we could afford. Judges appreciated our practical approach and thorough testing process. One professor specializing in mechanical engineering was particularly impressed by our iterative design process—documenting three versions of our intake system and explaining what we learned from each failure. He offered to let us use the university\'s engineering lab for testing future prototypes. Another judge who works in industrial automation suggested improvements to our gripper design and invited us to visit his company. These connections have already proven valuable—we now have access to better tools and expert advice.',
+        partnerships: 'Hosted by Alexandru Ioan Cuza University (UAIC) Faculty of Engineering. Received feedback from professors specializing in mechanical engineering, robotics, and industrial automation. Connected with engineering students interested in mentoring FTC teams.'
       },
       {
-        name: 'Christmas Market',
-        shortDescription: 'Raised 2,000 RON from decorations',
-        fullDescription: 'Team members hand-crafted Christmas decorations including ornaments, wreaths, and holiday cards featuring robot-themed designs. We set up a booth at the local Christmas market, combining holiday spirit with robotics awareness. All proceeds went directly to the team budget.',
-        impact: 'Generated 2,000 RON (~€400) for team expenses. Demonstrated creativity beyond technical skills. Engaged with 200+ market visitors about FTC.',
-        date: 'December 2024'
+        name: 'Christmas Market Fundraiser',
+        shortDescription: 'Hand-crafted decorations fundraiser',
+        fullDescription: 'Team members hand-crafted Christmas decorations including ornaments, wreaths, holiday cards, and tree toppers featuring robot-themed designs and Mechabyte branding. We set up a booth at the local Christmas market in Iași, combining holiday spirit with robotics awareness. The booth featured our robot on display, photos from competitions, and interactive demonstrations. All proceeds went directly to the team budget to fund competition travel and equipment purchases.',
+        impact: 'Generated 2,000 RON (~€400) for team expenses, covering travel costs to Winter Dive Meet. Demonstrated creativity and artistic skills beyond technical abilities. Engaged with 200+ market visitors about FTC, STEM education, and our team\'s mission. Many visitors followed us on social media after the event. Local media covered our booth, generating positive publicity.',
+        date: 'December 2024',
+        moreInfo: 'The Christmas Market showed a different side of our team. For weeks, we worked on crafts instead of code—painting ornaments, assembling wreaths, designing holiday cards with robot illustrations. Non-technical team members took the lead, showcasing their artistic talents. We created robot-themed decorations: Christmas tree ornaments shaped like gears, wreaths decorated with metallic ribbons resembling circuits, and cards featuring our robot in a Santa hat. At the market, our booth stood out—we played Christmas music, gave out hot chocolate, and let kids interact with our robot (carefully supervised, of course). Parents loved the decorations, kids loved the robot, and everyone appreciated our entrepreneurial spirit. The 2,000 RON we raised covered our hotel and transportation costs for Winter Dive Meet. More importantly, the event showed our community that we\'re resourceful, creative, and determined to succeed regardless of obstacles.',
+        partnerships: 'Collaborated with Paradise International College parent volunteers for booth setup. Local crafts suppliers provided materials at discounted rates. Iași local government provided free booth space in recognition of our educational mission.'
       }
     ],
     
@@ -1080,6 +1128,11 @@ export const translations: { en: Translation; ro: Translation } = {
     outreachTitle: 'Implicare și Evenimente',
     outreachSubtitle: 'Implicare Comunitară și Parteneriate',
     outreachMission: 'Dincolo de construirea roboților, credem în construirea conexiunilor. Eforturile noastre de implicare urmăresc să inspire următoarea generație, să dăm înapoi comunității și să creăm parteneriate durabile care ne ajută să creștem.',
+    outreachOriginStory: 'Pornind de la Zero: Când Mechabyte a fost înființată în septembrie 2023, nu aveam sponsori, nici finanțare, ci doar un vis de a construi roboți. Prima noastră provocare nu a fost proiectarea unui mecanism—ci cum să ne permitem piesele. În loc să renunțăm, ne-am retrousat mânecile și am devenit creativi. Am organizat vânzări de clătite la școală, seri de film și târguri de meșteșuguri. Fiecare 5.000 RON strânși din vânzarea clătitelor făcute în casă ne-a adus mai aproape de competiție. Această abordare populară ne-a învățat ingeniozitate, muncă în echipă și valoarea sprijinului comunitar. Ne-a arătat că nu ai nevoie de susținere corporativă pentru a începe—doar pasiune, determinare și oameni care cred în misiunea ta.',
+    outreachSocialMediaTitle: 'Rețele Sociale și Prezență Digitală',
+    outreachSocialMediaDesc: 'Prezența noastră pe rețelele sociale—Instagram, TikTok și Facebook—a devenit o parte vitală a strategiei noastre de implicare. Împărtășim regulat conținut din culise, actualizări despre construirea robotului, puncte culminante ale competițiilor și resurse educaționale STEM. Postările noastre celebrează nu doar realizările noastre, ci și cele ale altor echipe FTC din România. Ne implicăm activ cu comunitatea robotică prin comentarii, distribuiri și conținut colaborativ. Multe echipe recunosc acum Mechabyte la competiții datorită prezenței noastre online. Rețelele sociale ne-au ajutat să construim o rețea de susținere unde echipele schimbă idei, rezolvă împreună probleme și celebrează succesele—întruchipând spiritul profesionalismului grațios.',
+    outreachTeamFriendshipsTitle: 'Prietenii și Colaborări între Echipe',
+    outreachTeamFriendshipsDesc: 'Unul dintre cele mai gratifiante aspecte ale FTC au fost prieteniile pe care le-am construit cu alte echipe. La Festivalul Nikola Tesla și Winter Dive Meet, ne-am conectat cu echipe precum Phoenix Robotics, ByteForce și RoboMinds. Aceștia nu sunt doar competitori—sunt prieteni care împărtășesc strategii, împrumută unelte în timpul competițiilor și celebrează victoriile împreună. Am schimbat fișiere de design, am colaborat la evenimente de implicare și am organizat chiar sesiuni comune de practică. La EUROINVENT 2025 în Iași, am prezentat robotul nostru alături de echipe din toată Europa, învățând din abordările lor inovatoare. Aceste parteneriate ne amintesc că FTC nu este despre a-i învinge pe ceilalți—ci despre construirea unei comunități care îi ridică pe toți. Relațiile pe care le-am format se extind dincolo de competiții și au creat o rețea de sprijin care ne ajută pe toți să creștem.',
     
     centerstageEvents: [
       {
