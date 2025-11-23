@@ -12,6 +12,10 @@ const props = defineProps<{
 
 const t = computed(() => translations[props.language]);
 const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
+
+const getEventDetailTitle = (eventName: string) => {
+  return `${eventName} - ${t.value.outreachEventDetailTitle}`;
+};
 </script>
 
 <template>
@@ -25,7 +29,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
 
     <!-- Origin Story & Key Themes (before tabs) -->
     <section class="content-section origin-section">
-      <CollapsibleSection :title="language === 'en' ? 'Our Journey: Starting from Scratch' : 'Călătoria Noastră: Pornind de la Zero'">
+      <CollapsibleSection :title="t.outreachOriginTitle">
         <p class="origin-story">{{ t.outreachOriginStory }}</p>
       </CollapsibleSection>
 
@@ -63,7 +67,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
-            <MoreInfoPopup v-if="event.moreInfo" :title="event.name + ' - Detailed Story'" buttonText="More Info">
+            <MoreInfoPopup v-if="event.moreInfo" :title="getEventDetailTitle(event.name)" buttonText="More Info">
               <p>{{ event.moreInfo }}</p>
               <p v-if="event.partnerships" class="partnerships-info">
                 <strong>Partnerships:</strong> {{ event.partnerships }}
@@ -103,7 +107,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
-            <MoreInfoPopup v-if="event.moreInfo" :title="event.name + ' - Detailed Story'" buttonText="More Info">
+            <MoreInfoPopup v-if="event.moreInfo" :title="getEventDetailTitle(event.name)" buttonText="More Info">
               <p>{{ event.moreInfo }}</p>
               <p v-if="event.partnerships" class="partnerships-info">
                 <strong>Partnerships:</strong> {{ event.partnerships }}

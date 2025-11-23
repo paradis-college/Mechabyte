@@ -232,11 +232,13 @@ export type Translation = {
   outreachTitle: string;
   outreachSubtitle: string;
   outreachMission: string;
+  outreachOriginTitle: string;
   outreachOriginStory: string;
   outreachSocialMediaTitle: string;
   outreachSocialMediaDesc: string;
   outreachTeamFriendshipsTitle: string;
   outreachTeamFriendshipsDesc: string;
+  outreachEventDetailTitle: string;
   centerstageEvents: Array<{ 
     name: string; 
     shortDescription: string; 
@@ -629,11 +631,13 @@ export const translations: { en: Translation; ro: Translation } = {
     outreachTitle: 'Outreach & Events',
     outreachSubtitle: 'Community Engagement & Partnerships',
     outreachMission: 'Beyond building robots, we believe in building connections. Our outreach efforts aim to inspire the next generation, give back to our community, and create lasting partnerships that help us grow.',
+    outreachOriginTitle: 'Our Journey: Starting from Scratch',
     outreachOriginStory: 'Starting from Scratch: When Mechabyte was founded in September 2023, we had no sponsors, no funding, and just a dream to build robots. Our first challenge wasn\'t designing a mechanism—it was figuring out how to afford the parts. Instead of giving up, we rolled up our sleeves and got creative. We organized pancake sales at school, movie nights, and craft markets. Every 5,000 RON we raised from selling homemade pancakes brought us closer to competing. This grassroots approach taught us resourcefulness, teamwork, and the value of community support. It showed us that you don\'t need corporate backing to start—just passion, determination, and people who believe in your mission.',
     outreachSocialMediaTitle: 'Social Media & Digital Presence',
     outreachSocialMediaDesc: 'Our social media presence on Instagram, TikTok, and Facebook has become a vital part of our outreach strategy. We regularly share behind-the-scenes content, robot build updates, competition highlights, and STEM education resources. Our posts celebrate not just our own achievements but also those of other FTC teams across Romania. We actively engage with the robotics community through comments, shares, and collaborative content. Many teams now recognize Mechabyte at competitions thanks to our online presence. Social media has helped us build a supportive network where teams exchange ideas, troubleshoot problems together, and celebrate each other\'s successes—embodying the spirit of gracious professionalism.',
     outreachTeamFriendshipsTitle: 'Team Friendships & Collaborations',
     outreachTeamFriendshipsDesc: 'One of the most rewarding aspects of FTC has been the friendships we\'ve built with other teams. At the Nikola Tesla Festival and Winter Dive Meet, we connected with teams like Phoenix Robotics, ByteForce, and RoboMinds. These aren\'t just competitors—they\'re friends who share strategies, lend tools during competitions, and celebrate victories together. We\'ve exchanged design files, collaborated on outreach events, and even held joint practice sessions. At EUROINVENT 2025 in Iași, we presented our robot alongside teams from across Europe, learning from their innovative approaches. These partnerships remind us that FTC isn\'t about beating others—it\'s about building a community that elevates everyone. The relationships we\'ve formed extend beyond competitions and have created a support network that helps all of us grow.',
+    outreachEventDetailTitle: 'Detailed Story',
     
     centerstageEvents: [
       {
@@ -1128,11 +1132,13 @@ export const translations: { en: Translation; ro: Translation } = {
     outreachTitle: 'Implicare și Evenimente',
     outreachSubtitle: 'Implicare Comunitară și Parteneriate',
     outreachMission: 'Dincolo de construirea roboților, credem în construirea conexiunilor. Eforturile noastre de implicare urmăresc să inspire următoarea generație, să dăm înapoi comunității și să creăm parteneriate durabile care ne ajută să creștem.',
+    outreachOriginTitle: 'Călătoria Noastră: Pornind de la Zero',
     outreachOriginStory: 'Pornind de la Zero: Când Mechabyte a fost înființată în septembrie 2023, nu aveam sponsori, nici finanțare, ci doar un vis de a construi roboți. Prima noastră provocare nu a fost proiectarea unui mecanism—ci cum să ne permitem piesele. În loc să renunțăm, ne-am retrousat mânecile și am devenit creativi. Am organizat vânzări de clătite la școală, seri de film și târguri de meșteșuguri. Fiecare 5.000 RON strânși din vânzarea clătitelor făcute în casă ne-a adus mai aproape de competiție. Această abordare populară ne-a învățat ingeniozitate, muncă în echipă și valoarea sprijinului comunitar. Ne-a arătat că nu ai nevoie de susținere corporativă pentru a începe—doar pasiune, determinare și oameni care cred în misiunea ta.',
     outreachSocialMediaTitle: 'Rețele Sociale și Prezență Digitală',
     outreachSocialMediaDesc: 'Prezența noastră pe rețelele sociale—Instagram, TikTok și Facebook—a devenit o parte vitală a strategiei noastre de implicare. Împărtășim regulat conținut din culise, actualizări despre construirea robotului, puncte culminante ale competițiilor și resurse educaționale STEM. Postările noastre celebrează nu doar realizările noastre, ci și cele ale altor echipe FTC din România. Ne implicăm activ cu comunitatea robotică prin comentarii, distribuiri și conținut colaborativ. Multe echipe recunosc acum Mechabyte la competiții datorită prezenței noastre online. Rețelele sociale ne-au ajutat să construim o rețea de susținere unde echipele schimbă idei, rezolvă împreună probleme și celebrează succesele—întruchipând spiritul profesionalismului grațios.',
     outreachTeamFriendshipsTitle: 'Prietenii și Colaborări între Echipe',
     outreachTeamFriendshipsDesc: 'Unul dintre cele mai gratifiante aspecte ale FTC au fost prieteniile pe care le-am construit cu alte echipe. La Festivalul Nikola Tesla și Winter Dive Meet, ne-am conectat cu echipe precum Phoenix Robotics, ByteForce și RoboMinds. Aceștia nu sunt doar competitori—sunt prieteni care împărtășesc strategii, împrumută unelte în timpul competițiilor și celebrează victoriile împreună. Am schimbat fișiere de design, am colaborat la evenimente de implicare și am organizat chiar sesiuni comune de practică. La EUROINVENT 2025 în Iași, am prezentat robotul nostru alături de echipe din toată Europa, învățând din abordările lor inovatoare. Aceste parteneriate ne amintesc că FTC nu este despre a-i învinge pe ceilalți—ci despre construirea unei comunități care îi ridică pe toți. Relațiile pe care le-am format se extind dincolo de competiții și au creat o rețea de sprijin care ne ajută pe toți să creștem.',
+    outreachEventDetailTitle: 'Poveste Detaliată',
     
     centerstageEvents: [
       {
