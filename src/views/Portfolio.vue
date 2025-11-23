@@ -22,6 +22,7 @@ import CenterstageTeleOpAnimation from '../components/animations/CenterStageTele
 import CenterstageEndgameAnimation from '../components/animations/CenterstageEndgameAnimation.vue';
 import DriverControlTable from '../components/DriverControlTable.vue';
 import DriverControlsInteractive from '../components/DriverControlsInteractive.vue';
+import ControllerRobotCoordination from '../components/animations/ControllerRobotCoordination.vue';
 import StrategySummaryTable from '../components/StrategySummaryTable.vue';
 import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
 import Model3DPlaceholder from '../components/Model3DPlaceholder.vue';
@@ -157,6 +158,9 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Programming Approach</h2>
         <p><strong>Autonomous:</strong> Timing-based movements (no odometry/vision). 4 programs for different starting positions.</p>
         <p><strong>Teleop:</strong> Driver 1 handles movement and arm; Driver 2 handles intake and drone.</p>
+        
+        <h4>Controller-Robot Coordination</h4>
+        <ControllerRobotCoordination season="centerstage" />
         
         <h4>Driver Controls</h4>
         <DriverControlsInteractive season="centerstage" />
@@ -308,6 +312,9 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <h2 class="section-title">Programming Approach</h2>
         <p><strong>Autonomous:</strong> Timing-based with 4 cases (forward, backward, left, right) combined based on starting position.</p>
         <p><strong>Teleop:</strong> Driver 1 handles movement; Driver 2 handles slider and intake/outtake.</p>
+        
+        <h4>Controller-Robot Coordination</h4>
+        <ControllerRobotCoordination season="into-the-deep" />
         
         <h4>Driver Controls</h4>
         <DriverControlsInteractive season="into-the-deep" />
