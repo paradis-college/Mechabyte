@@ -40,6 +40,12 @@ const isActive = (path: string) => {
           ariaLabel="Navigate to Home"
         />
         <MicroButton 
+          :label="translations[language].nav.portfolio"
+          :variant="isActive('/portfolio') ? 'primary' : 'secondary'"
+          @click="navigateTo('/portfolio')"
+          ariaLabel="Navigate to Portfolio"
+        />
+        <MicroButton 
           :label="translations[language].nav.values"
           :variant="isActive('/values') ? 'primary' : 'secondary'"
           @click="navigateTo('/values')"
@@ -56,12 +62,6 @@ const isActive = (path: string) => {
           :variant="isActive('/team') ? 'primary' : 'secondary'"
           @click="navigateTo('/team')"
           ariaLabel="Navigate to Team"
-        />
-        <MicroButton 
-          :label="translations[language].nav.portfolio"
-          :variant="isActive('/portfolio') ? 'primary' : 'secondary'"
-          @click="navigateTo('/portfolio')"
-          ariaLabel="Navigate to Portfolio"
         />
         <MicroButton 
           :label="translations[language].nav.sponsors"
