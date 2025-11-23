@@ -52,18 +52,6 @@ const isActive = (path: string) => {
           ariaLabel="Navigate to Outreach"
         />
         <MicroButton 
-          :label="translations[language].nav.values"
-          :variant="isActive('/values') ? 'primary' : 'secondary'"
-          @click="navigateTo('/values')"
-          ariaLabel="Navigate to Values"
-        />
-        <MicroButton 
-          :label="translations[language].nav.achievements"
-          :variant="isActive('/achievements') ? 'primary' : 'secondary'"
-          @click="navigateTo('/achievements')"
-          ariaLabel="Navigate to Achievements"
-        />
-        <MicroButton 
           :label="translations[language].nav.team"
           :variant="isActive('/team') ? 'primary' : 'secondary'"
           @click="navigateTo('/team')"
@@ -74,12 +62,6 @@ const isActive = (path: string) => {
           :variant="isActive('/sponsors') ? 'primary' : 'secondary'"
           @click="navigateTo('/sponsors')"
           ariaLabel="Navigate to Sponsors"
-        />
-        <MicroButton 
-          :label="translations[language].nav.support"
-          :variant="isActive('/support') ? 'primary' : 'secondary'"
-          @click="navigateTo('/support')"
-          ariaLabel="Navigate to Support"
         />
         <MicroButton 
           :label="translations[language].nav.contact"
