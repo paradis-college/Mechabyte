@@ -292,8 +292,31 @@ const previousMentors = computed(() =>
     <!-- 2025-2026 Season - Current Team -->
     <div v-if="activeSeason === '2025-2026'" class="season-content">
       <section class="content-section">
+        <!-- Mentors & Collaborators - Moved to top -->
+        <div class="team-section">
+          <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
+          <p class="team-description">{{ t.mentorsDesc2025 }}</p>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in currentMentors" 
+              :key="`mentor-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+            <TeamMemberCard 
+              v-for="(member, index) in currentCollaborators" 
+              :key="`collab-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+
         <div class="team-section">
           <h2>{{ t.technicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.technicalTeamDesc2025 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in currentTechnicalMembers" 
@@ -307,30 +330,11 @@ const previousMentors = computed(() =>
         
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.nonTechnicalTeamDesc2025 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in currentNonTechnicalMembers" 
               :key="index"
-              :member-name="member.name"
-              :department="member.department"
-              :role="member.role"
-            />
-          </div>
-        </div>
-        
-        <div class="team-section">
-          <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
-          <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in currentMentors" 
-              :key="`mentor-${index}`"
-              :member-name="member.name"
-              :department="member.department"
-              :role="member.role"
-            />
-            <TeamMemberCard 
-              v-for="(member, index) in currentCollaborators" 
-              :key="`collab-${index}`"
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
@@ -391,8 +395,24 @@ const previousMentors = computed(() =>
     <!-- 2024-2025 Season (Into the Deep) -->
     <div v-if="activeSeason === '2024-2025'" class="season-content">
       <section class="content-section">
+        <!-- Mentors - Moved to top -->
+        <div class="team-section">
+          <h2>{{ t.mentorsTitle }}</h2>
+          <p class="team-description">{{ t.mentorsDesc2024 }}</p>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in mentors" 
+              :key="index"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+
         <div class="team-section">
           <h2>{{ t.technicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.technicalTeamDesc2024 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in technicalMembers" 
@@ -406,22 +426,10 @@ const previousMentors = computed(() =>
         
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.nonTechnicalTeamDesc2024 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in nonTechnicalMembers" 
-              :key="index"
-              :member-name="member.name"
-              :department="member.department"
-              :role="member.role"
-            />
-          </div>
-        </div>
-        
-        <div class="team-section">
-          <h2>{{ t.mentorsTitle }}</h2>
-          <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in mentors" 
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -483,8 +491,24 @@ const previousMentors = computed(() =>
     <!-- 2023-2024 Season (CenterStage) -->
     <div v-if="activeSeason === '2023-2024'" class="season-content">
       <section class="content-section">
+        <!-- Mentors - Moved to top -->
+        <div class="team-section">
+          <h2>{{ t.mentorsTitle }}</h2>
+          <p class="team-description">{{ t.mentorsDesc2023 }}</p>
+          <div class="members-grid">
+            <TeamMemberCard 
+              v-for="(member, index) in previousMentors" 
+              :key="`prev-mentor-${index}`"
+              :member-name="member.name"
+              :department="member.department"
+              :role="member.role"
+            />
+          </div>
+        </div>
+
         <div class="team-section">
           <h2>{{ t.technicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.technicalTeamDesc2023 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in previousTechnicalMembers" 
@@ -498,23 +522,11 @@ const previousMentors = computed(() =>
         
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
+          <p class="team-description">{{ t.nonTechnicalTeamDesc2023 }}</p>
           <div class="members-grid">
             <TeamMemberCard 
               v-for="(member, index) in previousNonTechnicalMembers" 
               :key="`prev-nontech-${index}`"
-              :member-name="member.name"
-              :department="member.department"
-              :role="member.role"
-            />
-          </div>
-        </div>
-        
-        <div class="team-section">
-          <h2>{{ t.mentorsTitle }}</h2>
-          <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in previousMentors" 
-              :key="`prev-mentor-${index}`"
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
@@ -599,6 +611,14 @@ h2 {
   margin-bottom: 3vw;
 }
 
+.team-description {
+  color: #ccc;
+  font-size: 1vw;
+  line-height: 1.6;
+  margin-bottom: 1.5vw;
+  font-style: italic;
+}
+
 .members-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -669,6 +689,11 @@ h2 {
 
   .team-section {
     margin-bottom: 30px;
+  }
+
+  .team-description {
+    font-size: 14px;
+    margin-bottom: 15px;
   }
 
   .members-grid {
