@@ -304,26 +304,26 @@ export const teamProfiles: Record<string, TeamMemberProfile> = {
 
   'Tudor Tocila': {
     name: 'Tudor Tocila',
-    role: 'Mentor',
+    role: 'Business Teacher',
     department: 'Mentor',
-    bio: 'Technical mentor with industry experience. Tudor brings real-world engineering perspective.',
-    philosophy: 'Engineering is about solving problems creatively within constraints. There\'s always a better solution.',
+    bio: 'Business teacher and mentor providing entrepreneurial guidance. Tudor helps the team develop business acumen and strategic thinking.',
+    philosophy: 'Success in robotics requires both technical excellence and business savvy. Understanding markets, sponsors, and strategy is equally important.',
     skills: [
-      'Engineering problem solving',
-      'Technical mentorship',
-      'Industry best practices',
-      'Project management'
+      'Business strategy and planning',
+      'Financial management',
+      'Entrepreneurship education',
+      'Marketing and sponsorship strategies'
     ],
     beliefs: [
-      'Understand the problem before designing',
-      'Constraints drive innovation',
-      'Documentation is crucial'
+      'Business skills complement technical skills',
+      'Strategic thinking drives success',
+      'Real-world business experience teaches valuable lessons'
     ],
     contributions: [
-      'Guided technical decision-making',
-      'Shared industry engineering practices',
-      'Helped troubleshoot complex problems',
-      'Mentored students in professional skills'
+      'Guided team\'s business and fundraising strategies',
+      'Provided mentorship on sponsor relationships',
+      'Taught entrepreneurial mindset',
+      'Helped develop professional presentation skills'
     ]
   },
 
@@ -354,26 +354,26 @@ export const teamProfiles: Record<string, TeamMemberProfile> = {
 
   'Bobu Dragos': {
     name: 'Bobu Dragos',
-    role: 'Collaborator',
+    role: 'Web Developer',
     department: 'Collaborator',
-    bio: 'Technical collaborator providing specialized expertise. Dragos contributes specific technical knowledge.',
-    philosophy: 'Collaboration multiplies capabilities. Sharing knowledge creates better outcomes for everyone.',
+    bio: 'Professional web developer who created and maintains the team\'s website. Dragos brings modern web development expertise to showcase the team\'s work.',
+    philosophy: 'A great website tells your story and opens doors. Code should be clean, accessible, and performant.',
     skills: [
-      'Specialized technical knowledge',
-      'Problem-solving consultation',
-      'Industry connections',
-      'Resource facilitation'
+      'Full-stack web development',
+      'Vue.js and modern JavaScript frameworks',
+      'UI/UX design principles',
+      'Performance optimization and SEO'
     ],
     beliefs: [
-      'Diverse perspectives improve solutions',
-      'Networking opens opportunities',
-      'Knowledge sharing benefits all'
+      'User experience is paramount',
+      'Good code is maintainable code',
+      'Web presence builds credibility'
     ],
     contributions: [
-      'Provided specialized technical advice',
-      'Connected team with resources',
-      'Shared industry insights',
-      'Supported technical development'
+      'Designed and developed team website from scratch',
+      'Implemented interactive portfolio showcasing robots',
+      'Created responsive design for all devices',
+      'Maintains and updates website with new content'
     ]
   }
 };

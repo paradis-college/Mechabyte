@@ -89,9 +89,9 @@ const currentSeasonMembers = ref<Member[]>([
   { name: "Cristiana Balan", department: "Non-Technical", role: "Senior", season: "2025-2026" },
   { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Junior", season: "2025-2026" },
   // Collaborators & Mentors - 2025-2026
-  { name: "Bobu Dragos", department: "Collaborator", role: "Collaborator", season: "2025-2026" },
+  { name: "Bobu Dragos", department: "Collaborator", role: "Web Developer", season: "2025-2026" },
   { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2025-2026" },
-  { name: "Tudor Tocila", department: "Mentor", role: "Mentor", season: "2025-2026" },
+  { name: "Tudor Tocila", department: "Mentor", role: "Business Teacher", season: "2025-2026" },
   { name: "Sebastian Rosca", department: "Mentor", role: "Mentor", season: "2025-2026" },
 ]);
 

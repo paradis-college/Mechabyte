@@ -40,13 +40,21 @@ const memberImage = computed(() => {
   return imageMap[props.memberName] || null;
 });
 
-// Determine if member is a Team Leader or Senior for special effects
+// Determine role-based visual effects
+const isTeamMentor = computed(() => {
+  return props.role.toLowerCase().includes('team mentor');
+});
+
 const isTeamLeader = computed(() => {
   return props.role.toLowerCase().includes('team leader') || props.role.toLowerCase().includes('leader');
 });
 
 const isSenior = computed(() => {
   return props.role.toLowerCase().includes('senior') && !isTeamLeader.value;
+});
+
+const isJunior = computed(() => {
+  return props.role.toLowerCase().includes('junior');
 });
 
 const handleClick = () => {
@@ -58,7 +66,12 @@ const handleClick = () => {
   <div 
     :id="`team-member-card-${props.memberName.toLowerCase()}`" 
     class="team-member-card"
-    :class="{ 'team-leader': isTeamLeader, 'senior': isSenior }"
+    :class="{ 
+      'team-mentor': isTeamMentor,
+      'team-leader': isTeamLeader, 
+      'senior': isSenior,
+      'junior': isJunior
+    }"
     @click="handleClick"
   >
     <div class="card-photo-container">
@@ -102,52 +115,123 @@ const handleClick = () => {
   box-shadow: 0 0 0.5vw 0.1vw var(--mechabyte-green);
 }
 
-/* Team Leader glowing effect */
-.team-member-card.team-leader .card-photo-container {
+/* Team Mentor - Strong glowing pulse (slightly diminished from original) */
+.team-member-card.team-mentor .card-photo-container {
   border: 2px solid var(--mechabyte-green);
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
-              0 0 40px rgba(0, 255, 0, 0.4),
-              inset 0 0 20px rgba(0, 255, 0, 0.1);
-  animation: pulse-glow 2s ease-in-out infinite;
+  box-shadow: 0 0 18px rgba(0, 255, 0, 0.7),
+              0 0 35px rgba(0, 255, 0, 0.5),
+              inset 0 0 15px rgba(0, 255, 0, 0.15);
+  animation: pulse-glow-mentor 2.5s ease-in-out infinite;
 }
 
-.team-member-card.team-leader .card-photo-container:hover {
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8),
-              0 0 60px rgba(0, 255, 0, 0.5),
-              inset 0 0 30px rgba(0, 255, 0, 0.2);
+.team-member-card.team-mentor .card-photo-container:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.85),
+              0 0 50px rgba(0, 255, 0, 0.6),
+              inset 0 0 25px rgba(0, 255, 0, 0.2);
 }
 
-.team-member-card.team-leader .team-member-name {
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+.team-member-card.team-mentor .team-member-name {
+  text-shadow: 0 0 12px rgba(0, 255, 0, 0.9);
   font-weight: bold;
 }
 
-/* Senior subtle effect */
+/* Team Leader - Reduced glowing effect */
+.team-member-card.team-leader .card-photo-container {
+  border: 1.5px solid var(--mechabyte-green);
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.5),
+              0 0 25px rgba(0, 255, 0, 0.3),
+              inset 0 0 12px rgba(0, 255, 0, 0.08);
+  animation: pulse-glow-leader 2s ease-in-out infinite;
+}
+
+.team-member-card.team-leader .card-photo-container:hover {
+  box-shadow: 0 0 18px rgba(0, 255, 0, 0.6),
+              0 0 35px rgba(0, 255, 0, 0.4),
+              inset 0 0 18px rgba(0, 255, 0, 0.12);
+}
+
+.team-member-card.team-leader .team-member-name {
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.7);
+  font-weight: bold;
+}
+
+/* Senior - Enhanced visibility */
 .team-member-card.senior .card-photo-container {
   border: 1.5px solid var(--mechabyte-green);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3),
-              inset 0 0 10px rgba(0, 255, 0, 0.05);
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.4),
+              inset 0 0 8px rgba(0, 255, 0, 0.1);
 }
 
 .team-member-card.senior .card-photo-container:hover {
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5),
-              inset 0 0 15px rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 18px rgba(0, 255, 0, 0.6),
+              inset 0 0 12px rgba(0, 255, 0, 0.15);
 }
 
 .team-member-card.senior .team-member-name {
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 6px rgba(0, 255, 0, 0.5);
 }
 
-@keyframes pulse-glow {
+/* Junior - Joyful shimmer effect */
+.team-member-card.junior .card-photo-container {
+  border: 1.5px solid var(--mechabyte-green);
+  animation: shimmer-joy 3s ease-in-out infinite;
+}
+
+.team-member-card.junior .card-photo-container:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5),
+              0 0 25px rgba(100, 255, 150, 0.3);
+  animation: shimmer-joy-hover 1.5s ease-in-out infinite;
+}
+
+.team-member-card.junior .team-member-name {
+  color: var(--mechabyte-green);
+}
+
+@keyframes pulse-glow-mentor {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
-                0 0 40px rgba(0, 255, 0, 0.4),
-                inset 0 0 20px rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 18px rgba(0, 255, 0, 0.7),
+                0 0 35px rgba(0, 255, 0, 0.5),
+                inset 0 0 15px rgba(0, 255, 0, 0.15);
   }
   50% {
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.8),
-                0 0 60px rgba(0, 255, 0, 0.6),
-                inset 0 0 30px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 28px rgba(0, 255, 0, 0.9),
+                0 0 55px rgba(0, 255, 0, 0.7),
+                inset 0 0 25px rgba(0, 255, 0, 0.25);
+  }
+}
+
+@keyframes pulse-glow-leader {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.5),
+                0 0 25px rgba(0, 255, 0, 0.3),
+                inset 0 0 12px rgba(0, 255, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(0, 255, 0, 0.7),
+                0 0 35px rgba(0, 255, 0, 0.5),
+                inset 0 0 18px rgba(0, 255, 0, 0.15);
+  }
+}
+
+@keyframes shimmer-joy {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3),
+                0 0 15px rgba(100, 255, 150, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.5),
+                0 0 20px rgba(100, 255, 150, 0.3);
+  }
+}
+
+@keyframes shimmer-joy-hover {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5),
+                0 0 25px rgba(100, 255, 150, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7),
+                0 0 35px rgba(100, 255, 150, 0.5);
   }
 }
 
@@ -179,12 +263,21 @@ img {
     height: 225px;
   }
   
+  .team-member-card.team-mentor .card-photo-container {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7),
+                0 0 28px rgba(0, 255, 0, 0.5);
+  }
+  
   .team-member-card.team-leader .card-photo-container {
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6),
-                0 0 30px rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5),
+                0 0 20px rgba(0, 255, 0, 0.3);
   }
   
   .team-member-card.senior .card-photo-container {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+  }
+  
+  .team-member-card.junior .card-photo-container {
     box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
   }
 }
