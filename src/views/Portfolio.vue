@@ -8,7 +8,7 @@ import CenterStageFieldAnimation from '../components/animations/CenterStageField
 import IntoTheDeepFieldAnimation from '../components/animations/IntoTheDeepFieldAnimation.vue';
 import IntakeEvolutionAnimationEnhanced from '../components/animations/IntakeEvolutionAnimationEnhanced.vue';
 import ChassisEvolutionAnimationEnhanced from '../components/animations/ChassisEvolutionAnimationEnhanced.vue';
-import PantographArmAnimation from '../components/animations/PantographArmAnimation.vue';
+import PantographArmAnimationEnhanced from '../components/animations/PantographArmAnimationEnhanced.vue';
 import DroneLauncherAnimation from '../components/animations/DroneLauncherAnimation.vue';
 import BladeStabilizationAnimation from '../components/animations/BladeStabilizationAnimation.vue';
 import SliderSystemAnimation from '../components/animations/SliderSystemAnimation.vue';
@@ -127,7 +127,7 @@ const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
         <div class="evolution-component">
           <h3>Pantograph Arm</h3>
           <p><strong>Final Solution:</strong> Tetrix 40:1 motor-powered pantograph maintaining constant angle.</p>
-          <PantographArmAnimation />
+          <PantographArmAnimationEnhanced />
           <MoreInfoPopup title="Design Evolution: Pantograph Arm">
             <p>Initially one continuous-rotation servo (lacked torque). Upgraded to two servos in parallel. After obtaining Expansion Hub, replaced with Tetrix 40:1 motor for greater lifting power.</p>
           </MoreInfoPopup>
