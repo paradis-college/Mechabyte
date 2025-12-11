@@ -53,24 +53,6 @@ const sponsors = ref<Sponsor[]>([
     isPrimary: true
   },
   {
-    name: 'BRD',
-    logo: new URL('../assets/images/sponsors/brd.png', import.meta.url).href,
-    descriptionEn: 'Financial responsibility powers sustainable innovation.',
-    descriptionRo: 'Responsabilitatea financiară alimentează inovația durabilă.'
-  },
-  {
-    name: 'First Tech Challenge',
-    logo: new URL('../assets/images/sponsors/ftc.jpg', import.meta.url).href,
-    descriptionEn: 'Gracious professionalism in competition and life.',
-    descriptionRo: 'Profesionalism grațios în competiție și viață.'
-  },
-  {
-    name: 'Nație prin Educație',
-    logo: new URL('../assets/images/sponsors/natie prin educatie.png', import.meta.url).href,
-    descriptionEn: 'Education transforms nations, one student at a time.',
-    descriptionRo: 'Educația transformă națiuni, câte un student.'
-  },
-  {
     name: 'Professional Dentist',
     logo: new URL('../assets/images/sponsors/professionalDentist.jpg', import.meta.url).href,
     descriptionEn: 'Precision and attention to detail matter everywhere.',
