@@ -776,7 +776,7 @@ export const translations: { en: Translation; ro: Translation } = {
     },
 
     homeTitle: 'Bine ați venit la Mechabyte',
-    homeWelcome: 'Inovăm Viitorul Prin Robotică',
+    homeWelcome: 'Învățăm Viitorul Prin Robotică',
     aboutTitle: 'Despre Noi',
     aboutText: 'Combinăm învățare practică cu inginerie de competiție pentru a ajuta studenții să construiască roboți reali, abilități reale și cariere de durată. Alătură-te atelierelor, sponsorizează creșterea noastră sau cunoaște echipa care construiește liderii roboticii de mâine.',
     missionTitle: 'Misiunea Noastră',
@@ -789,7 +789,7 @@ export const translations: { en: Translation; ro: Translation } = {
       'Construirea de parteneriate durabile cu sponsori, mentori și comunitatea locală'
     ],
     ftcTitle: 'Despre FIRST Tech Challenge',
-    ftcDescription: 'FIRST Tech Challenge (FTC) este o competiție globală de robotică pentru studenți cu vârste între 12-18 ani. Echipele proiectează, construiesc, programează și concurează cu roboți pentru a completa provocări pe un teren de 12x12 picioare. FTC promovează educația STEM, munca în echipă și profesionalismul grațios, pregătind studenții pentru cariere viitoare în tehnologie și inginerie. Fiecare sezon prezintă o nouă provocare de joc care testează atât abilitățile tehnice, cât și gândirea strategică, necesitând ca echipele să lucreze împreună pentru a rezolva probleme complexe.',
+    ftcDescription: 'FIRST Tech Challenge (FTC) este o competiție globală de robotică pentru studenți cu vârste între 12-18 ani. Echipele proiectează, construiesc, programează și concurează cu roboți pentru a completa provocări pe un teren de 12x12 picioare (3,7 x 3,7 metri). FTC promovează educația STEM, munca în echipă și profesionalismul grațios, pregătind studenții pentru cariere viitoare în tehnologie și inginerie. Fiecare sezon prezintă o nouă provocare de joc care testează atât abilitățile tehnice, cât și gândirea strategică, necesitând ca echipele să lucreze împreună pentru a rezolva probleme complexe.',
     activitiesTitle: 'Activități și Calendar 2024-2025',
     activities: [
       {

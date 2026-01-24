@@ -161,7 +161,7 @@ const navigateToTeam = () => router.push('/team');
             <h3>{{ language === 'en' ? 'STEM Workshops' : 'Workshop-uri STEM' }}</h3>
             <p>{{ language === 'en'
               ? 'Hands-on robotics sessions teaching the next generation. Weekly workshops, coding fundamentals, and problem-solving challenges.'
-              : 'Sesiuni practice de robotică care predau următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări de rezolvare a problemelor.' }}</p>
+              : 'Sesiuni practice de robotică care pregătesc următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări de rezolvare a problemelor.' }}</p>
           </div>
 
           <div class="preview-card">
