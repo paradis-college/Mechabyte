@@ -13,7 +13,7 @@ const props = defineProps<{
       <p v-if="caption" class="caption">{{ caption }}</p>
     </div>
     <div class="placeholder-grid">
-      <div v-for="i in (count || 3)" :key="i" class="photo-slot">
+      <div v-for="i in count || 3" :key="i" class="photo-slot">
         <div class="photo-icon">🖼️</div>
         <span class="photo-label">Photo {{ i }}</span>
       </div>
@@ -87,27 +87,27 @@ const props = defineProps<{
     padding: 20px;
     border: 2px dashed rgba(0, 255, 0, 0.3);
   }
-  
+
   .placeholder-header h4 {
     font-size: 18px;
   }
-  
+
   .caption {
     font-size: 13px;
   }
-  
+
   .placeholder-grid {
     gap: 15px;
   }
-  
+
   .photo-icon {
     font-size: 40px;
   }
-  
+
   .photo-label {
     font-size: 11px;
   }
-  
+
   .placeholder-note {
     font-size: 12px;
   }

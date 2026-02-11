@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { translations } from '../i18n/translations';
-import TeamMemberCard from '../components/TeamMemberCard.vue';
-import TeamMemberPopup, { type TeamMemberProfile } from '../components/TeamMemberPopup.vue';
-import MicroButton from '../components/MicroButton.vue';
-import SectionHeader from '../components/SectionHeader.vue';
-import FindMorePane from '../components/FindMorePane.vue';
-import SeasonTabs from '../components/SeasonTabs.vue';
-import { teamProfiles } from '../data/teamProfiles';
+import { computed, ref } from "vue";
+import { translations } from "../i18n/translations";
+import TeamMemberCard from "../components/TeamMemberCard.vue";
+import TeamMemberPopup, {
+  type TeamMemberProfile,
+} from "../components/TeamMemberPopup.vue";
+import MicroButton from "../components/MicroButton.vue";
+import SectionHeader from "../components/SectionHeader.vue";
+import FindMorePane from "../components/FindMorePane.vue";
+import SeasonTabs from "../components/SeasonTabs.vue";
+import { teamProfiles } from "../data/teamProfiles";
 
 const props = defineProps<{
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 
 const t = computed(() => translations[props.language]);
-const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2025-2026');
+const activeSeason = ref<"2023-2024" | "2024-2025" | "2025-2026">("2025-2026");
 
 // Popup state
 const showMemberPopup = ref(false);
@@ -33,20 +35,20 @@ const showTrainingInfo = ref(false);
 const showEnvironmentInfo = ref(false);
 
 const toggleSection = (section: string) => {
-  switch(section) {
-    case 'teamStructure':
+  switch (section) {
+    case "teamStructure":
       showTeamStructure.value = !showTeamStructure.value;
       break;
-    case 'collaborationStyle':
+    case "collaborationStyle":
       showCollaborationStyle.value = !showCollaborationStyle.value;
       break;
-    case 'recruitment':
+    case "recruitment":
       showRecruitment.value = !showRecruitment.value;
       break;
-    case 'training':
+    case "training":
       showTraining.value = !showTraining.value;
       break;
-    case 'dailyLife':
+    case "dailyLife":
       showDailyLife.value = !showDailyLife.value;
       break;
   }
@@ -76,107 +78,312 @@ type Member = {
 // 2025-2026 Season - Current Team
 const currentSeasonMembers = ref<Member[]>([
   // Technical Team - 2025-2026
-  { name: "Ianis Cotoc", department: "Technical", role: "Team Leader", season: "2025-2026" },
-  { name: "David Grigore", department: "Technical", role: "Senior Design", season: "2025-2026" },
-  { name: "Ștefan Albu", department: "Technical", role: "Senior Design", season: "2025-2026" },
-  { name: "Alexia Vancea", department: "Technical", role: "Senior", season: "2025-2026" },
-  { name: "Teodor Matricală", department: "Technical", role: "Senior", season: "2025-2026" },
-  { name: "Catrinel Bănuță", department: "Technical", role: "Junior", season: "2025-2026" },
-  { name: "Rareș Berheci", department: "Technical", role: "Junior", season: "2025-2026" },
+  {
+    name: "Ianis Cotoc",
+    department: "Technical",
+    role: "Team Leader",
+    season: "2025-2026",
+  },
+  {
+    name: "David Grigore",
+    department: "Technical",
+    role: "Senior Design",
+    season: "2025-2026",
+  },
+  {
+    name: "Ștefan Albu",
+    department: "Technical",
+    role: "Senior Design",
+    season: "2025-2026",
+  },
+  {
+    name: "Alexia Vancea",
+    department: "Technical",
+    role: "Senior",
+    season: "2025-2026",
+  },
+  {
+    name: "Teodor Matricală",
+    department: "Technical",
+    role: "Senior",
+    season: "2025-2026",
+  },
+  {
+    name: "Catrinel Bănuță",
+    department: "Technical",
+    role: "Junior",
+    season: "2025-2026",
+  },
+  {
+    name: "Rareș Berheci",
+    department: "Technical",
+    role: "Junior",
+    season: "2025-2026",
+  },
   // Non-Technical Team - 2025-2026
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Team Leader", season: "2025-2026" },
-  { name: "Veronika Glazkova", department: "Non-Technical", role: "Senior", season: "2025-2026" },
-  { name: "Cristiana Balan", department: "Non-Technical", role: "Senior", season: "2025-2026" },
-  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Junior", season: "2025-2026" },
+  {
+    name: "Alexandra Maftei",
+    department: "Non-Technical",
+    role: "Team Leader",
+    season: "2025-2026",
+  },
+  {
+    name: "Veronika Glazkova",
+    department: "Non-Technical",
+    role: "Senior",
+    season: "2025-2026",
+  },
+  {
+    name: "Cristiana Balan",
+    department: "Non-Technical",
+    role: "Senior",
+    season: "2025-2026",
+  },
+  {
+    name: "Alexandra Sîmbotin Gășpărel",
+    department: "Non-Technical",
+    role: "Junior",
+    season: "2025-2026",
+  },
   // Collaborators & Mentors - 2025-2026
-  { name: "Bobu Dragos", department: "Collaborator", role: "Web Developer", season: "2025-2026" },
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2025-2026" },
-  { name: "Tudor Tocila", department: "Mentor", role: "Business Teacher", season: "2025-2026" },
-  { name: "Sebastian Rosca", department: "Mentor", role: "Mentor", season: "2025-2026" },
+  {
+    name: "Bobu Dragos",
+    department: "Collaborator",
+    role: "Web Developer",
+    season: "2025-2026",
+  },
+  {
+    name: "Andreea Ioniță",
+    department: "Mentor",
+    role: "Team Mentor",
+    season: "2025-2026",
+  },
+  {
+    name: "Tudor Tocila",
+    department: "Mentor",
+    role: "Business Teacher",
+    season: "2025-2026",
+  },
+  {
+    name: "Sebastian Rosca",
+    department: "Mentor",
+    role: "Mentor",
+    season: "2025-2026",
+  },
 ]);
 
 // 2024-2025 Season (Into the Deep) - Previous Season
 const members = ref<Member[]>([
   // Technical Team - Into the Deep (2024-2025)
-  { name: "Alexia Vancea", department: "Technical", role: "Technical", season: "2024-2025" },
-  { name: "Ianis Cotoc", department: "Technical", role: "Technical", season: "2024-2025" },
-  { name: "Teodor Matricală", department: "Technical", role: "Technical", season: "2024-2025" },
-  { name: "Catrinel Bănuță", department: "Technical", role: "Technical", season: "2024-2025" },
-  { name: "Rareș Berheci", department: "Technical", role: "Technical", season: "2024-2025" },
+  {
+    name: "Alexia Vancea",
+    department: "Technical",
+    role: "Technical",
+    season: "2024-2025",
+  },
+  {
+    name: "Ianis Cotoc",
+    department: "Technical",
+    role: "Technical",
+    season: "2024-2025",
+  },
+  {
+    name: "Teodor Matricală",
+    department: "Technical",
+    role: "Technical",
+    season: "2024-2025",
+  },
+  {
+    name: "Catrinel Bănuță",
+    department: "Technical",
+    role: "Technical",
+    season: "2024-2025",
+  },
+  {
+    name: "Rareș Berheci",
+    department: "Technical",
+    role: "Technical",
+    season: "2024-2025",
+  },
   // Non-Technical Team - Into the Deep (2024-2025)
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
-  { name: "Veronika Glazkova", department: "Non-Technical", role: "Marketing", season: "2024-2025" },
-  { name: "Cristiana Balan", department: "Non-Technical", role: "Design", season: "2024-2025" },
-  { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Outreach", season: "2024-2025" },
+  {
+    name: "Alexandra Maftei",
+    department: "Non-Technical",
+    role: "Marketing",
+    season: "2024-2025",
+  },
+  {
+    name: "Veronika Glazkova",
+    department: "Non-Technical",
+    role: "Marketing",
+    season: "2024-2025",
+  },
+  {
+    name: "Cristiana Balan",
+    department: "Non-Technical",
+    role: "Design",
+    season: "2024-2025",
+  },
+  {
+    name: "Alexandra Sîmbotin Gășpărel",
+    department: "Non-Technical",
+    role: "Outreach",
+    season: "2024-2025",
+  },
   // Mentors - Into the Deep (2024-2025)
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2024-2025" },
-  { name: "Bogdan Andone", department: "Mentor", role: "Team Mentor", season: "2024-2025" }
+  {
+    name: "Andreea Ioniță",
+    department: "Mentor",
+    role: "Team Mentor",
+    season: "2024-2025",
+  },
+  {
+    name: "Bogdan Andone",
+    department: "Mentor",
+    role: "Team Mentor",
+    season: "2024-2025",
+  },
 ]);
 
 // Previous season (Centerstage 2023-2024) members
 const previousSeasonMembers = ref<Member[]>([
   // Technical Team - Centerstage
-  { name: "Maia Sava", department: "Technical", role: "Building & Programming", season: "2023-2024" },
-  { name: "Șerban Untu", department: "Technical", role: "Building & Programming", season: "2023-2024" },
-  { name: "Rareș Cozma", department: "Technical", role: "Building", season: "2023-2024" },
-  { name: "Cristian Ghidireac", department: "Technical", role: "Building & Design", season: "2023-2024" },
-  { name: "David Grigore", department: "Technical", role: "Design & Building", season: "2023-2024" },
-  { name: "Ștefan Albu", department: "Technical", role: "Design", season: "2023-2024" },
+  {
+    name: "Maia Sava",
+    department: "Technical",
+    role: "Building & Programming",
+    season: "2023-2024",
+  },
+  {
+    name: "Șerban Untu",
+    department: "Technical",
+    role: "Building & Programming",
+    season: "2023-2024",
+  },
+  {
+    name: "Rareș Cozma",
+    department: "Technical",
+    role: "Building",
+    season: "2023-2024",
+  },
+  {
+    name: "Cristian Ghidireac",
+    department: "Technical",
+    role: "Building & Design",
+    season: "2023-2024",
+  },
+  {
+    name: "David Grigore",
+    department: "Technical",
+    role: "Design & Building",
+    season: "2023-2024",
+  },
+  {
+    name: "Ștefan Albu",
+    department: "Technical",
+    role: "Design",
+    season: "2023-2024",
+  },
   // Non-Technical Team - Centerstage
-  { name: "Aayush Khadka", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
-  { name: "Alexia Vancea", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
-  { name: "Alexandra Maftei", department: "Non-Technical", role: "Marketing", season: "2023-2024" },
+  {
+    name: "Aayush Khadka",
+    department: "Non-Technical",
+    role: "Marketing",
+    season: "2023-2024",
+  },
+  {
+    name: "Alexia Vancea",
+    department: "Non-Technical",
+    role: "Marketing",
+    season: "2023-2024",
+  },
+  {
+    name: "Alexandra Maftei",
+    department: "Non-Technical",
+    role: "Marketing",
+    season: "2023-2024",
+  },
   // Mentor - Centerstage
-  { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2023-2024" }
+  {
+    name: "Andreea Ioniță",
+    department: "Mentor",
+    role: "Team Mentor",
+    season: "2023-2024",
+  },
 ]);
 
 // Alumni - members who are no longer active
 const alumniMembers = ref<Member[]>([
-  { name: "Aayush Khadka", department: "Alumni", role: "Marketing (2023-2024)", season: "Alumni" },
-  { name: "Maia Sava", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
-  { name: "Șerban Untu", department: "Alumni", role: "Building & Programming (2023-2024)", season: "Alumni" },
-  { name: "Rareș Cozma", department: "Alumni", role: "Building (2023-2024)", season: "Alumni" },
-  { name: "Cristian Ghidireac", department: "Alumni", role: "Building & Design (2023-2024)", season: "Alumni" },
+  {
+    name: "Aayush Khadka",
+    department: "Alumni",
+    role: "Marketing (2023-2024)",
+    season: "Alumni",
+  },
+  {
+    name: "Maia Sava",
+    department: "Alumni",
+    role: "Building & Programming (2023-2024)",
+    season: "Alumni",
+  },
+  {
+    name: "Șerban Untu",
+    department: "Alumni",
+    role: "Building & Programming (2023-2024)",
+    season: "Alumni",
+  },
+  {
+    name: "Rareș Cozma",
+    department: "Alumni",
+    role: "Building (2023-2024)",
+    season: "Alumni",
+  },
+  {
+    name: "Cristian Ghidireac",
+    department: "Alumni",
+    role: "Building & Design (2023-2024)",
+    season: "Alumni",
+  },
 ]);
 
-const currentTechnicalMembers = computed(() => 
-  currentSeasonMembers.value.filter(m => m.department === "Technical")
+const currentTechnicalMembers = computed(() =>
+  currentSeasonMembers.value.filter((m) => m.department === "Technical"),
 );
 
-const currentNonTechnicalMembers = computed(() => 
-  currentSeasonMembers.value.filter(m => m.department === "Non-Technical")
+const currentNonTechnicalMembers = computed(() =>
+  currentSeasonMembers.value.filter((m) => m.department === "Non-Technical"),
 );
 
-const currentCollaborators = computed(() => 
-  currentSeasonMembers.value.filter(m => m.department === "Collaborator")
+const currentCollaborators = computed(() =>
+  currentSeasonMembers.value.filter((m) => m.department === "Collaborator"),
 );
 
-const currentMentors = computed(() => 
-  currentSeasonMembers.value.filter(m => m.department === "Mentor")
+const currentMentors = computed(() =>
+  currentSeasonMembers.value.filter((m) => m.department === "Mentor"),
 );
 
-const technicalMembers = computed(() => 
-  members.value.filter(m => m.department === "Technical")
+const technicalMembers = computed(() =>
+  members.value.filter((m) => m.department === "Technical"),
 );
 
-const nonTechnicalMembers = computed(() => 
-  members.value.filter(m => m.department === "Non-Technical")
+const nonTechnicalMembers = computed(() =>
+  members.value.filter((m) => m.department === "Non-Technical"),
 );
 
-const mentors = computed(() => 
-  members.value.filter(m => m.department === "Mentor")
+const mentors = computed(() =>
+  members.value.filter((m) => m.department === "Mentor"),
 );
 
-const previousTechnicalMembers = computed(() => 
-  previousSeasonMembers.value.filter(m => m.department === "Technical")
+const previousTechnicalMembers = computed(() =>
+  previousSeasonMembers.value.filter((m) => m.department === "Technical"),
 );
 
-const previousNonTechnicalMembers = computed(() => 
-  previousSeasonMembers.value.filter(m => m.department === "Non-Technical")
+const previousNonTechnicalMembers = computed(() =>
+  previousSeasonMembers.value.filter((m) => m.department === "Non-Technical"),
 );
 
-const previousMentors = computed(() => 
-  previousSeasonMembers.value.filter(m => m.department === "Mentor")
+const previousMentors = computed(() =>
+  previousSeasonMembers.value.filter((m) => m.department === "Mentor"),
 );
 </script>
 
@@ -184,51 +391,54 @@ const previousMentors = computed(() =>
   <div class="team-page">
     <!-- Header Section -->
     <section class="content-section header-section">
-      <SectionHeader 
-        :title="t.teamTitle"
-        :subtitle="t.teamIntro"
-      />
-      
+      <SectionHeader :title="t.teamTitle" :subtitle="t.teamIntro" />
+
       <div class="role-progression-note">
         <p v-if="language === 'en'">
-          <strong>Role Progression:</strong> Team members advance through Junior (1st year) → Senior (2nd year) → Team Leader (3rd year) as they gain experience.
+          <strong>Role Progression:</strong> Team members advance through Junior
+          (1st year) → Senior (2nd year) → Team Leader (3rd year) as they gain
+          experience.
         </p>
         <p v-else>
-          <strong>Progresie Roluri:</strong> Membrii echipei avansează prin Junior (an 1) → Senior (an 2) → Lider de Echipă (an 3) pe măsură ce câștigă experiență.
+          <strong>Progresie Roluri:</strong> Membrii echipei avansează prin
+          Junior (an 1) → Senior (an 2) → Lider de Echipă (an 3) pe măsură ce
+          câștigă experiență.
         </p>
       </div>
-      
+
       <div class="cta-buttons">
-        <MicroButton 
-          :label="language === 'en' ? 'Team Structure' : 'Structura Echipei'" 
+        <MicroButton
+          :label="language === 'en' ? 'Team Structure' : 'Structura Echipei'"
           @click="toggleSection('teamStructure')"
         />
-        <MicroButton 
-          :label="language === 'en' ? 'Collaboration Style' : 'Stil de Colaborare'" 
+        <MicroButton
+          :label="
+            language === 'en' ? 'Collaboration Style' : 'Stil de Colaborare'
+          "
           variant="secondary"
           @click="toggleSection('collaborationStyle')"
         />
-        <MicroButton 
-          :label="language === 'en' ? 'How We Recruit' : 'Cum Recrutăm'" 
+        <MicroButton
+          :label="language === 'en' ? 'How We Recruit' : 'Cum Recrutăm'"
           @click="toggleSection('recruitment')"
         />
-        <MicroButton 
+        <MicroButton
           :label="t.collaborationTitle"
           @click="showCollaborationInfo = true"
         />
-        <MicroButton 
+        <MicroButton
           :label="t.trainingTitle"
           variant="secondary"
           @click="showTrainingInfo = true"
         />
-        <MicroButton 
+        <MicroButton
           :label="t.teamEnvironmentTitle"
           @click="showEnvironmentInfo = true"
         />
       </div>
 
       <!-- FindMorePane popups for team info -->
-      <FindMorePane 
+      <FindMorePane
         :show="showCollaborationInfo"
         :title="t.collaborationTitle"
         @close="showCollaborationInfo = false"
@@ -236,7 +446,7 @@ const previousMentors = computed(() =>
         <p>{{ t.teamCollaboration }}</p>
       </FindMorePane>
 
-      <FindMorePane 
+      <FindMorePane
         :show="showTrainingInfo"
         :title="t.trainingTitle"
         @close="showTrainingInfo = false"
@@ -244,7 +454,7 @@ const previousMentors = computed(() =>
         <p>{{ t.teamTraining }}</p>
       </FindMorePane>
 
-      <FindMorePane 
+      <FindMorePane
         :show="showEnvironmentInfo"
         :title="t.teamEnvironmentTitle"
         @close="showEnvironmentInfo = false"
@@ -255,46 +465,102 @@ const previousMentors = computed(() =>
       <!-- Bonus Content Sections -->
       <transition name="fade">
         <div v-if="showTeamStructure" class="bonus-content">
-          <h3>{{ language === 'en' ? '🏗️ Our Team Structure' : '🏗️ Structura Echipei Noastre' }}</h3>
+          <h3>
+            {{
+              language === "en"
+                ? "🏗️ Our Team Structure"
+                : "🏗️ Structura Echipei Noastre"
+            }}
+          </h3>
           <template v-if="language === 'en'">
-            <p>Two teams, one mission. Technical builds robots. Marketing builds community.</p>
-            <p>Engineers perfect performance. Outreach shares our story. Both essential for success.</p>
+            <p>
+              Two teams, one mission. Technical builds robots. Marketing builds
+              community.
+            </p>
+            <p>
+              Engineers perfect performance. Outreach shares our story. Both
+              essential for success.
+            </p>
           </template>
           <template v-else>
-            <p>Două echipe, o misiune. Echipa tehnică construiește roboți. Marketing construiește comunitate.</p>
-            <p>Inginerii perfecționează performanța. Outreach-ul împărtășește povestea. Ambele esențiale.</p>
+            <p>
+              Două echipe, o misiune. Echipa tehnică construiește roboți.
+              Marketing construiește comunitate.
+            </p>
+            <p>
+              Inginerii perfecționează performanța. Outreach-ul împărtășește
+              povestea. Ambele esențiale.
+            </p>
           </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showCollaborationStyle" class="bonus-content">
-          <h3>{{ language === 'en' ? '🤝 How We Work Together' : '🤝 Cum Lucrăm Împreună' }}</h3>
+          <h3>
+            {{
+              language === "en"
+                ? "🤝 How We Work Together"
+                : "🤝 Cum Lucrăm Împreună"
+            }}
+          </h3>
           <template v-if="language === 'en'">
-            <p>Active group chats 24/7. Ideas flow freely between technical and creative minds.</p>
-            <p>Designers suggest robot features. Programmers help with marketing. Fluid collaboration = best innovations.</p>
+            <p>
+              Active group chats 24/7. Ideas flow freely between technical and
+              creative minds.
+            </p>
+            <p>
+              Designers suggest robot features. Programmers help with marketing.
+              Fluid collaboration = best innovations.
+            </p>
           </template>
           <template v-else>
-            <p>Chat-uri active 24/7. Ideile circulă liber între mințile tehnice și creative.</p>
-            <p>Designerii sugerează funcții pentru robot. Programatorii ajută la marketing. Colaborare fluidă = cele mai bune inovații.</p>
+            <p>
+              Chat-uri active 24/7. Ideile circulă liber între mințile tehnice
+              și creative.
+            </p>
+            <p>
+              Designerii sugerează funcții pentru robot. Programatorii ajută la
+              marketing. Colaborare fluidă = cele mai bune inovații.
+            </p>
           </template>
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="showRecruitment" class="bonus-content">
-          <h3>{{ language === 'en' ? '🎯 Joining Mechabyte' : '🎯 Alăturarea la Mechabyte' }}</h3>
+          <h3>
+            {{
+              language === "en"
+                ? "🎯 Joining Mechabyte"
+                : "🎯 Alăturarea la Mechabyte"
+            }}
+          </h3>
           <template v-if="language === 'en'">
             <p>📅 Recruitment: Start of academic year at Paradise College</p>
-            <p>✨ Requirements: Passion + dedication + willingness to learn (no prior experience needed!)</p>
-            <p>🔄 Process: 2-week orientation rotating through all departments</p>
-            <p>💡 We believe: Every student can contribute meaningfully, regardless of background</p>
+            <p>
+              ✨ Requirements: Passion + dedication + willingness to learn (no
+              prior experience needed!)
+            </p>
+            <p>
+              🔄 Process: 2-week orientation rotating through all departments
+            </p>
+            <p>
+              💡 We believe: Every student can contribute meaningfully,
+              regardless of background
+            </p>
           </template>
           <template v-else>
             <p>📅 Recrutare: Începutul anului academic la Paradise College</p>
-            <p>✨ Cerințe: Pasiune + dedicare + dorința de a învăța (fără experiență necesară!)</p>
+            <p>
+              ✨ Cerințe: Pasiune + dedicare + dorința de a învăța (fără
+              experiență necesară!)
+            </p>
             <p>🔄 Proces: Orientare 2 săptămâni prin toate departamentele</p>
-            <p>💡 Credem: Fiecare student poate contribui, indiferent de experiență</p>
+            <p>
+              💡 Credem: Fiecare student poate contribui, indiferent de
+              experiență
+            </p>
           </template>
         </div>
       </transition>
@@ -308,19 +574,25 @@ const previousMentors = computed(() =>
       <section class="content-section">
         <!-- Mentors & Collaborators - Moved to top -->
         <div class="team-section">
-          <h2>{{ language === 'en' ? 'Mentors & Collaborators' : 'Mentori & Colaboratori' }}</h2>
+          <h2>
+            {{
+              language === "en"
+                ? "Mentors & Collaborators"
+                : "Mentori & Colaboratori"
+            }}
+          </h2>
           <p class="team-description">{{ t.mentorsDesc2025 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in currentMentors" 
+            <TeamMemberCard
+              v-for="(member, index) in currentMentors"
               :key="`mentor-${index}`"
               :member-name="member.name"
               :department="member.department"
               :role="member.role"
               @click="handleMemberClick(member.name)"
             />
-            <TeamMemberCard 
-              v-for="(member, index) in currentCollaborators" 
+            <TeamMemberCard
+              v-for="(member, index) in currentCollaborators"
               :key="`collab-${index}`"
               :member-name="member.name"
               :department="member.department"
@@ -334,8 +606,8 @@ const previousMentors = computed(() =>
           <h2>{{ t.technicalTeamTitle }}</h2>
           <p class="team-description">{{ t.technicalTeamDesc2025 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in currentTechnicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in currentTechnicalMembers"
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -344,13 +616,13 @@ const previousMentors = computed(() =>
             />
           </div>
         </div>
-        
+
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
           <p class="team-description">{{ t.nonTechnicalTeamDesc2025 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in currentNonTechnicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in currentNonTechnicalMembers"
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -361,28 +633,44 @@ const previousMentors = computed(() =>
         </div>
 
         <div class="cta-buttons">
-          <MicroButton 
-            :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
+          <MicroButton
+            :label="
+              language === 'en' ? 'Training Program' : 'Program de Instruire'
+            "
             variant="secondary"
             @click="toggleSection('training')"
           />
-          <MicroButton 
-            :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
+          <MicroButton
+            :label="
+              language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'
+            "
             @click="toggleSection('dailyLife')"
           />
         </div>
 
         <transition name="fade">
           <div v-if="showTraining" class="bonus-content">
-            <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
+            <h3>
+              {{
+                language === "en"
+                  ? "📚 Learning & Development"
+                  : "📚 Învățare și Dezvoltare"
+              }}
+            </h3>
             <template v-if="language === 'en'">
               <p>💻 Java programming + CAD software + Hardware assembly</p>
-              <p>👥 Senior members mentor through pair programming & design reviews</p>
+              <p>
+                👥 Senior members mentor through pair programming & design
+                reviews
+              </p>
               <p>🏢 Field trips to tech companies = career inspiration</p>
             </template>
             <template v-else>
               <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
-              <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+              <p>
+                👥 Membrii seniori îndrumă prin programare în perechi &
+                revizuiri de design
+              </p>
               <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
             </template>
           </div>
@@ -390,20 +678,44 @@ const previousMentors = computed(() =>
 
         <transition name="fade">
           <div v-if="showDailyLife" class="bonus-content">
-            <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
+            <h3>
+              {{
+                language === "en" ? "⚡ A Day in the Life" : "⚡ O Zi din Viață"
+              }}
+            </h3>
             <template v-if="language === 'en'">
               <p>🕐 Team standup → Share progress & challenges</p>
-              <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+              <p>
+                💻 Split by focus: Programmers debug, CAD iterates, Marketing
+                creates
+              </p>
               <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
-              <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
-              <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+              <p>
+                🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship
+                pitch done
+              </p>
+              <p>
+                Intense. Challenging. Incredibly rewarding. Welcome to tech
+                life. 🚀
+              </p>
             </template>
             <template v-else>
               <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
-              <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
-              <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
-              <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
-              <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+              <p>
+                💻 Împărțire pe focus: Programatori corectează, CAD iterează,
+                Marketing creează
+              </p>
+              <p>
+                ⚡ Testare = Energie electrică. Codul prinde viață pe robot!
+              </p>
+              <p>
+                🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare
+                sponsorizare gata
+              </p>
+              <p>
+                Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în
+                viața tech. 🚀
+              </p>
             </template>
           </div>
         </transition>
@@ -418,8 +730,8 @@ const previousMentors = computed(() =>
           <h2>{{ t.mentorsTitle }}</h2>
           <p class="team-description">{{ t.mentorsDesc2024 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in mentors" 
+            <TeamMemberCard
+              v-for="(member, index) in mentors"
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -433,8 +745,8 @@ const previousMentors = computed(() =>
           <h2>{{ t.technicalTeamTitle }}</h2>
           <p class="team-description">{{ t.technicalTeamDesc2024 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in technicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in technicalMembers"
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -443,13 +755,13 @@ const previousMentors = computed(() =>
             />
           </div>
         </div>
-        
+
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
           <p class="team-description">{{ t.nonTechnicalTeamDesc2024 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in nonTechnicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in nonTechnicalMembers"
               :key="index"
               :member-name="member.name"
               :department="member.department"
@@ -460,28 +772,44 @@ const previousMentors = computed(() =>
         </div>
 
         <div class="cta-buttons">
-          <MicroButton 
-            :label="language === 'en' ? 'Training Program' : 'Program de Instruire'" 
+          <MicroButton
+            :label="
+              language === 'en' ? 'Training Program' : 'Program de Instruire'
+            "
             variant="secondary"
             @click="toggleSection('training')"
           />
-          <MicroButton 
-            :label="language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'" 
+          <MicroButton
+            :label="
+              language === 'en' ? 'Daily Team Life' : 'Viața Zilnică a Echipei'
+            "
             @click="toggleSection('dailyLife')"
           />
         </div>
 
         <transition name="fade">
           <div v-if="showTraining" class="bonus-content">
-            <h3>{{ language === 'en' ? '📚 Learning & Development' : '📚 Învățare și Dezvoltare' }}</h3>
+            <h3>
+              {{
+                language === "en"
+                  ? "📚 Learning & Development"
+                  : "📚 Învățare și Dezvoltare"
+              }}
+            </h3>
             <template v-if="language === 'en'">
               <p>💻 Java programming + CAD software + Hardware assembly</p>
-              <p>👥 Senior members mentor through pair programming & design reviews</p>
+              <p>
+                👥 Senior members mentor through pair programming & design
+                reviews
+              </p>
               <p>🏢 Field trips to tech companies = career inspiration</p>
             </template>
             <template v-else>
               <p>💻 Programare Java + Software CAD + Asamblare hardware</p>
-              <p>👥 Membrii seniori îndrumă prin programare în perechi & revizuiri de design</p>
+              <p>
+                👥 Membrii seniori îndrumă prin programare în perechi &
+                revizuiri de design
+              </p>
               <p>🏢 Excursii la companii tech = inspirație pentru carieră</p>
             </template>
           </div>
@@ -489,20 +817,44 @@ const previousMentors = computed(() =>
 
         <transition name="fade">
           <div v-if="showDailyLife" class="bonus-content">
-            <h3>{{ language === 'en' ? '⚡ A Day in the Life' : '⚡ O Zi din Viață' }}</h3>
+            <h3>
+              {{
+                language === "en" ? "⚡ A Day in the Life" : "⚡ O Zi din Viață"
+              }}
+            </h3>
             <template v-if="language === 'en'">
               <p>🕐 Team standup → Share progress & challenges</p>
-              <p>💻 Split by focus: Programmers debug, CAD iterates, Marketing creates</p>
+              <p>
+                💻 Split by focus: Programmers debug, CAD iterates, Marketing
+                creates
+              </p>
               <p>⚡ Testing = Electric energy. Code comes alive on robot!</p>
-              <p>🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship pitch done</p>
-              <p>Intense. Challenging. Incredibly rewarding. Welcome to tech life. 🚀</p>
+              <p>
+                🎉 Celebrate EVERYTHING: Successful autonomous run → Sponsorship
+                pitch done
+              </p>
+              <p>
+                Intense. Challenging. Incredibly rewarding. Welcome to tech
+                life. 🚀
+              </p>
             </template>
             <template v-else>
               <p>🕐 Standup echipă → Împărtășim progres & provocări</p>
-              <p>💻 Împărțire pe focus: Programatori corectează, CAD iterează, Marketing creează</p>
-              <p>⚡ Testare = Energie electrică. Codul prinde viață pe robot!</p>
-              <p>🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare sponsorizare gata</p>
-              <p>Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în viața tech. 🚀</p>
+              <p>
+                💻 Împărțire pe focus: Programatori corectează, CAD iterează,
+                Marketing creează
+              </p>
+              <p>
+                ⚡ Testare = Energie electrică. Codul prinde viață pe robot!
+              </p>
+              <p>
+                🎉 Sărbătorim TOT: Rulare autonomă reușită → Prezentare
+                sponsorizare gata
+              </p>
+              <p>
+                Intens. Provocator. Incredibil de satisfăcător. Bine ai venit în
+                viața tech. 🚀
+              </p>
             </template>
           </div>
         </transition>
@@ -517,8 +869,8 @@ const previousMentors = computed(() =>
           <h2>{{ t.mentorsTitle }}</h2>
           <p class="team-description">{{ t.mentorsDesc2023 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in previousMentors" 
+            <TeamMemberCard
+              v-for="(member, index) in previousMentors"
               :key="`prev-mentor-${index}`"
               :member-name="member.name"
               :department="member.department"
@@ -532,8 +884,8 @@ const previousMentors = computed(() =>
           <h2>{{ t.technicalTeamTitle }}</h2>
           <p class="team-description">{{ t.technicalTeamDesc2023 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in previousTechnicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in previousTechnicalMembers"
               :key="`prev-tech-${index}`"
               :member-name="member.name"
               :department="member.department"
@@ -542,13 +894,13 @@ const previousMentors = computed(() =>
             />
           </div>
         </div>
-        
+
         <div class="team-section">
           <h2>{{ t.nonTechnicalTeamTitle }}</h2>
           <p class="team-description">{{ t.nonTechnicalTeamDesc2023 }}</p>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in previousNonTechnicalMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in previousNonTechnicalMembers"
               :key="`prev-nontech-${index}`"
               :member-name="member.name"
               :department="member.department"
@@ -557,13 +909,13 @@ const previousMentors = computed(() =>
             />
           </div>
         </div>
-        
+
         <!-- Alumni Section -->
         <div class="team-section">
           <h2>{{ t.alumniTitle }}</h2>
           <div class="members-grid">
-            <TeamMemberCard 
-              v-for="(member, index) in alumniMembers" 
+            <TeamMemberCard
+              v-for="(member, index) in alumniMembers"
               :key="`alumni-${index}`"
               :member-name="member.name"
               :department="member.department"
@@ -690,8 +1042,11 @@ h2 {
 }
 
 /* Fade transition for bonus content */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.fade-enter-active,
+.fade-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .fade-enter-from {

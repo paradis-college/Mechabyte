@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from "vue";
 
 export interface TeamMemberProfile {
   name: string;
@@ -18,27 +18,27 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'close'): void;
+  (e: "close"): void;
 }>();
 
 const handleEscape = (event: KeyboardEvent) => {
-  if (event.key === 'Escape' && props.show) {
-    emit('close');
+  if (event.key === "Escape" && props.show) {
+    emit("close");
   }
 };
 
 const handleBackdropClick = (event: MouseEvent) => {
-  if ((event.target as HTMLElement).classList.contains('team-member-popup')) {
-    emit('close');
+  if ((event.target as HTMLElement).classList.contains("team-member-popup")) {
+    emit("close");
   }
 };
 
 onMounted(() => {
-  document.addEventListener('keydown', handleEscape);
+  document.addEventListener("keydown", handleEscape);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', handleEscape);
+  document.removeEventListener("keydown", handleEscape);
 });
 </script>
 
@@ -54,14 +54,10 @@ onUnmounted(() => {
         @click="handleBackdropClick"
       >
         <div class="popup-content">
-          <button
-            class="popup-close"
-            @click="emit('close')"
-            aria-label="Close"
-          >
+          <button class="popup-close" @click="emit('close')" aria-label="Close">
             ×
           </button>
-          
+
           <div class="popup-header">
             <h2 class="member-name">{{ member.name }}</h2>
             <p class="member-role">{{ member.role }}</p>
@@ -97,10 +93,16 @@ onUnmounted(() => {
               </ul>
             </section>
 
-            <section v-if="member.contributions.length > 0" class="profile-section">
+            <section
+              v-if="member.contributions.length > 0"
+              class="profile-section"
+            >
               <h3>Key Contributions</h3>
               <ul class="contributions-list">
-                <li v-for="(contribution, index) in member.contributions" :key="index">
+                <li
+                  v-for="(contribution, index) in member.contributions"
+                  :key="index"
+                >
                   <span class="bullet">★</span> {{ contribution }}
                 </li>
               </ul>
@@ -130,7 +132,11 @@ onUnmounted(() => {
 }
 
 .popup-content {
-  background: linear-gradient(135deg, rgba(20, 25, 35, 0.95) 0%, rgba(15, 20, 30, 0.98) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 35, 0.95) 0%,
+    rgba(15, 20, 30, 0.98) 100%
+  );
   border: 2px solid var(--mechabyte-green);
   border-radius: 15px;
   padding: 2.5rem;

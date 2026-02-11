@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SponsorCard from './SponsorCard.vue';
+import SponsorCard from "./SponsorCard.vue";
 
 export type Sponsor = {
   name: string;
@@ -11,7 +11,7 @@ export type Sponsor = {
 
 defineProps<{
   sponsors: Sponsor[];
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 </script>
 
@@ -22,7 +22,9 @@ defineProps<{
       :key="index"
       :name="sponsor.name"
       :logo="sponsor.logo"
-      :description="language === 'en' ? sponsor.descriptionEn : sponsor.descriptionRo"
+      :description="
+        language === 'en' ? sponsor.descriptionEn : sponsor.descriptionRo
+      "
       :is-primary="sponsor.isPrimary"
     />
   </div>

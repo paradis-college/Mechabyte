@@ -13,7 +13,7 @@
 
 /* Scanner beam pseudo-element */
 .scanner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -33,12 +33,12 @@
 
 /* Hover sweep animation */
 .scanner:hover::before {
-  animation: scannerSweep 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  animation: scannerSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* One-shot sweep animation when card becomes visible */
 .scanner--sweep::before {
-  animation: scannerSweep 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  animation: scannerSweep 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes scannerSweep {
@@ -75,7 +75,7 @@
     animation: none !important;
     opacity: 0 !important;
   }
-  
+
   .scanner:hover::before {
     /* Static highlight instead of animation */
     opacity: 0.2;
@@ -84,11 +84,11 @@
     transform: skewX(0);
     background: var(--scanner-color);
   }
-  
+
   .scanner:hover {
     transform: none !important;
   }
-  
+
   .scanner:active {
     transform: none !important;
   }

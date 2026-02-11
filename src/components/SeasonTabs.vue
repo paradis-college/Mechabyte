@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const props = defineProps<{
-  activeSeason: '2023-2024' | '2024-2025' | '2025-2026';
+  activeSeason: "2023-2024" | "2024-2025" | "2025-2026";
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:activeSeason', value: '2023-2024' | '2024-2025' | '2025-2026'): void;
+  (
+    e: "update:activeSeason",
+    value: "2023-2024" | "2024-2025" | "2025-2026",
+  ): void;
 }>();
 
 const seasons = [
-  { id: '2023-2024' as const, label: '2023-2024', subtitle: 'CenterStage' },
-  { id: '2024-2025' as const, label: '2024-2025', subtitle: 'Into the Deep' },
-  { id: '2025-2026' as const, label: '2025-2026', subtitle: 'Upcoming' }
+  { id: "2023-2024" as const, label: "2023-2024", subtitle: "CenterStage" },
+  { id: "2024-2025" as const, label: "2024-2025", subtitle: "Into the Deep" },
+  { id: "2025-2026" as const, label: "2025-2026", subtitle: "Upcoming" },
 ];
 
 const selectSeason = (seasonId: typeof props.activeSeason) => {
-  emit('update:activeSeason', seasonId);
+  emit("update:activeSeason", seasonId);
 };
 </script>
 
@@ -113,34 +116,34 @@ const selectSeason = (seasonId: typeof props.activeSeason) => {
     margin-bottom: 20px;
     /* Keep sticky on all screen sizes as requested */
   }
-  
+
   .tabs-container {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
     padding: 0 15px;
   }
-  
+
   .tab-button {
     max-width: 100%;
     border: 2px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     padding: 15px 20px;
   }
-  
+
   .tab-button:hover {
     transform: translateY(-2px);
   }
-  
+
   .tab-button.active {
     border-width: 3px;
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
   }
-  
+
   .tab-label {
     font-size: 18px;
   }
-  
+
   .tab-subtitle {
     font-size: 13px;
   }

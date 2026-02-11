@@ -11,16 +11,19 @@ An interactive SVG robot arm component with mouse-following behavior and idle an
 **Location:** `src/components/HeroRobotArm.vue`
 
 **Props:**
+
 - `size` (number, default: 200): Size of the component in pixels
 - `className` (string, default: ''): Additional CSS classes
 
 **Features:**
+
 - Idle animation: Subtle reach/return movement using sine wave
 - Mouse following: Arm tilts toward cursor (bounded to ±15 degrees)
 - Accessibility: Proper ARIA labels, title, and description
 - Reduced motion: Completely disables animations when `prefers-reduced-motion: reduce` is detected
 
 **Usage:**
+
 ```vue
 <HeroRobotArm :size="250" class="my-robot" />
 ```
@@ -32,12 +35,14 @@ A button component with robotic-themed micro-interactions.
 **Location:** `src/components/MicroButton.vue`
 
 **Props:**
+
 - `variant` ('primary' | 'secondary' | 'robotic', default: 'robotic'): Button style variant
 - `disabled` (boolean, default: false): Disabled state
 - `type` ('button' | 'submit' | 'reset', default: 'button'): Button type
 - `href` (string, optional): If provided, renders as a link instead of button
 
 **Features:**
+
 - Metallic sheen hover effect (gradient animation)
 - Rotating cog icon on hover (180° rotation)
 - Press animation (scale down to 0.98)
@@ -45,6 +50,7 @@ A button component with robotic-themed micro-interactions.
 - Reduced motion support
 
 **Usage:**
+
 ```vue
 <!-- As a button -->
 <MicroButton variant="robotic" @click="handleClick">
@@ -66,31 +72,32 @@ A composable that reveals elements when they enter the viewport using Intersecti
 **Location:** `src/composables/useRevealOnScroll.ts`
 
 **Parameters:**
+
 - `threshold` (number, default: 0.1): Percentage of element visible before triggering (0-1)
 - `rootMargin` (string, default: '0px 0px -50px 0px'): Margin around viewport
 
 **Returns:**
+
 - `elementRef`: Template ref to attach to the element
 - `isVisible`: Reactive boolean indicating visibility state
 
 **Features:**
+
 - SSR-safe (guards for window/document)
 - Respects `prefers-reduced-motion`
 - Automatically stops observing after element becomes visible
 
 **Usage:**
+
 ```vue
 <script setup>
-import { useRevealOnScroll } from '@/composables/useRevealOnScroll';
+import { useRevealOnScroll } from "@/composables/useRevealOnScroll";
 
 const { elementRef, isVisible } = useRevealOnScroll();
 </script>
 
 <template>
-  <div 
-    ref="elementRef"
-    :class="['reveal', { 'is-visible': isVisible }]"
-  >
+  <div ref="elementRef" :class="['reveal', { 'is-visible': isVisible }]">
     Content to reveal
   </div>
 </template>
@@ -105,6 +112,7 @@ Provides utility classes for scroll-triggered reveal animations.
 **Location:** `src/assets/styles/reveal.css`
 
 **Classes:**
+
 - `.reveal`: Base reveal with translateY(20px) and fade
 - `.reveal-left`: Reveal from left with translateX(-30px)
 - `.reveal-right`: Reveal from right with translateX(30px)
@@ -120,6 +128,7 @@ Styles for the robot arm component with metallic theme.
 **Location:** `src/assets/styles/hero-robot-arm.css`
 
 **CSS Variables:**
+
 - `--robot-metal`: Metallic gradient for robot parts
 - `--robot-accent`: Accent color (defaults to Mechabyte green)
 - `--robot-highlight`: Highlight color for lights

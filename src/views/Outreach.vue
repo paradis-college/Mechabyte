@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { translations } from '../i18n/translations';
-import SeasonTabs from '../components/SeasonTabs.vue';
-import PhotoGalleryPlaceholder from '../components/PhotoGalleryPlaceholder.vue';
-import MoreInfoPopup from '../components/MoreInfoPopup.vue';
-import CollapsibleSection from '../components/CollapsibleSection.vue';
-import MediaViewer from '../components/MediaViewer.vue';
+import { ref, computed } from "vue";
+import { translations } from "../i18n/translations";
+import SeasonTabs from "../components/SeasonTabs.vue";
+import PhotoGalleryPlaceholder from "../components/PhotoGalleryPlaceholder.vue";
+import MoreInfoPopup from "../components/MoreInfoPopup.vue";
+import CollapsibleSection from "../components/CollapsibleSection.vue";
+import MediaViewer from "../components/MediaViewer.vue";
 
 const props = defineProps<{
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 
 const t = computed(() => translations[props.language]);
-const activeSeason = ref<'2023-2024' | '2024-2025' | '2025-2026'>('2024-2025');
+const activeSeason = ref<"2023-2024" | "2024-2025" | "2025-2026">("2024-2025");
 
 const getEventDetailTitle = (eventName: string) => {
   return `${eventName} - ${t.value.outreachEventDetailTitle}`;
@@ -51,21 +51,22 @@ const getEventDetailTitle = (eventName: string) => {
       <section class="content-section">
         <h2 class="section-title">CenterStage Season Events</h2>
         <p class="intro-text">
-          During the 2023-2024 season, we focused on building community connections and raising funds 
-          to support our robotics program while sharing our passion for STEM with the broader community.
+          During the 2023-2024 season, we focused on building community
+          connections and raising funds to support our robotics program while
+          sharing our passion for STEM with the broader community.
         </p>
 
         <div class="events-container">
-          <div 
-            v-for="(event, index) in t.centerstageEvents" 
-            :key="index" 
+          <div
+            v-for="(event, index) in t.centerstageEvents"
+            :key="index"
             class="event-detail-card"
           >
             <h3 class="event-name">{{ event.name }}</h3>
             <p class="event-date" v-if="event.date">{{ event.date }}</p>
-            
+
             <!-- Media Viewer -->
-            <MediaViewer 
+            <MediaViewer
               v-if="event.mediaType"
               :mediaType="event.mediaType"
               :mediaUrl="event.mediaUrl"
@@ -73,13 +74,17 @@ const getEventDetailTitle = (eventName: string) => {
               :socialEmbedCode="event.socialEmbedCode"
               :altText="event.name"
             />
-            
+
             <p class="event-full-description">{{ event.fullDescription }}</p>
             <div class="event-impact">
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
-            <MoreInfoPopup v-if="event.moreInfo" :title="getEventDetailTitle(event.name)" buttonText="More Info">
+            <MoreInfoPopup
+              v-if="event.moreInfo"
+              :title="getEventDetailTitle(event.name)"
+              buttonText="More Info"
+            >
               <p>{{ event.moreInfo }}</p>
               <p v-if="event.partnerships" class="partnerships-info">
                 <strong>Partnerships:</strong> {{ event.partnerships }}
@@ -88,10 +93,10 @@ const getEventDetailTitle = (eventName: string) => {
           </div>
         </div>
 
-        <PhotoGalleryPlaceholder 
-          title="CenterStage Outreach Events" 
+        <PhotoGalleryPlaceholder
+          title="CenterStage Outreach Events"
           caption="Community engagement and fundraising activities from 2023-2024"
-          :count="4" 
+          :count="4"
         />
       </section>
     </div>
@@ -101,22 +106,23 @@ const getEventDetailTitle = (eventName: string) => {
       <section class="content-section">
         <h2 class="section-title">Into the Deep Season Events</h2>
         <p class="intro-text">
-          The 2024-2025 season saw us expand our outreach efforts with competition participation, 
-          university collaborations, and creative fundraising initiatives that strengthened our 
-          ties with the local community.
+          The 2024-2025 season saw us expand our outreach efforts with
+          competition participation, university collaborations, and creative
+          fundraising initiatives that strengthened our ties with the local
+          community.
         </p>
 
         <div class="events-container">
-          <div 
-            v-for="(event, index) in t.intoTheDeepEvents" 
-            :key="index" 
+          <div
+            v-for="(event, index) in t.intoTheDeepEvents"
+            :key="index"
             class="event-detail-card"
           >
             <h3 class="event-name">{{ event.name }}</h3>
             <p class="event-date" v-if="event.date">{{ event.date }}</p>
-            
+
             <!-- Media Viewer -->
-            <MediaViewer 
+            <MediaViewer
               v-if="event.mediaType"
               :mediaType="event.mediaType"
               :mediaUrl="event.mediaUrl"
@@ -124,13 +130,17 @@ const getEventDetailTitle = (eventName: string) => {
               :socialEmbedCode="event.socialEmbedCode"
               :altText="event.name"
             />
-            
+
             <p class="event-full-description">{{ event.fullDescription }}</p>
             <div class="event-impact">
               <h4>Impact:</h4>
               <p>{{ event.impact }}</p>
             </div>
-            <MoreInfoPopup v-if="event.moreInfo" :title="getEventDetailTitle(event.name)" buttonText="More Info">
+            <MoreInfoPopup
+              v-if="event.moreInfo"
+              :title="getEventDetailTitle(event.name)"
+              buttonText="More Info"
+            >
               <p>{{ event.moreInfo }}</p>
               <p v-if="event.partnerships" class="partnerships-info">
                 <strong>Partnerships:</strong> {{ event.partnerships }}
@@ -139,10 +149,10 @@ const getEventDetailTitle = (eventName: string) => {
           </div>
         </div>
 
-        <PhotoGalleryPlaceholder 
-          title="Into the Deep Outreach Events" 
+        <PhotoGalleryPlaceholder
+          title="Into the Deep Outreach Events"
           caption="Competitions and community engagement from 2024-2025"
-          :count="4" 
+          :count="4"
         />
       </section>
     </div>
@@ -153,8 +163,11 @@ const getEventDetailTitle = (eventName: string) => {
         <h2 class="section-title">2025-2026 Season</h2>
         <div class="coming-soon">
           <p class="coming-soon-text">🤝 Coming Soon!</p>
-          <p>We're planning exciting new outreach initiatives for the 2025-2026 season. 
-             Stay tuned for updates on community events, partnerships, and ways to get involved!</p>
+          <p>
+            We're planning exciting new outreach initiatives for the 2025-2026
+            season. Stay tuned for updates on community events, partnerships,
+            and ways to get involved!
+          </p>
           <div class="placeholder-areas">
             <div class="placeholder-box">
               <h4>Community Events</h4>
@@ -358,11 +371,11 @@ const getEventDetailTitle = (eventName: string) => {
   .main-title {
     font-size: 32px;
   }
-  
+
   .subtitle {
     font-size: 20px;
   }
-  
+
   .mission-statement {
     font-size: 15px;
   }
@@ -379,14 +392,14 @@ const getEventDetailTitle = (eventName: string) => {
     border-top: 2px solid rgba(0, 255, 0, 0.2);
     font-size: 13px;
   }
-  
+
   .section-title {
     font-size: 24px;
     border-bottom: 2px solid var(--mechabyte-green);
     padding-bottom: 10px;
     margin-bottom: 20px;
   }
-  
+
   .intro-text {
     font-size: 15px;
     margin-bottom: 25px;
@@ -405,7 +418,7 @@ const getEventDetailTitle = (eventName: string) => {
   .event-detail-card:hover {
     transform: translateX(5px);
   }
-  
+
   .event-name {
     font-size: 20px;
     margin-bottom: 5px;
@@ -435,15 +448,15 @@ const getEventDetailTitle = (eventName: string) => {
   .event-impact p {
     font-size: 13px;
   }
-  
+
   .coming-soon-text {
     font-size: 28px;
   }
-  
+
   .placeholder-box h4 {
     font-size: 18px;
   }
-  
+
   .placeholder-box p {
     font-size: 14px;
   }

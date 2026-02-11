@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { translations } from '../i18n/translations';
-import SectionHeader from '../components/SectionHeader.vue';
+import { computed } from "vue";
+import { translations } from "../i18n/translations";
+import SectionHeader from "../components/SectionHeader.vue";
 
 const props = defineProps<{
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 
 const t = computed(() => translations[props.language]);
@@ -13,11 +13,8 @@ const t = computed(() => translations[props.language]);
 <template>
   <div class="contact-page">
     <section class="content-section">
-      <SectionHeader 
-        :title="t.contactTitle"
-        :subtitle="t.contactIntro"
-      />
-      
+      <SectionHeader :title="t.contactTitle" :subtitle="t.contactIntro" />
+
       <div class="contact-grid">
         <div class="contact-card">
           <h2>{{ t.contactLabels.email }}</h2>
@@ -25,66 +22,103 @@ const t = computed(() => translations[props.language]);
             {{ t.contactDetails.email }}
           </a>
         </div>
-        
+
         <div class="contact-card">
           <h2>{{ t.contactLabels.phone }}</h2>
           <p>{{ t.contactDetails.phone }}</p>
         </div>
-        
+
         <div class="contact-card full-width">
           <h2>{{ t.contactLabels.address }}</h2>
           <p>{{ t.contactDetails.address }}</p>
         </div>
       </div>
-      
+
       <div class="social-section">
         <h2>{{ t.followUsTitle }}</h2>
         <div class="social-links">
-          <a :href="t.contactDetails.instagram" target="_blank" rel="noopener noreferrer" class="social-link">
+          <a
+            :href="t.contactDetails.instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
             <span class="social-icon">📸</span>
             <span>{{ t.contactLabels.instagram }}</span>
           </a>
-          <a :href="t.contactDetails.tiktok" target="_blank" rel="noopener noreferrer" class="social-link">
+          <a
+            :href="t.contactDetails.tiktok"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
             <span class="social-icon">🎵</span>
             <span>{{ t.contactLabels.tiktok }}</span>
           </a>
-          <a :href="t.contactDetails.youtube" target="_blank" rel="noopener noreferrer" class="social-link">
+          <a
+            :href="t.contactDetails.youtube"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
             <span class="social-icon">📺</span>
             <span>{{ t.contactLabels.youtube }}</span>
           </a>
-          <a :href="t.contactDetails.facebook" target="_blank" rel="noopener noreferrer" class="social-link">
+          <a
+            :href="t.contactDetails.facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
             <span class="social-icon">👍</span>
             <span>{{ t.contactLabels.facebook }}</span>
           </a>
-          <a :href="t.contactDetails.linkedin" target="_blank" rel="noopener noreferrer" class="social-link">
+          <a
+            :href="t.contactDetails.linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
             <span class="social-icon">💼</span>
             <span>{{ t.contactLabels.linkedin }}</span>
           </a>
         </div>
       </div>
-      
+
       <div class="info-section">
         <div class="info-card">
           <h3>{{ t.scheduleDemoTitle }}</h3>
           <p>{{ t.scheduleDemo }}</p>
-          <a 
-            :href="`mailto:${t.contactDetails.email}?subject=${language === 'en' ? 'Schedule a Demo Request' : 'Cerere Programare Demonstrație'}&body=${language === 'en' ? 'Hi Mechabyte Team,%0D%0A%0D%0AI would like to schedule a robot demonstration.' : 'Bună echipa Mechabyte,%0D%0A%0D%0AAș dori să programez o demonstrație cu robotul.'}`"
+          <a
+            :href="`mailto:${t.contactDetails.email}?subject=${
+              language === 'en'
+                ? 'Schedule a Demo Request'
+                : 'Cerere Programare Demonstrație'
+            }&body=${
+              language === 'en'
+                ? 'Hi Mechabyte Team,%0D%0A%0D%0AI would like to schedule a robot demonstration.'
+                : 'Bună echipa Mechabyte,%0D%0A%0D%0AAș dori să programez o demonstrație cu robotul.'
+            }`"
             class="btn-primary schedule-demo-btn"
           >
-            {{ language === 'en' ? 'Schedule a Demo' : 'Programează o Demonstrație' }}
+            {{
+              language === "en"
+                ? "Schedule a Demo"
+                : "Programează o Demonstrație"
+            }}
           </a>
         </div>
-        
+
         <div class="info-card">
           <h3>{{ t.stayConnectedTitle }}</h3>
           <p>{{ t.connectWithUs }}</p>
-          <a 
+          <a
             :href="t.contactDetails.instagram"
             target="_blank"
             rel="noopener noreferrer"
             class="btn-primary stay-connected-btn"
           >
-            {{ language === 'en' ? 'Stay Connected' : 'Rămâi Conectat' }}
+            {{ language === "en" ? "Stay Connected" : "Rămâi Conectat" }}
           </a>
         </div>
       </div>
@@ -140,7 +174,9 @@ h2 {
   background: var(--dark-grey);
   border: 0.1vw solid var(--mechabyte-green);
   border-radius: 0.5vw;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .contact-card:hover {

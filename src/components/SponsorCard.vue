@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import '../styles/components/ScannerBeam.css';
+import "../styles/components/ScannerBeam.css";
 
 defineProps({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   logo: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   isPrimary: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 </script>
 
@@ -40,13 +40,19 @@ defineProps({
   background: var(--dark-grey);
   border: 0.1vw solid var(--mechabyte-green);
   border-radius: 0.5vw;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   gap: 1vw;
 }
 
 .sponsor-card.primary {
   border: 0.2vw solid var(--mechabyte-green);
-  background: linear-gradient(135deg, var(--dark-grey) 0%, var(--mechabyte-grey) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--dark-grey) 0%,
+    var(--mechabyte-grey) 100%
+  );
   box-shadow: 0 0 1vw 0.2vw rgba(0, 255, 0, 0.2);
 }
 

@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import CogIcon from './icons/CogIcon.vue';
+import { computed } from "vue";
+import CogIcon from "./icons/CogIcon.vue";
 
 // Props interface
 interface MicroButtonProps {
   label?: string;
   disabled?: boolean;
   ariaLabel?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 // Props with defaults
 const props = withDefaults(defineProps<MicroButtonProps>(), {
-  label: '',
+  label: "",
   disabled: false,
-  ariaLabel: '',
-  variant: 'primary'
+  ariaLabel: "",
+  variant: "primary",
 });
 
 // Emits
 const emit = defineEmits<{
-  (e: 'click', event: MouseEvent): void;
+  (e: "click", event: MouseEvent): void;
 }>();
 
 // Computed aria-label: use provided ariaLabel or fall back to label
-const computedAriaLabel = computed(() => props.ariaLabel || props.label || 'Button');
+const computedAriaLabel = computed(
+  () => props.ariaLabel || props.label || "Button",
+);
 
 // Handle click event
 const handleClick = (event: MouseEvent) => {
   if (!props.disabled) {
-    emit('click', event);
+    emit("click", event);
   }
 };
 </script>
@@ -38,7 +40,10 @@ const handleClick = (event: MouseEvent) => {
   <button
     type="button"
     class="micro-button"
-    :class="{ 'micro-button--disabled': disabled, [`micro-button--${variant}`]: true }"
+    :class="{
+      'micro-button--disabled': disabled,
+      [`micro-button--${variant}`]: true,
+    }"
     :disabled="disabled"
     :aria-label="computedAriaLabel"
     @click="handleClick"
@@ -64,7 +69,7 @@ const handleClick = (event: MouseEvent) => {
   color: var(--light-grey);
   font-size: clamp(10px, 0.9rem, 14px);
   font-weight: 600;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -74,7 +79,7 @@ const handleClick = (event: MouseEvent) => {
 
 /* Metallic sheen effect */
 .micro-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -162,11 +167,11 @@ const handleClick = (event: MouseEvent) => {
   .micro-button__icon {
     transition: none;
   }
-  
+
   .micro-button:hover:not(:disabled) .micro-button__icon {
     transform: none;
   }
-  
+
   .micro-button:hover:not(:disabled) {
     transform: none;
   }
@@ -180,7 +185,7 @@ const handleClick = (event: MouseEvent) => {
     min-height: 32px;
     border-radius: 4px;
   }
-  
+
   .micro-button:focus-visible {
     outline-width: 2px;
     outline-offset: 2px;

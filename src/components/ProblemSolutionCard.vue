@@ -13,7 +13,7 @@ const props = defineProps<{
     <div class="iteration-badge" v-if="iteration">
       <span>Iteration {{ iteration }}</span>
     </div>
-    
+
     <div class="problem-section">
       <div class="section-header problem">
         <span class="icon">❌</span>
@@ -21,11 +21,11 @@ const props = defineProps<{
       </div>
       <p class="description">{{ problemDescription }}</p>
     </div>
-    
+
     <div class="arrow-divider">
       <span>→</span>
     </div>
-    
+
     <div class="solution-section">
       <div class="section-header solution">
         <span class="icon">✅</span>
@@ -115,25 +115,25 @@ const props = defineProps<{
     padding: 20px;
     border: 2px solid rgba(0, 255, 0, 0.2);
   }
-  
+
   .iteration-badge {
     top: -12px;
     padding: 4px 12px;
     font-size: 11px;
   }
-  
+
   .section-header .icon {
     font-size: 20px;
   }
-  
+
   .section-header h4 {
     font-size: 16px;
   }
-  
+
   .description {
     font-size: 14px;
   }
-  
+
   .arrow-divider {
     font-size: 30px;
     transform: rotate(90deg);

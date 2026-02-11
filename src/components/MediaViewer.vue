@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const props = defineProps<{
-  mediaType?: 'image' | 'video' | 'social-embed' | 'gallery';
+  mediaType?: "image" | "video" | "social-embed" | "gallery";
   mediaUrl?: string;
   mediaUrls?: string[];
   socialEmbedCode?: string;
@@ -36,26 +36,29 @@ const goToImage = (index: number) => {
     </div>
 
     <!-- Image Gallery -->
-    <div v-else-if="mediaType === 'gallery' && mediaUrls && mediaUrls.length > 0" class="media-gallery">
+    <div
+      v-else-if="mediaType === 'gallery' && mediaUrls && mediaUrls.length > 0"
+      class="media-gallery"
+    >
       <div class="gallery-main">
-        <button 
-          v-if="currentImageIndex > 0" 
-          class="gallery-nav prev" 
+        <button
+          v-if="currentImageIndex > 0"
+          class="gallery-nav prev"
           @click="prevImage"
           aria-label="Previous image"
         >
           ‹
         </button>
         <div class="gallery-image-container">
-          <img 
-            :src="mediaUrls[currentImageIndex]" 
+          <img
+            :src="mediaUrls[currentImageIndex]"
             :alt="`${altText || 'Event media'} ${currentImageIndex + 1}`"
             class="gallery-image"
           />
         </div>
-        <button 
-          v-if="currentImageIndex < mediaUrls.length - 1" 
-          class="gallery-nav next" 
+        <button
+          v-if="currentImageIndex < mediaUrls.length - 1"
+          class="gallery-nav next"
           @click="nextImage"
           aria-label="Next image"
         >
@@ -88,7 +91,11 @@ const goToImage = (index: number) => {
     <!-- Social Media Embed -->
     <!-- Note: socialEmbedCode should only contain trusted embed codes from official social media platforms (Instagram, Twitter, Facebook, TikTok) -->
     <!-- The team controls these values in translations.ts - never accept user-generated HTML -->
-    <div v-else-if="mediaType === 'social-embed' && socialEmbedCode" class="media-social" v-html="socialEmbedCode"></div>
+    <div
+      v-else-if="mediaType === 'social-embed' && socialEmbedCode"
+      class="media-social"
+      v-html="socialEmbedCode"
+    ></div>
 
     <!-- Placeholder -->
     <div v-else class="media-placeholder">
