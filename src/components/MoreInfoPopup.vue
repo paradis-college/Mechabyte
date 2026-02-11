@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, watch, onUnmounted } from "vue";
 
-const props = withDefaults(defineProps<{
-  title: string;
-  buttonText?: string;
-}>(), {
-  buttonText: 'Design Evolution'
-});
+const props = withDefaults(
+  defineProps<{
+    title: string;
+    buttonText?: string;
+  }>(),
+  {
+    buttonText: "Design Evolution",
+  },
+);
 
 const isOpen = ref(false);
 
@@ -21,25 +24,25 @@ const close = () => {
 // Prevent body scroll when popup is open
 watch(isOpen, (newValue) => {
   if (newValue) {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   } else {
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 });
 
 // Cleanup: restore body overflow when component is unmounted
 onUnmounted(() => {
-  document.body.style.overflow = '';
+  document.body.style.overflow = "";
 });
 </script>
 
 <template>
   <div class="more-info-wrapper">
     <button class="more-info-button" @click="toggle">
-      <span class="icon">{{ isOpen ? '▼' : '▶' }}</span>
+      <span class="icon">{{ isOpen ? "▼" : "▶" }}</span>
       {{ buttonText }}
     </button>
-    
+
     <transition name="slide">
       <div v-if="isOpen" class="popup-overlay" @click.self="close">
         <div class="popup-content">
@@ -197,56 +200,56 @@ onUnmounted(() => {
     border: 1px solid var(--mechabyte-green);
     border-radius: 4px;
   }
-  
+
   .more-info-button:hover {
     transform: translateY(-1px);
     box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
   }
-  
+
   .icon {
     font-size: 11px;
   }
-  
+
   .popup-overlay {
     padding: 20px;
   }
-  
+
   .popup-content {
     max-width: 90vw;
     max-height: 85vh;
     border: 2px solid var(--mechabyte-green);
     border-radius: 8px;
   }
-  
+
   .popup-header {
     padding: 15px 20px;
     border-bottom: 1px solid rgba(0, 255, 0, 0.3);
   }
-  
+
   .popup-header h3 {
     font-size: 18px;
   }
-  
+
   .close-button {
     font-size: 24px;
     width: 30px;
     height: 30px;
   }
-  
+
   .popup-body {
     padding: 20px;
     font-size: 14px;
   }
-  
+
   .popup-body :deep(p) {
     margin-bottom: 15px;
   }
-  
+
   .popup-body :deep(ul) {
     margin-left: 20px;
     margin-bottom: 15px;
   }
-  
+
   .popup-body :deep(li) {
     margin-bottom: 8px;
   }

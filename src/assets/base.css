@@ -8,12 +8,12 @@
 
   --mechabyte-green: hsl(120deg 100% 50% / 100%);
   --mechabyte-green-dark: hsl(120deg 100% 35% / 100%);
-  
+
   /* Gear conveyor theme colors */
   --robot-metal: hsl(0deg 0% 30% / 100%);
   --gear-accent: hsl(120deg 100% 40% / 100%);
   --conveyor-bg: hsl(0deg 0% 3% / 100%);
-  
+
   /* Card styles */
   --card-bg: hsl(0deg 0% 8% / 80%);
   --card-bg-hover: hsl(0deg 0% 12% / 85%);
@@ -36,9 +36,7 @@ body {
   color: var(--light-grey);
   background: var(--background-grey);
   line-height: normal;
-  font-family:
-    'Ubuntu',
-    sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-size: 20px;
   font-weight: 500;
   font-style: normal;
@@ -59,8 +57,9 @@ body {
 }
 
 /* Text stroke for headers - improves readability */
-h1, h2 {
-  text-shadow: 
+h1,
+h2 {
+  text-shadow:
     1px 1px 2px rgba(0, 0, 0, 0.8),
     0 0 8px rgba(0, 0, 0, 0.5);
 }

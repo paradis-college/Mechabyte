@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, computed, nextTick } from 'vue';
+import { ref, watch, onMounted, computed, nextTick } from "vue";
 
 interface Props {
-  name?: 'sensor' | 'bolt' | 'circuit' | 'chip';
+  name?: "sensor" | "bolt" | "circuit" | "chip";
   size?: number | string;
   className?: string;
   animateOnVisible?: boolean;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  name: 'sensor',
+  name: "sensor",
   size: 24,
   animateOnVisible: false,
   visible: false,
@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
 const isAnimating = ref(false);
 
 const sizeValue = computed(() => {
-  return typeof props.size === 'number' ? `${props.size}px` : props.size;
+  return typeof props.size === "number" ? `${props.size}px` : props.size;
 });
 
 // Trigger animation on mount if not waiting for visibility
@@ -31,39 +31,42 @@ onMounted(() => {
 });
 
 // Trigger animation when visible prop changes
-watch(() => props.visible, (newVal) => {
-  if (props.animateOnVisible && newVal) {
-    isAnimating.value = true;
-  }
-});
+watch(
+  () => props.visible,
+  (newVal) => {
+    if (props.animateOnVisible && newVal) {
+      isAnimating.value = true;
+    }
+  },
+);
 
 // SVG path definitions for different icons
 const icons = {
   sensor: {
-    viewBox: '0 0 24 24',
+    viewBox: "0 0 24 24",
     paths: [
-      'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
-      'M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z',
-      'M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+      "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z",
+      "M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z",
+      "M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z",
     ],
   },
   bolt: {
-    viewBox: '0 0 24 24',
+    viewBox: "0 0 24 24",
     paths: [
-      'M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z',
+      "M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z",
     ],
   },
   circuit: {
-    viewBox: '0 0 24 24',
+    viewBox: "0 0 24 24",
     paths: [
-      'M3 3v18h18V3H3zm8 16H5v-2h6v2zm0-4H5v-2h6v2zm0-4H5V9h6v2zm0-4H5V5h6v2zm8 12h-6v-2h6v2zm0-4h-6v-2h6v2zm0-4h-6V9h6v2zm0-4h-6V5h6v2z',
+      "M3 3v18h18V3H3zm8 16H5v-2h6v2zm0-4H5v-2h6v2zm0-4H5V9h6v2zm0-4H5V5h6v2zm8 12h-6v-2h6v2zm0-4h-6v-2h6v2zm0-4h-6V9h6v2zm0-4h-6V5h6v2z",
     ],
   },
   chip: {
-    viewBox: '0 0 24 24',
+    viewBox: "0 0 24 24",
     paths: [
-      'M6 4h12v2h2v2h-2v2h2v2h-2v2h2v2h-2v2h2v2h-2v-2H6v2H4v-2h2v-2H4v-2h2v-2H4v-2h2V8H4V6h2V4h2V2H6v2zm2 4v8h8V8H8z',
-      'M10 10h4v4h-4z',
+      "M6 4h12v2h2v2h-2v2h2v2h-2v2h2v2h-2v2h2v2h-2v-2H6v2H4v-2h2v-2H4v-2h2v-2H4v-2h2V8H4V6h2V4h2V2H6v2zm2 4v8h8V8H8z",
+      "M10 10h4v4h-4z",
     ],
   },
 };
@@ -139,7 +142,8 @@ const icons = {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -154,7 +158,7 @@ const icons = {
     animation: none !important;
     transition: none !important;
   }
-  
+
   .animated-svg-icon.is-animating path {
     opacity: 1;
     transform: scale(1);

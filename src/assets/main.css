@@ -1,4 +1,4 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
   width: 100vw;
@@ -6,7 +6,7 @@
 }
 
 h1 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-size: clamp(36px, 72px, 6vw);
   font-style: normal;
   font-weight: 600;

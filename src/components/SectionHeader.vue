@@ -10,7 +10,9 @@ defineProps<{
   <div class="section-header centered-header">
     <h1 v-if="level === 1 || !level" class="section-title">{{ title }}</h1>
     <h2 v-else class="section-title">{{ title }}</h2>
-    <p v-if="subtitle" class="section-subtitle muted-subtitle">{{ subtitle }}</p>
+    <p v-if="subtitle" class="section-subtitle muted-subtitle">
+      {{ subtitle }}
+    </p>
   </div>
 </template>
 

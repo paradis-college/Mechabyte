@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const props = defineProps<{
-  summary: Array<{ period: string; mandatory: string[]; optional: string[]; scoring: string }>;
+  summary: Array<{
+    period: string;
+    mandatory: string[];
+    optional: string[];
+    scoring: string;
+  }>;
 }>();
 </script>
 

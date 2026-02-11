@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, type ComponentPublicInstance } from 'vue';
-import AnimatedSVGIcon from './AnimatedSVGIcon.vue';
-import '../styles/components/ScannerBeam.css';
+import {
+  ref,
+  onMounted,
+  onUnmounted,
+  nextTick,
+  type ComponentPublicInstance,
+} from "vue";
+import AnimatedSVGIcon from "./AnimatedSVGIcon.vue";
+import "../styles/components/ScannerBeam.css";
 
 interface FeatureCard {
   id: number;
-  icon: 'sensor' | 'bolt' | 'circuit' | 'chip';
+  icon: "sensor" | "bolt" | "circuit" | "chip";
   title: string;
   description: string;
 }
@@ -13,27 +19,31 @@ interface FeatureCard {
 const cards: FeatureCard[] = [
   {
     id: 1,
-    icon: 'sensor',
-    title: 'Advanced Sensors',
-    description: 'Precision sensors for real-time environmental analysis and autonomous navigation.',
+    icon: "sensor",
+    title: "Advanced Sensors",
+    description:
+      "Precision sensors for real-time environmental analysis and autonomous navigation.",
   },
   {
     id: 2,
-    icon: 'bolt',
-    title: 'High-Performance Power',
-    description: 'Optimized power systems delivering maximum efficiency for extended operation.',
+    icon: "bolt",
+    title: "High-Performance Power",
+    description:
+      "Optimized power systems delivering maximum efficiency for extended operation.",
   },
   {
     id: 3,
-    icon: 'circuit',
-    title: 'Smart Circuitry',
-    description: 'Intelligent circuit design enabling rapid processing and decision-making.',
+    icon: "circuit",
+    title: "Smart Circuitry",
+    description:
+      "Intelligent circuit design enabling rapid processing and decision-making.",
   },
   {
     id: 4,
-    icon: 'chip',
-    title: 'Advanced Processing',
-    description: 'Cutting-edge processors handling complex computations in real-time.',
+    icon: "chip",
+    title: "Advanced Processing",
+    description:
+      "Cutting-edge processors handling complex computations in real-time.",
   },
 ];
 
@@ -46,15 +56,18 @@ const SCANNER_SWEEP_DURATION_MS = 1500;
 
 let observer: IntersectionObserver | null = null;
 
-const setCardRef = (el: Element | ComponentPublicInstance | null, id: number) => {
-  if (el && 'nodeType' in el) {
+const setCardRef = (
+  el: Element | ComponentPublicInstance | null,
+  id: number,
+) => {
+  if (el && "nodeType" in el) {
     cardRefs.value[id] = el as HTMLElement;
   }
 };
 
 onMounted(() => {
   // Initialize visibility for all cards
-  cards.forEach(card => {
+  cards.forEach((card) => {
     cardVisibility.value[card.id] = false;
     cardSweep.value[card.id] = false;
   });
@@ -65,11 +78,13 @@ onMounted(() => {
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const cardId = parseInt(entry.target.getAttribute('data-card-id') || '0');
+          const cardId = parseInt(
+            entry.target.getAttribute("data-card-id") || "0",
+          );
           if (entry.isIntersecting && !cardVisibility.value[cardId]) {
             cardVisibility.value[cardId] = true;
             cardSweep.value[cardId] = true;
-            
+
             // Remove sweep class after animation completes to allow re-trigger on hover
             setTimeout(() => {
               cardSweep.value[cardId] = false;
@@ -79,8 +94,8 @@ onMounted(() => {
       },
       {
         threshold: 0.3,
-        rootMargin: '0px',
-      }
+        rootMargin: "0px",
+      },
     );
 
     // Observe all card elements
@@ -108,7 +123,11 @@ onUnmounted(() => {
         :key="card.id"
         :ref="(el) => setCardRef(el, card.id)"
         :data-card-id="card.id"
-        :class="['feature-card', 'scanner', { 'scanner--sweep': cardSweep[card.id] }]"
+        :class="[
+          'feature-card',
+          'scanner',
+          { 'scanner--sweep': cardSweep[card.id] },
+        ]"
         tabindex="0"
         role="article"
       >
@@ -140,7 +159,7 @@ onUnmounted(() => {
   color: var(--mechabyte-green);
   text-align: center;
   margin-bottom: 3rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-size: clamp(24px, 4vw, 48px);
   font-weight: 600;
 }
@@ -161,7 +180,9 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: pointer;
 }
 
@@ -186,7 +207,7 @@ onUnmounted(() => {
 
 .card-title {
   color: var(--mechabyte-green);
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-size: clamp(18px, 2.5vw, 24px);
   font-weight: 600;
   margin-bottom: 1rem;
@@ -203,12 +224,12 @@ onUnmounted(() => {
   .feature-cards-container {
     padding: 1rem;
   }
-  
+
   .feature-cards-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .feature-card {
     padding: 1.5rem;
   }

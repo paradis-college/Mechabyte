@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import ControllerAnimation from './animations/ControllerAnimation.vue';
+import { ref } from "vue";
+import ControllerAnimation from "./animations/ControllerAnimation.vue";
 
 const props = defineProps<{
-  season: 'centerstage' | 'into-the-deep';
+  season: "centerstage" | "into-the-deep";
 }>();
 
 const showBothControllers = ref(true);
@@ -13,15 +13,15 @@ const selectedDriver = ref<1 | 2>(1);
 <template>
   <div class="driver-controls-interactive">
     <div class="view-toggle">
-      <button 
-        :class="{ active: showBothControllers }" 
+      <button
+        :class="{ active: showBothControllers }"
         @click="showBothControllers = true"
         class="toggle-btn"
       >
         Both Controllers
       </button>
-      <button 
-        :class="{ active: !showBothControllers }" 
+      <button
+        :class="{ active: !showBothControllers }"
         @click="showBothControllers = false"
         class="toggle-btn"
       >
@@ -30,15 +30,15 @@ const selectedDriver = ref<1 | 2>(1);
     </div>
 
     <div v-if="!showBothControllers" class="driver-selector">
-      <button 
-        :class="{ active: selectedDriver === 1 }" 
+      <button
+        :class="{ active: selectedDriver === 1 }"
         @click="selectedDriver = 1"
         class="driver-btn"
       >
         Driver 1
       </button>
-      <button 
-        :class="{ active: selectedDriver === 2 }" 
+      <button
+        :class="{ active: selectedDriver === 2 }"
         @click="selectedDriver = 2"
         class="driver-btn"
       >

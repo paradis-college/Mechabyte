@@ -1,39 +1,43 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
-import Silhouette from './icons/Silhouette.vue';
+import Silhouette from "./icons/Silhouette.vue";
 
 const props = defineProps({
   memberName: {
     default: "John D.",
-    type: String
+    type: String,
   },
   department: {
     default: "Department",
-    type: String
+    type: String,
   },
   role: {
     default: "",
-    type: String
-  }
+    type: String,
+  },
 });
 
 const emit = defineEmits<{
-  (e: 'click'): void;
+  (e: "click"): void;
 }>();
 
 // Map of team member names to their image paths
 const imageMap: Record<string, string> = {
-  'Șerban': new URL('../assets/images/Serban.jpeg', import.meta.url).href,
-  'David Grigore': new URL('../assets/images/David.jpeg', import.meta.url).href,
-  'Ștefan Albu': new URL('../assets/images/Stefan.jpeg', import.meta.url).href,
-  'Alexia Vancea': new URL('../assets/images/Alexia.jpeg', import.meta.url).href,
-  'Andreea Ioniță': new URL('../assets/images/Andreea.jpeg', import.meta.url).href,
-  'Andreea Ionita': new URL('../assets/images/Andreea.jpeg', import.meta.url).href,
-  'Cristiana Balan': new URL('../assets/images/Cristian.jpeg', import.meta.url).href,
-  'Maia': new URL('../assets/images/Maia.jpeg', import.meta.url).href,
-  'Rareș': new URL('../assets/images/Rares.jpeg', import.meta.url).href,
-  'Aayush': new URL('../assets/images/Aayush.jpeg', import.meta.url).href,
+  Șerban: new URL("../assets/images/Serban.jpeg", import.meta.url).href,
+  "David Grigore": new URL("../assets/images/David.jpeg", import.meta.url).href,
+  "Ștefan Albu": new URL("../assets/images/Stefan.jpeg", import.meta.url).href,
+  "Alexia Vancea": new URL("../assets/images/Alexia.jpeg", import.meta.url)
+    .href,
+  "Andreea Ioniță": new URL("../assets/images/Andreea.jpeg", import.meta.url)
+    .href,
+  "Andreea Ionita": new URL("../assets/images/Andreea.jpeg", import.meta.url)
+    .href,
+  "Cristiana Balan": new URL("../assets/images/Cristian.jpeg", import.meta.url)
+    .href,
+  Maia: new URL("../assets/images/Maia.jpeg", import.meta.url).href,
+  Rareș: new URL("../assets/images/Rares.jpeg", import.meta.url).href,
+  Aayush: new URL("../assets/images/Aayush.jpeg", import.meta.url).href,
 };
 
 const memberImage = computed(() => {
@@ -44,42 +48,55 @@ const memberImage = computed(() => {
 // Note: Bogdan Andone (Team Mentor in 2024-2025) should not get special effects
 const isTeamMentor = computed(() => {
   // Only Andreea Ioniță gets Team Mentor effects (founding mentor)
-  return props.role.toLowerCase().includes('team mentor') && 
-         props.memberName.toLowerCase().includes('andreea');
+  return (
+    props.role.toLowerCase().includes("team mentor") &&
+    props.memberName.toLowerCase().includes("andreea")
+  );
 });
 
 const isTeamLeader = computed(() => {
-  return (props.role.toLowerCase().includes('team leader') || props.role.toLowerCase().includes('leader')) &&
-         !isTeamMentor.value;
+  return (
+    (props.role.toLowerCase().includes("team leader") ||
+      props.role.toLowerCase().includes("leader")) &&
+    !isTeamMentor.value
+  );
 });
 
 const isSenior = computed(() => {
-  return props.role.toLowerCase().includes('senior') && !isTeamLeader.value && !isTeamMentor.value;
+  return (
+    props.role.toLowerCase().includes("senior") &&
+    !isTeamLeader.value &&
+    !isTeamMentor.value
+  );
 });
 
 const isJunior = computed(() => {
-  return props.role.toLowerCase().includes('junior');
+  return props.role.toLowerCase().includes("junior");
 });
 
 const handleClick = () => {
-  emit('click');
+  emit("click");
 };
 </script>
 
 <template>
-  <div 
-    :id="`team-member-card-${props.memberName.toLowerCase()}`" 
+  <div
+    :id="`team-member-card-${props.memberName.toLowerCase()}`"
     class="team-member-card"
-    :class="{ 
+    :class="{
       'team-mentor': isTeamMentor,
-      'team-leader': isTeamLeader, 
-      'senior': isSenior,
-      'junior': isJunior
+      'team-leader': isTeamLeader,
+      senior: isSenior,
+      junior: isJunior,
     }"
     @click="handleClick"
   >
     <div class="card-photo-container">
-      <img v-if="memberImage" :src="memberImage" :alt="`${props.memberName} photo`" />
+      <img
+        v-if="memberImage"
+        :src="memberImage"
+        :alt="`${props.memberName} photo`"
+      />
       <Silhouette v-else class="silhouette" />
     </div>
     <em class="team-member-name">{{ props.memberName }}</em>
@@ -125,16 +142,18 @@ const handleClick = () => {
 /* Team Mentor (Andreea Ioniță only) - Strong glowing pulse */
 .team-member-card.team-mentor .card-photo-container {
   border: 2px solid var(--mechabyte-green);
-  box-shadow: 0 0 18px rgba(0, 255, 0, 0.7),
-              0 0 35px rgba(0, 255, 0, 0.5),
-              inset 0 0 15px rgba(0, 255, 0, 0.15);
+  box-shadow:
+    0 0 18px rgba(0, 255, 0, 0.7),
+    0 0 35px rgba(0, 255, 0, 0.5),
+    inset 0 0 15px rgba(0, 255, 0, 0.15);
   animation: pulse-glow-mentor 2.5s ease-in-out infinite;
 }
 
 .team-member-card.team-mentor .card-photo-container:hover {
-  box-shadow: 0 0 25px rgba(0, 255, 0, 0.85),
-              0 0 50px rgba(0, 255, 0, 0.6),
-              inset 0 0 25px rgba(0, 255, 0, 0.2);
+  box-shadow:
+    0 0 25px rgba(0, 255, 0, 0.85),
+    0 0 50px rgba(0, 255, 0, 0.6),
+    inset 0 0 25px rgba(0, 255, 0, 0.2);
 }
 
 .team-member-card.team-mentor .team-member-name {
@@ -144,7 +163,7 @@ const handleClick = () => {
 
 /* Team Leader - Scanner beam shining effect */
 .team-member-card.team-leader .card-photo-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -168,7 +187,7 @@ const handleClick = () => {
 }
 
 .team-member-card.team-leader .card-photo-container:hover::before {
-  animation: scannerSweep 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  animation: scannerSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .team-member-card.team-leader .card-photo-container:hover {
@@ -184,7 +203,7 @@ const handleClick = () => {
 
 /* Senior - Subtle overlay effect */
 .team-member-card.senior .card-photo-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -220,7 +239,7 @@ const handleClick = () => {
 
 /* Junior - Joyful overlay with soft pulse */
 .team-member-card.junior .card-photo-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -257,15 +276,18 @@ const handleClick = () => {
 
 /* Animations */
 @keyframes pulse-glow-mentor {
-  0%, 100% {
-    box-shadow: 0 0 18px rgba(0, 255, 0, 0.7),
-                0 0 35px rgba(0, 255, 0, 0.5),
-                inset 0 0 15px rgba(0, 255, 0, 0.15);
+  0%,
+  100% {
+    box-shadow:
+      0 0 18px rgba(0, 255, 0, 0.7),
+      0 0 35px rgba(0, 255, 0, 0.5),
+      inset 0 0 15px rgba(0, 255, 0, 0.15);
   }
   50% {
-    box-shadow: 0 0 28px rgba(0, 255, 0, 0.9),
-                0 0 55px rgba(0, 255, 0, 0.7),
-                inset 0 0 25px rgba(0, 255, 0, 0.25);
+    box-shadow:
+      0 0 28px rgba(0, 255, 0, 0.9),
+      0 0 55px rgba(0, 255, 0, 0.7),
+      inset 0 0 25px rgba(0, 255, 0, 0.25);
   }
 }
 
@@ -287,7 +309,8 @@ const handleClick = () => {
 }
 
 @keyframes joyful-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale(1);
   }
@@ -298,7 +321,8 @@ const handleClick = () => {
 }
 
 @keyframes joyful-pulse-hover {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.8;
     transform: scale(1);
   }
@@ -339,20 +363,21 @@ img {
     width: 150px;
     height: 225px;
   }
-  
+
   .team-member-card.team-mentor .card-photo-container {
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7),
-                0 0 28px rgba(0, 255, 0, 0.5);
+    box-shadow:
+      0 0 15px rgba(0, 255, 0, 0.7),
+      0 0 28px rgba(0, 255, 0, 0.5);
   }
-  
+
   .team-member-card.team-leader .card-photo-container {
     box-shadow: 0 0 6px rgba(0, 255, 0, 0.3);
   }
-  
+
   .team-member-card.senior .card-photo-container {
     box-shadow: 0 0 6px rgba(0, 255, 0, 0.25);
   }
-  
+
   .team-member-card.junior .card-photo-container {
     box-shadow: 0 0 5px rgba(100, 255, 150, 0.3);
   }
@@ -364,11 +389,11 @@ img {
   .team-member-card.junior .card-photo-container::after {
     animation: none !important;
   }
-  
+
   .team-member-card.team-mentor .card-photo-container {
     animation: none !important;
   }
-  
+
   .team-member-card:hover {
     transform: none !important;
   }

@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
-import { translations } from '../i18n/translations';
-import MicroButton from './MicroButton.vue';
+import { useRouter, useRoute } from "vue-router";
+import { translations } from "../i18n/translations";
+import MicroButton from "./MicroButton.vue";
 
 // Props for language state
 const props = defineProps<{
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 
 // Emit event to change language
 const emit = defineEmits<{
-  (e: 'update:language', value: 'en' | 'ro'): void;
+  (e: "update:language", value: "en" | "ro"): void;
 }>();
 
 const router = useRouter();
 const route = useRoute();
 
-const setLanguage = (lang: 'en' | 'ro') => {
-  emit('update:language', lang);
+const setLanguage = (lang: "en" | "ro") => {
+  emit("update:language", lang);
 };
 
 const navigateTo = (path: string) => {
@@ -33,37 +33,37 @@ const isActive = (path: string) => {
   <nav class="navbar">
     <div class="nav-content">
       <div class="nav-links">
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.home"
           :variant="isActive('/') ? 'primary' : 'secondary'"
           @click="navigateTo('/')"
           ariaLabel="Navigate to Home"
         />
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.portfolio"
           :variant="isActive('/portfolio') ? 'primary' : 'secondary'"
           @click="navigateTo('/portfolio')"
           ariaLabel="Navigate to Portfolio"
         />
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.outreach"
           :variant="isActive('/outreach') ? 'primary' : 'secondary'"
           @click="navigateTo('/outreach')"
           ariaLabel="Navigate to Outreach"
         />
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.team"
           :variant="isActive('/team') ? 'primary' : 'secondary'"
           @click="navigateTo('/team')"
           ariaLabel="Navigate to Team"
         />
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.sponsors"
           :variant="isActive('/sponsors') ? 'primary' : 'secondary'"
           @click="navigateTo('/sponsors')"
           ariaLabel="Navigate to Sponsors"
         />
-        <MicroButton 
+        <MicroButton
           :label="translations[language].nav.contact"
           :variant="isActive('/contact') ? 'primary' : 'secondary'"
           @click="navigateTo('/contact')"
@@ -71,13 +71,13 @@ const isActive = (path: string) => {
         />
       </div>
       <div class="language-toggle">
-        <MicroButton 
+        <MicroButton
           label="EN"
           :variant="language === 'en' ? 'primary' : 'secondary'"
           @click="setLanguage('en')"
           ariaLabel="Switch to English"
         />
-        <MicroButton 
+        <MicroButton
           label="RO"
           :variant="language === 'ro' ? 'primary' : 'secondary'"
           @click="setLanguage('ro')"

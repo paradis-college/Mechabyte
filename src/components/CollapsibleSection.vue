@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const props = defineProps<{
   title: string;
@@ -19,7 +19,7 @@ const toggle = () => {
       <h3>{{ title }}</h3>
       <span class="toggle-icon" :class="{ open: isOpen }">▼</span>
     </button>
-    
+
     <transition name="expand">
       <div v-if="isOpen" class="section-content">
         <slot></slot>
@@ -96,19 +96,19 @@ const toggle = () => {
     border-radius: 8px;
     margin: 20px 0;
   }
-  
+
   .section-header {
     padding: 15px 20px;
   }
-  
+
   .section-header h3 {
     font-size: 20px;
   }
-  
+
   .toggle-icon {
     font-size: 16px;
   }
-  
+
   .section-content {
     padding: 20px;
     border-top: 1px solid rgba(0, 255, 0, 0.2);

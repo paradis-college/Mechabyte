@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { translations } from '../i18n/translations';
-import GearConveyor from '../components/GearConveyor.vue';
-import HeroRobotArm from '../components/HeroRobotArm.vue';
-import MicroButton from '../components/MicroButton.vue';
-import FeatureCards from '../components/FeatureCards.vue';
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { translations } from "../i18n/translations";
+import GearConveyor from "../components/GearConveyor.vue";
+import HeroRobotArm from "../components/HeroRobotArm.vue";
+import MicroButton from "../components/MicroButton.vue";
+import FeatureCards from "../components/FeatureCards.vue";
 
 const props = defineProps<{
-  language: 'en' | 'ro';
+  language: "en" | "ro";
 }>();
 
 const router = useRouter();
@@ -16,61 +16,66 @@ const t = computed(() => translations[props.language]);
 
 // Featured sponsors for preview
 const featuredSponsors = [
-  'Paradis International College',
-  'Professional Dentist',
-  'BRD'
+  "Paradis International College",
+  "Professional Dentist",
+  "BRD",
 ];
 
 // Navigation helpers
-const navigateToPortfolio = () => router.push('/portfolio');
-const navigateToOutreach = () => router.push('/outreach');
-const navigateToSponsors = () => router.push('/sponsors');
-const navigateToContact = () => router.push('/contact');
-const navigateToTeam = () => router.push('/team');
+const navigateToPortfolio = () => router.push("/portfolio");
+const navigateToOutreach = () => router.push("/outreach");
+const navigateToSponsors = () => router.push("/sponsors");
+const navigateToContact = () => router.push("/contact");
+const navigateToTeam = () => router.push("/team");
 </script>
 
 <template>
   <div class="home-page">
     <!-- Decorative gear background -->
     <GearConveyor />
-    
+
     <!-- Hero Section -->
     <div class="hero-section">
       <img class="banner" alt="Mechabyte banner" src="/banner.png" />
       <h1 class="hero-title">{{ t.homeTitle }}</h1>
       <p class="hero-subtitle">{{ t.homeWelcome }}</p>
     </div>
-    
+
     <!-- Robot Showcase with overlaid robot arm -->
     <div class="robot-showcase">
-      <img class="snapshot" src="../assets/images/RobotsSnapshot.jpg" alt="Mechabyte robot" />
+      <img
+        class="snapshot"
+        src="../assets/images/RobotsSnapshot.jpg"
+        alt="Mechabyte robot"
+      />
       <HeroRobotArm :size="300" class="hero-robot-overlay" />
     </div>
-    
+
     <!-- Feature Cards Section -->
     <FeatureCards :language="language" />
-    
+
     <!-- Main Content Area -->
     <div class="content-wrapper">
-      
       <!-- About & Mission Section -->
       <section class="intro-section content-card">
         <h2 class="section-title">{{ t.aboutTitle }}</h2>
         <p class="section-text">{{ t.aboutText }}</p>
-        
+
         <div class="mission-box">
           <h3>{{ t.missionTitle }}</h3>
           <ul class="mission-list">
-            <li v-for="(item, index) in t.missionItems" :key="index">{{ item }}</li>
+            <li v-for="(item, index) in t.missionItems" :key="index">
+              {{ item }}
+            </li>
           </ul>
         </div>
 
         <div class="cta-group">
-          <MicroButton 
+          <MicroButton
             :label="language === 'en' ? 'Meet the Team' : 'Cunoaște Echipa'"
             @click="navigateToTeam"
           />
-          <MicroButton 
+          <MicroButton
             :label="language === 'en' ? 'Contact Us' : 'Contactează-ne'"
             variant="secondary"
             @click="navigateToContact"
@@ -83,44 +88,74 @@ const navigateToTeam = () => router.push('/team');
         <div class="preview-header">
           <h2 class="section-title">
             <span class="icon">🤖</span>
-            {{ language === 'en' ? 'Our Robots & Competitions' : 'Roboții și Competițiile Noastre' }}
+            {{
+              language === "en"
+                ? "Our Robots & Competitions"
+                : "Roboții și Competițiile Noastre"
+            }}
           </h2>
           <p class="preview-subtitle">
-            {{ language === 'en' 
-              ? 'Explore our robot designs, competition strategies, and technical evolution across FTC seasons' 
-              : 'Explorează designurile roboților, strategiile de competiție și evoluția tehnică de-a lungul sezoanelor FTC' }}
+            {{
+              language === "en"
+                ? "Explore our robot designs, competition strategies, and technical evolution across FTC seasons"
+                : "Explorează designurile roboților, strategiile de competiție și evoluția tehnică de-a lungul sezoanelor FTC"
+            }}
           </p>
         </div>
 
         <div class="preview-grid">
           <div class="preview-card">
             <div class="preview-icon">⚙️</div>
-            <h3>{{ language === 'en' ? 'Robot Evolution' : 'Evoluția Robotului' }}</h3>
-            <p>{{ language === 'en'
-              ? 'From initial prototypes to competition-ready machines. See how our designs evolved through 50+ iterations.' 
-              : 'De la prototipuri inițiale la mașini gata de competiție. Vezi cum designurile noastre au evoluat prin 50+ iterații.' }}</p>
+            <h3>
+              {{ language === "en" ? "Robot Evolution" : "Evoluția Robotului" }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "From initial prototypes to competition-ready machines. See how our designs evolved through 50+ iterations."
+                  : "De la prototipuri inițiale la mașini gata de competiție. Vezi cum designurile noastre au evoluat prin 50+ iterații."
+              }}
+            </p>
           </div>
 
           <div class="preview-card">
             <div class="preview-icon">🏆</div>
-            <h3>{{ language === 'en' ? 'FTC Competitions' : 'Competiții FTC' }}</h3>
-            <p>{{ language === 'en'
-              ? 'CenterStage (2023-24) and Into the Deep (2024-25) seasons. Strategy, autonomous programming, and game-winning designs.'
-              : 'Sezoanele CenterStage (2023-24) și Into the Deep (2024-25). Strategie, programare autonomă și design-uri câștigătoare.' }}</p>
+            <h3>
+              {{ language === "en" ? "FTC Competitions" : "Competiții FTC" }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "CenterStage (2023-24) and Into the Deep (2024-25) seasons. Strategy, autonomous programming, and game-winning designs."
+                  : "Sezoanele CenterStage (2023-24) și Into the Deep (2024-25). Strategie, programare autonomă și design-uri câștigătoare."
+              }}
+            </p>
           </div>
 
           <div class="preview-card">
             <div class="preview-icon">💻</div>
-            <h3>{{ language === 'en' ? 'Technical Innovation' : 'Inovație Tehnică' }}</h3>
-            <p>{{ language === 'en'
-              ? 'Custom code, precision engineering, and innovative mechanisms. Computer vision, sensor integration, and autonomous navigation.'
-              : 'Cod personalizat, inginerie de precizie și mecanisme inovatoare. Viziune computerizată, integrare senzori și navigare autonomă.' }}</p>
+            <h3>
+              {{
+                language === "en" ? "Technical Innovation" : "Inovație Tehnică"
+              }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "Custom code, precision engineering, and innovative mechanisms. Computer vision, sensor integration, and autonomous navigation."
+                  : "Cod personalizat, inginerie de precizie și mecanisme inovatoare. Viziune computerizată, integrare senzori și navigare autonomă."
+              }}
+            </p>
           </div>
         </div>
 
         <div class="preview-cta">
-          <MicroButton 
-            :label="language === 'en' ? 'Explore Full Portfolio →' : 'Explorează Portofoliul Complet →'"
+          <MicroButton
+            :label="
+              language === 'en'
+                ? 'Explore Full Portfolio →'
+                : 'Explorează Portofoliul Complet →'
+            "
             @click="navigateToPortfolio"
           />
         </div>
@@ -131,59 +166,103 @@ const navigateToTeam = () => router.push('/team');
         <div class="preview-header">
           <h2 class="section-title">
             <span class="icon">🤝</span>
-            {{ language === 'en' ? 'Community Impact & Outreach' : 'Impact Comunitar & Outreach' }}
+            {{
+              language === "en"
+                ? "Community Impact & Outreach"
+                : "Impact Comunitar & Outreach"
+            }}
           </h2>
           <p class="preview-subtitle">
-            {{ language === 'en'
-              ? 'Discover how we\'re bringing robotics education and STEM opportunities to our community'
-              : 'Descoperă cum aducem educația în robotică și oportunități STEM în comunitatea noastră' }}
+            {{
+              language === "en"
+                ? "Discover how we're bringing robotics education and STEM opportunities to our community"
+                : "Descoperă cum aducem educația în robotică și oportunități STEM în comunitatea noastră"
+            }}
           </p>
         </div>
 
         <div class="preview-highlights">
           <div class="highlight-stat">
             <div class="stat-number">30+</div>
-            <div class="stat-label">{{ language === 'en' ? 'Students Reached' : 'Studenți Atinși' }}</div>
+            <div class="stat-label">
+              {{ language === "en" ? "Students Reached" : "Studenți Atinși" }}
+            </div>
           </div>
           <div class="highlight-stat">
             <div class="stat-number">5+</div>
-            <div class="stat-label">{{ language === 'en' ? 'Community Events' : 'Evenimente Comunitare' }}</div>
+            <div class="stat-label">
+              {{
+                language === "en" ? "Community Events" : "Evenimente Comunitare"
+              }}
+            </div>
           </div>
           <div class="highlight-stat">
             <div class="stat-number">2</div>
-            <div class="stat-label">{{ language === 'en' ? 'FTC Seasons' : 'Sezoane FTC' }}</div>
+            <div class="stat-label">
+              {{ language === "en" ? "FTC Seasons" : "Sezoane FTC" }}
+            </div>
           </div>
         </div>
 
         <div class="preview-grid">
           <div class="preview-card">
             <div class="preview-icon">🔬</div>
-            <h3>{{ language === 'en' ? 'STEM Workshops' : 'Workshop-uri STEM' }}</h3>
-            <p>{{ language === 'en'
-              ? 'Hands-on robotics sessions teaching the next generation. Weekly workshops, coding fundamentals, and problem-solving challenges.'
-              : 'Sesiuni practice de robotică care pregătesc următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări de rezolvare a problemelor.' }}</p>
+            <h3>
+              {{ language === "en" ? "STEM Workshops" : "Workshop-uri STEM" }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "Hands-on robotics sessions teaching the next generation. Weekly workshops, coding fundamentals, and problem-solving challenges."
+                  : "Sesiuni practice de robotică care pregătesc următoarea generație. Workshop-uri săptămânale, fundamente de programare și provocări de rezolvare a problemelor."
+              }}
+            </p>
           </div>
 
           <div class="preview-card">
             <div class="preview-icon">🏫</div>
-            <h3>{{ language === 'en' ? 'School Partnerships' : 'Parteneriate Școlare' }}</h3>
-            <p>{{ language === 'en'
-              ? 'Collaborating with local schools to make robotics accessible. Interactive demonstrations and mentorship programs.'
-              : 'Colaborare cu școli locale pentru a face robotica accesibilă. Demonstrații interactive și programe de mentorat.' }}</p>
+            <h3>
+              {{
+                language === "en"
+                  ? "School Partnerships"
+                  : "Parteneriate Școlare"
+              }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "Collaborating with local schools to make robotics accessible. Interactive demonstrations and mentorship programs."
+                  : "Colaborare cu școli locale pentru a face robotica accesibilă. Demonstrații interactive și programe de mentorat."
+              }}
+            </p>
           </div>
 
           <div class="preview-card">
             <div class="preview-icon">🎉</div>
-            <h3>{{ language === 'en' ? 'Fundraising Events' : 'Evenimente de Strângere de Fonduri' }}</h3>
-            <p>{{ language === 'en'
-              ? 'Creative community events supporting our mission. Bake sales, movie nights, and showcase events that bring people together.'
-              : 'Evenimente comunitare creative care susțin misiunea noastră. Vânzări de prăjituri, seri de filme și evenimente showcase care aduc oamenii împreună.' }}</p>
+            <h3>
+              {{
+                language === "en"
+                  ? "Fundraising Events"
+                  : "Evenimente de Strângere de Fonduri"
+              }}
+            </h3>
+            <p>
+              {{
+                language === "en"
+                  ? "Creative community events supporting our mission. Bake sales, movie nights, and showcase events that bring people together."
+                  : "Evenimente comunitare creative care susțin misiunea noastră. Vânzări de prăjituri, seri de filme și evenimente showcase care aduc oamenii împreună."
+              }}
+            </p>
           </div>
         </div>
 
         <div class="preview-cta">
-          <MicroButton 
-            :label="language === 'en' ? 'See All Outreach Activities →' : 'Vezi Toate Activitățile Outreach →'"
+          <MicroButton
+            :label="
+              language === 'en'
+                ? 'See All Outreach Activities →'
+                : 'Vezi Toate Activitățile Outreach →'
+            "
             @click="navigateToOutreach"
           />
         </div>
@@ -194,54 +273,108 @@ const navigateToTeam = () => router.push('/team');
         <div class="preview-header">
           <h2 class="section-title">
             <span class="icon">💼</span>
-            {{ language === 'en' ? 'Our Sponsors & Partners' : 'Sponsorii și Partenerii Noștri' }}
+            {{
+              language === "en"
+                ? "Our Sponsors & Partners"
+                : "Sponsorii și Partenerii Noștri"
+            }}
           </h2>
           <p class="preview-subtitle">
-            {{ language === 'en'
-              ? 'Meet the organizations making our robotics journey possible through their generous support'
-              : 'Cunoaște organizațiile care fac posibilă călătoria noastră în robotică prin sprijinul lor generos' }}
+            {{
+              language === "en"
+                ? "Meet the organizations making our robotics journey possible through their generous support"
+                : "Cunoaște organizațiile care fac posibilă călătoria noastră în robotică prin sprijinul lor generos"
+            }}
           </p>
         </div>
 
         <div class="sponsors-showcase">
           <div class="sponsor-highlight">
-            <h3>{{ language === 'en' ? 'Featured Partners' : 'Parteneri Principali' }}</h3>
+            <h3>
+              {{
+                language === "en" ? "Featured Partners" : "Parteneri Principali"
+              }}
+            </h3>
             <div class="sponsor-logos">
-              <div v-for="sponsor in featuredSponsors" :key="sponsor" class="sponsor-logo-item">{{ sponsor }}</div>
-              <div class="sponsor-logo-item">{{ language === 'en' ? '& 5 more...' : '& încă 5...' }}</div>
+              <div
+                v-for="sponsor in featuredSponsors"
+                :key="sponsor"
+                class="sponsor-logo-item"
+              >
+                {{ sponsor }}
+              </div>
+              <div class="sponsor-logo-item">
+                {{ language === "en" ? "& 5 more..." : "& încă 5..." }}
+              </div>
             </div>
           </div>
 
           <div class="sponsor-impact">
-            <h3>{{ language === 'en' ? 'What Sponsorship Enables' : 'Ce Permite Sponsorizarea' }}</h3>
+            <h3>
+              {{
+                language === "en"
+                  ? "What Sponsorship Enables"
+                  : "Ce Permite Sponsorizarea"
+              }}
+            </h3>
             <ul class="impact-list">
-              <li>{{ language === 'en' 
-                ? '🔧 Advanced robotics equipment and tools' 
-                : '🔧 Echipamente și unelte avansate de robotică' }}</li>
-              <li>{{ language === 'en'
-                ? '🎓 Competition registration and travel'
-                : '🎓 Înregistrare la competiții și călătorii' }}</li>
-              <li>{{ language === 'en'
-                ? '💡 Innovation through cutting-edge technology'
-                : '💡 Inovație prin tehnologie de ultimă generație' }}</li>
-              <li>{{ language === 'en'
-                ? '🌱 Growth of STEM education in our region'
-                : '🌱 Creșterea educației STEM în regiunea noastră' }}</li>
+              <li>
+                {{
+                  language === "en"
+                    ? "🔧 Advanced robotics equipment and tools"
+                    : "🔧 Echipamente și unelte avansate de robotică"
+                }}
+              </li>
+              <li>
+                {{
+                  language === "en"
+                    ? "🎓 Competition registration and travel"
+                    : "🎓 Înregistrare la competiții și călătorii"
+                }}
+              </li>
+              <li>
+                {{
+                  language === "en"
+                    ? "💡 Innovation through cutting-edge technology"
+                    : "💡 Inovație prin tehnologie de ultimă generație"
+                }}
+              </li>
+              <li>
+                {{
+                  language === "en"
+                    ? "🌱 Growth of STEM education in our region"
+                    : "🌱 Creșterea educației STEM în regiunea noastră"
+                }}
+              </li>
             </ul>
           </div>
         </div>
 
         <div class="sponsor-cta-box">
-          <h3>{{ language === 'en' ? 'Interested in Supporting Us?' : 'Interesat să ne Sprijini?' }}</h3>
-          <p>{{ language === 'en'
-            ? 'Partner with us to empower the next generation of engineers and innovators.'
-            : 'Fii partenerul nostru pentru a împuternici următoarea generație de ingineri și inovatori.' }}</p>
+          <h3>
+            {{
+              language === "en"
+                ? "Interested in Supporting Us?"
+                : "Interesat să ne Sprijini?"
+            }}
+          </h3>
+          <p>
+            {{
+              language === "en"
+                ? "Partner with us to empower the next generation of engineers and innovators."
+                : "Fii partenerul nostru pentru a împuternici următoarea generație de ingineri și inovatori."
+            }}
+          </p>
           <div class="cta-group">
-            <MicroButton 
-              :label="language === 'en' ? 'View All Sponsors →' : 'Vezi Toți Sponsorii →'"
+            <MicroButton
+              :label="
+                language === 'en'
+                  ? 'View All Sponsors →'
+                  : 'Vezi Toți Sponsorii →'
+              "
               @click="navigateToSponsors"
             />
-            <MicroButton 
+            <MicroButton
               :label="language === 'en' ? 'Become a Sponsor' : 'Devino Sponsor'"
               variant="secondary"
               @click="navigateToContact"
@@ -257,33 +390,45 @@ const navigateToTeam = () => router.push('/team');
         <div class="ftc-stats">
           <div class="ftc-stat">
             <span class="stat-icon">⏱️</span>
-            <span class="stat-text">{{ language === 'en' ? '2:30 Match Duration' : '2:30 Durată Meci' }}</span>
+            <span class="stat-text">{{
+              language === "en" ? "2:30 Match Duration" : "2:30 Durată Meci"
+            }}</span>
           </div>
           <div class="ftc-stat">
             <span class="stat-icon">🤝</span>
-            <span class="stat-text">{{ language === 'en' ? '2-Team Alliances' : 'Alianțe de 2 Echipe' }}</span>
+            <span class="stat-text">{{
+              language === "en" ? "2-Team Alliances" : "Alianțe de 2 Echipe"
+            }}</span>
           </div>
           <div class="ftc-stat">
             <span class="stat-icon">🌍</span>
-            <span class="stat-text">{{ language === 'en' ? 'Global Competition' : 'Competiție Globală' }}</span>
+            <span class="stat-text">{{
+              language === "en" ? "Global Competition" : "Competiție Globală"
+            }}</span>
           </div>
         </div>
       </section>
 
       <!-- Final CTA Section -->
       <section class="final-cta content-card">
-        <h2>{{ language === 'en' ? 'Ready to Join the Journey?' : 'Gata să te Alături Călătoriei?' }}</h2>
-        <p>{{ language === 'en'
-          ? 'Whether you\'re a student, mentor, sponsor, or just curious about robotics - there\'s a place for you at Mechabyte.'
-          : 'Fie că ești student, mentor, sponsor sau pur și simplu curios despre robotică - există un loc pentru tine la Mechabyte.' }}</p>
+        <h2>
+          {{
+            language === "en"
+              ? "Ready to Join the Journey?"
+              : "Gata să te Alături Călătoriei?"
+          }}
+        </h2>
+        <p>
+          {{
+            language === "en"
+              ? "Whether you're a student, mentor, sponsor, or just curious about robotics - there's a place for you at Mechabyte."
+              : "Fie că ești student, mentor, sponsor sau pur și simplu curios despre robotică - există un loc pentru tine la Mechabyte."
+          }}
+        </p>
         <div class="cta-group">
-          <MicroButton 
-            :label="t.contactCta"
-            @click="navigateToContact"
-          />
+          <MicroButton :label="t.contactCta" @click="navigateToContact" />
         </div>
       </section>
-
     </div>
   </div>
 </template>
@@ -451,7 +596,7 @@ const navigateToTeam = () => router.push('/team');
 }
 
 .mission-list li::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--mechabyte-green);
@@ -461,7 +606,11 @@ const navigateToTeam = () => router.push('/team');
 
 /* Preview Sections */
 .preview-section {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 50, 0, 0.3) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 50, 0, 0.3) 100%
+  );
 }
 
 .preview-header {
@@ -668,7 +817,11 @@ const navigateToTeam = () => router.push('/team');
 /* Final CTA */
 .final-cta {
   text-align: center;
-  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
   border: 0.2vw solid var(--mechabyte-green);
 }
 

@@ -141,6 +141,7 @@ Mechabyte/
 The website supports both English (`en`) and Romanian (`ro`). Translations are managed in `/src/i18n/translations.ts`.
 
 When adding new text content:
+
 1. Add the key to the `Translation` interface
 2. Provide translations for both languages in the `translations` object
 3. Use the translation in your component: `t.yourTranslationKey`
@@ -159,28 +160,33 @@ We welcome contributions from team members and the community! Here's how you can
 ### Full Development Workflow
 
 1. **Fork and Clone**
+
    ```bash
    git clone https://github.com/paradis-college/Mechabyte.git
    cd Mechabyte
    ```
 
 2. **Create a Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 3. **Make Your Changes**
+
    - Follow the existing code style and conventions
    - Test your changes locally with `npm run dev`
    - Run type checking with `npm run type-check`
 
 4. **Commit Your Changes**
+
    ```bash
    git add .
    git commit -m "feat: add your feature description"
    ```
-   
+
    Follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages:
+
    - `feat:` - New feature
    - `fix:` - Bug fix
    - `docs:` - Documentation changes
@@ -213,18 +219,22 @@ We welcome contributions from team members and the community! Here's how you can
 ### Common Issues
 
 **Build fails with TypeScript errors:**
+
 ```bash
 npm run type-check
 ```
+
 Fix any TypeScript errors reported.
 
 **Port already in use:**
+
 ```bash
 # Kill the process using the port or specify a different port
 npm run dev -- --port 3000
 ```
 
 **Dependencies not installing:**
+
 ```bash
 # Clear npm cache and reinstall
 npm cache clean --force
@@ -246,4 +256,4 @@ For questions or collaboration opportunities, please visit the Contact page on o
 
 ---
 
-**Built with ❤️ by Mechabyte** | *Inspiring innovation through robotics*
+**Built with ❤️ by Mechabyte** | _Inspiring innovation through robotics_

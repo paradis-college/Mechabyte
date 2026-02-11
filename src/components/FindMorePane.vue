@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from "vue";
 
 const props = defineProps<{
   show: boolean;
@@ -7,27 +7,27 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'close'): void;
+  (e: "close"): void;
 }>();
 
 const handleEscape = (event: KeyboardEvent) => {
-  if (event.key === 'Escape' && props.show) {
-    emit('close');
+  if (event.key === "Escape" && props.show) {
+    emit("close");
   }
 };
 
 const handleBackdropClick = (event: MouseEvent) => {
-  if ((event.target as HTMLElement).classList.contains('find-more-pane')) {
-    emit('close');
+  if ((event.target as HTMLElement).classList.contains("find-more-pane")) {
+    emit("close");
   }
 };
 
 onMounted(() => {
-  document.addEventListener('keydown', handleEscape);
+  document.addEventListener("keydown", handleEscape);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', handleEscape);
+  document.removeEventListener("keydown", handleEscape);
 });
 </script>
 

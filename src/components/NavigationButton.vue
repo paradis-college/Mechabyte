@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   buttonName: String,
-  headingId: String
+  headingId: String,
 });
 </script>
 
@@ -9,10 +9,22 @@ const props = defineProps({
   <article :id="`${props.buttonName?.toLowerCase()}-button`" class="nav-button">
     <a :href="`#${props.headingId}`" />
     <section class="button-icon-container">
-      <img v-if="props.buttonName == 'Video'" src="../assets/images/Video.png" />
-      <img v-else-if="props.buttonName == 'User'" src="../assets/images/User.png" />
-      <img v-else-if="props.buttonName == 'Heart'" src="../assets/images/Heart.png" />
-      <img v-else-if="props.buttonName == 'Phone'" src="../assets/images/Phone.png" />
+      <img
+        v-if="props.buttonName == 'Video'"
+        src="../assets/images/Video.png"
+      />
+      <img
+        v-else-if="props.buttonName == 'User'"
+        src="../assets/images/User.png"
+      />
+      <img
+        v-else-if="props.buttonName == 'Heart'"
+        src="../assets/images/Heart.png"
+      />
+      <img
+        v-else-if="props.buttonName == 'Phone'"
+        src="../assets/images/Phone.png"
+      />
     </section>
   </article>
 </template>

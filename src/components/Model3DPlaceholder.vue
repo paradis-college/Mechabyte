@@ -153,63 +153,63 @@ const props = defineProps<{
     padding: 20px;
     border: 2px dashed rgba(0, 255, 0, 0.3);
   }
-  
+
   .placeholder-header h4 {
     font-size: 18px;
   }
-  
+
   .description {
     font-size: 13px;
   }
-  
+
   .viewer-container {
     padding: 30px;
     min-height: 250px;
   }
-  
+
   .cube {
     width: 100px;
     height: 100px;
   }
-  
+
   .cube-face {
     width: 100px;
     height: 100px;
     font-size: 24px;
     border: 2px solid var(--mechabyte-green);
   }
-  
+
   .front {
     transform: rotateY(0deg) translateZ(50px);
   }
-  
+
   .back {
     transform: rotateY(180deg) translateZ(50px);
   }
-  
+
   .right {
     transform: rotateY(90deg) translateZ(50px);
   }
-  
+
   .left {
     transform: rotateY(-90deg) translateZ(50px);
   }
-  
+
   .top {
     transform: rotateX(90deg) translateZ(50px);
   }
-  
+
   .bottom {
     transform: rotateX(-90deg) translateZ(50px);
   }
-  
+
   .controls-hint {
     gap: 20px;
     font-size: 11px;
     flex-direction: column;
     text-align: center;
   }
-  
+
   .placeholder-note {
     font-size: 12px;
   }

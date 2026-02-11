@@ -1,25 +1,26 @@
 <script setup lang="ts">
 const props = defineProps<{
-  season: 'centerstage' | 'into-the-deep';
+  season: "centerstage" | "into-the-deep";
 }>();
 
 const centerstageLayout = [
-  { function: 'Drive & strafe', driver1: '✔', driver2: '' },
-  { function: 'Rotate', driver1: '✔', driver2: '' },
-  { function: 'Raise/Lower arm', driver1: '✔', driver2: '✔ (secondary)' },
-  { function: 'Open/Close intake', driver1: '', driver2: '✔' },
-  { function: 'Arm/Release drone launcher', driver1: '✔', driver2: '' }
+  { function: "Drive & strafe", driver1: "✔", driver2: "" },
+  { function: "Rotate", driver1: "✔", driver2: "" },
+  { function: "Raise/Lower arm", driver1: "✔", driver2: "✔ (secondary)" },
+  { function: "Open/Close intake", driver1: "", driver2: "✔" },
+  { function: "Arm/Release drone launcher", driver1: "✔", driver2: "" },
 ];
 
 const intoTheDeepLayout = [
-  { function: 'Drive & strafe', driver1: '✔', driver2: '' },
-  { function: 'Rotate', driver1: '✔', driver2: '' },
-  { function: 'Extend/retract slider', driver1: '', driver2: '✔' },
-  { function: 'Raise/lower intake', driver1: '', driver2: '✔' },
-  { function: 'Open/close intake & out-take', driver1: '', driver2: '✔' }
+  { function: "Drive & strafe", driver1: "✔", driver2: "" },
+  { function: "Rotate", driver1: "✔", driver2: "" },
+  { function: "Extend/retract slider", driver1: "", driver2: "✔" },
+  { function: "Raise/lower intake", driver1: "", driver2: "✔" },
+  { function: "Open/close intake & out-take", driver1: "", driver2: "✔" },
 ];
 
-const layout = props.season === 'centerstage' ? centerstageLayout : intoTheDeepLayout;
+const layout =
+  props.season === "centerstage" ? centerstageLayout : intoTheDeepLayout;
 </script>
 
 <template>

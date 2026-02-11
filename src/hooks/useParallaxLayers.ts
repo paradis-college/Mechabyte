@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, type Ref } from 'vue';
+import { ref, onMounted, onUnmounted, type Ref } from "vue";
 
 interface ParallaxLayer {
   element: HTMLElement;
@@ -14,7 +14,9 @@ interface UseParallaxLayersReturn {
  * Custom hook for parallax scrolling effect on multiple layers
  * Respects prefers-reduced-motion and guards against SSR
  */
-export function useParallaxLayers(enabled: boolean = false): UseParallaxLayersReturn {
+export function useParallaxLayers(
+  enabled: boolean = false,
+): UseParallaxLayersReturn {
   const containerRef = ref<HTMLElement | null>(null);
   const layers = ref<ParallaxLayer[]>([]);
   let rafId: number | null = null;
@@ -30,7 +32,7 @@ export function useParallaxLayers(enabled: boolean = false): UseParallaxLayersRe
 
     rafId = requestAnimationFrame(() => {
       const scrollY = window.scrollY;
-      
+
       layers.value.forEach(({ element, speed }) => {
         const translateY = scrollY * speed;
         element.style.transform = `translateY(${translateY}px) translateZ(0)`;
@@ -42,19 +44,19 @@ export function useParallaxLayers(enabled: boolean = false): UseParallaxLayersRe
 
   onMounted(() => {
     // Guard against SSR
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // Check for prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     prefersReducedMotion = mediaQuery.matches;
 
     if (!enabled || prefersReducedMotion) return;
 
     // Use passive listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Listen for changes to motion preference
-    mediaQuery.addEventListener('change', (e) => {
+    mediaQuery.addEventListener("change", (e) => {
       prefersReducedMotion = e.matches;
       if (prefersReducedMotion && rafId !== null) {
         cancelAnimationFrame(rafId);
@@ -64,10 +66,10 @@ export function useParallaxLayers(enabled: boolean = false): UseParallaxLayersRe
   });
 
   onUnmounted(() => {
-    if (typeof window === 'undefined') return;
-    
-    window.removeEventListener('scroll', handleScroll);
-    
+    if (typeof window === "undefined") return;
+
+    window.removeEventListener("scroll", handleScroll);
+
     if (rafId !== null) {
       cancelAnimationFrame(rafId);
     }
@@ -75,6 +77,6 @@ export function useParallaxLayers(enabled: boolean = false): UseParallaxLayersRe
 
   return {
     containerRef,
-    registerLayer
+    registerLayer,
   };
 }
