@@ -75,6 +75,24 @@ const sponsors = ref<Sponsor[]>([
     logo: new URL('../assets/images/sponsors/trustteam.jpeg', import.meta.url).href,
     descriptionEn: 'Teamwork + technology = unstoppable force.',
     descriptionRo: 'Muncă în echipă + tehnologie = forță de neoprit.'
+  },
+  {
+    name: 'Ozono',
+    logo: new URL('../assets/images/sponsors/OZONO_LOGO_GRI_RGB.PNG.png', import.meta.url).href,
+    descriptionEn: 'Innovation in environmental technology and sustainable solutions.',
+    descriptionRo: 'Inovație în tehnologia mediului și soluții sustenabile.'
+  },
+  {
+    name: 'Apicris',
+    logo: new URL('../assets/images/sponsors/apicris.jpeg', import.meta.url).href,
+    descriptionEn: 'Natural excellence supporting technological innovation.',
+    descriptionRo: 'Excelență naturală în sprijinul inovației tehnologice.'
+  },
+  {
+    name: 'Singularity9',
+    logo: new URL('../assets/images/sponsors/singularity.jpeg', import.meta.url).href,
+    descriptionEn: 'Advancing the future through cutting-edge technology.',
+    descriptionRo: 'Avansarea viitorului prin tehnologie de ultimă generație.'
   }
 ]);
 
