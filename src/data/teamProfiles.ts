@@ -304,60 +304,60 @@ export const teamProfiles: Record<string, TeamMemberProfile> = {
 
   'Tudor Tocila': {
     name: 'Tudor Tocila',
-    role: 'Business Teacher',
+    role: 'Media Mentor',
     department: 'Mentor',
-    bio: 'Business teacher and mentor providing entrepreneurial guidance. Tudor helps the team develop business acumen and strategic thinking.',
-    philosophy: 'Success in robotics requires both technical excellence and business savvy. Understanding markets, sponsors, and strategy is equally important.',
+    bio: 'Media mentor providing guidance on visual storytelling and content creation. Tudor helps the team effectively communicate their journey and achievements.',
+    philosophy: 'Great stories inspire and connect. Media is a powerful tool for sharing our passion and impact with the world.',
     skills: [
-      'Business strategy and planning',
-      'Financial management',
-      'Entrepreneurship education',
-      'Marketing and sponsorship strategies'
+      'Media strategy and content planning',
+      'Visual storytelling',
+      'Photography and videography guidance',
+      'Social media strategy'
     ],
     beliefs: [
-      'Business skills complement technical skills',
-      'Strategic thinking drives success',
-      'Real-world business experience teaches valuable lessons'
+      'Authentic storytelling resonates',
+      'Media presence amplifies impact',
+      'Quality content builds credibility'
     ],
     contributions: [
-      'Guided team\'s business and fundraising strategies',
-      'Provided mentorship on sponsor relationships',
-      'Taught entrepreneurial mindset',
-      'Helped develop professional presentation skills'
+      'Guided team\'s media and content strategies',
+      'Provided mentorship on visual communication',
+      'Helped develop compelling team narratives',
+      'Enhanced team\'s social media presence'
     ]
   },
 
   'Sebastian Rosca': {
     name: 'Sebastian Rosca',
-    role: 'Mentor',
+    role: 'Technical Mentor and Programming Mentor',
     department: 'Mentor',
-    bio: 'Mentor focused on team development and competition strategy. Sebastian helps the team reach their full potential.',
-    philosophy: 'Excellence is a journey, not a destination. Every competition is a chance to learn and improve.',
+    bio: 'Technical and programming mentor focused on developing the team\'s engineering and coding skills. Sebastian helps the team excel in both hardware and software.',
+    philosophy: 'Excellence is a journey, not a destination. Strong technical foundations and clean code are the keys to competitive success.',
     skills: [
+      'Programming and software architecture',
+      'Technical system design',
       'Competition strategy',
-      'Team dynamics and motivation',
-      'Technical advising',
-      'Performance optimization'
+      'Team dynamics and motivation'
     ],
     beliefs: [
       'Preparation prevents poor performance',
-      'Teams win, not individuals',
+      'Clean code is maintainable code',
       'Continuous improvement is key'
     ],
     contributions: [
+      'Mentored students in Java programming',
       'Developed competition strategies',
-      'Improved team collaboration',
-      'Provided technical guidance',
-      'Helped build team culture'
+      'Provided technical guidance on robot systems',
+      'Helped build team culture and technical excellence'
     ]
   },
 
   'Bobu Dragos': {
     name: 'Bobu Dragos',
-    role: 'Web Developer',
-    department: 'Collaborator',
-    bio: 'Professional web developer who created and maintains the team\'s website. Dragos brings modern web development expertise to showcase the team\'s work.',
-    philosophy: 'A great website tells your story and opens doors. Code should be clean, accessible, and performant.',
+    role: 'Web Dev Mentor',
+    department: 'Mentor',
+    bio: 'Web development mentor who guides the team in digital presence and modern web technologies. Dragos brings professional web development expertise to help showcase the team\'s work.',
+    philosophy: 'A great website tells your story and opens doors. Mentoring in web development empowers teams to share their impact.',
     skills: [
       'Full-stack web development',
       'Vue.js and modern JavaScript frameworks',
@@ -371,9 +371,84 @@ export const teamProfiles: Record<string, TeamMemberProfile> = {
     ],
     contributions: [
       'Designed and developed team website from scratch',
+      'Mentored team members in web technologies',
       'Implemented interactive portfolio showcasing robots',
-      'Created responsive design for all devices',
       'Maintains and updates website with new content'
+    ]
+  },
+
+  'Dragos Babusanu': {
+    name: 'Dragos Babusanu',
+    role: 'CAD Mentor',
+    department: 'Mentor',
+    bio: 'CAD design mentor providing expertise in mechanical design and 3D modeling. Dragos helps students develop professional CAD skills and design thinking.',
+    philosophy: 'Great designs start with clear vision and precise execution. CAD is the language of modern engineering.',
+    skills: [
+      'Advanced CAD software (SolidWorks, Fusion 360)',
+      'Mechanical design principles',
+      '3D modeling and rendering',
+      'Design mentorship and training'
+    ],
+    beliefs: [
+      'Precision in design prevents problems in assembly',
+      'Teaching design thinking builds problem solvers',
+      'Collaboration improves design quality'
+    ],
+    contributions: [
+      'Mentored students in CAD software proficiency',
+      'Guided mechanical design decisions',
+      'Improved design documentation standards',
+      'Helped develop efficient CAD workflows'
+    ]
+  },
+
+  'Silvia Badelita': {
+    name: 'Silvia Badelita',
+    role: 'Junior',
+    department: 'Technical',
+    bio: 'Dedicated junior technical member bringing fresh energy and enthusiasm to the team. Silvia is rapidly developing skills in robotics and engineering.',
+    philosophy: 'Every challenge is an opportunity to learn. With dedication and curiosity, anything is possible.',
+    skills: [
+      'Basic programming concepts',
+      'Robot assembly and testing',
+      'Problem-solving mindset',
+      'Team collaboration'
+    ],
+    beliefs: [
+      'Learning by doing is most effective',
+      'Asking questions shows strength',
+      'Persistence leads to mastery'
+    ],
+    contributions: [
+      'Assisted in robot build and testing phases',
+      'Learning programming fundamentals',
+      'Supported team logistics and operations',
+      'Contributed fresh perspectives to problem-solving'
+    ]
+  },
+
+  'Savescu Alexandru Razvan': {
+    name: 'Savescu Alexandru Razvan',
+    role: 'Junior Product Designer',
+    department: 'Non-Technical',
+    bio: 'Junior product designer focused on creating engaging visual content and design solutions. Alexandru brings creativity and design thinking to the team.',
+    philosophy: 'Design bridges ideas and reality. Good design communicates clearly and inspires action.',
+    skills: [
+      'Graphic design fundamentals',
+      'Product design concepts',
+      'Creative problem solving',
+      'Digital design tools'
+    ],
+    beliefs: [
+      'Design thinking enhances all work',
+      'Iteration leads to better solutions',
+      'User-focused design creates impact'
+    ],
+    contributions: [
+      'Created visual content for team materials',
+      'Assisted in product design projects',
+      'Supported branding and marketing efforts',
+      'Brought fresh design perspectives'
     ]
   }
 };
