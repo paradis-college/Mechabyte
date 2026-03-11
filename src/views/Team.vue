@@ -83,16 +83,19 @@ const currentSeasonMembers = ref<Member[]>([
   { name: "Teodor Matricală", department: "Technical", role: "Senior", season: "2025-2026" },
   { name: "Catrinel Bănuță", department: "Technical", role: "Junior", season: "2025-2026" },
   { name: "Rareș Berheci", department: "Technical", role: "Junior", season: "2025-2026" },
+  { name: "Silvia Badelita", department: "Technical", role: "Junior", season: "2025-2026" },
   // Non-Technical Team - 2025-2026
   { name: "Alexandra Maftei", department: "Non-Technical", role: "Team Leader", season: "2025-2026" },
   { name: "Veronika Glazkova", department: "Non-Technical", role: "Senior", season: "2025-2026" },
   { name: "Cristiana Balan", department: "Non-Technical", role: "Senior", season: "2025-2026" },
   { name: "Alexandra Sîmbotin Gășpărel", department: "Non-Technical", role: "Junior", season: "2025-2026" },
-  // Collaborators & Mentors - 2025-2026
-  { name: "Bobu Dragos", department: "Collaborator", role: "Web Developer", season: "2025-2026" },
+  { name: "Savescu Alexandru Razvan", department: "Non-Technical", role: "Junior Product Designer", season: "2025-2026" },
+  // Mentors - 2025-2026
   { name: "Andreea Ioniță", department: "Mentor", role: "Team Mentor", season: "2025-2026" },
-  { name: "Tudor Tocila", department: "Mentor", role: "Business Teacher", season: "2025-2026" },
-  { name: "Sebastian Rosca", department: "Mentor", role: "Mentor", season: "2025-2026" },
+  { name: "Tudor Tocila", department: "Mentor", role: "Media Mentor", season: "2025-2026" },
+  { name: "Sebastian Rosca", department: "Mentor", role: "Technical Mentor and Programming Mentor", season: "2025-2026" },
+  { name: "Bobu Dragos", department: "Mentor", role: "Web Dev Mentor", season: "2025-2026" },
+  { name: "Dragos Babusanu", department: "Mentor", role: "CAD Mentor", season: "2025-2026" },
 ]);
 
 // 2024-2025 Season (Into the Deep) - Previous Season
