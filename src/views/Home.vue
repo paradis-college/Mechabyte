@@ -6,6 +6,7 @@ import GearConveyor from '../components/GearConveyor.vue';
 import HeroRobotArm from '../components/HeroRobotArm.vue';
 import MicroButton from '../components/MicroButton.vue';
 import FeatureCards from '../components/FeatureCards.vue';
+import GlitchIcon from '../components/GlitchIcon.vue';
 
 const props = defineProps<{
   language: 'en' | 'ro';
@@ -36,7 +37,7 @@ const navigateToTeam = () => router.push('/team');
     
     <!-- Hero Section -->
     <div class="hero-section">
-      <img class="banner" alt="Mechabyte banner" src="/banner.png" />
+      <GlitchIcon image-src="/banner.png" :height="300" />
       <h1 class="hero-title">{{ t.homeTitle }}</h1>
       <p class="hero-subtitle">{{ t.homeWelcome }}</p>
     </div>
@@ -298,7 +299,6 @@ const navigateToTeam = () => router.push('/team');
   gap: 0.5vw;
 }
 
-.banner,
 .snapshot,
 .content-wrapper {
   position: relative;
@@ -315,12 +315,6 @@ const navigateToTeam = () => router.push('/team');
   margin-bottom: 2vw;
   text-align: center;
   padding: 0 2vw;
-}
-
-.banner {
-  width: 15vw;
-  height: 10vw;
-  margin-bottom: 1vw;
 }
 
 .hero-title {
