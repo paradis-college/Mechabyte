@@ -1,46 +1,128 @@
 # Mechabyte Website
 
-![Mechabyte Banner](/public/banner.png)
+**Official bilingual website for Mechabyte #22590, a FIRST Tech Challenge robotics team from Paradise International College in Iași, Romania.**
 
-Official website for **Mechabyte #22590**, a FIRST Tech Challenge (FTC) robotics team from Paradise International College in Iași, Romania. This website showcases our team, robots, achievements, community outreach efforts, and sponsors.
+<p align="center">
+  <img src="public/banner.png" alt="Mechabyte team banner" width="100%">
+</p>
 
-## 🚀 About the Project
+<p align="center">
+  <img src="docs/application-architecture.svg" alt="Mechabyte website application architecture" width="100%">
+</p>
 
-The Mechabyte website is built with modern web technologies to provide an engaging, bilingual experience for visitors interested in learning about our robotics team. The site features interactive components, smooth animations, and a responsive design that works seamlessly across all devices.
+<p align="center">
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42B883?logo=vuedotjs&logoColor=white">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript&logoColor=white">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white">
+  <img alt="Router" src="https://img.shields.io/badge/Vue%20Router-history%20mode-42B883">
+  <img alt="p5.js" src="https://img.shields.io/badge/p5.js-creative%20graphics-ED225D?logo=p5dotjs&logoColor=white">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%7C%20Romanian-596F62">
+</p>
 
-### Key Features
+## Project purpose
 
-- **Bilingual Support**: Full English and Romanian language support
-- **Interactive Components**: Robot arm animation, gear conveyors, and micro-interactions
-- **Responsive Design**: Mobile-first design that adapts to all screen sizes
-- **Multiple Pages**:
-  - Home - Team introduction and overview
-  - Team - Meet our team members
-  - Portfolio - Our robots and achievements
-  - Outreach - Community engagement activities
-  - Sponsors - Our valued supporters
-  - Contact - Get in touch with us
-- **Accessibility**: Built with accessibility best practices, including reduced motion support
-- **Performance**: Optimized for fast loading and smooth animations
+The Mechabyte website is a public communication platform for the team. It presents:
 
-## 🛠️ Technology Stack
+- the team’s identity and current season;
+- members and roles;
+- robots, mechanisms and achievements;
+- community outreach;
+- sponsors and institutional supporters;
+- contact information;
+- interactive visual elements that reinforce the team’s engineering identity.
 
-- **Framework**: [Vue 3](https://vuejs.org/) with Composition API (`<script setup>`)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Router**: [Vue Router 4](https://router.vuejs.org/)
-- **Styling**: CSS with scoped styles
-- **Graphics**: [p5.js](https://p5js.org/) for creative coding elements
+The application is a Vue 3 single-page application built with TypeScript and Vite. It contains no server-side application or database. Content is currently stored in source files and static assets.
 
-## 📋 Prerequisites
+## Main features
 
-Before you begin, ensure you have the following installed on your machine:
+- English and Romanian interface content.
+- Responsive multi-page experience implemented through Vue Router.
+- Vue 3 Composition API and single-file components.
+- Reusable navigation and visual components.
+- Team, portfolio, outreach, sponsor and contact views.
+- p5.js-powered creative graphics.
+- Scroll-triggered reveal behaviour.
+- Scoped component styling and shared CSS variables.
+- Reduced-motion considerations.
+- TypeScript checking as part of the production build.
+- Static production output suitable for CDN hosting.
 
-- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**
-- **Git** - [Installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+## Application routes
 
-To verify your installations, run:
+| Route | View | Purpose |
+|---|---|---|
+| `/` | `Home.vue` | Team introduction and landing experience |
+| `/team` | `Team.vue` | Team members and roles |
+| `/portfolio` | `Portfolio.vue` | Robots, mechanisms, achievements and project history |
+| `/outreach` | `Outreach.vue` | Community and educational activities |
+| `/sponsors` | `Sponsors.vue` | Sponsors and supporters |
+| `/contact` | `Contact.vue` | Contact and collaboration information |
+
+The router uses `createWebHistory()`. Production hosting must rewrite unknown browser paths to `index.html`; otherwise a direct request to `/portfolio` or another client-side route may return 404.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Vite[Vite development and build]
+    Main[src/main.ts]
+    App[App.vue]
+    Router[Vue Router]
+    Views[Page views]
+    Components[Reusable components]
+    Content[Static data and translations]
+    P5[p5.js graphics]
+    Browser[Browser]
+
+    Vite --> Main
+    Main --> App
+    App --> Router
+    Router --> Views
+    Components --> Views
+    Content --> Views
+    P5 --> Components
+    App --> Browser
+```
+
+### Build flow
+
+```mermaid
+flowchart TD
+    Source[Vue, TypeScript, CSS and assets]
+    TypeCheck[vue-tsc type check]
+    ViteBuild[Vite production build]
+    Dist[dist directory]
+    Host[Static host / CDN]
+    Visitor[Visitor browser]
+
+    Source --> TypeCheck
+    Source --> ViteBuild
+    TypeCheck --> Dist
+    ViteBuild --> Dist
+    Dist --> Host
+    Host --> Visitor
+```
+
+## Technology stack
+
+| Layer | Technology | Role |
+|---|---|---|
+| UI framework | Vue 3 | Reactive components and page composition |
+| Language | TypeScript | Static checking and maintainable component logic |
+| Build tool | Vite 5 | Development server, bundling and optimisation |
+| Routing | Vue Router 4 | Client-side navigation using browser-history URLs |
+| Creative graphics | p5.js 2 | Interactive and decorative canvas elements |
+| Styling | CSS and scoped Vue styles | Responsive layout, branding and animations |
+| Type checking | `vue-tsc` | Validate Vue templates and TypeScript together |
+| Script orchestration | `npm-run-all2` | Run type checking and production build tasks |
+
+## Requirements
+
+- Node.js 18 or newer.
+- npm compatible with the selected Node.js release.
+- Git.
+
+Verify:
 
 ```bash
 node --version
@@ -48,202 +130,420 @@ npm --version
 git --version
 ```
 
-## 🚀 Getting Started
+## Local setup
 
-### 1. Clone the Repository
+### 1. Clone
 
 ```bash
 git clone https://github.com/paradis-college/Mechabyte.git
 cd Mechabyte
 ```
 
-### 2. Install Dependencies
+### 2. Install dependencies
+
+For a normal local setup:
 
 ```bash
 npm install
 ```
 
-This will install all required packages listed in `package.json`.
+For reproducible CI or when `package-lock.json` is present and current:
 
-### 3. Start the Development Server
+```bash
+npm ci
+```
+
+### 3. Start the development server
 
 ```bash
 npm run dev
 ```
 
-This will start the Vite development server. Open your browser and navigate to the URL shown in the terminal (usually `http://localhost:5173`).
+Vite prints the local address, normally:
 
-## 📜 Available Scripts
-
-### Development
-
-- **`npm run dev`** - Start the development server with hot module replacement (HMR)
-- **`npm run type-check`** - Run TypeScript type checking
-
-### Production
-
-- **`npm run build`** - Build the project for production
-  - Runs type checking and builds optimized assets
-  - Output is generated in the `dist/` directory
-- **`npm run preview`** - Preview the production build locally
-- **`npm run build-only`** - Build without type checking (not recommended)
-
-## 📁 Project Structure
-
+```text
+http://localhost:5173
 ```
+
+### 4. Open the site
+
+Use the displayed address and navigate through every route. Vite provides hot-module replacement while editing Vue components and styles.
+
+## Available scripts
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the Vite development server |
+| `npm run type-check` | Run `vue-tsc` across the project |
+| `npm run build-only` | Build without first running type checks |
+| `npm run build` | Run type checking and create a production bundle |
+| `npm run preview` | Serve the generated production build locally |
+
+## Production build
+
+```bash
+npm run build
+```
+
+The script runs:
+
+1. `vue-tsc --build --force`;
+2. `vite build`.
+
+Output is written to:
+
+```text
+dist/
+```
+
+Preview the exact production bundle:
+
+```bash
+npm run preview
+```
+
+A successful development server is not sufficient validation; run the production build before opening a pull request.
+
+## Deployment
+
+Any host capable of serving static files and applying a single-page-app fallback can deploy the project.
+
+### Netlify
+
+Suggested settings:
+
+```text
+Build command: npm run build
+Publish directory: dist
+```
+
+Add a redirect file under `public/_redirects`:
+
+```text
+/* /index.html 200
+```
+
+### Vercel
+
+Suggested settings:
+
+```text
+Framework preset: Vite
+Build command: npm run build
+Output directory: dist
+```
+
+Add a rewrite configuration when direct history-mode routes are not automatically handled.
+
+### GitHub Pages
+
+GitHub Pages requires additional configuration because:
+
+- the application uses history-mode routes;
+- project-site deployments may live under `/repository-name/` rather than `/`;
+- `vite.config.ts` currently does not set a non-root `base`.
+
+For a project-site deployment, set the Vite base and choose either a route fallback strategy or hash routing. Test asset URLs and direct route refreshes before publishing.
+
+### Generic static server
+
+Serve `dist/` and rewrite every non-file request to `dist/index.html`.
+
+Example Nginx rule:
+
+```nginx
+location / {
+  try_files $uri $uri/ /index.html;
+}
+```
+
+## Repository structure
+
+```text
 Mechabyte/
-├── public/              # Static assets (favicon, images)
-│   └── banner.png
+├── public/
+│   ├── banner.png
+│   └── other unprocessed static assets
 ├── src/
-│   ├── assets/          # Images, styles, and other assets
+│   ├── assets/
 │   │   ├── images/
 │   │   └── styles/
-│   ├── components/      # Reusable Vue components
+│   ├── components/
 │   │   ├── NavBar.vue
 │   │   ├── GearConveyor.vue
 │   │   ├── HeroRobotArm.vue
 │   │   ├── MicroButton.vue
 │   │   └── ...
-│   ├── composables/     # Vue composables (reusable logic)
+│   ├── composables/
 │   │   └── useRevealOnScroll.ts
-│   ├── data/            # Static data files
-│   ├── hooks/           # Custom hooks
-│   ├── i18n/            # Internationalization (translations)
+│   ├── data/
+│   ├── hooks/
+│   ├── i18n/
 │   │   └── translations.ts
-│   ├── router/          # Vue Router configuration
+│   ├── router/
 │   │   └── index.ts
-│   ├── views/           # Page components
+│   ├── views/
 │   │   ├── Home.vue
 │   │   ├── Team.vue
 │   │   ├── Portfolio.vue
 │   │   ├── Outreach.vue
 │   │   ├── Sponsors.vue
 │   │   └── Contact.vue
-│   ├── App.vue          # Root component
-│   └── main.ts          # Application entry point
-├── index.html           # HTML entry point
-├── package.json         # Dependencies and scripts
-├── vite.config.ts       # Vite configuration
-├── tsconfig.json        # TypeScript configuration
-└── README.md            # This file
+│   ├── App.vue
+│   └── main.ts
+├── docs/
+│   └── application-architecture.svg
+├── COMPONENTS.md
+├── MANUAL_QA_GUIDE.md
+├── index.html
+├── package.json
+├── package-lock.json
+├── vite.config.ts
+├── tsconfig.json
+└── README.md
 ```
 
-## 🎨 Styling Guidelines
+## Internationalisation
 
-- Use **CSS custom properties** (variables) defined in global styles
-- Available CSS variables include: `--background-grey`, `--mechabyte-green`
-- Use **scoped styles** in Vue components with `<style scoped>`
-- Use **viewport units** (vw, vh) for responsive sizing
-- Mobile breakpoint: `1000px`
+English and Romanian translations are managed in:
 
-## 🌍 Internationalization
+```text
+src/i18n/translations.ts
+```
 
-The website supports both English (`en`) and Romanian (`ro`). Translations are managed in `/src/i18n/translations.ts`.
+When adding user-visible content:
 
-When adding new text content:
-1. Add the key to the `Translation` interface
-2. Provide translations for both languages in the `translations` object
-3. Use the translation in your component: `t.yourTranslationKey`
+1. add the key to the translation type/interface;
+2. add an English value;
+3. add a Romanian value;
+4. use the translation value in the relevant component;
+5. test both languages on every affected route;
+6. verify longer Romanian text does not break the layout.
 
-## 🤝 Contributing
+Avoid hard-coding visible copy in a component unless it is deliberately language-independent.
 
-We welcome contributions from team members and the community! Here's how you can help:
+## Components
 
-### Quick Edits (For Simple Text Changes)
+Reusable UI belongs under `src/components/`. Existing components include navigation, buttons, animated mechanical elements and hero graphics.
 
-1. Navigate to the file you want to edit on GitHub
-2. Click the pencil icon (✏️) to edit
-3. Make your changes
-4. Propose changes via pull request
+A component should generally:
 
-### Full Development Workflow
+- have a focused responsibility;
+- declare typed props;
+- emit documented events;
+- avoid duplicating page content;
+- use scoped styles when styles are component-specific;
+- honour reduced-motion preferences;
+- include accessible labels for non-text controls.
 
-1. **Fork and Clone**
-   ```bash
-   git clone https://github.com/paradis-college/Mechabyte.git
-   cd Mechabyte
-   ```
+More detailed component notes are available in `COMPONENTS.md`.
 
-2. **Create a Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+## Styling conventions
 
-3. **Make Your Changes**
-   - Follow the existing code style and conventions
-   - Test your changes locally with `npm run dev`
-   - Run type checking with `npm run type-check`
+- Use shared CSS custom properties for brand colours and spacing.
+- Keep component-specific rules inside `<style scoped>` where practical.
+- Preserve the existing mechanical/robotics visual identity.
+- Test the project’s `1000px` mobile transition and smaller phone widths.
+- Avoid relying exclusively on viewport units for text that must remain legible.
+- Test content at 200% browser zoom.
+- Keep animation transforms independent from layout-critical positioning.
 
-4. **Commit Your Changes**
-   ```bash
-   git add .
-   git commit -m "feat: add your feature description"
-   ```
-   
-   Follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages:
-   - `feat:` - New feature
-   - `fix:` - Bug fix
-   - `docs:` - Documentation changes
-   - `style:` - Code style changes (formatting, etc.)
-   - `refactor:` - Code refactoring
-   - `test:` - Adding or updating tests
-   - `chore:` - Maintenance tasks
+Common variables include:
 
-5. **Push and Create Pull Request**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-   Then create a pull request on GitHub.
+```css
+--background-grey
+--mechabyte-green
+```
 
-### Code Review Guidelines
+## Content editing
 
-- Ensure your code passes type checking (`npm run type-check`)
-- Test on multiple screen sizes
-- Verify both English and Romanian translations
-- Check accessibility (keyboard navigation, screen readers)
-- Follow the repository's [Copilot Instructions](/.github/copilot-instructions.md)
+### Add a team member
 
-## 📚 Additional Documentation
+1. Find the team data source or the member list in `Team.vue`.
+2. Add the member’s approved name, role and media.
+3. Add translation keys for visible role descriptions.
+4. Optimise the image before committing it.
+5. Confirm responsive card layout and alternative text.
 
-- **[COMPONENTS.md](./COMPONENTS.md)** - Detailed component documentation
-- **[MANUAL_QA_GUIDE.md](./MANUAL_QA_GUIDE.md)** - Quality assurance testing guide
+### Add a portfolio item
 
-## 🐛 Troubleshooting
+1. Add the structured content or Vue markup used by `Portfolio.vue`.
+2. Include date/season context.
+3. Explain what was built and what the team contributed.
+4. Distinguish awards, nominations and participation accurately.
+5. Add media with descriptive captions.
+6. Test both languages.
 
-### Common Issues
+### Add a sponsor
 
-**Build fails with TypeScript errors:**
+1. Use an approved logo asset.
+2. Confirm permission to display it.
+3. Include an accessible organisation name.
+4. Do not embed third-party tracking without explicit review.
+5. Verify the logo remains legible in light and dark contexts.
+
+## Quality checks
+
+Run:
+
+```bash
+npm run type-check
+npm run build
+npm run preview
+```
+
+Then verify:
+
+```text
+[ ] Home loads without console errors
+[ ] All six routes navigate correctly
+[ ] Refreshing a nested route works on the target host
+[ ] English and Romanian content are complete
+[ ] Navigation is usable with keyboard only
+[ ] Focus indicators are visible
+[ ] Images have useful alt text
+[ ] Mobile layout works below 1000px
+[ ] Reduced-motion preference is respected
+[ ] Contact links use correct destinations
+[ ] Production build contains no accidental private files
+```
+
+The repository also contains `MANUAL_QA_GUIDE.md` for broader manual checks.
+
+## Troubleshooting
+
+### TypeScript or Vue template errors
+
 ```bash
 npm run type-check
 ```
-Fix any TypeScript errors reported.
 
-**Port already in use:**
+Read the first reported error before fixing downstream failures.
+
+### Port already in use
+
 ```bash
-# Kill the process using the port or specify a different port
 npm run dev -- --port 3000
 ```
 
-**Dependencies not installing:**
+### Dependency installation is inconsistent
+
+Prefer a clean lockfile-based installation:
+
 ```bash
-# Clear npm cache and reinstall
-npm cache clean --force
-rm -rf node_modules package-lock.json
-npm install
+rm -rf node_modules
+npm ci
 ```
 
-## 📄 License
+On Windows PowerShell:
 
-This project is maintained by Mechabyte #22590, Paradise International College, Iași, Romania.
+```powershell
+Remove-Item node_modules -Recurse -Force
+npm ci
+```
 
-## 📞 Contact
+Avoid deleting `package-lock.json` as a routine fix because it weakens reproducibility.
 
-- **Team**: Mechabyte #22590
-- **Location**: Paradise International College, Iași, Romania
-- **Competition**: FIRST Tech Challenge (FTC)
+### Direct route works locally but returns 404 after deployment
 
-For questions or collaboration opportunities, please visit the Contact page on our website.
+Configure the host to rewrite unknown paths to `index.html`. This is required because the router uses browser-history mode.
 
----
+### Assets fail on a subpath deployment
 
-**Built with ❤️ by Mechabyte** | *Inspiring innovation through robotics*
+Review Vite’s `base` configuration. Root-relative assumptions can fail when the site is hosted under a repository path.
+
+### p5.js visual is not mounting
+
+Check:
+
+- the component lifecycle hook;
+- whether the container exists before creating the sketch;
+- cleanup when the component unmounts;
+- canvas sizing after responsive layout changes.
+
+## Contribution workflow
+
+```bash
+git checkout main
+git pull
+git checkout -b feat/descriptive-change
+npm ci
+npm run dev
+```
+
+Before committing:
+
+```bash
+npm run type-check
+npm run build
+```
+
+Commit with a focused message:
+
+```bash
+git add .
+git commit -m "feat: add outreach event timeline"
+```
+
+Then push and open a pull request:
+
+```bash
+git push -u origin feat/descriptive-change
+```
+
+Use one logical change per pull request. Include screenshots for visible changes and test both supported languages.
+
+## Security and privacy
+
+This is a public youth-team website. Review content carefully before publication:
+
+- do not publish private contact information for students;
+- obtain permission for names, photographs and biographies;
+- avoid exposing schedules that create unnecessary safety risks;
+- keep contact flows directed through approved adult/team channels;
+- remove image metadata when appropriate;
+- review third-party embeds and analytics before adding them;
+- do not commit secrets or service tokens to frontend source.
+
+Every value shipped in the Vue application can be inspected by visitors.
+
+## Known limitations
+
+- Content is source-controlled rather than managed through a CMS.
+- The router requires host-specific SPA fallback configuration.
+- There is no automated unit or end-to-end test suite declared in `package.json`.
+- Visual regression testing is manual.
+- Dependency versions use compatible ranges rather than exact pins in `package.json`; the lockfile is therefore important.
+- Some team facts and sponsor information may become stale without a review schedule.
+- The project has no documented production URL or deployment workflow in the repository.
+- There is no explicit open-source licence file.
+- Privacy approval and media consent are operational processes rather than automated checks.
+
+## Recommended next steps
+
+1. Add ESLint and Prettier with project-owned configuration.
+2. Add component tests with Vitest and Vue Test Utils.
+3. Add browser tests for routes and language switching with Playwright.
+4. Add a CI workflow that runs type checking and production builds.
+5. Add deployment configuration and document the canonical live URL.
+6. Add automated accessibility checks.
+7. Add a content-review date for team members, achievements and sponsors.
+8. Add image optimisation and size budgets.
+9. Add route metadata for page titles and social previews.
+10. Add an explicit licence or a clear all-rights-reserved policy.
+
+## Additional documentation
+
+- [`COMPONENTS.md`](./COMPONENTS.md) — component catalogue and implementation notes.
+- [`MANUAL_QA_GUIDE.md`](./MANUAL_QA_GUIDE.md) — manual browser and content validation.
+- [`.github/copilot-instructions.md`](./.github/copilot-instructions.md) — repository-specific agent guidance.
+
+## Project ownership
+
+- Team: Mechabyte #22590.
+- Institution: Paradise International College, Iași, Romania.
+- Competition: FIRST Tech Challenge.
+
+## Licence
+
+No explicit licence file is currently included. The repository is maintained by the team and institution; absent a licence, the code and media remain under their default copyright rights.
